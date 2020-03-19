@@ -70,4 +70,6 @@ namespace UnitTestCepheusAlgorithms
 			Assert.AreEqual(IStateVertex.States.Unvisited, graph.GetVertex("G").State);
 		}
 	}
+
+	
 }

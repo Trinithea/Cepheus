@@ -6,7 +6,7 @@ namespace Cepheus
 {
 	public interface IAlgorithm
 	{
-		public string Name { get; }
+		public static string Name { get; }
 		
 	}
 }

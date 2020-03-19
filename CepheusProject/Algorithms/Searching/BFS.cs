@@ -6,7 +6,7 @@ namespace Cepheus
 {
 	class BFS : IAlgorithm
 	{
-		public string Name => "Breadth-first search";
+		public static string Name => "Breadth-first search";
 
 		public static void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
