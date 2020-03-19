@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
-	class Graph<TVertex,TEdge> where TVertex : Vertex where TEdge : Edge<Vertex>, new ()
+	class Graph<TVertex> where TVertex : VertexBase<TVertex>
 	{
-		private Dictionary<string, TEdge> Edges = new Dictionary<string, TEdge>();
+		private Dictionary<string, Edge<TVertex>> Edges = new Dictionary<string, Edge<TVertex>>();
 		private Dictionary<string, TVertex> Vertices = new Dictionary<string, TVertex>();
 		public void AddVertex(TVertex vertex)
 		{
@@ -18,7 +18,7 @@ namespace Cepheus
 
 		public void AddEdge(string name, TVertex from, TVertex to)
 		{
-			TEdge edge = new TEdge();
+			Edge<TVertex> edge = new Edge<TVertex>();
 			edge.Name = name;
 			edge.From = from;
 			edge.To = to;

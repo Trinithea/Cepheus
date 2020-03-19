@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Cepheus
 {
-	
-	abstract class Vertex
+	class Vertex 
 	{
 		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
 		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
@@ -15,35 +14,58 @@ namespace Cepheus
 		{
 			Name = name;
 		}
-	}
+		public void AddToOutEdges(Edge<Vertex> edge)
+		{
 
-	class StateVertex : Vertex
+		}
+	}
+	abstract class VertexBase<T> : Vertex where T : Vertex
 	{
-		public StateVertex(string name) : base(name) { }
-		public enum States { Open, Closed, Unvisited };
-		public States State = States.Unvisited;
+		public List<Edge<T>> OutEdges = new List<Edge<T>>();
+		public List<Edge<T>> InEdges = new List<Edge<T>>();
+		public string Name { get; }
+		public VertexBase(string name) : base(name) { }
+		
+		
 	}
 
-	class BfsVertex : StateVertex
+	interface IStateVertex 
+	{
+		public enum States { Open, Closed, Unvisited };
+		public States State { get; set; }
+	}
+
+
+	class BfsVertex : VertexBase<BfsVertex>,IStateVertex
 	{
 		public List<Edge<BfsVertex>> OutEdges = new List<Edge<BfsVertex>>();
 		public List<Edge<BfsVertex>> InEdges = new List<Edge<BfsVertex>>();
-		public BfsVertex(string name) :base(name) 
+		public BfsVertex(string name) :base (name)
 		{
-			
-			State = States.Unvisited;
+			State = IStateVertex.States.Unvisited;
 			Predecessor = null;
 			Distance = null;
 		}
 		public BfsVertex Predecessor { get; set; }
+		public IStateVertex.States State { get; set; }
+
 		public int? Distance = null;
+		public void AddToOutEdges(Edge<BfsVertex> edge)
+		{
+			OutEdges.Add(edge);
+		}
 	}
 
-	class DfsVertex : StateVertex
+	class DfsVertex : VertexBase<DfsVertex>,IStateVertex
 	{
-		public DfsVertex(string name) : base(name) { }
+		public DfsVertex(string name) : base(name) 
+		{
+			State = IStateVertex.States.Unvisited;
+		}
 		public int? InTime = null;
 		public int? OutTime = null;
+
+		public IStateVertex.States State { get; set; }
 	}
 
 	// Dijkstra vertex is same as BFS vertex
