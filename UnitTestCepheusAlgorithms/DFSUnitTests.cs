@@ -7,7 +7,7 @@ using Cepheus;
 namespace UnitTestCepheusAlgorithms
 {
 	[TestClass]
-	class DFSUnitTests
+	public class DFSUnitTests
 	{
 		Graph<DfsVertex> InitializeGraph()
 		{
@@ -57,6 +57,7 @@ namespace UnitTestCepheusAlgorithms
 			Assert.AreEqual(null, graph.GetVertex("8").InTime);
 			Assert.AreEqual(10, graph.GetVertex("9").InTime);
 		}
+
 		[TestMethod]
 		public void Run_OutTime()
 		{
@@ -64,16 +65,35 @@ namespace UnitTestCepheusAlgorithms
 
 			DFS.Run(graph, graph.GetVertex("0"));
 
-			Assert.AreEqual(16, graph.GetVertex("0").InTime);
-			Assert.AreEqual(9, graph.GetVertex("1").InTime);
-			Assert.AreEqual(4, graph.GetVertex("2").InTime);
-			Assert.AreEqual(8, graph.GetVertex("3").InTime);
-			Assert.AreEqual(7, graph.GetVertex("4").InTime);
-			Assert.AreEqual(null, graph.GetVertex("5").InTime);
-			Assert.AreEqual(14, graph.GetVertex("6").InTime);
-			Assert.AreEqual(13, graph.GetVertex("7").InTime);
-			Assert.AreEqual(null, graph.GetVertex("8").InTime);
-			Assert.AreEqual(15, graph.GetVertex("9").InTime);
+			Assert.AreEqual(16, graph.GetVertex("0").OutTime);
+			Assert.AreEqual(9, graph.GetVertex("1").OutTime);
+			Assert.AreEqual(4, graph.GetVertex("2").OutTime);
+			Assert.AreEqual(8, graph.GetVertex("3").OutTime);
+			Assert.AreEqual(7, graph.GetVertex("4").OutTime);
+			Assert.AreEqual(null, graph.GetVertex("5").OutTime);
+			Assert.AreEqual(14, graph.GetVertex("6").OutTime);
+			Assert.AreEqual(13, graph.GetVertex("7").OutTime);
+			Assert.AreEqual(null, graph.GetVertex("8").OutTime);
+			Assert.AreEqual(15, graph.GetVertex("9").OutTime);
+		}
+
+		[TestMethod]
+		public void Run_State()
+		{
+			Graph<DfsVertex> graph = InitializeGraph();
+
+			DFS.Run(graph, graph.GetVertex("0"));
+
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("0").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("1").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("2").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("3").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("4").State);
+			Assert.AreEqual(IStateVertex.States.Unvisited, graph.GetVertex("5").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("6").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("7").State);
+			Assert.AreEqual(IStateVertex.States.Unvisited, graph.GetVertex("8").State);
+			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("9").State);
 		}
 	}
 }

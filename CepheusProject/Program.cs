@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace CepheusProject
+namespace Cepheus
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			
 		}
+		
 	}
 }
