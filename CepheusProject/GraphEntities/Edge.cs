@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Cepheus
 {
-	class Edge
+	class Edge<T> where T: Vertex
 	{
-		public Vertex From { get;  }
-		public Vertex To { get; }
+		public T From { get;  }
+		public T To { get; }
 		public string Name { get; }
-		public Edge(string name, Vertex from, Vertex to)
+		public Edge(string name, T from, T to)
 		{
 			From = from;
 			To = to;
 			Name = name;
-			From.OutEdges.Add(this);
-			To.InEdges.Add(this);
 		}
 	}
 }

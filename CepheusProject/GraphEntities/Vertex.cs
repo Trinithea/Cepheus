@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Cepheus
 {
-	class Vertex 
+	
+	abstract class Vertex
 	{
-		public List<Edge> OutEdges = new List<Edge>();
-		public List<Edge> InEdges = new List<Edge>();
+		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
+		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
 		public string Name { get; }
 		public Vertex(string name)
 		{
@@ -26,8 +26,11 @@ namespace Cepheus
 
 	class BfsVertex : StateVertex
 	{
+		public List<Edge<BfsVertex>> OutEdges = new List<Edge<BfsVertex>>();
+		public List<Edge<BfsVertex>> InEdges = new List<Edge<BfsVertex>>();
 		public BfsVertex(string name) :base(name) 
 		{
+			
 			State = States.Unvisited;
 			Predecessor = null;
 			Distance = null;
@@ -68,7 +71,7 @@ namespace Cepheus
 	{
 		public TreeVertex(string name)
 		{
-			Name = name;
+			//Name = name;
 		}
 		public List<TreeVertex> Sons = new List<TreeVertex>();
 	}
