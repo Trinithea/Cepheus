@@ -12,7 +12,15 @@ namespace CepheusProject.DataStructures
 		public void Insert(Node newNode)
 		{
 			CountOFNodes++;
-
+			heap.Add(newNode);
+			BubbleUp(CountOFNodes);
+		}
+		void BubbleUp(int i)
+		{
+			while (i > 1)
+			{
+				
+			}
 		}
 	}
 	class Node

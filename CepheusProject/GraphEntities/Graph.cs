@@ -24,11 +24,24 @@ namespace Cepheus
 			edge.To = to;
 			from.OutEdges.Add(edge);
 			to.InEdges.Add(edge);
+			Edges.Add(from.Name+to.Name, edge);
+		}
+		public void AddEdgeWithLength(string name, TVertex from, TVertex to, int length)
+		{
+			EdgeWithNaturalLength<TVertex> edge = new EdgeWithNaturalLength<TVertex>();
+			edge.Name = name;
+			edge.From = from;
+			edge.To = to;
+			edge.Length = length;
+			from.OutEdges.Add(edge);
+			to.InEdges.Add(edge);
 			Edges.Add(name, edge);
 		}
 
 		public TVertex GetVertex(string name) => Vertices[name];
 		public Edge<TVertex> GetEdge(string name) => Edges[name];
+
+		public Edge<TVertex> GetEdge(TVertex from, TVertex to) => Edges[from.Name + to.Name];
 
 	}
 }

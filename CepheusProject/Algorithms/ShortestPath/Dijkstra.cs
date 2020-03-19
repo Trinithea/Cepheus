@@ -8,7 +8,7 @@ namespace Cepheus
 	{
 		public static string Name => "Dijkstra's algorithm";
 
-		public void Run(Graph<BfsVertex> graph, BfsVertex initalVertex)
+		public static void Run(Graph<BfsVertex> graph, BfsVertex initalVertex)
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 			// Vertices are initialized by default.
@@ -32,7 +32,27 @@ namespace Cepheus
 					}
 				}
 				vertex.State = IStateVertex.States.Closed;
+				openVertcices.Remove(0);
 			}
+		}
+
+		public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		{
+			//Run(graph, from); // TODO is this clever?
+
+			var currentVertex = to;
+			int length = 0;
+
+			while(currentVertex.Predecessor != null)
+			{
+				length += ((EdgeWithNaturalLength<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex)).Length;
+				currentVertex = currentVertex.Predecessor;
+			}
+
+			if (currentVertex == from)
+				return length;
+			else
+				return null;
 		}
 	}
 }
