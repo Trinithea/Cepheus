@@ -49,9 +49,9 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			Dijkstra.Run(graph, graph.GetVertex("A"));
-
-
+			Assert.AreEqual(3, Dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("B"), graph.GetVertex("C")));
+			Assert.AreEqual(7, Dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("E"), graph.GetVertex("C")));
+			Assert.AreEqual(null, Dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("C"), graph.GetVertex("B")));
 		}
 	}
 }

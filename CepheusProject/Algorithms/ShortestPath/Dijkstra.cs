@@ -36,9 +36,9 @@ namespace Cepheus
 			}
 		}
 
-		public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		public static int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
 		{
-			//Run(graph, from); // TODO is this clever?
+			Run(graph, from); 
 
 			var currentVertex = to;
 			int length = 0;
