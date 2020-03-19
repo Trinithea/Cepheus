@@ -26,6 +26,9 @@ namespace Cepheus
 			to.InEdges.Add(edge);
 			Edges.Add(name, edge);
 		}
-		
+
+		public TVertex GetVertex(string name) => Vertices[name];
+		public Edge<TVertex> GetEdge(string name) => Edges[name];
+
 	}
 }

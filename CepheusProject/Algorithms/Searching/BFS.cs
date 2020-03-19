@@ -8,7 +8,7 @@ namespace Cepheus
 	{
 		public string Name => "Breadth-first search";
 
-		public void Run (Graph<BfsVertex,Edge<BfsVertex>> graph, BfsVertex initialVertex)
+		public static void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			// Initialization is done in BfsVertex constructor
 

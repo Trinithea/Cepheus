@@ -8,14 +8,9 @@ namespace Cepheus
 {
 	class Edge<T> where T: Vertex
 	{
-		public T From { get;  }
-		public T To { get; }
-		public string Name { get; }
-		public Edge(string name, T from, T to)
-		{
-			From = from;
-			To = to;
-			Name = name;
-		}
+		public T From { get; set; }
+		public T To { get; set; }
+		public string Name { get; set; }
+		
 	}
 }

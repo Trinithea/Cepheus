@@ -14,16 +14,11 @@ namespace Cepheus
 		{
 			Name = name;
 		}
-		public void AddToOutEdges(Edge<Vertex> edge)
-		{
-
-		}
 	}
 	abstract class VertexBase<T> : Vertex where T : Vertex
 	{
-		public List<Edge<T>> OutEdges = new List<Edge<T>>();
-		public List<Edge<T>> InEdges = new List<Edge<T>>();
-		public string Name { get; }
+		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
+		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public VertexBase(string name) : base(name) { }
 		
 		
@@ -38,8 +33,6 @@ namespace Cepheus
 
 	class BfsVertex : VertexBase<BfsVertex>,IStateVertex
 	{
-		public List<Edge<BfsVertex>> OutEdges = new List<Edge<BfsVertex>>();
-		public List<Edge<BfsVertex>> InEdges = new List<Edge<BfsVertex>>();
 		public BfsVertex(string name) :base (name)
 		{
 			State = IStateVertex.States.Unvisited;
