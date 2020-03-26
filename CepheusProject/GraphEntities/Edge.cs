@@ -15,11 +15,14 @@ namespace Cepheus
 	}
 	class EdgeWithNaturalLength<T> : Edge<T> where T : Vertex
 	{
-		public int Length { get => Length; set {
+		public int Length { get; set; }
+		
+		//TODO
+		/*{ get => Length; set {
 				if (value <= 0)
 					throw new ArgumentOutOfRangeException(); // TODO something more user friendly
 				else
 					Length = value;
-			} }
+			} }*/
 	}
 }

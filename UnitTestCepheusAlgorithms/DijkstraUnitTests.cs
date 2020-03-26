@@ -44,6 +44,7 @@ namespace UnitTestCepheusAlgorithms
 			Assert.AreEqual(6, graph.GetVertex("D"));
 			
 		}
+
 		[TestMethod]
 		public void Run_ShortestPaths()
 		{
