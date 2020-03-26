@@ -6,8 +6,7 @@ namespace Cepheus
 	{
 		static void Main(string[] args)
 		{
-			
-		}
 		
+		}
 	}
 }
