@@ -33,12 +33,23 @@ namespace UnitTestCepheusAlgorithms
 		}
 
 		[TestMethod]
+		public void GetMinimum()
+		{
+			Assert.AreEqual(-3,fw.GetMinimum(-3, null));
+			Assert.AreEqual(-3, fw.GetMinimum(-3, 7));
+			Assert.AreEqual(null, fw.GetMinimum(null, null));
+			Assert.AreEqual(-3, fw.GetMinimum(-3, 7));
+		}
+
+		
+
+		[TestMethod]
 		public void Run_Distances()
 		{
 			var graph = InitializeGraph();
 
 			Assert.AreEqual(-3, fw.GetDistance(graph, "E","C")); // from E to C
-			Assert.AreEqual(-1, fw.GetDistance(graph, "A", "C")); // from A to C
+			Assert.AreEqual(1, fw.GetDistance(graph, "A", "C")); // from A to C
 			Assert.AreEqual(null, fw.GetDistance(graph, "A", "G")); // from A to G
 			Assert.AreEqual(-3, fw.GetDistance(graph, "B", "C")); // from B to C
 			//TODO retrun matrix in fw

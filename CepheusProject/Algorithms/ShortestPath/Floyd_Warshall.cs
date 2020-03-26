@@ -37,7 +37,7 @@ namespace Cepheus
 				for (int i = 0; i < countOfVertices; ++i)
 					for (int j = 0; j < countOfVertices; ++j)
 					{
-						distanceMatrix[k + 1, i, j] = GetMinimum(distanceMatrix[k, i, j], AddDistances(distanceMatrix[k, i, k+1], distanceMatrix[k, k + 1, j]));
+						distanceMatrix[k + 1, i, j] = GetMinimum(distanceMatrix[k, i, j], distanceMatrix[k, i, k+1] + distanceMatrix[k, k + 1, j]);
 					}
 		}
 		FloydWarschallVertex[] GetVerticesInArrayWithConcreteId()
@@ -56,23 +56,15 @@ namespace Cepheus
 		}
 
 		// TODO override operator +
-		int? AddDistances(int? num1, int? num2)
+
+		public int? GetMinimum(int? num1, int? num2)
 		{
-			if ((num1 == null) && (num2 == null))
+			if (num1 == null && num2 == null)
 				return null;
 			else if (num1 == null)
-				return num2;
-			else if (num2 == null)
-				return num1;
-			else
-				return num1 + num2;
-		}
-		int? GetMinimum(int? num1, int? num2)
-		{
-			if (num1 == null)
 				return num2; // if num2 is also null, it's ok to return null
 			else if (num2 == null)
-				return null;
+				return num1;
 			else if (num1 <= num2)
 				return num1;
 			else
