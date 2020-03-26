@@ -20,10 +20,8 @@ namespace Cepheus
 				for (int i = 1; i < countOfVertices; i++)
 					for (int j = 1; j < countOfVertices; j++)
 					{
-						distanceMatrix[k+1,i,j] = GetMinimum(distanceMatrix[k,i,j],(distanceMatrix[])
+						distanceMatrix[k + 1, i, j] = GetMinimum(distanceMatrix[k, i, j], distanceMatrix[k, i, k+1] + distanceMatrix[k, k + 1, j]);
 					}
-
-
 		}
 		int? GetMinimum(int? num1, int? num2)
 		{
