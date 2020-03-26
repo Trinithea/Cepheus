@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
 	class Floyd_Warshall : IAlgorithm
@@ -33,14 +34,18 @@ namespace Cepheus
 
 			distanceMatrix = GetDistancesWithZeroInnerVertices(graph, verticesArray);
 
-			for (int k = 0; k < countOfVertices; ++k)
-				for (int i = 0; i < countOfVertices; ++i)
-					for (int j = 0; j < countOfVertices; ++j)
+			for (int k = 0; k < countOfVertices; k++)
+			{
+				for (int i = 0; i < countOfVertices; i++)
+					for (int j = 0; j < countOfVertices; j++)
 					{
-						if()
-						
+						distanceMatrix[i, j] = GetMinimum(distanceMatrix[i, j], AddDistances(distanceMatrix[i, k], distanceMatrix[k, j]));
 					}
+
+			}
+				
 		}
+
 		FloydWarschallVertex[] GetVerticesInArrayWithConcreteId()
 		{
 			FloydWarschallVertex[] verticesArray = new FloydWarschallVertex[vertices.Count];
@@ -57,23 +62,21 @@ namespace Cepheus
 		}
 
 		// TODO override operator +
-		int? AddDistances(int? num1, int? num2)
+		internal int? AddDistances(int? num1, int? num2)
+		{
+			if (num1 == null || num2 == null)
+				return null;
+			else
+				return num1 + num2;
+		}
+		internal int? GetMinimum(int? num1, int? num2)
 		{
 			if ((num1 == null) && (num2 == null))
 				return null;
 			else if (num1 == null)
-				return num2;
-			else if (num2 == null)
-				return num1;
-			else
-				return num1 + num2;
-		}
-		int? GetMinimum(int? num1, int? num2)
-		{
-			if (num1 == null)
 				return num2; // if num2 is also null, it's ok to return null
 			else if (num2 == null)
-				return null;
+				return num1;
 			else if (num1 <= num2)
 				return num1;
 			else
