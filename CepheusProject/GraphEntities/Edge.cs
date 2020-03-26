@@ -17,7 +17,7 @@ namespace Cepheus
 	{
 		public int Length { get; set; }
 		
-		//TODO
+		// TODO edge different types of length
 		/*{ get => Length; set {
 				if (value <= 0)
 					throw new ArgumentOutOfRangeException(); // TODO something more user friendly

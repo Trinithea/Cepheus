@@ -9,6 +9,6 @@ namespace Cepheus
 		// TODO singleton?
 		public string Name { get; }
 		public string TimeComplexity {get; }
-		public void Run (Graph graph, Vertex initialVertex) { }
+		public void Run (Graph<FloydWarschallVertex> graph, Vertex initialVertex) { }
 	}
 }

@@ -77,9 +77,11 @@ namespace Cepheus
 	// Dijkstra vertex is same as BFS vertex
 	// Bellman-Ford could be BFS vertex also
 	
-	class FloydWarschallVertex : Vertex
+	class FloydWarschallVertex : VertexBase<FloydWarschallVertex>
 	{ 
 		public FloydWarschallVertex (string name) : base(name) { }
+
+
 		// TODO some ID 
 	}
 
