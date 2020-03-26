@@ -33,9 +33,9 @@ namespace Cepheus
 
 			distanceMatrix = GetDistancesWithZeroInnerVertices(graph, verticesArray);
 
-			for (int k = 0; k < countOfVertices - 1; k++)
-				for (int i = 0; i < countOfVertices; i++)
-					for (int j = 0; j < countOfVertices; j++)
+			for (int k = 0; k < countOfVertices - 1; ++k)
+				for (int i = 0; i < countOfVertices; ++i)
+					for (int j = 0; j < countOfVertices; ++j)
 					{
 						distanceMatrix[k + 1, i, j] = GetMinimum(distanceMatrix[k, i, j], AddDistances(distanceMatrix[k, i, k+1], distanceMatrix[k, k + 1, j]));
 					}
@@ -62,8 +62,10 @@ namespace Cepheus
 				return null;
 			else if (num1 == null)
 				return num2;
-			else
+			else if (num2 == null)
 				return num1;
+			else
+				return num1 + num2;
 		}
 		int? GetMinimum(int? num1, int? num2)
 		{
