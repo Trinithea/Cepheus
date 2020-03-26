@@ -41,14 +41,7 @@ namespace UnitTestCepheusAlgorithms
 			Assert.AreEqual(-3, fw.GetMinimum(-3, 7));
 		}
 
-		[TestMethod]
-		public void AddDistances()
-		{
-			Assert.AreEqual(-1, fw.AddDistances(-5, 4));
-			Assert.AreEqual(null, fw.AddDistances(-3, null));
-			Assert.AreEqual(null, fw.AddDistances(null, 7));
-			Assert.AreEqual(null, fw.AddDistances(null, null));
-		}
+		
 
 		[TestMethod]
 		public void Run_Distances()
