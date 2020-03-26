@@ -14,14 +14,15 @@ namespace Cepheus
 		{
 			Name = name;
 		}
+		
 	}
 	abstract class VertexBase<T> : Vertex where T : Vertex
 	{
 		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public VertexBase(string name) : base(name) { }
-		
-		
+		public virtual void Initialize() { }
+
 	}
 
 	interface IStateVertex 
@@ -47,6 +48,7 @@ namespace Cepheus
 		{
 			OutEdges.Add(edge);
 		}
+
 	}
 
 	class DfsVertex : VertexBase<DfsVertex>,IStateVertex

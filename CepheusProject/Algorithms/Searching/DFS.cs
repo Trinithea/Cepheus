@@ -10,12 +10,8 @@ namespace Cepheus
 		static int Time = 0;
 		public static void Run(Graph<DfsVertex> graph,DfsVertex initialVertex)
 		{
-			foreach(DfsVertex vertex in graph.GetVertices())
-			{
-				vertex.State = IStateVertex.States.Unvisited;
-				vertex.InTime = null;
-				vertex.OutTime = null;
-			}
+			graph.InitializeVertices();
+
 			Time = 0;
 			
 			Recursion(initialVertex);

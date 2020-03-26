@@ -12,13 +12,7 @@ namespace Cepheus
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 
-			var graphVertices = graph.GetVertices();
-			foreach (BfsVertex vertex in graphVertices)
-			{
-				vertex.State = IStateVertex.States.Unvisited;
-				vertex.Distance = null;
-				vertex.Predecessor = null;
-			}
+			graph.InitializeVertices();
 
 			initalVertex.State = IStateVertex.States.Open;
 			initalVertex.Distance = 0;
