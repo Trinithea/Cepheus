@@ -48,7 +48,12 @@ namespace Cepheus
 		{
 			OutEdges.Add(edge);
 		}
-
+		public override void Initialize()
+		{
+			State = IStateVertex.States.Unvisited;
+			Distance = null;
+			Predecessor = null;
+		}
 	}
 
 	class DfsVertex : VertexBase<DfsVertex>,IStateVertex
@@ -61,6 +66,12 @@ namespace Cepheus
 		public int? OutTime = null;
 
 		public IStateVertex.States State { get; set; }
+		public override void Initialize()
+		{
+			State = IStateVertex.States.Unvisited;
+			InTime = null;
+			OutTime = null;
+		}
 	}
 
 	// Dijkstra vertex is same as BFS vertex

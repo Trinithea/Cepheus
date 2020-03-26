@@ -37,11 +37,20 @@ namespace Cepheus
 			to.InEdges.Add(edge);
 			Edges.Add(from.Name + to.Name, edge);
 		}
-		public List<Vertex> GetVertices() => Vertices.Values.ToList<Vertex>();
+		
 		public TVertex GetVertex(string name) => Vertices[name];
 		public Edge<TVertex> GetEdge(string name) => Edges[name];
 
 		public Edge<TVertex> GetEdge(TVertex from, TVertex to) => Edges[from.Name + to.Name];
 
+		public void InitializeVertices()
+		{
+			foreach(TVertex vertex in Vertices.Values)
+			{
+				vertex.Initialize();
+			}
+			
+		}
+		// TODO Initialize vertices
 	}
 }

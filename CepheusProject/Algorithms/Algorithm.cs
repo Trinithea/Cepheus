@@ -7,6 +7,8 @@ namespace Cepheus
 	public interface IAlgorithm
 	{
 		public static string Name { get; }
-		
+
+		// TODO TimeComplexity {get; }
+		// TODO public void Run(Graph graph, Vertex initialVertex) 
 	}
 }
