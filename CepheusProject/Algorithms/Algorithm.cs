@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Cepheus
 {
-	public interface IAlgorithm
-	{
-		public static string Name { get; }
+	interface IAlgorithm
+	{ 
+		// TODO singleton?
+		public string Name { get; }
 
 		// TODO TimeComplexity {get; }
-		// TODO public static void Run(Graph graph, Vertex initialVertex) 
+		 public void Run (Graph graph, Vertex initialVertex) { }
 	}
 }

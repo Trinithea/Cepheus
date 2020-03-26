@@ -6,9 +6,10 @@ namespace Cepheus
 {
 	class Relaxation : IAlgorithm
 	{
-		public static string Name => "Relaxation algorithm";
+		public string Name => "Relaxation algorithm";
+		public string TimeComplexity => "O(n^2)";
 
-		public static void Run(Graph<BfsVertex> graph, BfsVertex initialVertex)
+		public void Run(Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			graph.InitializeVertices();
 

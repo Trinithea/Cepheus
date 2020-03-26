@@ -6,9 +6,9 @@ namespace Cepheus
 {
 	class DFS : IAlgorithm
 	{
-		public static string Name => "Depth-first search";
+		public string Name => "Depth-first search";
 		static int Time = 0;
-		public static void Run(Graph<DfsVertex> graph,DfsVertex initialVertex)
+		public void Run(Graph<DfsVertex> graph,DfsVertex initialVertex)
 		{
 			graph.InitializeVertices();
 

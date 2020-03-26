@@ -9,6 +9,7 @@ namespace UnitTestCepheusAlgorithms
 	[TestClass]
 	public class RelaxationUnitTests
 	{
+		Relaxation relaxation = new Relaxation();
 		Graph<BfsVertex> InitializeGraph()
 		{
 			Graph<BfsVertex> graph = new Graph<BfsVertex>();
@@ -36,7 +37,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			Relaxation.Run(graph, graph.GetVertex("A"));
+			relaxation.Run(graph, graph.GetVertex("A"));
 
 			Assert.AreEqual(1, graph.GetVertex("C").Distance);
 			Assert.AreEqual(-1, graph.GetVertex("F").Distance);

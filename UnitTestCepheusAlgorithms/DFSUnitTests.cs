@@ -6,9 +6,12 @@ using Cepheus;
 
 namespace UnitTestCepheusAlgorithms
 {
+	
+
 	[TestClass]
 	public class DFSUnitTests
 	{
+		DFS dfs = new DFS();
 		Graph<DfsVertex> InitializeGraph()
 		{
 			Graph<DfsVertex> graph = new Graph<DfsVertex>();
@@ -44,7 +47,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			Graph<DfsVertex> graph = InitializeGraph();
 
-			DFS.Run(graph, graph.GetVertex("0"));
+			dfs.Run(graph, graph.GetVertex("0"));
 
 			Assert.AreEqual(1, graph.GetVertex("0").InTime);
 			Assert.AreEqual(2, graph.GetVertex("1").InTime);
@@ -63,7 +66,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			Graph<DfsVertex> graph = InitializeGraph();
 
-			DFS.Run(graph, graph.GetVertex("0"));
+			dfs.Run(graph, graph.GetVertex("0"));
 
 			Assert.AreEqual(16, graph.GetVertex("0").OutTime);
 			Assert.AreEqual(9, graph.GetVertex("1").OutTime);
@@ -82,7 +85,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			Graph<DfsVertex> graph = InitializeGraph();
 
-			DFS.Run(graph, graph.GetVertex("0"));
+			dfs.Run(graph, graph.GetVertex("0"));
 
 			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("0").State);
 			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("1").State);

@@ -6,9 +6,10 @@ namespace Cepheus
 {
 	class Dijkstra : IAlgorithm
 	{
-		public static string Name => "Dijkstra's algorithm";
+		public string Name => "Dijkstra's algorithm";
+		public string TimeComplexity => "O((n + m) * log(n))";
 
-		public static void Run(Graph<BfsVertex> graph, BfsVertex initalVertex)
+		public void Run(Graph<BfsVertex> graph, BfsVertex initalVertex)
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 
@@ -37,7 +38,7 @@ namespace Cepheus
 			}
 		}
 
-		public static int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
 		{
 
 			Run(graph, from); 
