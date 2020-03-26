@@ -39,7 +39,7 @@ namespace Cepheus
 				for (int i = 0; i < countOfVertices; i++)
 					for (int j = 0; j < countOfVertices; j++)
 					{
-						distanceMatrix[i, j] = GetMinimum(distanceMatrix[i, j], AddDistances(distanceMatrix[i, k], distanceMatrix[k, j]));
+						distanceMatrix[i, j] = GetMinimum(distanceMatrix[i, j], distanceMatrix[i, k] + distanceMatrix[k, j]);
 					}
 
 			}
@@ -61,14 +61,6 @@ namespace Cepheus
 			return verticesArray;
 		}
 
-		// TODO override operator +
-		internal int? AddDistances(int? num1, int? num2)
-		{
-			if (num1 == null || num2 == null)
-				return null;
-			else
-				return num1 + num2;
-		}
 		internal int? GetMinimum(int? num1, int? num2)
 		{
 			if ((num1 == null) && (num2 == null))
