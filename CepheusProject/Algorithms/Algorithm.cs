@@ -8,8 +8,7 @@ namespace Cepheus
 	{ 
 		// TODO singleton?
 		public string Name { get; }
-
-		// TODO TimeComplexity {get; }
-		 public void Run (Graph graph, Vertex initialVertex) { }
+		public string TimeComplexity {get; }
+		public void Run (Graph graph, Vertex initialVertex) { }
 	}
 }

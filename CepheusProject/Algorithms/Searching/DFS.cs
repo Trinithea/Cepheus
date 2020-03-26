@@ -7,6 +7,7 @@ namespace Cepheus
 	class DFS : IAlgorithm
 	{
 		public string Name => "Depth-first search";
+		public string TimeComplexity => "O(n + m)";
 		static int Time = 0;
 		public void Run(Graph<DfsVertex> graph,DfsVertex initialVertex)
 		{

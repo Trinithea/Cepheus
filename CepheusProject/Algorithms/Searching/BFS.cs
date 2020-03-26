@@ -6,9 +6,10 @@ namespace Cepheus
 {
 	class BFS : IAlgorithm
 	{
-		public static string Name => "Breadth-first search";
+		public string Name => "Breadth-first search";
+		public string TimeComplexity => "O(n + m)";
 
-		public static void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
+		public  void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			graph.InitializeVertices();
 

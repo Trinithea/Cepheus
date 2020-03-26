@@ -6,6 +6,7 @@ namespace UnitTestCepheusAlgorithms
 	[TestClass]
 	public class BFSUnitTests
 	{
+		BFS bfs = new BFS();
 		Graph<BfsVertex> InitializeGraph()
 		{
 			Graph<BfsVertex> graph = new Graph<BfsVertex>();
@@ -32,7 +33,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			BFS.Run(graph, graph.GetVertex("A"));
+			bfs.Run(graph, graph.GetVertex("A"));
 
 			Assert.AreEqual(2, graph.GetVertex("C").Distance);
 			Assert.AreEqual(0, graph.GetVertex("A").Distance);
@@ -45,7 +46,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			BFS.Run(graph, graph.GetVertex("A"));
+			bfs.Run(graph, graph.GetVertex("A"));
 
 			Assert.AreEqual(graph.GetVertex("B"), graph.GetVertex("C").Predecessor);
 			Assert.AreEqual(null, graph.GetVertex("A").Predecessor);
@@ -58,7 +59,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			BFS.Run(graph, graph.GetVertex("A"));
+			bfs.Run(graph, graph.GetVertex("A"));
 
 			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("A").State);
 			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("B").State);

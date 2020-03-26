@@ -9,6 +9,7 @@ namespace UnitTestCepheusAlgorithms
 	[TestClass]
 	public class DijkstraUnitTests
 	{
+		Dijkstra dijkstra = new Dijkstra();
 		Graph<BfsVertex> InitializeGraph()
 		{
 			Graph<BfsVertex> graph = new Graph<BfsVertex>();
@@ -36,7 +37,7 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			Dijkstra.Run(graph, graph.GetVertex("A"));
+			dijkstra.Run(graph, graph.GetVertex("A"));
 
 			Assert.AreEqual(10, graph.GetVertex("C").Distance);
 			Assert.AreEqual(8, graph.GetVertex("F").Distance);
@@ -50,9 +51,9 @@ namespace UnitTestCepheusAlgorithms
 		{
 			var graph = InitializeGraph();
 
-			Assert.AreEqual(3, Dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("B"), graph.GetVertex("C")));
-			Assert.AreEqual(7, Dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("E"), graph.GetVertex("C")));
-			Assert.AreEqual(null, Dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("C"), graph.GetVertex("B")));
+			Assert.AreEqual(3, dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("B"), graph.GetVertex("C")));
+			Assert.AreEqual(7, dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("E"), graph.GetVertex("C")));
+			Assert.AreEqual(null, dijkstra.LengthOfShortestPathFromTo(graph, graph.GetVertex("C"), graph.GetVertex("B")));
 		}
 	}
 }

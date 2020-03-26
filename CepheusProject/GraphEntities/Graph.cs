@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
-	class Graph<TVertex> where TVertex : VertexBase<TVertex>
+	abstract class Graph { }
+	class Graph<TVertex> :Graph where TVertex : VertexBase<TVertex>
 	{
 		private Dictionary<string, Edge<TVertex>> Edges = new Dictionary<string, Edge<TVertex>>();
 		private Dictionary<string, TVertex> Vertices = new Dictionary<string, TVertex>();
