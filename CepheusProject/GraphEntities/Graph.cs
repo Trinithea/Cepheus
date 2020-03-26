@@ -35,9 +35,9 @@ namespace Cepheus
 			edge.Length = length;
 			from.OutEdges.Add(edge);
 			to.InEdges.Add(edge);
-			Edges.Add(name, edge);
+			Edges.Add(from.Name + to.Name, edge);
 		}
-
+		public List<Vertex> GetVertices() => Vertices.Values.ToList<Vertex>();
 		public TVertex GetVertex(string name) => Vertices[name];
 		public Edge<TVertex> GetEdge(string name) => Edges[name];
 

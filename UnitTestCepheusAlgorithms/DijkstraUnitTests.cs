@@ -39,9 +39,9 @@ namespace UnitTestCepheusAlgorithms
 			Dijkstra.Run(graph, graph.GetVertex("A"));
 
 			Assert.AreEqual(10, graph.GetVertex("C").Distance);
-			Assert.AreEqual(8, graph.GetVertex("F"));
-			Assert.AreEqual(null, graph.GetVertex("G"));
-			Assert.AreEqual(6, graph.GetVertex("D"));
+			Assert.AreEqual(8, graph.GetVertex("F").Distance);
+			Assert.AreEqual(null, graph.GetVertex("G").Distance);
+			Assert.AreEqual(6, graph.GetVertex("D").Distance);
 			
 		}
 

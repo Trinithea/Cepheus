@@ -11,19 +11,26 @@ namespace Cepheus
 		public static void Run(Graph<BfsVertex> graph, BfsVertex initalVertex)
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
-			// Vertices are initialized by default.
+
+			var graphVertices = graph.GetVertices();
+			foreach (BfsVertex vertex in graphVertices)
+			{
+				vertex.State = IStateVertex.States.Unvisited;
+				vertex.Distance = null;
+				vertex.Predecessor = null;
+			}
 
 			initalVertex.State = IStateVertex.States.Open;
 			initalVertex.Distance = 0;
 
-			SortedDictionary<int?, BfsVertex> openVertcices = new SortedDictionary<int?, BfsVertex>();
+			SortedList<int?, BfsVertex> openVertcices = new SortedList<int?, BfsVertex>();
 			openVertcices.Add(initalVertex.Distance, initalVertex);
 			while(openVertcices.Count > 0)
 			{
-				var vertex = openVertcices[0]; // vertex with minimal rating
+				var vertex = openVertcices[openVertcices.Keys[0]]; // vertex with minimal rating
 				foreach(EdgeWithNaturalLength<BfsVertex> edge in vertex.OutEdges)
 				{
-					if(edge.To.Distance == null || edge.To.Distance > vertex.Distance + edge.Length)
+					if(edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = IStateVertex.States.Open;
@@ -32,12 +39,13 @@ namespace Cepheus
 					}
 				}
 				vertex.State = IStateVertex.States.Closed;
-				openVertcices.Remove(0);
+				openVertcices.RemoveAt(0);
 			}
 		}
 
 		public static int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
 		{
+
 			Run(graph, from); 
 
 			var currentVertex = to;

@@ -10,7 +10,12 @@ namespace Cepheus
 
 		public static void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
-			// Initialization is done in BfsVertex constructor
+			foreach(BfsVertex vertex in graph.GetVertices())
+			{
+				vertex.State = IStateVertex.States.Unvisited;
+				vertex.Distance = null;
+				vertex.Predecessor = null;
+			}
 
 			initialVertex.State = IStateVertex.States.Open;
 			initialVertex.Distance = 0;
