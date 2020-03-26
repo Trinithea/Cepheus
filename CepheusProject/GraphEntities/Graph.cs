@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,7 +53,7 @@ namespace Cepheus
 			else
 				return null;
 		}
-		public TVertex[] GetVertices() => Vertices.Values.ToArray<TVertex>();
+		public Dictionary<string, TVertex> GetVertices() => Vertices;
 
 		public Edge<TVertex> GetEdge(string fromNameToName)
 		{

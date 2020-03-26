@@ -81,8 +81,8 @@ namespace Cepheus
 	{ 
 		public FloydWarschallVertex (string name) : base(name) { }
 
+		public int ID { get; set; }
 
-		// TODO some ID 
 	}
 
 	class JarnikVertex
