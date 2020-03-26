@@ -17,23 +17,23 @@ namespace Cepheus
 			initalVertex.State = IStateVertex.States.Open;
 			initalVertex.Distance = 0;
 
-			SortedList<int?, BfsVertex> openVertcices = new SortedList<int?, BfsVertex>();
-			openVertcices.Add(initalVertex.Distance, initalVertex);
-			while(openVertcices.Count > 0)
+			SortedList<int?, BfsVertex> openVertices = new SortedList<int?, BfsVertex>();
+			openVertices.Add(initalVertex.Distance, initalVertex);
+			while(openVertices.Count > 0)
 			{
-				var vertex = openVertcices[openVertcices.Keys[0]]; // vertex with minimal rating
+				var vertex = openVertices[openVertices.Keys[0]]; // vertex with minimal rating
 				foreach(EdgeWithLength<BfsVertex> edge in vertex.OutEdges)
 				{
 					if(edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = IStateVertex.States.Open;
-						openVertcices.Add(edge.To.Distance, edge.To);
+						openVertices.Add(edge.To.Distance, edge.To);
 						edge.To.Predecessor = vertex;
 					}
 				}
 				vertex.State = IStateVertex.States.Closed;
-				openVertcices.RemoveAt(0);
+				openVertices.RemoveAt(0);
 			}
 		}
 

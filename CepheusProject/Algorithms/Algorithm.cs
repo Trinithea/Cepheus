@@ -9,6 +9,6 @@ namespace Cepheus
 		public static string Name { get; }
 
 		// TODO TimeComplexity {get; }
-		// TODO public void Run(Graph graph, Vertex initialVertex) 
+		// TODO public static void Run(Graph graph, Vertex initialVertex) 
 	}
 }
