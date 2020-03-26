@@ -28,7 +28,7 @@ namespace Cepheus
 		}
 		public void AddEdgeWithLength(string name, TVertex from, TVertex to, int length)
 		{
-			EdgeWithNaturalLength<TVertex> edge = new EdgeWithNaturalLength<TVertex>();
+			EdgeWithLength<TVertex> edge = new EdgeWithLength<TVertex>();
 			edge.Name = name;
 			edge.From = from;
 			edge.To = to;

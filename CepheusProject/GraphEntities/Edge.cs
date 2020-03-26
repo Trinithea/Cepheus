@@ -13,7 +13,7 @@ namespace Cepheus
 		public string Name { get; set; }
 		
 	}
-	class EdgeWithNaturalLength<T> : Edge<T> where T : Vertex
+	class EdgeWithLength<T> : Edge<T> where T : Vertex
 	{
 		public int Length { get; set; }
 		
