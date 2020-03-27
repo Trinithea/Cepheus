@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Cepheus
 {
-	class Relaxation : IAlgorithm
+	sealed class Relaxation : IAlgorithm
 	{
 		public string Name => "Relaxation algorithm";
 		public string TimeComplexity => "O(n^2)";
