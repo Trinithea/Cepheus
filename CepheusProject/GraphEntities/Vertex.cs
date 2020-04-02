@@ -97,6 +97,16 @@ namespace Cepheus
 				Predecessor = null;
 			}
 		}
+
+	class BoruvkaVertex : VertexBase<BoruvkaVertex>
+	{
+		public int ComponentID { get;set ; }
+		public BoruvkaVertex(string name) : base(name) { }
+		public override void Initialize()
+		{
+			OutEdges.Sort((x, y) => ((EdgeWithLength<BoruvkaVertex>)x).Length.CompareTo(((EdgeWithLength<BoruvkaVertex>)y).Length));
+		}
+	}
 	class TreeVertex
 		{
 			public TreeVertex(string name)

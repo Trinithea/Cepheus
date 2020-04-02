@@ -13,6 +13,8 @@ namespace Cepheus
 
 		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
 		{
+			graph.InitializeVertices(); // to get OutEdges sorted
+
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
 			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
 
@@ -22,33 +24,35 @@ namespace Cepheus
 			{
 				for (int i = 0; i < minimalSpanningTree.ContextComponents.Count; i++)
 				{
-					//TODO bacha na obousměrný!
-					var ligtestEdge = FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[i]);
-					minimalSpanningTree.Edges.Add(ligtestEdge.Name, ligtestEdge);
+					var lightestEdge = FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[i]);
+					minimalSpanningTree.Edges.Add(lightestEdge.Name, lightestEdge);
+					minimalSpanningTree.NewEdges.Add(lightestEdge);
 				}
 				UpdateContextComponents(minimalSpanningTree);
 			}
 		}
 
-		//TODO this is very uneffective
 		EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree,  Tree<BoruvkaVertex> component)
 		{
 			EdgeWithLength<BoruvkaVertex> lightestEdge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[0].OutEdges[0]; // some random edge
 			for (int i = 0; i < component.Vertices.Count; i++)
 			{
-				foreach(EdgeWithLength<BoruvkaVertex> edge in component.Vertices[i].OutEdges)
-				{
-					if (lightestEdge.Length > edge.Length && !minimalSpanningTree.Edges.ContainsKey(edge.Name))
-						lightestEdge = edge;
-				}
+				var edge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
+				if (lightestEdge.Length > edge.Length && !minimalSpanningTree.Edges.ContainsKey(edge.Name))
+					lightestEdge = edge;
 			}
 			return lightestEdge;
 		}
-		void UpdateContextComponents(TreeWithContextComponents<BoruvkaVertex> tree)
+
+		void UpdateContextComponents(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
 		{
-			
+			//TODO bacha na obousměrný!
+			for (int i = 0; i < minimalSpanningTree.NewEdges.Count; i++)
+			{
+
+			}
 		}
-		
+
 		void Initialize(TreeWithContextComponents<BoruvkaVertex> tree)
 		{
 			for (int i = 0; i < tree.Vertices.Count; i++)
@@ -56,6 +60,7 @@ namespace Cepheus
 				var component = new Tree<BoruvkaVertex>();
 				component.Vertices.Add(tree.Vertices[i]);
 				tree.ContextComponents.Add(component);
+				tree.Vertices[i].ComponentID = i;
 			}
 		}
 	}
