@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,10 +44,7 @@ namespace Cepheus
 		public IStateVertex.States State { get; set; }
 
 		public int? Distance = null;
-		public void AddToOutEdges(Edge<BfsVertex> edge)
-		{
-			OutEdges.Add(edge);
-		}
+		
 		public override void Initialize()
 		{
 			State = IStateVertex.States.Unvisited;
@@ -86,7 +83,7 @@ namespace Cepheus
 		{
 		}
 	}
-		class JarnikVertex : VertexBase<JarnikVertex>
+	class JarnikVertex : VertexBase<JarnikVertex>
 		{
 			public JarnikVertex(string name) : base(name) { }
 			public enum States { Inside, Neighbour, Outside }
@@ -100,7 +97,7 @@ namespace Cepheus
 				Predecessor = null;
 			}
 		}
-		class TreeVertex
+	class TreeVertex
 		{
 			public TreeVertex(string name)
 			{
