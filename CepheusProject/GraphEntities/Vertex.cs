@@ -21,7 +21,7 @@ namespace Cepheus
 		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public VertexBase(string name) : base(name) { }
-		public virtual void Initialize() { }
+		public abstract void Initialize();
 
 	}
 
@@ -82,16 +82,21 @@ namespace Cepheus
 		public FloydWarschallVertex (string name) : base(name) { }
 
 		public int ID { get; set; }
-
-	}
+		public override void Initialize()
+		{
+		}
 
 	class JarnikVertex : VertexBase<JarnikVertex>
 	{
-		public string Name { get; }
-		public enum States { Inside, Neighboring, Outside}
+		
+			public enum States { Inside, Neighboring, Outside}
 		public States State { get; set; }
-		public JarnikVertex(string name) : base(name) { }
-	}
+		
+		public override void Initialize()
+		{
+				State = States.Outside;
+
+		}
 
 	class TreeVertex 
 	{
