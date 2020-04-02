@@ -85,16 +85,12 @@ namespace Cepheus
 
 	}
 
-	class JarnikVertex
+	class JarnikVertex : VertexBase<JarnikVertex>
 	{
 		public string Name { get; }
 		public enum States { Inside, Neighboring, Outside}
 		public States State { get; set; }
-		public JarnikVertex(string name)
-		{
-			Name = name;
-			State = States.Neighboring;
-		}
+		public JarnikVertex(string name) : base(name) { }
 	}
 
 	class TreeVertex 
