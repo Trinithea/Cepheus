@@ -89,15 +89,14 @@ namespace Cepheus
 		class JarnikVertex : VertexBase<JarnikVertex>
 		{
 			public JarnikVertex(string name) : base(name) { }
-			public enum States { Inside, Neighboring, Outside }
+			public enum States { Inside, Neighbour, Outside }
 			public States State { get; set; }
-			int Rating { get; set; }
-			JarnikVertex Predecessor { get; set; }
-
+			public int? Rating { get; set; }
+			public JarnikVertex Predecessor { get; set; }
 			public override void Initialize()
 			{
 				State = States.Outside;
-				Rating = 0;
+				Rating = null;
 				Predecessor = null;
 			}
 		}
