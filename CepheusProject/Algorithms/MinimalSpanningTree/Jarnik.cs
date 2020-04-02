@@ -10,9 +10,9 @@ namespace Cepheus
 
 		public string TimeComplexity => "O(m * log(n))";
 
-		public void Run(Graph<JarnikVertex> graph, Vertex initialVertex)
+		public void Run(Graph<JarnikVertex> graph, JarnikVertex initialVertex)
 		{
-			throw new NotImplementedException();
+
 		}
 	}
 }

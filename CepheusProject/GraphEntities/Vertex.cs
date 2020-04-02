@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Cepheus
 {
-	class Vertex 
+	class Vertex
 	{
 		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
 		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
@@ -14,7 +14,7 @@ namespace Cepheus
 		{
 			Name = name;
 		}
-		
+
 	}
 	abstract class VertexBase<T> : Vertex where T : Vertex
 	{
@@ -25,16 +25,16 @@ namespace Cepheus
 
 	}
 
-	interface IStateVertex 
+	interface IStateVertex
 	{
 		public enum States { Open, Closed, Unvisited };
 		public States State { get; set; }
 	}
 
 
-	class BfsVertex : VertexBase<BfsVertex>,IStateVertex
+	class BfsVertex : VertexBase<BfsVertex>, IStateVertex
 	{
-		public BfsVertex(string name) :base (name)
+		public BfsVertex(string name) : base(name)
 		{
 			State = IStateVertex.States.Unvisited;
 			Predecessor = null;
@@ -56,9 +56,9 @@ namespace Cepheus
 		}
 	}
 
-	class DfsVertex : VertexBase<DfsVertex>,IStateVertex
+	class DfsVertex : VertexBase<DfsVertex>, IStateVertex
 	{
-		public DfsVertex(string name) : base(name) 
+		public DfsVertex(string name) : base(name)
 		{
 			State = IStateVertex.States.Unvisited;
 		}
@@ -76,34 +76,37 @@ namespace Cepheus
 
 	// Dijkstra vertex is same as BFS vertex
 	// Bellman-Ford could be BFS vertex also
-	
+
 	class FloydWarschallVertex : VertexBase<FloydWarschallVertex>
-	{ 
-		public FloydWarschallVertex (string name) : base(name) { }
+	{
+		public FloydWarschallVertex(string name) : base(name) { }
 
 		public int ID { get; set; }
 		public override void Initialize()
 		{
 		}
-
-	class JarnikVertex : VertexBase<JarnikVertex>
-	{
-		
-			public enum States { Inside, Neighboring, Outside}
-		public States State { get; set; }
-		
-		public override void Initialize()
-		{
-				State = States.Outside;
-
-		}
-
-	class TreeVertex 
-	{
-		public TreeVertex(string name)
-		{
-			//Name = name;
-		}
-		public List<TreeVertex> Sons = new List<TreeVertex>();
 	}
-}
+		class JarnikVertex : VertexBase<JarnikVertex>
+		{
+			public JarnikVertex(string name) : base(name) { }
+			public enum States { Inside, Neighboring, Outside }
+			public States State { get; set; }
+			int Rating { get; set; }
+			JarnikVertex Predecessor { get; set; }
+
+			public override void Initialize()
+			{
+				State = States.Outside;
+				Rating = 0;
+				Predecessor = null;
+			}
+		}
+		class TreeVertex
+		{
+			public TreeVertex(string name)
+			{
+				//Name = name;
+			}
+			public List<TreeVertex> Sons = new List<TreeVertex>();
+		}
+	}
