@@ -27,7 +27,7 @@ namespace Cepheus
 		// initialVertex is not necessary but it's here for same type of argumetnts of method IAlgorithm.Run()
 		public void Run(Graph<FloydWarschallVertex> graph, FloydWarschallVertex initialVertex)
 		{
-			vertices = graph.GetVertices();
+			vertices = graph.Vertices;
 			int countOfVertices = vertices.Count;
 
 			FloydWarschallVertex[] verticesArray = GetVerticesInArrayWithConcreteId();

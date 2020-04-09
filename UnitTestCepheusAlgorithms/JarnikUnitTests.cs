@@ -104,7 +104,7 @@ namespace UnitTestCepheusAlgorithms
 			jarnik.Run(graph, graph.GetVertex("E"));
 			
 
-			foreach (KeyValuePair<string, JarnikVertex> vertex in graph.GetVertices())
+			foreach (KeyValuePair<string, JarnikVertex> vertex in graph.Vertices)
 			{
 				Assert.IsTrue(vertex.Value.State == JarnikVertex.States.Inside);
 			}

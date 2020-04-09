@@ -73,7 +73,7 @@ namespace UnitTestCepheusAlgorithms
 			graph.InitializeVertices(); // to get OutEdges sorted
 
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
+			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			boruvkaAlgorithm.graph = graph;
 			List<int> ids = new List<int>();
 			boruvkaAlgorithm.Initialize(minimalSpanningTree,ids);
@@ -154,7 +154,7 @@ namespace UnitTestCepheusAlgorithms
 			graph.InitializeVertices(); // to get OutEdges sorted
 			boruvkaAlgorithm.graph = graph;
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
+			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>();
 			CreateComponents(graph, minimalSpanningTree,ids);
 
@@ -170,7 +170,7 @@ namespace UnitTestCepheusAlgorithms
 			graph.InitializeVertices(); // to get OutEdges sorted
 			boruvkaAlgorithm.graph = graph;
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
+			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>();
 			CreateComponents(graph, minimalSpanningTree,ids);
 
@@ -188,7 +188,7 @@ namespace UnitTestCepheusAlgorithms
 			graph.InitializeVertices(); // to get OutEdges sorted
 			boruvkaAlgorithm.graph = graph;
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
+			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>();
 			boruvkaAlgorithm.Initialize(minimalSpanningTree,ids); // each vertex is a context component
 

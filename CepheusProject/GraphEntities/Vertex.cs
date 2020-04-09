@@ -14,7 +14,10 @@ namespace Cepheus
 		{
 			Name = name;
 		}
-
+		public override string ToString()
+		{
+			return Name+" - out: "+OutEdges.Count;
+		}
 	}
 	abstract class VertexBase<T> : Vertex where T : Vertex
 	{

@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 namespace Cepheus
 {
 	abstract class Graph { }
-	class Graph<TVertex> :Graph where TVertex : VertexBase<TVertex>
+	class Graph<TVertex> : Graph where TVertex : VertexBase<TVertex>
 	{
-		private Dictionary<string, Edge<TVertex>> Edges = new Dictionary<string, Edge<TVertex>>();
-		private Dictionary<string, TVertex> Vertices = new Dictionary<string, TVertex>();
+		public Graph()
+		{
+			Edges = new Dictionary<string, Edge<TVertex>>();
+			Vertices = new Dictionary<string, TVertex>();
+		}
+		public Dictionary<string, Edge<TVertex>> Edges { get; private set; }
+		public Dictionary<string, TVertex> Vertices { get; private set; }
 		public void AddVertex(TVertex vertex)
 		{
 			Vertices.Add(vertex.Name,vertex);
@@ -53,7 +58,6 @@ namespace Cepheus
 			else
 				return null;
 		}
-		public Dictionary<string, TVertex> GetVertices() => Vertices;
 
 		public Edge<TVertex> GetEdge(string fromNameToName)
 		{

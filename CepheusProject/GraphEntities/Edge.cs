@@ -16,7 +16,7 @@ namespace Cepheus
 	class EdgeWithLength<T> : Edge<T> where T : Vertex
 	{
 		public int Length { get; set; }
-		
+
 		// TODO edge different types of length
 		/*{ get => Length; set {
 				if (value <= 0)
@@ -24,5 +24,9 @@ namespace Cepheus
 				else
 					Length = value;
 			} }*/
+		public override string ToString()
+		{
+			return Name + ": " + Length;
+		}
 	}
 }
