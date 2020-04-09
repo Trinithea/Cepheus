@@ -28,11 +28,11 @@ namespace Cepheus
 					minimalSpanningTree.Edges.Add(lightestEdge.Name, lightestEdge);
 					minimalSpanningTree.NewEdges.Add(lightestEdge);
 				}
-				UpdateContextComponents(minimalSpanningTree);
+				MergeContextComponents(minimalSpanningTree);
 			}
 		}
 
-		internal EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree,  Tree<BoruvkaVertex> component)
+		internal EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree, ComponentTree<BoruvkaVertex> component)
 		{
 			var vertex = component.Vertices[0];
 			EdgeWithLength<BoruvkaVertex> lightestEdge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[0].OutEdges[0]; // some random edge
@@ -41,7 +41,7 @@ namespace Cepheus
 				if (component.Vertices[i].OutEdges.Count > 0)
 				{
 					var edge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
-					if (lightestEdge.Length > edge.Length && !minimalSpanningTree.Edges.ContainsKey(edge.Name))
+					if (lightestEdge.Length > edge.Length && edge.From.ComponentID != edge.To.ComponentID) //TODO asi nepotřebuju: && !minimalSpanningTree.Edges.ContainsKey(edge.Name)
 					{
 						lightestEdge = edge;
 						vertex = component.Vertices[i];
@@ -55,15 +55,35 @@ namespace Cepheus
 			//TODO if not oriented
 			var vertex2 = lightestEdge.To;
 			vertex2.OutEdges.Remove(graph.GetEdge(vertex2.Name+vertex.Name));
+			//it means that between two components is only one new edge
 			return lightestEdge;
 		}
 
-		void UpdateContextComponents(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
+		internal void MergeContextComponents(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
 		{
-			//TODO bacha na obousměrný!
+			List<ComponentTree<BoruvkaVertex>> newComponents = new List<ComponentTree<BoruvkaVertex>>();
 			for (int i = 0; i < minimalSpanningTree.NewEdges.Count; i++)
 			{
+				var newEdge = minimalSpanningTree.NewEdges[i];
+				var newComponent = minimalSpanningTree.ContextComponents[newEdge.From.ComponentID];
 
+				var toComponentID = newEdge.To.ComponentID;
+				//adding vertices from component whose member is newEdge.To
+				for (int j = 0; j < minimalSpanningTree.ContextComponents[toComponentID].Vertices.Count; j++)
+				{
+					var vertex = minimalSpanningTree.ContextComponents[toComponentID].Vertices[j];
+					vertex.ComponentID = newComponent.ID;
+					newComponent.Vertices.Add(vertex);
+				}
+				//adding edges
+				for (int j = 0; j < minimalSpanningTree.ContextComponents[toComponentID].Edges.Count; j++)
+				{
+					var edge = minimalSpanningTree.ContextComponents[toComponentID].Edges[j];
+					newComponent.Edges.Add(edge);
+				}
+
+				minimalSpanningTree.ContextComponents.Remove(toComponentID);
+				//we have merged two components into one
 			}
 		}
 
@@ -71,9 +91,10 @@ namespace Cepheus
 		{
 			for (int i = 0; i < tree.Vertices.Count; i++)
 			{
-				var component = new Tree<BoruvkaVertex>();
+				var component = new ComponentTree<BoruvkaVertex>();
+				component.ID = i;
 				component.Vertices.Add(tree.Vertices[i]);
-				tree.ContextComponents.Add(component);
+				tree.ContextComponents.Add(component.ID, component);
 				tree.Vertices[i].ComponentID = i;
 			}
 		}
