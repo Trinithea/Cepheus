@@ -10,11 +10,11 @@ namespace Cepheus
 		public string Name => "Boruvka's algorithm";
 
 		public string TimeComplexity => "m * log(n)";
-
+		internal Graph<BoruvkaVertex> graph;
 		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
 		{
 			graph.InitializeVertices(); // to get OutEdges sorted
-
+			this.graph = graph;
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
 			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
 
@@ -32,15 +32,29 @@ namespace Cepheus
 			}
 		}
 
-		EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree,  Tree<BoruvkaVertex> component)
+		internal EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree,  Tree<BoruvkaVertex> component)
 		{
+			var vertex = component.Vertices[0];
 			EdgeWithLength<BoruvkaVertex> lightestEdge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[0].OutEdges[0]; // some random edge
 			for (int i = 0; i < component.Vertices.Count; i++)
 			{
-				var edge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
-				if (lightestEdge.Length > edge.Length && !minimalSpanningTree.Edges.ContainsKey(edge.Name))
-					lightestEdge = edge;
+				if (component.Vertices[i].OutEdges.Count > 0)
+				{
+					var edge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
+					if (lightestEdge.Length > edge.Length && !minimalSpanningTree.Edges.ContainsKey(edge.Name))
+					{
+						lightestEdge = edge;
+						vertex = component.Vertices[i];
+					}
+				}	
 			}
+
+			//remove lightest edge from OutEdges because we will never add it again
+			vertex.OutEdges.Remove(lightestEdge);
+			//also remove the same edge in opposite direction if we have not-oriented graph
+			//TODO if not oriented
+			var vertex2 = lightestEdge.To;
+			vertex2.OutEdges.Remove(graph.GetEdge(vertex2.Name+vertex.Name));
 			return lightestEdge;
 		}
 
@@ -53,7 +67,7 @@ namespace Cepheus
 			}
 		}
 
-		void Initialize(TreeWithContextComponents<BoruvkaVertex> tree)
+		internal void Initialize(TreeWithContextComponents<BoruvkaVertex> tree)
 		{
 			for (int i = 0; i < tree.Vertices.Count; i++)
 			{
