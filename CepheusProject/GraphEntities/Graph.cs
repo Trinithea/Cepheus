@@ -83,4 +83,39 @@ namespace Cepheus
 			return edges;
 		}
 	}
+	class FlowNetwork<TVertex> :Graph<BfsVertex> where TVertex : VertexBase<BfsVertex> //TODO inheritance with special type of Edge
+	{
+		public new Dictionary<string,FlowEdge<TVertex>> Edges { get; private set; }
+		public new Dictionary<string,FlowEdge<TVertex>> Vertices { get; private set; }
+		public FlowNetwork(TVertex source, TVertex sink)
+		{
+			Source = source;
+			Sink = sink;
+			Edges = new Dictionary<string, FlowEdge<TVertex>>();
+			Vertices = new Dictionary<string, FlowEdge<TVertex>>();
+		}
+		public TVertex Source { get; }
+		public TVertex Sink { get; }
+		public void AugmentFlow(List<FlowEdge<TVertex>> path, int minDifference) 
+		{
+			foreach (var edge in path)
+				edge.Flow += minDifference;
+		}
+		public int GetMinDifference(List<FlowEdge<TVertex>> path) 
+		{
+			int minDif = path[0].Capacity - path[0].Flow; //some first value
+			foreach (var edge in path)
+				if (minDif > (edge.Capacity - edge.Flow))
+					minDif = edge.Capacity - edge.Flow;
+			return minDif;
+		}
+		/// <summary>
+		/// Set initial flow to zero for each edge.
+		/// </summary>
+		public void InitializeEdges()
+		{
+			foreach (var edge in Edges.Values)
+				edge.Flow = 0;
+		}
+	}
 }

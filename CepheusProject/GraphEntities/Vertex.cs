@@ -16,7 +16,7 @@ namespace Cepheus
 		}
 		public override string ToString()
 		{
-			return Name+" - out: "+OutEdges.Count;
+			return Name + " - out: " + OutEdges.Count;
 		}
 	}
 	abstract class VertexBase<T> : Vertex where T : Vertex
@@ -47,7 +47,7 @@ namespace Cepheus
 		public IStateVertex.States State { get; set; }
 
 		public int? Distance = null;
-		
+
 		public override void Initialize()
 		{
 			State = IStateVertex.States.Unvisited;
@@ -87,35 +87,33 @@ namespace Cepheus
 		}
 	}
 	class JarnikVertex : VertexBase<JarnikVertex>
+	{
+		public JarnikVertex(string name) : base(name) { }
+		public enum States { Inside, Neighbour, Outside }
+		public States State { get; set; }
+		public int? Rating { get; set; }
+		public JarnikVertex Predecessor { get; set; }
+		public override void Initialize()
 		{
-			public JarnikVertex(string name) : base(name) { }
-			public enum States { Inside, Neighbour, Outside }
-			public States State { get; set; }
-			public int? Rating { get; set; }
-			public JarnikVertex Predecessor { get; set; }
-			public override void Initialize()
-			{
-				State = States.Outside;
-				Rating = null;
-				Predecessor = null;
-			}
+			State = States.Outside;
+			Rating = null;
+			Predecessor = null;
 		}
+	}
 
 	class BoruvkaVertex : VertexBase<BoruvkaVertex>
 	{
-		public int ComponentID { get;set ; }
+		public int ComponentID { get; set; }
 		public BoruvkaVertex(string name) : base(name) { }
 		public override void Initialize()
 		{
 			OutEdges.Sort((x, y) => ((EdgeWithLength<BoruvkaVertex>)x).Length.CompareTo(((EdgeWithLength<BoruvkaVertex>)y).Length));
 		}
 	}
-	class TreeVertex
-		{
-			public TreeVertex(string name)
-			{
-				//Name = name;
-			}
-			public List<TreeVertex> Sons = new List<TreeVertex>();
-		}
+
+	class FlowVertex : VertexBase<FlowVertex>
+	{
+		public FlowVertex(string name) : base(name) { }
+		public override void Initialize() { }
 	}
+}
