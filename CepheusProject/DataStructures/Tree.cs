@@ -21,5 +21,13 @@ namespace Cepheus.DataStructures
 		public Dictionary<string, EdgeWithLength<TVertex>> Edges = new Dictionary<string, EdgeWithLength<TVertex>>();
 		public List<EdgeWithLength<TVertex>> NewEdges = new List<EdgeWithLength<TVertex>>();
 		public Dictionary<int,ComponentTree<TVertex>> ContextComponents = new Dictionary<int, ComponentTree<TVertex>>();
+
+		public int GetWeight()
+		{
+			int sum = 0;
+			foreach (EdgeWithLength<TVertex> edge in Edges.Values)
+				sum += edge.Length;
+			return sum;
+		}
 	}
 }
