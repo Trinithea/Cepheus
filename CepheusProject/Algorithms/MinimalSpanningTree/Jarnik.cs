@@ -54,6 +54,6 @@ namespace Cepheus
 			foreach (EdgeWithLength<JarnikVertex> edge in MinimalSpanningTree.Edges)
 				sum += edge.Length;
 			return sum;
-		}
+		} //TODO do this in datastructure
 	}
 }

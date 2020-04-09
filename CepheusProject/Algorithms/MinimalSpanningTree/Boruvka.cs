@@ -11,6 +11,7 @@ namespace Cepheus
 
 		public string TimeComplexity => "m * log(n)";
 		internal Graph<BoruvkaVertex> graph;
+		public TreeWithContextComponents<BoruvkaVertex> MinimalSpanningTree {get; private set;}
 		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
 		{
 			graph.InitializeVertices(); // to get OutEdges sorted
@@ -30,6 +31,8 @@ namespace Cepheus
 				}
 				MergeContextComponents(minimalSpanningTree);
 			}
+
+			MinimalSpanningTree = minimalSpanningTree;
 		}
 
 		internal EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree, ComponentTree<BoruvkaVertex> component)
@@ -85,17 +88,18 @@ namespace Cepheus
 				minimalSpanningTree.ContextComponents.Remove(toComponentID);
 				//we have merged two components into one
 			}
+			minimalSpanningTree.NewEdges.Clear();
 		}
 
-		internal void Initialize(TreeWithContextComponents<BoruvkaVertex> tree)
+		internal void Initialize(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
 		{
-			for (int i = 0; i < tree.Vertices.Count; i++)
+			for (int i = 0; i < minimalSpanningTree.Vertices.Count; i++)
 			{
 				var component = new ComponentTree<BoruvkaVertex>();
 				component.ID = i;
-				component.Vertices.Add(tree.Vertices[i]);
-				tree.ContextComponents.Add(component.ID, component);
-				tree.Vertices[i].ComponentID = i;
+				component.Vertices.Add(minimalSpanningTree.Vertices[i]);
+				minimalSpanningTree.ContextComponents.Add(component.ID, component);
+				minimalSpanningTree.Vertices[i].ComponentID = i;
 			}
 		}
 	}
