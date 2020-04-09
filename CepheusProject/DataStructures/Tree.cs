@@ -20,6 +20,7 @@ namespace Cepheus.DataStructures
 		public List<TVertex> Vertices = new List<TVertex>();
 		public Dictionary<string, EdgeWithLength<TVertex>> Edges = new Dictionary<string, EdgeWithLength<TVertex>>();
 		public List<EdgeWithLength<TVertex>> NewEdges = new List<EdgeWithLength<TVertex>>();
+		public List<EdgeWithLength<TVertex>> EdgesToRemove = new List<EdgeWithLength<TVertex>>();
 		public Dictionary<int,ComponentTree<TVertex>> ContextComponents = new Dictionary<int, ComponentTree<TVertex>>();
 
 		public int GetWeight()

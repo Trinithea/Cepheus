@@ -18,21 +18,32 @@ namespace Cepheus
 			this.graph = graph;
 			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
 			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.GetVertices().Values);
+			List<int> ids = new List<int>(); //ID numbers of currents context components
 
-			Initialize(minimalSpanningTree); // each vertex is a context component
+			Initialize(minimalSpanningTree,ids); // each vertex is a context component
 
 			while(minimalSpanningTree.ContextComponents.Count > 1) // graph is not continuous
 			{
-				for (int i = 0; i < minimalSpanningTree.ContextComponents.Count; i++)
+				for (int i = 0; i < ids.Count; i++)
 				{
-					var lightestEdge = FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[i]);
+					var lightestEdge = FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[ids[i]]);
 					minimalSpanningTree.Edges.Add(lightestEdge.Name, lightestEdge);
 					minimalSpanningTree.NewEdges.Add(lightestEdge);
 				}
-				MergeContextComponents(minimalSpanningTree);
+				RemoveDoubleEdges(minimalSpanningTree);
+				MergeContextComponents(minimalSpanningTree,ids);
 			}
 
 			MinimalSpanningTree = minimalSpanningTree;
+		}
+		void RemoveDoubleEdges(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
+		{
+			foreach(var edge in minimalSpanningTree.EdgesToRemove)
+			{
+				minimalSpanningTree.Edges.Remove(edge.Name);
+				minimalSpanningTree.NewEdges.Remove(edge);
+			}
+			minimalSpanningTree.EdgesToRemove.Clear();
 		}
 
 		internal EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree, ComponentTree<BoruvkaVertex> component)
@@ -56,13 +67,18 @@ namespace Cepheus
 			vertex.OutEdges.Remove(lightestEdge);
 			//also remove the same edge in opposite direction if we have not-oriented graph
 			//TODO if not oriented
-			var vertex2 = lightestEdge.To;
-			vertex2.OutEdges.Remove(graph.GetEdge(vertex2.Name+vertex.Name));
-			//it means that between two components is only one new edge
+			if (!minimalSpanningTree.EdgesToRemove.Contains(lightestEdge))
+			{
+				var vertex2 = lightestEdge.To;
+				minimalSpanningTree.EdgesToRemove.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge(vertex2.Name + vertex.Name));
+				//it means that between two components will be only one new edge
+			}
+
+			//vertex2.OutEdges.Remove(graph.GetEdge(vertex2.Name+vertex.Name));
 			return lightestEdge;
 		}
 
-		internal void MergeContextComponents(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
+		internal void MergeContextComponents(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree,List<int> ids)
 		{
 			List<ComponentTree<BoruvkaVertex>> newComponents = new List<ComponentTree<BoruvkaVertex>>();
 			for (int i = 0; i < minimalSpanningTree.NewEdges.Count; i++)
@@ -84,14 +100,15 @@ namespace Cepheus
 					var edge = minimalSpanningTree.ContextComponents[toComponentID].Edges[j];
 					newComponent.Edges.Add(edge);
 				}
-
+				newComponent.Edges.Add(newEdge);
 				minimalSpanningTree.ContextComponents.Remove(toComponentID);
+				ids.Remove(toComponentID);
 				//we have merged two components into one
 			}
 			minimalSpanningTree.NewEdges.Clear();
 		}
 
-		internal void Initialize(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree)
+		internal void Initialize(TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree, List<int> ids)
 		{
 			for (int i = 0; i < minimalSpanningTree.Vertices.Count; i++)
 			{
@@ -100,6 +117,7 @@ namespace Cepheus
 				component.Vertices.Add(minimalSpanningTree.Vertices[i]);
 				minimalSpanningTree.ContextComponents.Add(component.ID, component);
 				minimalSpanningTree.Vertices[i].ComponentID = i;
+				ids.Add(i);
 			}
 		}
 	}
