@@ -75,6 +75,12 @@ namespace Cepheus
 			else
 				return null;
 		}
-
+		public SortedList<int,EdgeWithLength<TVertex>> GetEdgesSortedByLength()
+		{
+			var edges = new SortedList<int, EdgeWithLength<TVertex>>();
+			foreach (EdgeWithLength<TVertex> edge in Edges.Values)
+				edges.Add(edge.Length, edge);
+			return edges;
+		}
 	}
 }
