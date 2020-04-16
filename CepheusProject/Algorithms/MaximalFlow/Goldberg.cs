@@ -12,6 +12,7 @@ namespace Cepheus
 		public string TimeComplexity => "O(n^2 * m)";
 
 		public int MaximalFlow { get; private set; }
+		private FlowNetwork<GoldbergVertex> graph;
 
 		public void Run(FlowNetwork<GoldbergVertex> graph, GoldbergVertex source) //TODO is this source necessary
 		{
@@ -19,16 +20,16 @@ namespace Cepheus
 			graph.Source.Height = graph.Vertices.Count;
 			graph.InitializeEdges();
 			InitializeEdgesFromSource(graph.Source);
+			this.graph = graph;
 
-			var positiveSurplusVertices = GetVerticesWithPositiveSurplus(graph);
+			var positiveSurplusVertices = GetVerticesWithPositiveSurplus();
 
 			while (positiveSurplusVertices.Count > 0)
 			{
 				var vertex = positiveSurplusVertices[positiveSurplusVertices.Count - 1]; //last item for faster removing
-				if (!TransferSurplus(vertex, vertex.GetSurplus())) // if doesn't exist an edge with postive reserve and from.Height > to.Height
+				if (!TransferSurplus(vertex, vertex.Surplus,positiveSurplusVertices)) // if doesn't exist an edge with postive reserve and from.Height > to.Height
 					vertex.Height++;
-				if (vertex.GetSurplus() <= 0)
-					positiveSurplusVertices.RemoveAt(positiveSurplusVertices.Count - 1);
+
 			}
 
 			MaximalFlow = graph.GetMaximalFlow();
@@ -38,17 +39,17 @@ namespace Cepheus
 			foreach (FlowEdge<GoldbergVertex> edge in source.OutEdges)
 				edge.Flow = edge.Capacity;
 		}
-		List<GoldbergVertex> GetVerticesWithPositiveSurplus(FlowNetwork<GoldbergVertex> graph)
+		List<GoldbergVertex> GetVerticesWithPositiveSurplus()
 		{
 			var vertices = new List<GoldbergVertex>();
 			foreach (GoldbergVertex vertex in graph.Vertices.Values)
-				if (vertex != graph.Source && vertex != graph.Sink && vertex.GetSurplus() > 0)
+				if (vertex != graph.Source && vertex != graph.Sink && vertex.UpdateSurplus() > 0)
 					vertices.Add(vertex);
 
 			return vertices;
 		}
 		//TODO maybe there could be a datafield graph so it won't be necessary to have graph in every argument
-		bool TransferSurplus(GoldbergVertex from, int fromSurplus)
+		bool TransferSurplus(GoldbergVertex from, int fromSurplus, List<GoldbergVertex> positiveSurplusVertices)
 		{
 			bool transfered=false;
 			foreach(FlowEdge<GoldbergVertex> edge in from.OutEdges)
@@ -58,6 +59,14 @@ namespace Cepheus
 					int delta = Math.Min(fromSurplus, edge.Reserve);
 					edge.Flow += delta;
 					transfered = true;
+					edge.To.Surplus += delta;
+					from.Surplus -= delta;
+					if (from.Surplus <= 0)
+						positiveSurplusVertices.RemoveAt(positiveSurplusVertices.Count - 1); // that's from position
+
+					if (edge.To.Surplus > 0 && !positiveSurplusVertices.Contains(edge.To) && edge.To != graph.Sink&& edge.To != graph.Source )
+						positiveSurplusVertices.Add(edge.To);
+					break;
 				}
 			}
 			return transfered;

@@ -7,21 +7,21 @@ using Cepheus;
 namespace UnitTestCepheusAlgorithms
 {
 	[TestClass]
-	public class FordFulkersonUnitTests
+	public class GoldbergUnitTests
 	{
-		FordFulkerson ff = new FordFulkerson();
-		FlowNetwork<BfsVertex> CreateNetwork()
+		Goldberg goldberg = new Goldberg();
+		FlowNetwork<GoldbergVertex> CreateNetwork()
 		{
-			var source = new BfsVertex("Z");
-			var sink = new BfsVertex("S");
-			var graph = new FlowNetwork<BfsVertex>(source, sink);
+			var source = new GoldbergVertex("Z");
+			var sink = new GoldbergVertex("S");
+			var graph = new FlowNetwork<GoldbergVertex>(source, sink);
 			List<string> verticesNames = new List<string>() { "A", "B", "C", "D" };
 			for (int i = 0; i < verticesNames.Count; i++)
-				graph.AddVertex(new BfsVertex(verticesNames[i]));
+				graph.AddVertex(new GoldbergVertex(verticesNames[i]));
 			graph.AddVertex(source);
 			graph.AddVertex(sink);
 
-			var edgesNames = new List<string>() { "Z","A", "A","C", "C","S", "Z","B", "B","D", "A","D", "D","S", "B","C" };
+			var edgesNames = new List<string>() { "Z", "A", "A", "C", "C", "S", "Z", "B", "B", "D", "A", "D", "D", "S", "B", "C" };
 			var capacities = new List<int>() { 10, 7, 10, 10, 3, 5, 10, 9 };
 
 			for (int i = 0; i < capacities.Count; i++)
@@ -34,10 +34,10 @@ namespace UnitTestCepheusAlgorithms
 		public void Run_MaximalFlow()
 		{
 			var graph = CreateNetwork();
-			ff.Run(graph, graph.Source);
+			goldberg.Run(graph, graph.Source);
 
-			Assert.AreEqual(18, ff.MaximalFlow);
+			Assert.AreEqual(18, goldberg.MaximalFlow);
 		}
-		//TODO Maybe some more test would be nice
+		//TODO more tests
 	}
 }

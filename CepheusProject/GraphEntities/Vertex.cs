@@ -123,7 +123,8 @@ namespace Cepheus
 	{
 		public GoldbergVertex(string name) : base(name) { }
 		public int Height { get; set; }
-		public int GetSurplus()
+		public int Surplus { get; set; }
+		public int UpdateSurplus()
 		{
 			int sum = 0;
 			for (int i = 0; i < InEdges.Count; i++)
@@ -134,11 +135,16 @@ namespace Cepheus
 			{
 				sum -= ((FlowEdge<GoldbergVertex>)OutEdges[i]).Flow;
 			}
+			Surplus = sum;
 			return sum;
 		}
 		public override void Initialize() 
 		{
 			Height = 0;
+		}
+		public override string ToString()
+		{
+			return String.Format("{0} - surplus: {1}, height: {2}, in: {3}, out: {4}", Name, Surplus, Height, InEdges.Count, OutEdges.Count);
 		}
 	}
 }
