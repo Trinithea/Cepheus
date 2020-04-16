@@ -83,16 +83,16 @@ namespace Cepheus
 			return edges;
 		}
 	}
-	class FlowNetwork<TVertex> :Graph<BfsVertex> where TVertex : VertexBase<BfsVertex> //TODO inheritance with special type of Edge
+	class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex> //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
 	{
 		public new Dictionary<string,FlowEdge<TVertex>> Edges { get; private set; }
-		public new Dictionary<string,FlowEdge<TVertex>> Vertices { get; private set; }
+		public new Dictionary<string,TVertex> Vertices { get; private set; }
 		public FlowNetwork(TVertex source, TVertex sink)
 		{
 			Source = source;
 			Sink = sink;
 			Edges = new Dictionary<string, FlowEdge<TVertex>>();
-			Vertices = new Dictionary<string, FlowEdge<TVertex>>();
+			Vertices = new Dictionary<string, TVertex>();
 		}
 		public TVertex Source { get; }
 		public TVertex Sink { get; }
@@ -116,6 +116,15 @@ namespace Cepheus
 		{
 			foreach (var edge in Edges.Values)
 				edge.Flow = 0;
+		}
+		public int GetMaximalFlow()
+		{
+			int flow = 0;
+			foreach (FlowEdge<TVertex> edge in Sink.InEdges)
+			{
+				flow += edge.Flow;
+			}
+			return flow;
 		}
 	}
 }

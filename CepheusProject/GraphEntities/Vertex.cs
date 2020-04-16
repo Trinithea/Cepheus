@@ -111,9 +111,34 @@ namespace Cepheus
 		}
 	}
 
+
+	//TODO delete this
 	class FlowVertex : VertexBase<FlowVertex>
 	{
 		public FlowVertex(string name) : base(name) { }
 		public override void Initialize() { }
+	}
+
+	class GoldbergVertex : VertexBase<GoldbergVertex>
+	{
+		public GoldbergVertex(string name) : base(name) { }
+		public int Height { get; set; }
+		public int GetSurplus()
+		{
+			int sum = 0;
+			for (int i = 0; i < InEdges.Count; i++)
+			{
+				sum += ((FlowEdge<GoldbergVertex>)InEdges[i]).Flow;
+			}
+			for (int i = 0; i < OutEdges.Count; i++)
+			{
+				sum -= ((FlowEdge<GoldbergVertex>)OutEdges[i]).Flow;
+			}
+			return sum;
+		}
+		public override void Initialize() 
+		{
+			Height = 0;
+		}
 	}
 }
