@@ -114,9 +114,31 @@ namespace Cepheus
 		/// </summary>
 		public void InitializeEdges()
 		{
+			var needToCreateOppositeEdge = new List<FlowEdge<TVertex>>();
 			foreach (var edge in Edges.Values)
+			{
 				edge.Flow = 0;
+				edge.OppositeEdge = (FlowEdge<TVertex>)GetEdge(edge.To, edge.From);
+				if (edge.OppositeEdge == null)
+					needToCreateOppositeEdge.Add(edge);
+			}
+			foreach (var edge in needToCreateOppositeEdge)
+			{
+				AddEdge(edge.To.Name + edge.From.Name, edge.To, edge.From, 0);
+			}
 		}
+		//TODO be able to add edge only through this method, not with the Graph method
+		public void AddEdge(string name, TVertex from, TVertex to, int capacity)
+		{
+			FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity);
+			edge.Name = name;
+			edge.From = from;
+			edge.To = to;
+			from.OutEdges.Add(edge);
+			to.InEdges.Add(edge);
+			Edges.Add(from.Name + to.Name, edge);
+		}
+
 		public int GetMaximalFlow()
 		{
 			int flow = 0;

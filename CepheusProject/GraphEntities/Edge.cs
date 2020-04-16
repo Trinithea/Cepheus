@@ -35,12 +35,11 @@ namespace Cepheus
 		public int Flow { get; set; } //TODO only non-negative numbers
 		public int Reserve => Capacity - Flow + OppositeEdge.Flow;
 	
-		public FlowEdge<T> OppositeEdge { get; } 
+		public FlowEdge<T> OppositeEdge { get; set; } // TODO set visibility is discutable
 		public FlowEdge(int capacity)
 		{
 			Capacity = capacity;
 			Flow = 0;
-			OppositeEdge = new FlowEdge<T>(Capacity);
 		} 
 	}
 }

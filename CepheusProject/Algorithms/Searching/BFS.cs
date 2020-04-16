@@ -36,28 +36,6 @@ namespace Cepheus
 			}
 
 		}
-		public List<Edge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
-		{
-			Run(graph, from);
-			if (to.Predecessor == null) //'to' is not reachable from 'from'
-				return null;
-			else
-			{
-				var currentVertex = to;
-				var edges = new List<Edge<BfsVertex>>();
-				var vertices = new List<BfsVertex>();
-				while (currentVertex.Predecessor != null)
-				{
-					vertices.Add(currentVertex);
-					currentVertex = currentVertex.Predecessor;
-				}
-				vertices.Add(currentVertex);
-
-				for (int i = vertices.Count - 1; i > 0; i--)
-					edges.Add(graph.GetEdge(vertices[i], vertices[i - 1]));
-
-				return edges;
-			}
-		}
+		
 	}
 }
