@@ -84,14 +84,10 @@ namespace Cepheus
 	}
 	class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex> //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
 	{
-		public new Dictionary<string,FlowEdge<TVertex>> Edges { get; private set; }
-		public new Dictionary<string,TVertex> Vertices { get; private set; }
 		public FlowNetwork(TVertex source, TVertex sink)
 		{
 			Source = source;
 			Sink = sink;
-			Edges = new Dictionary<string, FlowEdge<TVertex>>();
-			Vertices = new Dictionary<string, TVertex>();
 		}
 		public TVertex Source { get; }
 		public TVertex Sink { get; }
@@ -114,7 +110,7 @@ namespace Cepheus
 		public void InitializeEdges()
 		{
 			var needToCreateOppositeEdge = new List<FlowEdge<TVertex>>();
-			foreach (var edge in Edges.Values)
+			foreach (FlowEdge<TVertex> edge in Edges.Values)
 			{
 				edge.Flow = 0;
 				edge.OppositeEdge = (FlowEdge<TVertex>)GetEdge(edge.To, edge.From);
@@ -124,7 +120,8 @@ namespace Cepheus
 			foreach (var edge in needToCreateOppositeEdge)
 			{
 				AddEdge(edge.To.Name + edge.From.Name, edge.To, edge.From, 0);
-				edge.OppositeEdge = Edges[edge.To.Name + edge.From.Name];
+				edge.OppositeEdge = (FlowEdge<TVertex>)Edges[edge.To.Name + edge.From.Name];
+				edge.OppositeEdge.OppositeEdge = edge;
 			}
 			needToCreateOppositeEdge.Clear();
 		}

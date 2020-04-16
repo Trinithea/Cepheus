@@ -14,10 +14,7 @@ namespace Cepheus
 		{
 			Name = name;
 		}
-		public override string ToString()
-		{
-			return Name + " - out: " + OutEdges.Count;
-		}
+		
 	}
 	abstract class VertexBase<T> : Vertex where T : Vertex
 	{
@@ -25,7 +22,10 @@ namespace Cepheus
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public VertexBase(string name) : base(name) { }
 		public abstract void Initialize();
-
+		public override string ToString()
+		{
+			return Name + " - in: " + InEdges.Count + ", out: " + OutEdges.Count;
+		}
 	}
 
 	interface IStateVertex

@@ -40,6 +40,10 @@ namespace Cepheus
 		{
 			Capacity = capacity;
 			Flow = 0;
-		} 
+		}
+		public override string ToString()
+		{
+			return String.Format("name: {0}, cap: {1}, flow: {2}, opp: {3}, oppFlow: {4}", Name, Capacity, Flow, OppositeEdge.Name, OppositeEdge.Flow);
+		}
 	}
 }
