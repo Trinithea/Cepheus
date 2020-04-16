@@ -81,6 +81,19 @@ namespace Cepheus
 				edges.Add(edge.Length, edge);
 			return edges;
 		}
+		public void RemoveVertex(TVertex vertex)
+		{
+			foreach (var edge in vertex.InEdges)
+				RemoveEdge(edge);
+			foreach (var edge in vertex.OutEdges)
+				RemoveEdge(edge);
+
+			Vertices.Remove(vertex.Name);
+		}
+		public void RemoveEdge(Edge<TVertex> edge)
+		{
+			Edges.Remove(edge.Name);
+		}
 	}
 	class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex> //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
 	{
@@ -146,5 +159,7 @@ namespace Cepheus
 			}
 			return flow;
 		}
+
+
 	}
 }
