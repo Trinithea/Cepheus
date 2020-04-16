@@ -125,7 +125,9 @@ namespace Cepheus
 			foreach (var edge in needToCreateOppositeEdge)
 			{
 				AddEdge(edge.To.Name + edge.From.Name, edge.To, edge.From, 0);
+				edge.OppositeEdge = (FlowEdge<TVertex>)GetEdge(edge.To.Name + edge.From.Name);
 			}
+			needToCreateOppositeEdge.Clear();
 		}
 		//TODO be able to add edge only through this method, not with the Graph method
 		public void AddEdge(string name, TVertex from, TVertex to, int capacity)

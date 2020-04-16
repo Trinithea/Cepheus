@@ -9,7 +9,7 @@ namespace Cepheus
 		public string Name => "Ford-Fulkerson's algorithm";
 
 		public string TimeComplexity => "O(m * f)";
-
+		public int MaximalFlow = 0;
 		public void Run(FlowNetwork<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			graph.InitializeEdges();
@@ -17,10 +17,10 @@ namespace Cepheus
 			while(path != null ) // must be nenasycená and nemusí být nejkratší
 			{
 				int minimalReserve = GetMinimalReserve(path);
-				for (int i = 0; i < path.Count; i++)
-					ImproveFlow(path[i], minimalReserve);
+				ImproveFlowOnPath(path,minimalReserve);
 				path = GetUnsaturatedPath(graph);
 			}
+			MaximalFlow = graph.GetMaximalFlow();
 		}
 		int GetMinimalReserve(List<FlowEdge<BfsVertex>> path)
 		{
@@ -30,11 +30,16 @@ namespace Cepheus
 					min = path[i].Reserve;
 			return min;
 		}
-		void ImproveFlow(FlowEdge<BfsVertex> edge,int minimalReserve)
+		void ImproveFlowOnPath(List<FlowEdge<BfsVertex>> path,int minimalReserve)
 		{
-			int delta = Math.Min(edge.OppositeEdge.Flow, minimalReserve);
-			edge.OppositeEdge.Flow -= delta;
-			edge.Flow += minimalReserve - delta;
+			for (int i = 0; i < path.Count; i++)
+			{
+				var edge = path[i];
+				int delta = Math.Min(edge.OppositeEdge.Flow, minimalReserve);
+				edge.OppositeEdge.Flow -= delta;
+				edge.Flow += minimalReserve - delta;
+			}
+				
 		}
 		List<FlowEdge<BfsVertex>> GetUnsaturatedPath(FlowNetwork<BfsVertex> graph)
 		{
