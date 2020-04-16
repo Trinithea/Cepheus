@@ -79,17 +79,11 @@ namespace Cepheus
 			{
 				var currentVertex = to;
 				var edges = new List<FlowEdge<BfsVertex>>();
-				var vertices = new List<BfsVertex>();
 				while (currentVertex.Predecessor != null)
 				{
-					vertices.Add(currentVertex);
+					edges.Add((FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex));
 					currentVertex = currentVertex.Predecessor;
 				}
-				vertices.Add(currentVertex);
-
-				for (int i = vertices.Count - 1; i > 0; i--)
-					edges.Add((FlowEdge<BfsVertex>)graph.GetEdge(vertices[i], vertices[i - 1]));
-
 				return edges;
 			}
 		}
