@@ -49,7 +49,6 @@ namespace Cepheus
 			{
 				vertex.Initialize();
 			}
-
 		}
 		public TVertex GetVertex(string name)
 		{
@@ -125,7 +124,7 @@ namespace Cepheus
 			foreach (var edge in needToCreateOppositeEdge)
 			{
 				AddEdge(edge.To.Name + edge.From.Name, edge.To, edge.From, 0);
-				edge.OppositeEdge = (FlowEdge<TVertex>)GetEdge(edge.To.Name + edge.From.Name);
+				edge.OppositeEdge = Edges[edge.To.Name + edge.From.Name];
 			}
 			needToCreateOppositeEdge.Clear();
 		}

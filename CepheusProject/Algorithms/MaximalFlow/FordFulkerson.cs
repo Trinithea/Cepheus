@@ -9,6 +9,7 @@ namespace Cepheus
 		public string Name => "Ford-Fulkerson's algorithm";
 
 		public string TimeComplexity => "O(m * f)";
+
 		public int MaximalFlow = 0;
 		public void Run(FlowNetwork<BfsVertex> graph, BfsVertex initialVertex)
 		{
