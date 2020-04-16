@@ -10,16 +10,16 @@ namespace Cepheus
 
 		public string TimeComplexity => "O(m * f)";
 
-		public int MaximalFlow = 0;
+		public int MaximalFlow { get; private set; }
 		public void Run(FlowNetwork<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			graph.InitializeEdges();
-			var path = GetUnsaturatedPath(graph);
+			var path = GetUnsaturatedPathFromSourceToSink(graph);
 			while(path != null ) // must be nenasycená and nemusí být nejkratší
 			{
 				int minimalReserve = GetMinimalReserve(path);
 				ImproveFlowOnPath(path,minimalReserve);
-				path = GetUnsaturatedPath(graph);
+				path = GetUnsaturatedPathFromSourceToSink(graph);
 			}
 			MaximalFlow = graph.GetMaximalFlow();
 		}
@@ -42,13 +42,14 @@ namespace Cepheus
 			}
 				
 		}
-		List<FlowEdge<BfsVertex>> GetUnsaturatedPath(FlowNetwork<BfsVertex> graph)
+		public List<FlowEdge<BfsVertex>> GetUnsaturatedPathFromSourceToSink(FlowNetwork<BfsVertex> graph)
 		{
 			// why I don't use BFS algorithm which is already implemeted? Because I have to use some flow network properties
 			
 			graph.InitializeVertices();
 
 			graph.Source.State = IStateVertex.States.Open;
+			graph.Source.Distance = 0;
 
 			Queue<BfsVertex> queue = new Queue<BfsVertex>();
 			queue.Enqueue(graph.Source);
@@ -61,6 +62,7 @@ namespace Cepheus
 					if (edge.To.State == IStateVertex.States.Unvisited && edge.Reserve > 0)
 					{
 						edge.To.State = IStateVertex.States.Open;
+						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
 						queue.Enqueue(edge.To);
 					}
@@ -71,7 +73,7 @@ namespace Cepheus
 			return GetPath(graph, graph.Source, graph.Sink);
 		}
 
-		public List<FlowEdge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		List<FlowEdge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
 		{
 			if (to.Predecessor == null) //'to' is not reachable from 'from'
 				return null;
