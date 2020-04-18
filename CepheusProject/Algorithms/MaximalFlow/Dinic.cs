@@ -45,12 +45,14 @@ namespace Cepheus
 				else if (vertex == graph.Sink)
 					reserveNetwork.AddVertex(sink);
 				else
-					reserveNetwork.AddVertex(vertex);
+					reserveNetwork.AddVertex(new BfsVertex(vertex.Name));
 			}
 				
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
 				if(edge.Reserve>0)
-					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, edge.From, edge.To, edge.Reserve); 
+					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Reserve);
+
+			reserveNetwork.InitializeEdges();
 			return reserveNetwork;
 		}
 		void CleanUpNetwork(FlowNetwork<BfsVertex> network)
@@ -81,8 +83,13 @@ namespace Cepheus
 			var edgesToRemove = new List<FlowEdge<BfsVertex>>();
 
 			foreach (FlowEdge<BfsVertex> edge in network.Edges.Values)
-				if (edge.To.Distance >= edge.From.Distance)
+				if (edge.To.Distance <= edge.From.Distance && edge.Capacity > 0)
+				{
 					edgesToRemove.Add(edge);
+					if (edge.OppositeEdge.Capacity == 0)
+						edgesToRemove.Add(edge.OppositeEdge);
+				}
+					
 			for (int i = 0; i < edgesToRemove.Count; i++)
 				network.RemoveEdge(edgesToRemove[i]);
 		}
@@ -113,7 +120,7 @@ namespace Cepheus
 			var path = fordFulkerson.GetUnsaturatedPathFromSourceToSink(network);
 			while(path.Count > 0)
 			{
-				int min = path[0].Reserve - path[0].Flow;
+				int min = path[0].Reserve;
 				for (int i = 0; i < path.Count; i++)
 				{
 					int diff = path[i].Reserve - path[i].Flow;
@@ -124,11 +131,17 @@ namespace Cepheus
 				for (int i = 0; i < path.Count; i++)
 				{
 					path[i].Flow += min;
-					if (path[i].Flow == path[i].Reserve)
+					if (path[i].Reserve == 0)//(path[i].Flow == path[i].Reserve)
+					{
 						network.RemoveEdge(path[i]);
+						if (path[i].OppositeEdge.Capacity == 0)
+							network.RemoveEdge(path[i].OppositeEdge);
+					}
+						
 				}
 
 				CleanUpNetwork(network);
+				path = fordFulkerson.GetUnsaturatedPathFromSourceToSink(network);
 			}
 		}
 		void ImproveFlow(FlowNetwork<BfsVertex> network, FlowNetwork<BfsVertex> reserveNetwork)

@@ -19,7 +19,7 @@ namespace Cepheus
 		public void AddVertex(TVertex vertex)
 		{
 			Vertices.Add(vertex.Name,vertex);
-		}
+		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
 		public void AddEdge(string name, TVertex from, TVertex to)
 		{
@@ -93,6 +93,8 @@ namespace Cepheus
 		public void RemoveEdge(Edge<TVertex> edge)
 		{
 			Edges.Remove(edge.Name);
+			edge.From.OutEdges.Remove(edge);
+			edge.To.InEdges.Remove(edge);
 		}
 	}
 	class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex> //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
