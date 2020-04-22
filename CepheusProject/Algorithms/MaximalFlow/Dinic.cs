@@ -24,8 +24,14 @@ namespace Cepheus
 				if (lengthOfShortestPath == null)
 					break;
 				CleanUpNetwork(reserveNetwork);
+
+				//save edges in reserve network before they will be removed
+				var edges = new List<FlowEdge<BfsVertex>>();
+				foreach (var edge in reserveNetwork.Edges.Values)
+					edges.Add((FlowEdge<BfsVertex>)edge);
+
 				GetBlockingFlow(reserveNetwork);
-				ImproveFlow(graph,reserveNetwork);
+				ImproveFlow(graph,edges);
 			}
 
 			MaximalFlow = graph.GetMaximalFlow();
@@ -51,7 +57,7 @@ namespace Cepheus
 				if (edge.Capacity > edge.Flow)
 					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Capacity - edge.Flow);
 				if (edge.Flow > 0)
-					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Flow);
+					reserveNetwork.AddEdge(edge.To.Name + edge.From.Name, reserveNetwork.GetVertex(edge.To.Name), reserveNetwork.GetVertex(edge.From.Name), edge.Flow);
 			}
 			
 			return reserveNetwork;
@@ -148,20 +154,17 @@ namespace Cepheus
 			}
 		}
 		
-		void ImproveFlow(FlowNetwork<BfsVertex> network, FlowNetwork<BfsVertex> reserveNetwork)
+		void ImproveFlow(FlowNetwork<BfsVertex> network, List<FlowEdge<BfsVertex>> edgesFromReserveNetwork)
 		{
-			foreach (FlowEdge<BfsVertex> edge in network.Edges.Values)
+			for (int i = 0; i < edgesFromReserveNetwork.Count; i++)
 			{
-				if (reserveNetwork.Edges.ContainsKey(edge.Name))
-					edge.Flow += ((FlowEdge<BfsVertex>)reserveNetwork.GetEdge(edge.Name)).Flow;
-				if (reserveNetwork.Edges.ContainsKey(edge.To.Name + edge.From.Name))
-				{
-					var opEdge = network.GetEdge(edge.To.Name + edge.From.Name);
-					((FlowEdge<BfsVertex>)opEdge).Flow -= ((FlowEdge<BfsVertex>)reserveNetwork.GetEdge(edge.Name)).Flow;
-				}
-
+				var edge = network.GetEdge(edgesFromReserveNetwork[i].Name);
+				if (edge != null)
+					((FlowEdge<BfsVertex>)edge).Flow += edgesFromReserveNetwork[i].Flow;
+				var oppositeEdge = network.GetEdge(edgesFromReserveNetwork[i].To, edgesFromReserveNetwork[i].From);
+				if(oppositeEdge != null)
+					((FlowEdge<BfsVertex>)oppositeEdge).Flow -= edgesFromReserveNetwork[i].Flow;
 			}
-				
 
 		}
 	}
