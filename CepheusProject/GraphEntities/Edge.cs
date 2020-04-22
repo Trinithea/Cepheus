@@ -31,7 +31,7 @@ namespace Cepheus
 	}
 	class FlowEdge<T> :Edge<T> where T : Vertex
 	{
-		public int Capacity { get; } //TODO only non-negative numbers
+		public int Capacity { get; set; } //TODO only non-negative numbers
 		public int Flow { get; set; } //TODO only non-negative numbers
 		public int Reserve => Capacity - Flow + OppositeEdge.Flow;
 	

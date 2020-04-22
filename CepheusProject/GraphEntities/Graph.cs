@@ -83,12 +83,14 @@ namespace Cepheus
 		}
 		public void RemoveVertex(TVertex vertex)
 		{
+			List<FlowEdge<TVertex>> removable = new List<FlowEdge<TVertex>>();
 			foreach (var edge in vertex.InEdges)
-				RemoveEdge(edge);
+				removable.Add((FlowEdge<TVertex>)edge);
 			foreach (var edge in vertex.OutEdges)
+				removable.Add((FlowEdge<TVertex>)edge);
+			foreach (var edge in removable)
 				RemoveEdge(edge);
-
-			Vertices.Remove(vertex.Name);
+			removable.Clear();
 		}
 		public void RemoveEdge(Edge<TVertex> edge)
 		{
@@ -143,13 +145,24 @@ namespace Cepheus
 		//TODO be able to add edge only through this method, not with the Graph method
 		public void AddEdge(string name, TVertex from, TVertex to, int capacity)
 		{
-			FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity);
-			edge.Name = name;
-			edge.From = from;
-			edge.To = to;
-			from.OutEdges.Add(edge);
-			to.InEdges.Add(edge);
-			Edges.Add(from.Name + to.Name, edge);
+			if (!Edges.ContainsKey(name))
+			{
+				FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity);
+				edge.Name = name;
+				edge.From = from;
+				edge.To = to;
+				from.OutEdges.Add(edge);
+				to.InEdges.Add(edge);
+				Edges.Add(from.Name + to.Name, edge);
+			}
+			else
+				((FlowEdge<TVertex>)Edges[name]).Capacity += capacity;
+			
+		}
+		public void SetFlowTo(int flow)
+		{
+			foreach (var edge in Edges.Values)
+				((FlowEdge<TVertex>)edge).Flow = flow;
 		}
 
 		public int GetMaximalFlow()

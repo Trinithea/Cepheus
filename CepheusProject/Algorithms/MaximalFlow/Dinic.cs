@@ -13,9 +13,7 @@ namespace Cepheus
 		private FlowNetwork<BfsVertex> graph;
 		public void Run(FlowNetwork<BfsVertex> graph,BfsVertex initialVertex)
 		{
-			graph.InitializeEdges();
 			this.graph = graph;
-
 			BFS bfs = new BFS();
 
 			while (true)
@@ -47,19 +45,27 @@ namespace Cepheus
 				else
 					reserveNetwork.AddVertex(new BfsVertex(vertex.Name));
 			}
-				
-			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
-				if(edge.Reserve>0)
-					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Reserve);
 
-			reserveNetwork.InitializeEdges();
+			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
+			{
+				if (edge.Capacity > edge.Flow)
+					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Capacity - edge.Flow);
+				if (edge.Flow > 0)
+					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Flow);
+			}
+			
 			return reserveNetwork;
 		}
+
+		
 		void CleanUpNetwork(FlowNetwork<BfsVertex> network)
 		{
+			BFS bfs = new BFS();
+			bfs.Run(network, network.Source);
+
 			RemoveVerticesAfterSink(network);
 
-			RemoveEdgesInsideLayersOrToPreviousLayers(network);
+			RemoveNotForwardEdges(network);
 
 			RemoveVerticesWithZeroOutEdges(network);
 		}
@@ -77,18 +83,14 @@ namespace Cepheus
 				network.RemoveVertex(verticesToRemove[i]);
 			verticesToRemove.Clear();
 		}
-		void RemoveEdgesInsideLayersOrToPreviousLayers(FlowNetwork<BfsVertex> network)
+		void RemoveNotForwardEdges(FlowNetwork<BfsVertex> network)
 		{
 			// remove every edge to previous layers or edges inside layers
 			var edgesToRemove = new List<FlowEdge<BfsVertex>>();
 
 			foreach (FlowEdge<BfsVertex> edge in network.Edges.Values)
-				if (edge.To.Distance <= edge.From.Distance && edge.Capacity > 0)
-				{
+				if (edge.To.Distance <= edge.From.Distance)
 					edgesToRemove.Add(edge);
-					if (edge.OppositeEdge.Capacity == 0)
-						edgesToRemove.Add(edge.OppositeEdge);
-				}
 					
 			for (int i = 0; i < edgesToRemove.Count; i++)
 				network.RemoveEdge(edgesToRemove[i]);
@@ -113,17 +115,21 @@ namespace Cepheus
 						verticesToRemove.Enqueue(fromVertices[i]);
 			}
 		}
+		
 		void GetBlockingFlow(FlowNetwork<BfsVertex> network)
 		{
-			network.InitializeEdges();
-			FordFulkerson fordFulkerson = new FordFulkerson();
-			var path = fordFulkerson.GetUnsaturatedPathFromSourceToSink(network);
-			while(path.Count > 0)
+			network.SetFlowTo(0);
+			BFS bfs = new BFS();
+			bfs.Run(network, network.Source);
+			FordFulkerson ff = new FordFulkerson();
+			var path = ff.GetPath(network, network.Source, network.Sink);
+			//TODO do this with BFS
+			while(path !=  null)
 			{
-				int min = path[0].Reserve;
+				int min = path[0].Capacity - path[0].Flow;
 				for (int i = 0; i < path.Count; i++)
 				{
-					int diff = path[i].Reserve - path[i].Flow;
+					int diff = path[i].Capacity - path[i].Flow;
 					if (min > diff)
 						min = diff;
 				}
@@ -131,24 +137,32 @@ namespace Cepheus
 				for (int i = 0; i < path.Count; i++)
 				{
 					path[i].Flow += min;
-					if (path[i].Reserve == 0)//(path[i].Flow == path[i].Reserve)
-					{
+					if (path[i].Flow == path[i].Capacity)
 						network.RemoveEdge(path[i]);
-						if (path[i].OppositeEdge.Capacity == 0)
-							network.RemoveEdge(path[i].OppositeEdge);
-					}
 						
 				}
 
 				CleanUpNetwork(network);
-				path = fordFulkerson.GetUnsaturatedPathFromSourceToSink(network);
+				bfs.Run(network, network.Source);
+				path = ff.GetPath(network, network.Source, network.Sink);
 			}
 		}
+		
 		void ImproveFlow(FlowNetwork<BfsVertex> network, FlowNetwork<BfsVertex> reserveNetwork)
 		{
 			foreach (FlowEdge<BfsVertex> edge in network.Edges.Values)
-				if(reserveNetwork.Edges.ContainsKey(edge.Name))
+			{
+				if (reserveNetwork.Edges.ContainsKey(edge.Name))
 					edge.Flow += ((FlowEdge<BfsVertex>)reserveNetwork.GetEdge(edge.Name)).Flow;
+				if (reserveNetwork.Edges.ContainsKey(edge.To.Name + edge.From.Name))
+				{
+					var opEdge = network.GetEdge(edge.To.Name + edge.From.Name);
+					((FlowEdge<BfsVertex>)opEdge).Flow -= ((FlowEdge<BfsVertex>)reserveNetwork.GetEdge(edge.Name)).Flow;
+				}
+
+			}
+				
+
 		}
 	}
 }
