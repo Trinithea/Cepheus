@@ -73,20 +73,20 @@ namespace Cepheus
 			return GetPath(graph, graph.Source, graph.Sink);
 		}
 
-		List<FlowEdge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		public List<FlowEdge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
 		{
 			if (to.Predecessor == null) //'to' is not reachable from 'from'
 				return null;
 			else
 			{
 				var currentVertex = to;
-				var edges = new List<FlowEdge<BfsVertex>>();
+				var path = new List<FlowEdge<BfsVertex>>();
 				while (currentVertex.Predecessor != null)
 				{
-					edges.Add((FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex));
+					path.Insert(0, (FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex));
 					currentVertex = currentVertex.Predecessor;
 				}
-				return edges;
+				return path;
 			}
 		}
 	}
