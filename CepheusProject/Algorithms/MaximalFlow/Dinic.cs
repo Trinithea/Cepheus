@@ -6,6 +6,7 @@ namespace Cepheus
 {
 	class Dinic : IAlgorithm
 	{
+		//TODO try again to do it like in Pruvodce
 		public string Name => "Dinic's algorithm";
 
 		public string TimeComplexity => "O(n^2 * m)";
