@@ -94,5 +94,23 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="night_sky.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo_borderless.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="small_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="smaller_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo_broad_white_border.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
