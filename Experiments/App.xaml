@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:Experiments"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <SolidColorBrush x:Key="Dark">#FF0C0D13</SolidColorBrush>
+            <SolidColorBrush x:Key="Aqua">#21A296</SolidColorBrush>
+            <SolidColorBrush x:Key="Orange">#F04C48</SolidColorBrush>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
