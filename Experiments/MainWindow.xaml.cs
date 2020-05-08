@@ -285,16 +285,15 @@ namespace Experiments
 			}
 			private void MainLine_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
 			{
-				var mousePosition = e.GetPosition(GraphCanvas);
-				var intersectVertex = CheckIntersection(mousePosition);
-				if (intersectVertex != null )
+				var mousePos = e.GetPosition(GraphCanvas);
+				var touchedVertex = CheckIntersection(mousePos);
+				if (touchedVertex != null)
 				{
-					isDraggingEdge = false;
-					var draggable = MainLine;
-					draggable.ReleaseMouseCapture();
-					SetEndCoordinatesToCenter(intersectVertex);
+					MainLine.ReleaseMouseCapture();
+					UndragMainLine(mousePos);
+					ToVertex = touchedVertex;
+					SetEndCoordinatesToCenter(touchedVertex);
 				}
-					//UndragMainLine(mousePosition);
 				else
 				{
 					GraphCanvas.Children.Remove(MainLine);
@@ -308,18 +307,38 @@ namespace Experiments
 			{
 				var s1 = Canvas.GetLeft(vertex) + vertex.Width/2;
 				var s2 = Canvas.GetTop(vertex) + vertex.Height / 2;
-				var x1 = MainLine.X1;
-				var y1 = MainLine.Y1;
-				var length = Math.Sqrt(Math.Pow(x1-s1,2) + Math.Pow(y1-s2, 2)) - vertex.Width / 2;
-				var a = vertex.Width - length + Math.Pow(y1, 2) - Math.Pow(s2, 2) + Math.Pow(x1, 2) - Math.Pow(s1, 2);
-				var b = -2 * s1 + 2 * x1;
-				var c = -2 * s2 + 2 * y1;
-				var f = 1 + 1 / b;
-				var e = -2 * a * c / Math.Pow(b, 2)+2*s2*c/b;
-				var g = Math.Pow(s1, 2) + Math.Pow(a / b, 2) - 2 * s2 * a / b - vertex.Width / 2;
-				var x= (-e+Math.Sqrt(Math.Pow(e,2)-4*f*g))/ 2;
-				var y = (a - c * x) / b;
-				SetEnd(x, y);
+				var x = MainLine.X1;
+				var y = MainLine.Y1;
+				var r = vertex.Width / 2;
+
+				//directional vector
+				var u1 = s1 - x;
+				var u2 = s2 - y;
+
+				//normal vector
+				var n1 = -u2;
+				var n2 = u1;
+
+				//const d in equation of line: n1*x + n2*y + d = 0 
+				var d = -(n1 * x + n2 * y);
+				//coeficients in the quadratic equation
+				var a = 1 + Math.Pow(n1 / n2, 2);
+				var b = -2 * s1 + 2 * n1 * d / Math.Pow(n2, 2) + 2 * n1*s2 / n2;
+				var c = Math.Pow(s1, 2) + Math.Pow(d / n2, 2) + 2 * d * s2 / n2 + Math.Pow(s2, 2) - Math.Pow(r, 2);
+				var det = Math.Pow(b, 2) - 4 * a * c;
+				var x1 = (-b + Math.Sqrt(det)) / (2*a);
+				var x2 = (-b - Math.Sqrt(det)) / (2*a);
+				double y1;
+				if (Math.Abs(x - x1) > Math.Abs(x - x2)) //closer intersection
+				{
+					y1 = (-d - n1 * x2) / n2;
+					SetEnd(x2, y1);
+				}
+				else
+				{
+					y1 = (-d - n1 * x1) / n2;
+					SetEnd(x1, y1);
+				}
 			}
 			void UndragMainLine(Point mousePos)
 			{
@@ -345,12 +364,19 @@ namespace Experiments
 					SetEnd(mousePos.X, mousePos.Y);
 					KeepEdgeInCanvas();
 					var touchedVertex = CheckIntersection(mousePos);
-					if(touchedVertex != null)
-					{
-						MainLine.ReleaseMouseCapture();
-						UndragMainLine(mousePos);
-						ToVertex = touchedVertex;
-					}
+					if (touchedVertex != null)
+						touchedVertex.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
+					else
+						SetVerticesToGreen();
+
+				}
+			}
+			void SetVerticesToGreen()
+			{
+				foreach(Ellipse vertex in vertices)
+				{
+					//TODO zachovat barvu u omarkovanej (až nebude vector jen ellipsa :/ )
+					vertex.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
 				}
 			}
 			private void KeepEdgeInCanvas()
