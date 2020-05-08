@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Experiments"
         mc:Ignorable="d"
-        Title="Cepheus" Height="450" Width="800" Background="#FF141422" WindowStartupLocation="Manual" Icon="logo_icon.png">
+        Title="Cepheus" Height="450" Width="800" Background="#FF141422" WindowStartupLocation="Manual" Icon="logo_icon.png" KeyDown="Window_KeyDown">
     <Window.BorderBrush>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="Black" Offset="0"/>
@@ -13,11 +13,12 @@
         </LinearGradientBrush>
     </Window.BorderBrush>
     <Grid>
+
         <Grid.Background>
             <ImageBrush ImageSource="night_sky.jpg"/>
         </Grid.Background>
 
-        <Canvas x:Name="graphCanvas" HorizontalAlignment="Left" Height="331" VerticalAlignment="Top" Width="576" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Margin="111,47,0,0"/>
+        <Canvas x:Name="graphCanvas" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Margin="107,47,109,41"/>
 
 
     </Grid>
