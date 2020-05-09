@@ -165,7 +165,7 @@ namespace Cepheus
 				((FlowEdge<TVertex>)edge).Flow = flow;
 		}
 
-		public int GetMaximalFlow()
+		public int GetMaximumFlow()
 		{
 			int flow = 0;
 			foreach (FlowEdge<TVertex> edge in Sink.InEdges)

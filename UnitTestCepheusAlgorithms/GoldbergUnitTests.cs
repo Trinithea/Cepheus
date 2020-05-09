@@ -36,7 +36,7 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateNetwork();
 			goldberg.Run(graph, graph.Source);
 
-			Assert.AreEqual(18, goldberg.MaximalFlow);
+			Assert.AreEqual(18, goldberg.MaximumFlow);
 		}
 		//TODO more tests
 	}

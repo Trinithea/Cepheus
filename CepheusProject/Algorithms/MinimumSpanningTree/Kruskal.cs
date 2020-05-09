@@ -10,28 +10,28 @@ namespace Cepheus
 		public string Name => "Kruskal's algorithm";
 
 		public string TimeComplexity => "O(m * log(n))";
-		public TreeWithContextComponents<BoruvkaVertex> MinimalSpanningTree { get; private set; }
+		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree { get; private set; }
 		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
 		{
 			var edges = graph.GetEdgesSortedByLength();
 
-			var minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
+			var minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>(); //ID numbers of currents context components
 			Boruvka boruvkaAlgorithm = new Boruvka();
-			boruvkaAlgorithm.Initialize(minimalSpanningTree, ids); //we can use the same method for initializing components nad IDs
+			boruvkaAlgorithm.Initialize(minimumSpanningTree, ids); //we can use the same method for initializing components nad IDs
 
 			for (int i = 0; i < edges.Count; i++)
 			{
 				if(edges[i].From.ComponentID != edges[i].To.ComponentID)
 				{
-					minimalSpanningTree.Edges.Add(edges[i].Name, edges[i]);
-					minimalSpanningTree.NewEdges.Add(edges[i]);
-					boruvkaAlgorithm.MergeContextComponents(minimalSpanningTree, ids);
+					minimumSpanningTree.Edges.Add(edges[i].Name, edges[i]);
+					minimumSpanningTree.NewEdges.Add(edges[i]);
+					boruvkaAlgorithm.MergeContextComponents(minimumSpanningTree, ids);
 				}
 			}
 
-			MinimalSpanningTree = minimalSpanningTree;
+			MinimumSpanningTree = minimumSpanningTree;
 		}
 
 	}

@@ -36,7 +36,7 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateNetwork();
 			dinic.Run(graph, graph.Source);
 
-			Assert.AreEqual(18, dinic.MaximalFlow);
+			Assert.AreEqual(18, dinic.MaximumFlow);
 		}
 		//TODO Maybe some more test would be nice
 	}

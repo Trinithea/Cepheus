@@ -67,37 +67,37 @@ namespace UnitTestCepheusAlgorithms
 		}
 
 		[TestMethod]
-		public void EdgesInMinimalSpan()
+		public void EdgesInMinimumSpan()
 		{
 			var graph = CreateGraph();
 			
 			jarnik.Run(graph, graph.GetVertex("E"));
-			var minimalSpan = jarnik.GetMinimalSpan();
+			var minimumSpan = jarnik.GetMinimumSpan();
 
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("EH")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("HG")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("GD")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("EF")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("FC")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("CB")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("DA")));
-			Assert.IsTrue(minimalSpan.Edges.Contains(graph.GetEdge("FI")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("EH")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("HG")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("GD")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("EF")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("FC")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("CB")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("DA")));
+			Assert.IsTrue(minimumSpan.Edges.Contains(graph.GetEdge("FI")));
 
-			Assert.AreEqual(8, minimalSpan.Edges.Count);
+			Assert.AreEqual(8, minimumSpan.Edges.Count);
 		}
 
 		[TestMethod]
-		public void WeightOfMinimalSpan()
+		public void WeightOfMinimumSpan()
 		{
 			var graph = CreateGraph();
 
 			jarnik.Run(graph, graph.GetVertex("E"));
 
-			Assert.AreEqual(32, jarnik.GetWeightOfMinimalSpan());
+			Assert.AreEqual(32, jarnik.GetWeightOfMinimumSpan());
 		}
 
 		[TestMethod]
-		public void AllVerticesAreInMinimalSpan()
+		public void AllVerticesAreInMinimumSpan()
 		{
 			var graph = CreateGraph();
 

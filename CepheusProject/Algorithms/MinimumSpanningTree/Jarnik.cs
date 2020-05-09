@@ -11,12 +11,12 @@ namespace Cepheus
 		public string Name => "Jarnik's algorithm";
 
 		public string TimeComplexity => "O(m * log(n))";
-		Tree<JarnikVertex> MinimalSpanningTree;
+		Tree<JarnikVertex> MinimumSpanningTree;
 		public void Run(Graph<JarnikVertex> graph, JarnikVertex initialVertex)
 		{
 			graph.InitializeVertices();
 
-			MinimalSpanningTree = new Tree<JarnikVertex>();
+			MinimumSpanningTree = new Tree<JarnikVertex>();
 			initialVertex.State = JarnikVertex.States.Neighbour;
 			initialVertex.Rating = 0;
 
@@ -29,7 +29,7 @@ namespace Cepheus
 				vertex.State = JarnikVertex.States.Inside;
 				neighbours.RemoveAt(0);
 				if (vertex.Predecessor != null)
-					MinimalSpanningTree.Edges.Add(graph.GetEdge(vertex.Predecessor, vertex));
+					MinimumSpanningTree.Edges.Add(graph.GetEdge(vertex.Predecessor, vertex));
 
 				foreach(EdgeWithLength<JarnikVertex> edge in vertex.OutEdges)
 				{
@@ -47,11 +47,11 @@ namespace Cepheus
 			}
 		}
 
-		public Tree<JarnikVertex> GetMinimalSpan() => MinimalSpanningTree; //TODO can't be null
-		public int GetWeightOfMinimalSpan()
+		public Tree<JarnikVertex> GetMinimumSpan() => MinimumSpanningTree; //TODO can't be null
+		public int GetWeightOfMinimumSpan()
 		{
 			int sum = 0;
-			foreach (EdgeWithLength<JarnikVertex> edge in MinimalSpanningTree.Edges)
+			foreach (EdgeWithLength<JarnikVertex> edge in MinimumSpanningTree.Edges)
 				sum += edge.Length;
 			return sum;
 		} //TODO do this in datastructure

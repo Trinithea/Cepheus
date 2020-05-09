@@ -36,7 +36,7 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateNetwork();
 			ff.Run(graph, graph.Source);
 
-			Assert.AreEqual(18, ff.MaximalFlow);
+			Assert.AreEqual(18, ff.MaximumFlow);
 		}
 		//TODO Maybe some more test would be nice
 	}

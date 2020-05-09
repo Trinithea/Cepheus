@@ -10,7 +10,7 @@ namespace Cepheus
 
 		public string TimeComplexity => "O(m * f)";
 
-		public int MaximalFlow { get; private set; }
+		public int MaximumFlow { get; private set; }
 		public void Run(FlowNetwork<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			graph.InitializeEdges();
@@ -21,7 +21,7 @@ namespace Cepheus
 				ImproveFlowOnPath(path,minimalReserve);
 				path = GetUnsaturatedPathFromSourceToSink(graph);
 			}
-			MaximalFlow = graph.GetMaximalFlow();
+			MaximumFlow = graph.GetMaximumFlow();
 		}
 		int GetMinimalReserve(List<FlowEdge<BfsVertex>> path)
 		{

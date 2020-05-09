@@ -72,38 +72,38 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateGraph();
 			graph.InitializeVertices(); // to get OutEdges sorted
 
-			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
+			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			boruvkaAlgorithm.graph = graph;
 			List<int> ids = new List<int>();
-			boruvkaAlgorithm.Initialize(minimalSpanningTree,ids);
+			boruvkaAlgorithm.Initialize(minimumSpanningTree,ids);
 
-			Assert.AreEqual(graph.GetEdge("AD"),boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[0]));
-			Assert.AreEqual(graph.GetEdge("BC"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[1]));
-			Assert.AreEqual(graph.GetEdge("CF"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[2]));
-			Assert.AreEqual(graph.GetEdge("DG"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[3]));
-			Assert.AreEqual(graph.GetEdge("EH"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[4]));
-			Assert.AreEqual(graph.GetEdge("HG"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[7]));
-			Assert.AreEqual(graph.GetEdge("IF"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[8]));
+			Assert.AreEqual(graph.GetEdge("AD"),boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[0]));
+			Assert.AreEqual(graph.GetEdge("BC"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[1]));
+			Assert.AreEqual(graph.GetEdge("CF"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[2]));
+			Assert.AreEqual(graph.GetEdge("DG"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[3]));
+			Assert.AreEqual(graph.GetEdge("EH"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[4]));
+			Assert.AreEqual(graph.GetEdge("HG"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[7]));
+			Assert.AreEqual(graph.GetEdge("IF"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[8]));
 		}
 
-		void CreateComponents(Graph<BoruvkaVertex> graph, TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree,List<int> ids)
+		void CreateComponents(Graph<BoruvkaVertex> graph, TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree,List<int> ids)
 		{
-			minimalSpanningTree.ContextComponents.Add(0,new ComponentTree<BoruvkaVertex>());
-			minimalSpanningTree.ContextComponents.Add(1,new ComponentTree<BoruvkaVertex>());
+			minimumSpanningTree.ContextComponents.Add(0,new ComponentTree<BoruvkaVertex>());
+			minimumSpanningTree.ContextComponents.Add(1,new ComponentTree<BoruvkaVertex>());
 			ids.Add(0);
 			ids.Add(1);
 			//First component
 			//Edges
 			List<string> namesEdges = new List<string>() { "AD", "DG", "GD", "HG", "EH" };
 			for (int i = 0; i <namesEdges.Count; i++)
-				minimalSpanningTree.ContextComponents[0].Edges.Add(graph.GetEdge(namesEdges[i]));
+				minimumSpanningTree.ContextComponents[0].Edges.Add(graph.GetEdge(namesEdges[i]));
 			//Vertices
 			List<string> names = new List<string>() { "A", "D", "G", "E", "H" };
 			for (int i = 0; i <names.Count; i++)
 			{
 				graph.GetVertex(names[i]).ComponentID = 0;
-				minimalSpanningTree.ContextComponents[0].Vertices.Add(graph.GetVertex(names[i]));
+				minimumSpanningTree.ContextComponents[0].Vertices.Add(graph.GetVertex(names[i]));
 			}
 				
 
@@ -111,13 +111,13 @@ namespace UnitTestCepheusAlgorithms
 			//Edges
 			List<string> namesEdges2 = new List<string>() { "BC", "CF", "FC", "IF" };
 			for(int i=0;i<namesEdges2.Count;i++)
-				minimalSpanningTree.ContextComponents[1].Edges.Add(graph.GetEdge(namesEdges2[i]));
+				minimumSpanningTree.ContextComponents[1].Edges.Add(graph.GetEdge(namesEdges2[i]));
 			//Vertices
 			List<string> names2 = new List<string>() { "B", "C", "F", "I" };
 			for (int i = 0; i < names2.Count; i++)
 			{
 				graph.GetVertex(names2[i]).ComponentID = 1;
-				minimalSpanningTree.ContextComponents[1].Vertices.Add(graph.GetVertex(names2[i]));
+				minimumSpanningTree.ContextComponents[1].Vertices.Add(graph.GetVertex(names2[i]));
 			}
 
 			graph.GetVertex("A").OutEdges.Remove(graph.GetEdge("AD"));
@@ -135,15 +135,15 @@ namespace UnitTestCepheusAlgorithms
 			graph.GetVertex("H").OutEdges.Remove(graph.GetEdge("HG"));
 			graph.GetVertex("I").OutEdges.Remove(graph.GetEdge("IF"));
 
-			minimalSpanningTree.Edges.Add("AD",(EdgeWithLength<BoruvkaVertex>)graph.GetEdge("AD"));
-			minimalSpanningTree.Edges.Add("DG", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("DG"));
-			minimalSpanningTree.Edges.Add("GD", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("GD"));
-			minimalSpanningTree.Edges.Add("HG", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("HG"));
-			minimalSpanningTree.Edges.Add("EH", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("EH"));
-			minimalSpanningTree.Edges.Add("BC", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("BC"));
-			minimalSpanningTree.Edges.Add("CF", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("CF"));
-			minimalSpanningTree.Edges.Add("FC", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("FC"));
-			minimalSpanningTree.Edges.Add("IF", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("IF"));
+			minimumSpanningTree.Edges.Add("AD",(EdgeWithLength<BoruvkaVertex>)graph.GetEdge("AD"));
+			minimumSpanningTree.Edges.Add("DG", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("DG"));
+			minimumSpanningTree.Edges.Add("GD", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("GD"));
+			minimumSpanningTree.Edges.Add("HG", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("HG"));
+			minimumSpanningTree.Edges.Add("EH", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("EH"));
+			minimumSpanningTree.Edges.Add("BC", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("BC"));
+			minimumSpanningTree.Edges.Add("CF", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("CF"));
+			minimumSpanningTree.Edges.Add("FC", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("FC"));
+			minimumSpanningTree.Edges.Add("IF", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("IF"));
 
 		}
 
@@ -153,12 +153,12 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateGraph();
 			graph.InitializeVertices(); // to get OutEdges sorted
 			boruvkaAlgorithm.graph = graph;
-			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
+			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>();
-			CreateComponents(graph, minimalSpanningTree,ids);
+			CreateComponents(graph, minimumSpanningTree,ids);
 
-			Assert.AreEqual(graph.GetEdge("EF"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimalSpanningTree, minimalSpanningTree.ContextComponents[0]));
+			Assert.AreEqual(graph.GetEdge("EF"), boruvkaAlgorithm.FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[0]));
 			// from second component it is the same edge, only in opposite direction, which has been removed already
 			
 		}
@@ -169,16 +169,16 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateGraph();
 			graph.InitializeVertices(); // to get OutEdges sorted
 			boruvkaAlgorithm.graph = graph;
-			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
+			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>();
-			CreateComponents(graph, minimalSpanningTree,ids);
+			CreateComponents(graph, minimumSpanningTree,ids);
 
-			minimalSpanningTree.NewEdges.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge("EF")); // new lightest edge
+			minimumSpanningTree.NewEdges.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge("EF")); // new lightest edge
 			
-			boruvkaAlgorithm.MergeContextComponents(minimalSpanningTree,ids);
+			boruvkaAlgorithm.MergeContextComponents(minimumSpanningTree,ids);
 
-			Assert.AreEqual(1, minimalSpanningTree.ContextComponents.Count);
+			Assert.AreEqual(1, minimumSpanningTree.ContextComponents.Count);
 		}
 
 		[TestMethod]
@@ -187,29 +187,29 @@ namespace UnitTestCepheusAlgorithms
 			var graph = CreateGraph();
 			graph.InitializeVertices(); // to get OutEdges sorted
 			boruvkaAlgorithm.graph = graph;
-			TreeWithContextComponents<BoruvkaVertex> minimalSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimalSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
+			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>();
-			boruvkaAlgorithm.Initialize(minimalSpanningTree,ids); // each vertex is a context component
+			boruvkaAlgorithm.Initialize(minimumSpanningTree,ids); // each vertex is a context component
 
 			List<string> newEdges = new List<string>() { "AD", "DG", "HG", "EH", "BC", "CF", "IF" };
 			for (int i = 0; i < newEdges.Count; i++)
-				minimalSpanningTree.NewEdges.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge(newEdges[i]));
+				minimumSpanningTree.NewEdges.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge(newEdges[i]));
 
 			
-			boruvkaAlgorithm.MergeContextComponents(minimalSpanningTree,ids);
+			boruvkaAlgorithm.MergeContextComponents(minimumSpanningTree,ids);
 
-			Assert.AreEqual(2, minimalSpanningTree.ContextComponents.Count);
+			Assert.AreEqual(2, minimumSpanningTree.ContextComponents.Count);
 		}
 		
 		[TestMethod]
-		public void Run_MinimalSpanningTree()
+		public void Run_MinimumSpanningTree()
 		{
 			var graph = CreateGraph();
 			graph.InitializeVertices();
 
 			boruvkaAlgorithm.Run(graph, graph.GetVertex("A"));
-			var mst = boruvkaAlgorithm.MinimalSpanningTree;
+			var mst = boruvkaAlgorithm.MinimumSpanningTree;
 
 			Assert.AreEqual(9, mst.Vertices.Count);
 			Assert.AreEqual(8, mst.Edges.Count);

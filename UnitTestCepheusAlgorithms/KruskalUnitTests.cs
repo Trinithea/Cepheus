@@ -60,7 +60,7 @@ namespace UnitTestCepheusAlgorithms
 
 			kruskal.Run(graph, graph.GetVertex("A"));
 
-			var mst = kruskal.MinimalSpanningTree;
+			var mst = kruskal.MinimumSpanningTree;
 
 			Assert.AreEqual(9, mst.Vertices.Count);
 			Assert.AreEqual(8, mst.Edges.Count);

@@ -10,7 +10,7 @@ namespace Cepheus
 		public string Name => "Dinic's algorithm";
 
 		public string TimeComplexity => "O(n^2 * m)";
-		public int MaximalFlow { get; private set; }
+		public int MaximumFlow { get; private set; }
 		private FlowNetwork<BfsVertex> graph;
 		public void Run(FlowNetwork<BfsVertex> graph,BfsVertex initialVertex)
 		{
@@ -35,7 +35,7 @@ namespace Cepheus
 				ImproveFlow(graph,edges);
 			}
 
-			MaximalFlow = graph.GetMaximalFlow();
+			MaximumFlow = graph.GetMaximumFlow();
 		}
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{

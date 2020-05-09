@@ -11,7 +11,7 @@ namespace Cepheus
 
 		public string TimeComplexity => "O(n^2 * m)";
 
-		public int MaximalFlow { get; private set; }
+		public int MaximumFlow { get; private set; }
 		private FlowNetwork<GoldbergVertex> graph;
 
 		public void Run(FlowNetwork<GoldbergVertex> graph, GoldbergVertex source) //TODO is this source necessary
@@ -32,7 +32,7 @@ namespace Cepheus
 
 			}
 
-			MaximalFlow = graph.GetMaximalFlow();
+			MaximumFlow = graph.GetMaximumFlow();
 		}
 		void InitializeEdgesFromSource(GoldbergVertex source)
 		{
