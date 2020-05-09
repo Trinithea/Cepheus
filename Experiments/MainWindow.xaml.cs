@@ -37,8 +37,12 @@ namespace Experiments
 			}
 		}
 		
-
-		
+		void ClearCanvas()
+		{
+			graphCanvas.Children.Clear();
+			vertices.Clear();
+			edges.Clear();
+		}
 		class EllipseVertex : Shape
 		{
 			private bool isDraggingVertex = false;
@@ -459,11 +463,9 @@ namespace Experiments
 				edges.Remove(this);
 				FromVertex.OutEdges.Remove(this);
 				ToVertex.InEdges.Remove(this);
-
 			}
 		}
 		
-
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
 			List<ArrowEdge> edgesToRemove = new List<ArrowEdge>();
