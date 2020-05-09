@@ -25,7 +25,7 @@ namespace Experiments
 		{
 			InitializeComponent();
 		}
-		static List<Ellipse> vertices = new List<Ellipse>();
+		static List<EllipseVertex> vertices = new List<EllipseVertex>();
 		static List<ArrowEdge> edges = new List<ArrowEdge>();
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -33,7 +33,7 @@ namespace Experiments
 			{
 				var mousePos = e.GetPosition(graphCanvas);
 				EllipseVertex vertex = new EllipseVertex(mousePos, graphCanvas);
-				vertex.KeepVertexInCanvas();
+				vertex.KeepVertexInCanvas(Canvas.GetLeft(vertex.MainEllipse),Canvas.GetTop(vertex.MainEllipse));
 			}
 		}
 		
@@ -43,9 +43,9 @@ namespace Experiments
 		{
 			private bool isDraggingVertex = false;
 			protected override Geometry DefiningGeometry { get; }
-			Ellipse MainEllipse;
-			public List<ArrowEdge> outEdges = new List<ArrowEdge>();
-			public List<ArrowEdge> inEdges = new List<ArrowEdge>();
+			public Ellipse MainEllipse { get; private set; }
+			public List<ArrowEdge> OutEdges = new List<ArrowEdge>();
+			public List<ArrowEdge> InEdges = new List<ArrowEdge>();
 			Canvas GraphCanvas;
 			public bool isMarked { get; private set; }
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
@@ -77,7 +77,7 @@ namespace Experiments
 				myEllipse.MouseRightButtonDown += Ellipse_MouseRightButtonDown;
 
 				GraphCanvas.Children.Add(myEllipse);
-				vertices.Add(myEllipse);
+				vertices.Add(this);
 				MainEllipse = myEllipse;
 				return myEllipse;
 			}
@@ -94,11 +94,9 @@ namespace Experiments
 
 			private void Ellipse_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 			{
-				var clickPosition = e.GetPosition(GraphCanvas);
-
-				ArrowEdge arrow = new ArrowEdge(GraphCanvas, (Ellipse)sender, vertices);
+				ArrowEdge arrow = new ArrowEdge(GraphCanvas, this, vertices);
 				edges.Add(arrow);
-				outEdges.Add(arrow);
+				OutEdges.Add(arrow);
 			}
 			private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 			{
@@ -132,15 +130,33 @@ namespace Experiments
 				{
 					double left = mousePos.X - (((Shape)sender).Width / 2);
 					double top = mousePos.Y - (((Shape)sender).Height / 2);
-					Canvas.SetLeft(((Shape)sender), left);
-					Canvas.SetTop(((Shape)sender), top);
-					KeepVertexInCanvas();
+					//Canvas.SetLeft(((Shape)sender), left);
+					//Canvas.SetTop(((Shape)sender), top);
+					KeepVertexInCanvas(left, top);
+					MoveWithOutEdges(mousePos);
+					MoveWithInEdges(mousePos);
 				}
 			}
-			public void KeepVertexInCanvas()
+			void MoveWithOutEdges(Point mousePos)
 			{
-				double newLeft = Canvas.GetLeft(MainEllipse) + MainEllipse.Width;
-				double newTop = Canvas.GetTop(MainEllipse) + MainEllipse.Height;
+				foreach(ArrowEdge edge in OutEdges)
+				{
+					edge.MainLine.X1 = mousePos.X;
+					edge.MainLine.Y1 = mousePos.Y;
+					edge.SetEndCoordinatesToCenter(edge.ToVertex);
+				}
+			}
+			void MoveWithInEdges(Point mousePos)
+			{
+				foreach (ArrowEdge edge in InEdges)
+				{
+					edge.SetEndCoordinatesToCenter(edge.ToVertex);
+				}
+			}
+			public void KeepVertexInCanvas(double left, double top)
+			{
+				double newLeft = left + MainEllipse.Width;
+				double newTop = top + MainEllipse.Height;
 				bool mustChange = false;
 				if (newLeft < 0)
 				{
@@ -149,7 +165,7 @@ namespace Experiments
 				}
 				else if (newLeft > GraphCanvas.Width)
 				{
-					newLeft = GraphCanvas.Width - MainEllipse.Width;
+					newLeft = GraphCanvas.Width - MainEllipse.Width; 
 					mustChange = true;
 				}
 				if (newTop < 0)
@@ -168,6 +184,11 @@ namespace Experiments
 					Canvas.SetLeft(MainEllipse, newLeft);
 					Canvas.SetTop(MainEllipse, newTop);
 				}
+				else
+				{
+					Canvas.SetLeft(MainEllipse, left);
+					Canvas.SetTop(MainEllipse, top);
+				}
 			}
 		}
 		class ArrowEdge : Shape
@@ -178,16 +199,16 @@ namespace Experiments
 			public Line LeftLine { get; private set; }
 			public Line RightLine { get; private set; }
 			bool isDraggingEdge=false;
-			Ellipse FromVertex;
-			Ellipse ToVertex;
+			public EllipseVertex FromVertex { get; private set; }
+			public EllipseVertex ToVertex { get; private set; }
 			private Canvas GraphCanvas { get; }
-			List<Ellipse> Vertices;
+			List<EllipseVertex> Vertices; //TODO asi trochu zbytečný
 			public bool isMarked = false;
 
-			public ArrowEdge(Canvas graphCanvas, Ellipse currentVertex, List<Ellipse> vertices)
+			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex, List<EllipseVertex> vertices)
 			{
 				GraphCanvas = graphCanvas;
-				CreateEdgeArrow(Canvas.GetLeft(currentVertex)+currentVertex.Width/2,Canvas.GetTop(currentVertex)+currentVertex.Height/2);
+				CreateEdgeArrow(Canvas.GetLeft(currentVertex.MainEllipse)+currentVertex.MainEllipse.Width/2,Canvas.GetTop(currentVertex.MainEllipse)+currentVertex.MainEllipse.Height/2);
 				FromVertex = currentVertex;
 				Vertices = vertices;
 			}
@@ -246,34 +267,35 @@ namespace Experiments
 				}
 			}
 
-			public Ellipse CheckIntersection(Point mousePosition)
+			public EllipseVertex CheckIntersection(Point mousePosition)
 			{
-				foreach(Ellipse vertex in Vertices) 
+				foreach(EllipseVertex vertex in Vertices) 
 				{
-					var left = Canvas.GetLeft(vertex) ;
-					var top = Canvas.GetTop(vertex);
+					var left = Canvas.GetLeft(vertex.MainEllipse) ;
+					var top = Canvas.GetTop(vertex.MainEllipse);
 					if (vertex != FromVertex)
-						if (mousePosition.X > left && mousePosition.X < (left + vertex.Width))
-							if (mousePosition.Y > top && mousePosition.Y < (top + vertex.Height))
+						if (mousePosition.X > left && mousePosition.X < (left + vertex.MainEllipse.Width))
+							if (mousePosition.Y > top && mousePosition.Y < (top + vertex.MainEllipse.Height))
 								return vertex;
 				}
 				return null;
 			}
 
-			//vzorec je odsud: https://docs.telerik.com/devtools/wpf/controls/dragdropmanager/how-to/howto-create-custom-drag-arrow
+			
 			public void SetEnd(double X2, double Y2)
 			{
 				MainLine.X2 = X2;
 				MainLine.Y2 = Y2;
 				/**/
+				//vzorec je odsud: https://docs.telerik.com/devtools/wpf/controls/dragdropmanager/how-to/howto-create-custom-drag-arrow
 				double theta = Math.Atan2(MainLine.Y1 - MainLine.Y2, MainLine.X1 - MainLine.X2);
 				double sint = Math.Round(Math.Sin(theta), 2);
 				double cost = Math.Round(Math.Cos(theta), 2);
 				var arrowWidth = 5;
 				var arrowHeight = 5;
-
 				Point leftPoint = new Point(MainLine.X2 + ((arrowWidth * cost) - (arrowHeight * sint)), MainLine.Y2 + ((arrowWidth * sint) + (arrowHeight * cost)));
 				Point rightPoint = new Point(MainLine.X2 + ((arrowWidth * cost) + (arrowHeight * sint)), MainLine.Y2 - ((arrowHeight * cost) - (arrowWidth * sint)));
+				
 				LeftLine.X1 = MainLine.X2;
 				LeftLine.Y1 = MainLine.Y2;
 				RightLine.X1 = MainLine.X2;
@@ -293,6 +315,7 @@ namespace Experiments
 					MainLine.ReleaseMouseCapture();
 					UndragMainLine(mousePos);
 					ToVertex = touchedVertex;
+					ToVertex.InEdges.Add(this);
 					SetEndCoordinatesToCenter(touchedVertex);
 				}
 				else
@@ -301,17 +324,18 @@ namespace Experiments
 					GraphCanvas.Children.Remove(LeftLine);
 					GraphCanvas.Children.Remove(RightLine);
 					MainWindow.edges.Remove(this);
-					FromVertex.outEdges;
+					FromVertex.OutEdges.Remove(this);
 				}
 					
 			}
-			void SetEndCoordinatesToCenter(Ellipse vertex)
+			public void SetEndCoordinatesToCenter(EllipseVertex vertex)
 			{
-				var s1 = Canvas.GetLeft(vertex) + vertex.Width/2;
-				var s2 = Canvas.GetTop(vertex) + vertex.Height / 2;
+				var s1 = Canvas.GetLeft(vertex.MainEllipse) + vertex.MainEllipse.Width/2;
+				var s2 = Canvas.GetTop(vertex.MainEllipse) + vertex.MainEllipse.Height / 2;
 				var x = MainLine.X1;
 				var y = MainLine.Y1;
-				var r = vertex.Width / 2;
+
+				var r = vertex.MainEllipse.Width / 2;
 
 				//directional vector
 				var u1 = s1 - x;
@@ -320,27 +344,46 @@ namespace Experiments
 				//normal vector
 				var n1 = -u2;
 				var n2 = u1;
-
 				//const d in equation of line: n1*x + n2*y + d = 0 
 				var d = -(n1 * x + n2 * y);
-				//coeficients in the quadratic equation
-				var a = 1 + Math.Pow(n1 / n2, 2);
-				var b = -2 * s1 + 2 * n1 * d / Math.Pow(n2, 2) + 2 * n1*s2 / n2;
-				var c = Math.Pow(s1, 2) + Math.Pow(d / n2, 2) + 2 * d * s2 / n2 + Math.Pow(s2, 2) - Math.Pow(r, 2);
-				var det = Math.Pow(b, 2) - 4 * a * c;
-				var x1 = (-b + Math.Sqrt(det)) / (2*a);
-				var x2 = (-b - Math.Sqrt(det)) / (2*a);
-				double y1;
-				if (Math.Abs(x - x1) > Math.Abs(x - x2)) //closer intersection
+
+				if (n2 == 0)
 				{
-					y1 = (-d - n1 * x2) / n2;
-					SetEnd(x2, y1);
+					var x1 = -d / n1;
+					//coeficients in the quadratic equation
+					var a = 1;
+					var b = -2 * s2;
+					var c = Math.Pow(d / n1, 2) + 2 * (d / n1) * s1 + Math.Pow(s1, 2) + Math.Pow(s2, 2) - Math.Pow(r, 2);
+					var det = Math.Pow(b, 2) - 4 * a * c;
+					var y1 = (-b + Math.Sqrt(det)) / (2 * a);
+					var y2 = (-b - Math.Sqrt(det)) / (2 * a);
+					if (Math.Abs(y - y1) > Math.Abs(y - y2)) //closer intersection
+						SetEnd(x1, y2);
+					else
+						SetEnd(x1, y1);
 				}
 				else
 				{
-					y1 = (-d - n1 * x1) / n2;
-					SetEnd(x1, y1);
+					//coeficients in the quadratic equation
+					var a = 1 + Math.Pow(n1 / n2, 2);
+					var b = -2 * s1 + 2 * n1 * d / Math.Pow(n2, 2) + 2 * n1 * s2 / n2;
+					var c = Math.Pow(s1, 2) + Math.Pow(d / n2, 2) + 2 * d * s2 / n2 + Math.Pow(s2, 2) - Math.Pow(r, 2);
+					var det = Math.Pow(b, 2) - 4 * a * c;
+					var x1 = (-b + Math.Sqrt(det)) / (2 * a);
+					var x2 = (-b - Math.Sqrt(det)) / (2 * a);
+					double y1;
+					if (Math.Abs(x - x1) > Math.Abs(x - x2)) //closer intersection
+					{
+						y1 = (-d - n1 * x2) / n2;
+						SetEnd(x2, y1);
+					}
+					else
+					{
+						y1 = (-d - n1 * x1) / n2;
+						SetEnd(x1, y1);
+					}
 				}
+				
 			}
 			void UndragMainLine(Point mousePos)
 			{
@@ -367,7 +410,7 @@ namespace Experiments
 					KeepEdgeInCanvas();
 					var touchedVertex = CheckIntersection(mousePos);
 					if (touchedVertex != null)
-						touchedVertex.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
+						touchedVertex.MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
 					else
 						SetVerticesToGreen();
 
@@ -375,10 +418,10 @@ namespace Experiments
 			}
 			void SetVerticesToGreen()
 			{
-				foreach(Ellipse vertex in vertices)
+				foreach(EllipseVertex vertex in vertices)
 				{
-					//TODO zachovat barvu u omarkovanej (až nebude vector jen ellipsa :/ )
-					vertex.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
+					//TODO zachovat barvu u omarkovanej (až nebude vector jen ellipsa :/ ), ale možná je to takhle lepší..
+					vertex.MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
 				}
 			}
 			private void KeepEdgeInCanvas()
@@ -398,14 +441,18 @@ namespace Experiments
 
 				SetEnd(newLeft, newTop);
 			}
+			public void Delete()
+			{
+				GraphCanvas.Children.Remove(MainLine);
+				GraphCanvas.Children.Remove(RightLine);
+				GraphCanvas.Children.Remove(LeftLine);
+				edges.Remove(this);
+				FromVertex.OutEdges.Remove(this);
+				ToVertex.InEdges.Remove(this);
+
+			}
 		}
-		void DeleteEdge(ArrowEdge edge)
-		{
-			graphCanvas.Children.Remove(edge.MainLine);
-			graphCanvas.Children.Remove(edge.RightLine);
-			graphCanvas.Children.Remove(edge.LeftLine);
-			edges.Remove(edge);
-		}
+		
 
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
@@ -419,7 +466,7 @@ namespace Experiments
 			}
 
 			foreach (var edge in edgesToRemove)
-				DeleteEdge(edge);
+				edge.Delete();
 		}
 
 		
