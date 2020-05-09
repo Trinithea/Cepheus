@@ -44,8 +44,8 @@ namespace Experiments
 			private bool isDraggingVertex = false;
 			protected override Geometry DefiningGeometry { get; }
 			Ellipse MainEllipse;
-			List<ArrowEdge> outEdges = new List<ArrowEdge>();
-			List<ArrowEdge> inEdges = new List<ArrowEdge>();
+			public List<ArrowEdge> outEdges = new List<ArrowEdge>();
+			public List<ArrowEdge> inEdges = new List<ArrowEdge>();
 			Canvas GraphCanvas;
 			public bool isMarked { get; private set; }
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
@@ -98,6 +98,7 @@ namespace Experiments
 
 				ArrowEdge arrow = new ArrowEdge(GraphCanvas, (Ellipse)sender, vertices);
 				edges.Add(arrow);
+				outEdges.Add(arrow);
 			}
 			private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 			{
@@ -300,6 +301,7 @@ namespace Experiments
 					GraphCanvas.Children.Remove(LeftLine);
 					GraphCanvas.Children.Remove(RightLine);
 					MainWindow.edges.Remove(this);
+					FromVertex.outEdges;
 				}
 					
 			}
