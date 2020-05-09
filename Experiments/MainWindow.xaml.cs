@@ -133,20 +133,20 @@ namespace Experiments
 					//Canvas.SetLeft(((Shape)sender), left);
 					//Canvas.SetTop(((Shape)sender), top);
 					KeepVertexInCanvas(left, top);
-					MoveWithOutEdges(mousePos);
-					MoveWithInEdges(mousePos);
+					MoveWithOutEdges(Canvas.GetLeft(MainEllipse) + MainEllipse.Width/2,Canvas.GetTop(MainEllipse)+MainEllipse.Height/2);
+					MoveWithInEdges();
 				}
 			}
-			void MoveWithOutEdges(Point mousePos)
+			void MoveWithOutEdges(double x, double y)
 			{
 				foreach(ArrowEdge edge in OutEdges)
 				{
-					edge.MainLine.X1 = mousePos.X;
-					edge.MainLine.Y1 = mousePos.Y;
+					edge.MainLine.X1 = x;
+					edge.MainLine.Y1 = y;
 					edge.SetEndCoordinatesToCenter(edge.ToVertex);
 				}
 			}
-			void MoveWithInEdges(Point mousePos)
+			void MoveWithInEdges()
 			{
 				foreach (ArrowEdge edge in InEdges)
 				{
@@ -163,9 +163,9 @@ namespace Experiments
 					newLeft = 0;
 					mustChange = true;
 				}
-				else if (newLeft > GraphCanvas.Width)
+				else if (newLeft > GraphCanvas.ActualWidth)
 				{
-					newLeft = GraphCanvas.Width - MainEllipse.Width; 
+					newLeft = GraphCanvas.ActualWidth - MainEllipse.Width; 
 					mustChange = true;
 				}
 				if (newTop < 0)
@@ -173,9 +173,9 @@ namespace Experiments
 					newTop = 0;
 					mustChange = true;
 				}
-				else if (newTop > GraphCanvas.Height)
+				else if (newTop > GraphCanvas.ActualHeight)
 				{
-					newTop = GraphCanvas.Height - MainEllipse.Height;
+					newTop = GraphCanvas.ActualHeight - MainEllipse.Height;
 					mustChange = true;
 				}
 
