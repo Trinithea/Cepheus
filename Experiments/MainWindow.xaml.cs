@@ -130,8 +130,6 @@ namespace Experiments
 				{
 					double left = mousePos.X - (((Shape)sender).Width / 2);
 					double top = mousePos.Y - (((Shape)sender).Height / 2);
-					//Canvas.SetLeft(((Shape)sender), left);
-					//Canvas.SetTop(((Shape)sender), top);
 					KeepVertexInCanvas(left, top);
 					MoveWithOutEdges(Canvas.GetLeft(MainEllipse) + MainEllipse.Width/2,Canvas.GetTop(MainEllipse)+MainEllipse.Height/2);
 					MoveWithInEdges();
@@ -145,6 +143,18 @@ namespace Experiments
 					edge.MainLine.Y1 = y;
 					edge.SetEndCoordinatesToCenter(edge.ToVertex);
 				}
+			}
+			public void Delete()
+			{
+				vertices.Remove(this);
+				GraphCanvas.Children.Remove(MainEllipse);
+				List<ArrowEdge> edgesToRemove = new List<ArrowEdge>();
+				foreach (ArrowEdge edge in OutEdges)
+					edgesToRemove.Add(edge);
+				foreach (ArrowEdge edge in InEdges)
+					edgesToRemove.Add(edge);
+				foreach (var edge in edgesToRemove)
+					edge.Delete();
 			}
 			void MoveWithInEdges()
 			{
@@ -463,10 +473,15 @@ namespace Experiments
 				foreach (ArrowEdge edge in edges)
 					if (edge.isMarked)
 						edgesToRemove.Add(edge);
+				foreach (EllipseVertex vertex in vertices)
+					if (vertex.isMarked)
+						verticesToRemove.Add(vertex);
 			}
 
 			foreach (var edge in edgesToRemove)
 				edge.Delete();
+			foreach (var vertex in verticesToRemove)
+				vertex.Delete();
 		}
 
 		
