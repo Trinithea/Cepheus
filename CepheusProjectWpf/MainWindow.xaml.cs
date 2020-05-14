@@ -575,6 +575,16 @@ namespace CepheusProjectWpf
 			ClearCanvas();
 		}
 
+		void StartProcessing()
+		{
+			graphCanvas.IsEnabled = false;
+
+		}
+		void LoadGraph()
+		{
+
+		}
+
 		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 
@@ -593,7 +603,7 @@ namespace CepheusProjectWpf
 
 		private void btnRun_Click(object sender, RoutedEventArgs e)
 		{
-
+			
 		}
 	}
 }
