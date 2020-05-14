@@ -18,7 +18,7 @@
             <ImageBrush ImageSource="night_sky.jpg"/>
         </Grid.Background>
 
-        <Canvas x:Name="graphCanvas" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Margin="107,47,109,41"/>
+        <Canvas x:Name="graphCanvas" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Margin="184,10,150,10"/>
 
 
     </Grid>

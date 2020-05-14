@@ -11,7 +11,8 @@ namespace Cepheus
 		public T From { get; set; }
 		public T To { get; set; }
 		public string Name { get; set; }
-		
+		public int Length { get; set; }
+
 	}
 	class EdgeWithLength<T> : Edge<T> where T : Vertex
 	{
