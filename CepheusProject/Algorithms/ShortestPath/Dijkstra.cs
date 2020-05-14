@@ -23,7 +23,7 @@ namespace Cepheus
 			while(openVertices.Count > 0)
 			{
 				var vertex = openVertices[openVertices.Keys[0]]; // vertex with minimal rating
-				foreach(EdgeWithLength<BfsVertex> edge in vertex.OutEdges)
+				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					if(edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
@@ -48,7 +48,7 @@ namespace Cepheus
 
 			while(currentVertex.Predecessor != null)
 			{
-				length += ((EdgeWithLength<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex)).Length;
+				length += (graph.GetEdge(currentVertex.Predecessor, currentVertex)).Length;
 				currentVertex = currentVertex.Predecessor;
 			}
 

@@ -107,7 +107,7 @@ namespace Cepheus
 		public BoruvkaVertex(string name) : base(name) { }
 		public override void Initialize()
 		{
-			OutEdges.Sort((x, y) => ((EdgeWithLength<BoruvkaVertex>)x).Length.CompareTo(((EdgeWithLength<BoruvkaVertex>)y).Length));
+			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));
 		}
 	}
 

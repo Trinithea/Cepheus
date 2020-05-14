@@ -27,41 +27,41 @@ namespace UnitTestCepheusAlgorithms
 
 
 			//not oriented
-			graph.AddEdgeWithLength("AB", graph.GetVertex("A"), graph.GetVertex("B"), 10);
-			graph.AddEdgeWithLength("BA", graph.GetVertex("B"), graph.GetVertex("A"), 10);
+			graph.AddEdge("AB", graph.GetVertex("A"), graph.GetVertex("B"), 10);
+			graph.AddEdge("BA", graph.GetVertex("B"), graph.GetVertex("A"), 10);
 
-			graph.AddEdgeWithLength("BC", graph.GetVertex("B"), graph.GetVertex("C"), 6);
-			graph.AddEdgeWithLength("CB", graph.GetVertex("C"), graph.GetVertex("B"), 6);
+			graph.AddEdge("BC", graph.GetVertex("B"), graph.GetVertex("C"), 6);
+			graph.AddEdge("CB", graph.GetVertex("C"), graph.GetVertex("B"), 6);
 
-			graph.AddEdgeWithLength("CF", graph.GetVertex("C"), graph.GetVertex("F"), 2);
-			graph.AddEdgeWithLength("FC", graph.GetVertex("F"), graph.GetVertex("C"), 2);
+			graph.AddEdge("CF", graph.GetVertex("C"), graph.GetVertex("F"), 2);
+			graph.AddEdge("FC", graph.GetVertex("F"), graph.GetVertex("C"), 2);
 
-			graph.AddEdgeWithLength("BE", graph.GetVertex("B"), graph.GetVertex("E"), 8);
-			graph.AddEdgeWithLength("EB", graph.GetVertex("E"), graph.GetVertex("B"), 8);
+			graph.AddEdge("BE", graph.GetVertex("B"), graph.GetVertex("E"), 8);
+			graph.AddEdge("EB", graph.GetVertex("E"), graph.GetVertex("B"), 8);
 
-			graph.AddEdgeWithLength("AD", graph.GetVertex("A"), graph.GetVertex("D"), 7);
-			graph.AddEdgeWithLength("DA", graph.GetVertex("D"), graph.GetVertex("A"), 7);
+			graph.AddEdge("AD", graph.GetVertex("A"), graph.GetVertex("D"), 7);
+			graph.AddEdge("DA", graph.GetVertex("D"), graph.GetVertex("A"), 7);
 
-			graph.AddEdgeWithLength("DE", graph.GetVertex("D"), graph.GetVertex("E"), 5);
-			graph.AddEdgeWithLength("ED", graph.GetVertex("E"), graph.GetVertex("D"), 5);
+			graph.AddEdge("DE", graph.GetVertex("D"), graph.GetVertex("E"), 5);
+			graph.AddEdge("ED", graph.GetVertex("E"), graph.GetVertex("D"), 5);
 
-			graph.AddEdgeWithLength("EF", graph.GetVertex("E"), graph.GetVertex("F"), 4);
-			graph.AddEdgeWithLength("FE", graph.GetVertex("F"), graph.GetVertex("E"), 4);
+			graph.AddEdge("EF", graph.GetVertex("E"), graph.GetVertex("F"), 4);
+			graph.AddEdge("FE", graph.GetVertex("F"), graph.GetVertex("E"), 4);
 
-			graph.AddEdgeWithLength("DG", graph.GetVertex("D"), graph.GetVertex("G"), 0);
-			graph.AddEdgeWithLength("GD", graph.GetVertex("G"), graph.GetVertex("D"), 0);
+			graph.AddEdge("DG", graph.GetVertex("D"), graph.GetVertex("G"), 0);
+			graph.AddEdge("GD", graph.GetVertex("G"), graph.GetVertex("D"), 0);
 
-			graph.AddEdgeWithLength("EH", graph.GetVertex("E"), graph.GetVertex("H"), 3);
-			graph.AddEdgeWithLength("HE", graph.GetVertex("H"), graph.GetVertex("E"), 3);
+			graph.AddEdge("EH", graph.GetVertex("E"), graph.GetVertex("H"), 3);
+			graph.AddEdge("HE", graph.GetVertex("H"), graph.GetVertex("E"), 3);
 
-			graph.AddEdgeWithLength("FI", graph.GetVertex("F"), graph.GetVertex("I"), 9);
-			graph.AddEdgeWithLength("IF", graph.GetVertex("I"), graph.GetVertex("F"), 9);
+			graph.AddEdge("FI", graph.GetVertex("F"), graph.GetVertex("I"), 9);
+			graph.AddEdge("IF", graph.GetVertex("I"), graph.GetVertex("F"), 9);
 
-			graph.AddEdgeWithLength("GH", graph.GetVertex("G"), graph.GetVertex("H"), 1);
-			graph.AddEdgeWithLength("HG", graph.GetVertex("H"), graph.GetVertex("G"), 1);
+			graph.AddEdge("GH", graph.GetVertex("G"), graph.GetVertex("H"), 1);
+			graph.AddEdge("HG", graph.GetVertex("H"), graph.GetVertex("G"), 1);
 
-			graph.AddEdgeWithLength("HI", graph.GetVertex("H"), graph.GetVertex("I"), 11);
-			graph.AddEdgeWithLength("IH", graph.GetVertex("I"), graph.GetVertex("H"), 11);
+			graph.AddEdge("HI", graph.GetVertex("H"), graph.GetVertex("I"), 11);
+			graph.AddEdge("IH", graph.GetVertex("I"), graph.GetVertex("H"), 11);
 
 			return graph;
 		}
@@ -135,15 +135,15 @@ namespace UnitTestCepheusAlgorithms
 			graph.GetVertex("H").OutEdges.Remove(graph.GetEdge("HG"));
 			graph.GetVertex("I").OutEdges.Remove(graph.GetEdge("IF"));
 
-			minimumSpanningTree.Edges.Add("AD",(EdgeWithLength<BoruvkaVertex>)graph.GetEdge("AD"));
-			minimumSpanningTree.Edges.Add("DG", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("DG"));
-			minimumSpanningTree.Edges.Add("GD", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("GD"));
-			minimumSpanningTree.Edges.Add("HG", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("HG"));
-			minimumSpanningTree.Edges.Add("EH", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("EH"));
-			minimumSpanningTree.Edges.Add("BC", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("BC"));
-			minimumSpanningTree.Edges.Add("CF", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("CF"));
-			minimumSpanningTree.Edges.Add("FC", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("FC"));
-			minimumSpanningTree.Edges.Add("IF", (EdgeWithLength<BoruvkaVertex>)graph.GetEdge("IF"));
+			minimumSpanningTree.Edges.Add("AD",graph.GetEdge("AD"));
+			minimumSpanningTree.Edges.Add("DG", graph.GetEdge("DG"));
+			minimumSpanningTree.Edges.Add("GD", graph.GetEdge("GD"));
+			minimumSpanningTree.Edges.Add("HG", graph.GetEdge("HG"));
+			minimumSpanningTree.Edges.Add("EH", graph.GetEdge("EH"));
+			minimumSpanningTree.Edges.Add("BC", graph.GetEdge("BC"));
+			minimumSpanningTree.Edges.Add("CF", graph.GetEdge("CF"));
+			minimumSpanningTree.Edges.Add("FC", graph.GetEdge("FC"));
+			minimumSpanningTree.Edges.Add("IF", graph.GetEdge("IF"));
 
 		}
 
@@ -174,7 +174,7 @@ namespace UnitTestCepheusAlgorithms
 			List<int> ids = new List<int>();
 			CreateComponents(graph, minimumSpanningTree,ids);
 
-			minimumSpanningTree.NewEdges.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge("EF")); // new lightest edge
+			minimumSpanningTree.NewEdges.Add((Edge<BoruvkaVertex>)graph.GetEdge("EF")); // new lightest edge
 			
 			boruvkaAlgorithm.MergeContextComponents(minimumSpanningTree,ids);
 
@@ -194,7 +194,7 @@ namespace UnitTestCepheusAlgorithms
 
 			List<string> newEdges = new List<string>() { "AD", "DG", "HG", "EH", "BC", "CF", "IF" };
 			for (int i = 0; i < newEdges.Count; i++)
-				minimumSpanningTree.NewEdges.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge(newEdges[i]));
+				minimumSpanningTree.NewEdges.Add(graph.GetEdge(newEdges[i]));
 
 			
 			boruvkaAlgorithm.MergeContextComponents(minimumSpanningTree,ids);

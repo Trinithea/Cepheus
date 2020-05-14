@@ -46,15 +46,15 @@ namespace Cepheus
 			minimumSpanningTree.EdgesToRemove.Clear();
 		}
 
-		internal EdgeWithLength<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree, ComponentTree<BoruvkaVertex> component)
+		internal Edge<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree, ComponentTree<BoruvkaVertex> component)
 		{
 			var vertex = component.Vertices[0];
-			EdgeWithLength<BoruvkaVertex> lightestEdge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[0].OutEdges[0]; // some random edge
+			Edge<BoruvkaVertex> lightestEdge = component.Vertices[0].OutEdges[0]; // some random edge
 			for (int i = 0; i < component.Vertices.Count; i++)
 			{
 				if (component.Vertices[i].OutEdges.Count > 0)
 				{
-					var edge = (EdgeWithLength<BoruvkaVertex>)component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
+					var edge = component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
 					if (lightestEdge.Length > edge.Length && edge.From.ComponentID != edge.To.ComponentID) //TODO asi nepotřebuju: && !minimalSpanningTree.Edges.ContainsKey(edge.Name)
 					{
 						lightestEdge = edge;
@@ -70,7 +70,7 @@ namespace Cepheus
 			if (!minimumSpanningTree.EdgesToRemove.Contains(lightestEdge))
 			{
 				var vertex2 = lightestEdge.To;
-				minimumSpanningTree.EdgesToRemove.Add((EdgeWithLength<BoruvkaVertex>)graph.GetEdge(vertex2.Name + vertex.Name));
+				minimumSpanningTree.EdgesToRemove.Add(graph.GetEdge(vertex2.Name + vertex.Name));
 				//it means that between two components will be only one new edge
 			}
 

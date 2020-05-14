@@ -26,29 +26,29 @@ namespace UnitTestCepheusAlgorithms
 
 
 			//not oriented
-			graph.AddEdgeWithLength("AB", graph.GetVertex("A"), graph.GetVertex("B"), 10);
+			graph.AddEdge("AB", graph.GetVertex("A"), graph.GetVertex("B"), 10);
 
-			graph.AddEdgeWithLength("BC", graph.GetVertex("B"), graph.GetVertex("C"), 6);
+			graph.AddEdge("BC", graph.GetVertex("B"), graph.GetVertex("C"), 6);
 
-			graph.AddEdgeWithLength("CF", graph.GetVertex("C"), graph.GetVertex("F"), 2);
+			graph.AddEdge("CF", graph.GetVertex("C"), graph.GetVertex("F"), 2);
 
-			graph.AddEdgeWithLength("BE", graph.GetVertex("B"), graph.GetVertex("E"), 8);
+			graph.AddEdge("BE", graph.GetVertex("B"), graph.GetVertex("E"), 8);
 
-			graph.AddEdgeWithLength("AD", graph.GetVertex("A"), graph.GetVertex("D"), 7);
+			graph.AddEdge("AD", graph.GetVertex("A"), graph.GetVertex("D"), 7);
 
-			graph.AddEdgeWithLength("DE", graph.GetVertex("D"), graph.GetVertex("E"), 5);
+			graph.AddEdge("DE", graph.GetVertex("D"), graph.GetVertex("E"), 5);
 
-			graph.AddEdgeWithLength("EF", graph.GetVertex("E"), graph.GetVertex("F"), 4);
+			graph.AddEdge("EF", graph.GetVertex("E"), graph.GetVertex("F"), 4);
 
-			graph.AddEdgeWithLength("DG", graph.GetVertex("D"), graph.GetVertex("G"), 0);
+			graph.AddEdge("DG", graph.GetVertex("D"), graph.GetVertex("G"), 0);
 
-			graph.AddEdgeWithLength("EH", graph.GetVertex("E"), graph.GetVertex("H"), 3);
+			graph.AddEdge("EH", graph.GetVertex("E"), graph.GetVertex("H"), 3);
 
-			graph.AddEdgeWithLength("FI", graph.GetVertex("F"), graph.GetVertex("I"), 9);
+			graph.AddEdge("FI", graph.GetVertex("F"), graph.GetVertex("I"), 9);
 
-			graph.AddEdgeWithLength("GH", graph.GetVertex("G"), graph.GetVertex("H"), 1);
+			graph.AddEdge("GH", graph.GetVertex("G"), graph.GetVertex("H"), 1);
 
-			graph.AddEdgeWithLength("HI", graph.GetVertex("H"), graph.GetVertex("I"), 11);
+			graph.AddEdge("HI", graph.GetVertex("H"), graph.GetVertex("I"), 11);
 
 			return graph;
 		}

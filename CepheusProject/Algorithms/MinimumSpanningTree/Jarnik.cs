@@ -31,7 +31,7 @@ namespace Cepheus
 				if (vertex.Predecessor != null)
 					MinimumSpanningTree.Edges.Add(graph.GetEdge(vertex.Predecessor, vertex));
 
-				foreach(EdgeWithLength<JarnikVertex> edge in vertex.OutEdges)
+				foreach(Edge<JarnikVertex> edge in vertex.OutEdges)
 				{
 					if((edge.To.State == JarnikVertex.States.Neighbour || edge.To.State == JarnikVertex.States.Outside)
 						&& (edge.To.Rating == null || edge.To.Rating > edge.Length))
@@ -51,7 +51,7 @@ namespace Cepheus
 		public int GetWeightOfMinimumSpan()
 		{
 			int sum = 0;
-			foreach (EdgeWithLength<JarnikVertex> edge in MinimumSpanningTree.Edges)
+			foreach (Edge<JarnikVertex> edge in MinimumSpanningTree.Edges)
 				sum += edge.Length;
 			return sum;
 		} //TODO do this in datastructure

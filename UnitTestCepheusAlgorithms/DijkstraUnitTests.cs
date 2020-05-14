@@ -21,14 +21,14 @@ namespace UnitTestCepheusAlgorithms
 			graph.AddVertex(new BfsVertex("F"));
 			graph.AddVertex(new BfsVertex("G"));
 
-			graph.AddEdgeWithLength("ab", graph.GetVertex("A"), graph.GetVertex("B"),7);
-			graph.AddEdgeWithLength("bc", graph.GetVertex("B"), graph.GetVertex("C"),3);
-			graph.AddEdgeWithLength("ad", graph.GetVertex("A"), graph.GetVertex("D"),6);
-			graph.AddEdgeWithLength("ae", graph.GetVertex("A"), graph.GetVertex("E"),4);
-			graph.AddEdgeWithLength("ef", graph.GetVertex("E"), graph.GetVertex("F"),5);
-			graph.AddEdgeWithLength("fc", graph.GetVertex("F"), graph.GetVertex("C"),2);
-			graph.AddEdgeWithLength("gc", graph.GetVertex("G"), graph.GetVertex("C"),1);
-			graph.AddEdgeWithLength("bf", graph.GetVertex("B"), graph.GetVertex("F"), 1);
+			graph.AddEdge("ab", graph.GetVertex("A"), graph.GetVertex("B"),7);
+			graph.AddEdge("bc", graph.GetVertex("B"), graph.GetVertex("C"),3);
+			graph.AddEdge("ad", graph.GetVertex("A"), graph.GetVertex("D"),6);
+			graph.AddEdge("ae", graph.GetVertex("A"), graph.GetVertex("E"),4);
+			graph.AddEdge("ef", graph.GetVertex("E"), graph.GetVertex("F"),5);
+			graph.AddEdge("fc", graph.GetVertex("F"), graph.GetVertex("C"),2);
+			graph.AddEdge("gc", graph.GetVertex("G"), graph.GetVertex("C"),1);
+			graph.AddEdge("bf", graph.GetVertex("B"), graph.GetVertex("F"), 1);
 			return graph;
 		}
 

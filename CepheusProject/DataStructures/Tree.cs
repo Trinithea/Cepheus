@@ -18,15 +18,15 @@ namespace Cepheus.DataStructures
 	class TreeWithContextComponents<TVertex> where TVertex : VertexBase<TVertex>
 	{
 		public List<TVertex> Vertices = new List<TVertex>();
-		public Dictionary<string, EdgeWithLength<TVertex>> Edges = new Dictionary<string, EdgeWithLength<TVertex>>();
-		public List<EdgeWithLength<TVertex>> NewEdges = new List<EdgeWithLength<TVertex>>();
-		public List<EdgeWithLength<TVertex>> EdgesToRemove = new List<EdgeWithLength<TVertex>>();
+		public Dictionary<string, Edge<TVertex>> Edges = new Dictionary<string, Edge<TVertex>>();
+		public List<Edge<TVertex>> NewEdges = new List<Edge<TVertex>>();
+		public List<Edge<TVertex>> EdgesToRemove = new List<Edge<TVertex>>();
 		public Dictionary<int,ComponentTree<TVertex>> ContextComponents = new Dictionary<int, ComponentTree<TVertex>>();
 
 		public int GetWeight()
 		{
 			int sum = 0;
-			foreach (EdgeWithLength<TVertex> edge in Edges.Values)
+			foreach (Edge<TVertex> edge in Edges.Values)
 				sum += edge.Length;
 			return sum;
 		}

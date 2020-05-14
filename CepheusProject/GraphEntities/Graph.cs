@@ -21,19 +21,9 @@ namespace Cepheus
 			Vertices.Add(vertex.Name,vertex);
 		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
-		public void AddEdge(string name, TVertex from, TVertex to)
+		public void AddEdge(string name, TVertex from, TVertex to, int length)
 		{
 			Edge<TVertex> edge = new Edge<TVertex>();
-			edge.Name = name;
-			edge.From = from;
-			edge.To = to;
-			from.OutEdges.Add(edge);
-			to.InEdges.Add(edge);
-			Edges.Add(from.Name+to.Name, edge);
-		}
-		public void AddEdgeWithLength(string name, TVertex from, TVertex to, int length)
-		{
-			EdgeWithLength<TVertex> edge = new EdgeWithLength<TVertex>();
 			edge.Name = name;
 			edge.From = from;
 			edge.To = to;
@@ -74,10 +64,10 @@ namespace Cepheus
 			else
 				return null;
 		}
-		public SortedList<int,EdgeWithLength<TVertex>> GetEdgesSortedByLength()
+		public SortedList<int,Edge<TVertex>> GetEdgesSortedByLength()
 		{
-			var edges = new SortedList<int, EdgeWithLength<TVertex>>();
-			foreach (EdgeWithLength<TVertex> edge in Edges.Values)
+			var edges = new SortedList<int, Edge<TVertex>>();
+			foreach (Edge<TVertex> edge in Edges.Values)
 				edges.Add(edge.Length, edge);
 			return edges;
 		}
@@ -143,7 +133,7 @@ namespace Cepheus
 			needToCreateOppositeEdge.Clear();
 		}
 		//TODO be able to add edge only through this method, not with the Graph method
-		public void AddEdge(string name, TVertex from, TVertex to, int capacity)
+		public new void AddEdge(string name, TVertex from, TVertex to, int capacity)
 		{
 			if (!Edges.ContainsKey(name))
 			{

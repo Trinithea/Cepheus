@@ -88,7 +88,7 @@ namespace Cepheus
 					if (edge == null)
 						matrixOfDistances[i, j] = null;
 					else
-						matrixOfDistances[i, j] = ((EdgeWithLength<FloydWarschallVertex>)edge).Length; // TODO better
+						matrixOfDistances[i, j] = edge.Length;
 				}
 			}
 			return matrixOfDistances;

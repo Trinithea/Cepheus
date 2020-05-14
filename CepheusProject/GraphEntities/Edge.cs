@@ -14,22 +14,7 @@ namespace Cepheus
 		public int Length { get; set; }
 
 	}
-	class EdgeWithLength<T> : Edge<T> where T : Vertex
-	{
-		public int Length { get; set; }
 
-		// TODO edge different types of length
-		/*{ get => Length; set {
-				if (value <= 0)
-					throw new ArgumentOutOfRangeException(); // TODO something more user friendly
-				else
-					Length = value;
-			} }*/
-		public override string ToString()
-		{
-			return Name + ": " + Length;
-		}
-	}
 	class FlowEdge<T> :Edge<T> where T : Vertex
 	{
 		public int Capacity { get; set; } //TODO only non-negative numbers

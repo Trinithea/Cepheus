@@ -27,41 +27,41 @@ namespace UnitTestCepheusAlgorithms
 
 
 			//not oriented
-			graph.AddEdgeWithLength("AB", graph.GetVertex("A"), graph.GetVertex("B"), 10);
-			graph.AddEdgeWithLength("BA", graph.GetVertex("B"), graph.GetVertex("A"), 10);
+			graph.AddEdge("AB", graph.GetVertex("A"), graph.GetVertex("B"), 10);
+			graph.AddEdge("BA", graph.GetVertex("B"), graph.GetVertex("A"), 10);
 
-			graph.AddEdgeWithLength("BC", graph.GetVertex("B"), graph.GetVertex("C"), 6);
-			graph.AddEdgeWithLength("CB", graph.GetVertex("C"), graph.GetVertex("B"), 6);
+			graph.AddEdge("BC", graph.GetVertex("B"), graph.GetVertex("C"), 6);
+			graph.AddEdge("CB", graph.GetVertex("C"), graph.GetVertex("B"), 6);
 
-			graph.AddEdgeWithLength("CF", graph.GetVertex("C"), graph.GetVertex("F"), 2);
-			graph.AddEdgeWithLength("FC", graph.GetVertex("F"), graph.GetVertex("C"), 2);
+			graph.AddEdge("CF", graph.GetVertex("C"), graph.GetVertex("F"), 2);
+			graph.AddEdge("FC", graph.GetVertex("F"), graph.GetVertex("C"), 2);
 
-			graph.AddEdgeWithLength("BE", graph.GetVertex("B"), graph.GetVertex("E"), 8);
-			graph.AddEdgeWithLength("EB", graph.GetVertex("E"), graph.GetVertex("B"), 8);
+			graph.AddEdge("BE", graph.GetVertex("B"), graph.GetVertex("E"), 8);
+			graph.AddEdge("EB", graph.GetVertex("E"), graph.GetVertex("B"), 8);
 
-			graph.AddEdgeWithLength("AD", graph.GetVertex("A"), graph.GetVertex("D"), 7);
-			graph.AddEdgeWithLength("DA", graph.GetVertex("D"), graph.GetVertex("A"), 7);
+			graph.AddEdge("AD", graph.GetVertex("A"), graph.GetVertex("D"), 7);
+			graph.AddEdge("DA", graph.GetVertex("D"), graph.GetVertex("A"), 7);
 
-			graph.AddEdgeWithLength("DE", graph.GetVertex("D"), graph.GetVertex("E"), 5);
-			graph.AddEdgeWithLength("ED", graph.GetVertex("E"), graph.GetVertex("D"), 5);
+			graph.AddEdge("DE", graph.GetVertex("D"), graph.GetVertex("E"), 5);
+			graph.AddEdge("ED", graph.GetVertex("E"), graph.GetVertex("D"), 5);
 
-			graph.AddEdgeWithLength("EF", graph.GetVertex("E"), graph.GetVertex("F"), 4);
-			graph.AddEdgeWithLength("FE", graph.GetVertex("F"), graph.GetVertex("E"), 4);
+			graph.AddEdge("EF", graph.GetVertex("E"), graph.GetVertex("F"), 4);
+			graph.AddEdge("FE", graph.GetVertex("F"), graph.GetVertex("E"), 4);
 
-			graph.AddEdgeWithLength("DG", graph.GetVertex("D"), graph.GetVertex("G"), 0);
-			graph.AddEdgeWithLength("GD", graph.GetVertex("G"), graph.GetVertex("D"), 0);
+			graph.AddEdge("DG", graph.GetVertex("D"), graph.GetVertex("G"), 0);
+			graph.AddEdge("GD", graph.GetVertex("G"), graph.GetVertex("D"), 0);
 
-			graph.AddEdgeWithLength("EH", graph.GetVertex("E"), graph.GetVertex("H"), 3);
-			graph.AddEdgeWithLength("HE", graph.GetVertex("H"), graph.GetVertex("E"), 3);
+			graph.AddEdge("EH", graph.GetVertex("E"), graph.GetVertex("H"), 3);
+			graph.AddEdge("HE", graph.GetVertex("H"), graph.GetVertex("E"), 3);
 
-			graph.AddEdgeWithLength("FI", graph.GetVertex("F"), graph.GetVertex("I"), 9);
-			graph.AddEdgeWithLength("IF", graph.GetVertex("I"), graph.GetVertex("F"), 9);
+			graph.AddEdge("FI", graph.GetVertex("F"), graph.GetVertex("I"), 9);
+			graph.AddEdge("IF", graph.GetVertex("I"), graph.GetVertex("F"), 9);
 
-			graph.AddEdgeWithLength("GH", graph.GetVertex("G"), graph.GetVertex("H"), 1);
-			graph.AddEdgeWithLength("HG", graph.GetVertex("H"), graph.GetVertex("G"), 1);
+			graph.AddEdge("GH", graph.GetVertex("G"), graph.GetVertex("H"), 1);
+			graph.AddEdge("HG", graph.GetVertex("H"), graph.GetVertex("G"), 1);
 
-			graph.AddEdgeWithLength("HI", graph.GetVertex("H"), graph.GetVertex("I"), 11);
-			graph.AddEdgeWithLength("IH", graph.GetVertex("I"), graph.GetVertex("H"), 11);
+			graph.AddEdge("HI", graph.GetVertex("H"), graph.GetVertex("I"), 11);
+			graph.AddEdge("IH", graph.GetVertex("I"), graph.GetVertex("H"), 11);
 
 			return graph;
 		}

@@ -23,7 +23,7 @@ namespace Cepheus
 			while (openVertices.Count > 0)
 			{
 				var vertex = openVertices.Dequeue(); // some open vertex
-				foreach (EdgeWithLength<BfsVertex> edge in vertex.OutEdges)
+				foreach (Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					if (edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
