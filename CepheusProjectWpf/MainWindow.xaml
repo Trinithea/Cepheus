@@ -20,7 +20,7 @@
 
         <Canvas x:Name="graphCanvas" Margin="1,10,1,40" Background="{StaticResource Dark}" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Grid.Column="1"/>
         <Rectangle Fill="{DynamicResource Blue}" Stroke="{DynamicResource Blue}" Grid.Column="1" Height="30" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
-        <TreeView Margin="10,10,0,147" Background="{DynamicResource Dark}" Foreground="White" BorderBrush="{DynamicResource Blue}" HorizontalAlignment="Left" Width="237">
+        <TreeView x:Name="treeViewAlgorithms" Margin="10,10,0,147" Background="{DynamicResource Dark}" Foreground="White" BorderBrush="{DynamicResource Blue}" HorizontalAlignment="Left" Width="237">
             <TreeViewItem Header="Searching algorithms" Foreground="White">
                 <TreeViewItem Header="Breadth-first search" Foreground="White"></TreeViewItem>
                 <TreeViewItem Header="Depth-first search" Foreground="White"></TreeViewItem>

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AlgorithmsLibrary\AlgorithmsLibrary.csproj" />
+    <ProjectReference Include="..\CepheusProjectWpf\CepheusProjectWpf.csproj" />
   </ItemGroup>
 
 </Project>

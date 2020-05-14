@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cepheus;
 
 namespace CepheusProjectWpf
 {
@@ -23,9 +24,11 @@ namespace CepheusProjectWpf
 		public MainWindow()
 		{
 			InitializeComponent();
+			SetAvailbaleAlgorithms();
 		}
 		public static List<EllipseVertex> Vertices = new List<EllipseVertex>();
 		public static List<ArrowEdge> Edges = new List<ArrowEdge>();
+		string SelectedAlgorithm => treeViewAlgorithms.SelectedItem.ToString();
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -586,16 +589,20 @@ namespace CepheusProjectWpf
 		{
 			ClearCanvas();
 		}
-
+		Dictionary<string, IAlgorithm> availbaleAlgorithms = new Dictionary<string, IAlgorithm>();
+		void SetAvailbaleAlgorithms()
+		{
+			List<IAlgorithm> algorithms = new List<IAlgorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new Bellman_Ford(), new Dijkstra(), new Floyd_Warshall(), new Relaxation() };
+			foreach (var algorithm in algorithms)
+				availbaleAlgorithms.Add(algorithm.Name, algorithm);
+		}
 		void StartProcessing()
 		{
+			Visitor visitor = new Visitor();
 			graphCanvas.IsEnabled = false;
-
+			availbaleAlgorithms[SelectedAlgorithm].Accept(visitor); //Create graph
 		}
-		void LoadGraph()
-		{
 
-		}
 
 		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{

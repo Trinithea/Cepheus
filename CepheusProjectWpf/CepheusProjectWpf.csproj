@@ -56,14 +56,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Visitor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Algorithms\Algorithm.cs" />
+    <Compile Include="Algorithms\MaximumFlow\Dinic.cs" />
+    <Compile Include="Algorithms\MaximumFlow\FordFulkerson.cs" />
+    <Compile Include="Algorithms\MaximumFlow\Goldberg.cs" />
+    <Compile Include="Algorithms\MinimumSpanningTree\Boruvka.cs" />
+    <Compile Include="Algorithms\MinimumSpanningTree\Jarnik.cs" />
+    <Compile Include="Algorithms\MinimumSpanningTree\Kruskal.cs" />
+    <Compile Include="Algorithms\Searching\BFS.cs" />
+    <Compile Include="Algorithms\Searching\DFS.cs" />
+    <Compile Include="Algorithms\ShortestPath\Bellman-ford.cs" />
+    <Compile Include="Algorithms\ShortestPath\Dijkstra.cs" />
+    <Compile Include="Algorithms\ShortestPath\Floyd_Warshall.cs" />
+    <Compile Include="Algorithms\ShortestPath\Relaxation.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataStructures\Tree.cs" />
+    <Compile Include="GraphEntities\Edge.cs" />
+    <Compile Include="GraphEntities\Graph.cs" />
+    <Compile Include="GraphEntities\Vertex.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
