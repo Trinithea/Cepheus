@@ -206,6 +206,7 @@ namespace CepheusProjectWpf
 			{
 				Vertices.Remove(this);
 				GraphCanvas.Children.Remove(MainEllipse);
+				GraphCanvas.Children.Remove(txtName);
 				List<ArrowEdge> edgesToRemove = new List<ArrowEdge>();
 				foreach (ArrowEdge edge in OutEdges)
 					edgesToRemove.Add(edge);
@@ -354,7 +355,7 @@ namespace CepheusProjectWpf
 			#region MouseActions
 			private void MainLine_MouseLeave(object sender, MouseEventArgs e)
 			{
-				if(Arrow != null)
+				if(!isMarked && Arrow != null)
 					SetStroke("Aqua");
 			}
 
@@ -401,11 +402,7 @@ namespace CepheusProjectWpf
 				}
 				else
 				{
-					GraphCanvas.Children.Remove(MainLine);
-					GraphCanvas.Children.Remove(LeftLine);
-					GraphCanvas.Children.Remove(RightLine);
-					MainWindow.Edges.Remove(this);
-					FromVertex.OutEdges.Remove(this);
+					Delete();
 				}
 
 			}
@@ -427,7 +424,6 @@ namespace CepheusProjectWpf
 			{
 				MainLine.X2 = X2;
 				MainLine.Y2 = Y2;
-				/**/
 				//vzorec je odsud: https://docs.telerik.com/devtools/wpf/controls/dragdropmanager/how-to/howto-create-custom-drag-arrow
 				double theta = Math.Atan2(MainLine.Y1 - MainLine.Y2, MainLine.X1 - MainLine.X2);
 				double sint = Math.Round(Math.Sin(theta), 2);
@@ -444,7 +440,7 @@ namespace CepheusProjectWpf
 				LeftLine.X2 = leftPoint.X;
 				LeftLine.Y2 = leftPoint.Y;
 				RightLine.X2 = rightPoint.X;
-				RightLine.Y2 = rightPoint.Y;/**/
+				RightLine.Y2 = rightPoint.Y;
 
 				SetTxtLengthCoordinates();
 
@@ -561,11 +557,43 @@ namespace CepheusProjectWpf
 				GraphCanvas.Children.Remove(MainLine);
 				GraphCanvas.Children.Remove(RightLine);
 				GraphCanvas.Children.Remove(LeftLine);
+				GraphCanvas.Children.Remove(txtLength);
 				Edges.Remove(this);
 				FromVertex.OutEdges.Remove(this);
-				ToVertex.InEdges.Remove(this);
+				if(ToVertex != null)
+					ToVertex.InEdges.Remove(this);
 			}
 		}
 
+		private void imgClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+		}
+
+		private void btnClear_Click(object sender, RoutedEventArgs e)
+		{
+			ClearCanvas();
+		}
+
+		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+
+
+		private void btnStepByStep_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void imgRun_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+
+		}
+
+		private void btnRun_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }
