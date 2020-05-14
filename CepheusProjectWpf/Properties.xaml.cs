@@ -24,5 +24,20 @@ namespace CepheusProjectWpf
 		{
 			InitializeComponent();
 		}
+		List<string> Names = new List<string>(); //List should be good enough because I don't expect milions of vertices in canvas
+
+		void CheckIfNameDoesntAlreadyExist(string name)
+		{
+			if (Names.Contains(name))
+				MessageBox.Show("This name already exists.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			else
+				Names.Add(name);
+		}
+		public string GetName() => txtName.Text;
+		private void btnConfirm_Click(object sender, RoutedEventArgs e)
+		{
+			CheckIfNameDoesntAlreadyExist(txtName.Text);
+
+		}
 	}
 }

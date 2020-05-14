@@ -8,16 +8,41 @@
         Title="Cepheus" Height="450" Width="800" Icon="Resources/logo_icon.png" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="28*"/>
-            <ColumnDefinition Width="75*"/>
-            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="251*"/>
+            <ColumnDefinition Width="532*"/>
+            <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="Resources/night_sky.jpg"/>
         </Grid.Background>
-        <Canvas x:Name="graphCanvas" Margin="1,10,1.373,10" Background="{StaticResource Dark}" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Grid.Column="1"/>
-        <ComboBox Margin="10,36,10,0" Background="{DynamicResource Dark}" BorderBrush="{DynamicResource Aqua}" Foreground="White" Height="20" VerticalAlignment="Top"/>
-        <local:PropertiesUserControl Grid.Column="2" Height="221" Margin="10,10,10,0" VerticalAlignment="Top" Width="Auto"/>
+
+        <Rectangle Grid.Column="1" Fill="{DynamicResource Blue}" Margin="0,9,0,40" Stroke="{DynamicResource Blue}"/>
+
+        <Canvas x:Name="graphCanvas" Margin="1,10,1,45" Background="{StaticResource Dark}" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Grid.Column="1"/>
+        <Rectangle Fill="{DynamicResource Blue}" Stroke="{DynamicResource Blue}" Grid.Column="1" Height="30" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+        <TreeView Margin="10,10,10,137" Background="{x:Null}" Foreground="White" BorderBrush="{x:Null}">
+            <TreeViewItem Header="Searching algorithms" Foreground="White">
+                <TreeViewItem Header="Breadth-first search" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Depth-first search" Foreground="White"></TreeViewItem>
+            </TreeViewItem>
+            <TreeViewItem Header="Finding the shortest path" Foreground="White">
+                <TreeViewItem Header="Dijkstra's algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Relaxation algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Bellman-Ford's algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Floyd-Warshall's algorithm" Foreground="White"></TreeViewItem>
+            </TreeViewItem>
+            <TreeViewItem Header="Minimum-spanning-tree algorithms" Foreground="White">
+                <TreeViewItem Header="Jarnik's algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Boruvka's algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Kruskal's algorithm" Foreground="White"></TreeViewItem>
+            </TreeViewItem>
+            <TreeViewItem Header="Computing the maximum flow" Foreground="White">
+                <TreeViewItem Header="Ford-Fulkerson's algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Dinic's algorithm" Foreground="White"></TreeViewItem>
+                <TreeViewItem Header="Goldberg's algorithm" Foreground="White"></TreeViewItem>
+            </TreeViewItem>
+        </TreeView>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="46,350,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White"/>
 
     </Grid>
 </Window>

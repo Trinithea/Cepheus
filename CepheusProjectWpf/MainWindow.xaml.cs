@@ -68,6 +68,7 @@ namespace CepheusProjectWpf
 			public List<ArrowEdge> OutEdges = new List<ArrowEdge>();
 			public List<ArrowEdge> InEdges = new List<ArrowEdge>();
 			Canvas GraphCanvas;
+			TextBox txtName;
 			public bool isMarked { get; private set; }
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
 			{
@@ -76,31 +77,60 @@ namespace CepheusProjectWpf
 			}
 			private Ellipse CreateVertexEllipse(Point mousePos)
 			{
-				Ellipse myEllipse = new Ellipse();
+				Ellipse newVertex = new Ellipse();
 
 				SolidColorBrush mySolidColorBrush = new SolidColorBrush();
 
 				mySolidColorBrush.Color = Colors.White;
-				myEllipse.Fill = mySolidColorBrush;
-				myEllipse.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"]; ;
-				myEllipse.StrokeThickness = 4;
+				newVertex.Fill = mySolidColorBrush;
+				newVertex.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"]; ;
+				newVertex.StrokeThickness = 4;
 
-				myEllipse.Width = 20;
-				myEllipse.Height = 20;
-				Canvas.SetLeft(myEllipse, mousePos.X - myEllipse.Width / 2);
-				Canvas.SetTop(myEllipse, mousePos.Y - myEllipse.Height / 2);
-				Canvas.SetZIndex(myEllipse, 2);
-				myEllipse.MouseLeftButtonDown += Ellipse_MouseLeftButtonDown;
-				myEllipse.MouseLeftButtonUp += Ellipse_MouseLeftButtonUp;
-				myEllipse.MouseMove += Ellipse_MouseMove;
-				myEllipse.MouseEnter += Ellipse_MouseEnter;
-				myEllipse.MouseLeave += Ellipse_MouseLeave;
-				myEllipse.MouseRightButtonDown += Ellipse_MouseRightButtonDown;
+				newVertex.Width = 20;
+				newVertex.Height = 20;
+				Canvas.SetLeft(newVertex, mousePos.X - newVertex.Width / 2);
+				Canvas.SetTop(newVertex, mousePos.Y - newVertex.Height / 2);
+				Canvas.SetZIndex(newVertex, 2);
+				newVertex.MouseLeftButtonDown += Ellipse_MouseLeftButtonDown;
+				newVertex.MouseLeftButtonUp += Ellipse_MouseLeftButtonUp;
+				newVertex.MouseMove += Ellipse_MouseMove;
+				newVertex.MouseEnter += Ellipse_MouseEnter;
+				newVertex.MouseLeave += Ellipse_MouseLeave;
+				newVertex.MouseRightButtonDown += Ellipse_MouseRightButtonDown;
 
-				GraphCanvas.Children.Add(myEllipse);
+				GraphCanvas.Children.Add(newVertex);
 				Vertices.Add(this);
-				MainEllipse = myEllipse;
-				return myEllipse;
+				MainEllipse = newVertex;
+
+				txtName = new TextBox();
+				SetNameTextBox(Canvas.GetLeft(newVertex),Canvas.GetTop(newVertex));
+				return newVertex;
+			}
+			void SetNameTextBox(double left, double top)
+			{
+				txtName.Background = Brushes.Transparent;
+				txtName.BorderBrush = Brushes.Transparent;
+				txtName.Foreground = Brushes.White;
+				txtName.Height = 23;
+				txtName.Text = "Name";
+				Canvas.SetLeft(txtName, left);
+				if (top - txtName.Height < 0)
+					Canvas.SetTop(txtName, top + MainEllipse.Height +txtName.Height) ;
+				else
+					Canvas.SetTop(txtName, top - txtName.Height);
+				GraphCanvas.Children.Add(txtName);
+			}
+			void SetNameCoordinates(double left, double top)
+			{
+				if (left + txtName.ActualWidth > GraphCanvas.ActualWidth)
+					Canvas.SetLeft(txtName, left - (left + txtName.ActualWidth - GraphCanvas.ActualWidth));
+				else
+					Canvas.SetLeft(txtName, left);
+
+				if (top - txtName.Height < 0)
+					Canvas.SetTop(txtName, top + MainEllipse.Height );
+				else
+					Canvas.SetTop(txtName, top - txtName.Height);
 			}
 			#region MouseActions
 			private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
@@ -155,6 +185,7 @@ namespace CepheusProjectWpf
 					KeepVertexInCanvas(left, top);
 					MoveWithOutEdges(Canvas.GetLeft(MainEllipse) + MainEllipse.Width / 2, Canvas.GetTop(MainEllipse) + MainEllipse.Height / 2);
 					MoveWithInEdges();
+					SetNameCoordinates(Canvas.GetLeft(MainEllipse), Canvas.GetTop(MainEllipse));
 				}
 			}
 			#endregion
@@ -482,13 +513,13 @@ namespace CepheusProjectWpf
 
 				if (newLeft < 0)
 					newLeft = 0;
-				else if (newLeft > GraphCanvas.Width)
-					newLeft = GraphCanvas.Width;
+				else if (newLeft > GraphCanvas.ActualWidth)
+					newLeft = GraphCanvas.ActualWidth;
 
 				if (newTop < 0)
 					newTop = 0;
-				else if (newTop > GraphCanvas.Height)
-					newTop = GraphCanvas.Height;
+				else if (newTop > GraphCanvas.ActualHeight)
+					newTop = GraphCanvas.ActualHeight;
 
 				SetEnd(newLeft, newTop);
 			}
