@@ -56,7 +56,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,12 +115,6 @@
     <Resource Include="Resources\clear_graph_icon.png" />
     <Resource Include="Resources\run_icon.png" />
     <Resource Include="Resources\step_by_step_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CepheusProject\CepheusProject.csproj">
-      <Project>{23b99fff-0fb2-41cb-bbdd-3190c54432d9}</Project>
-      <Name>CepheusProject</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

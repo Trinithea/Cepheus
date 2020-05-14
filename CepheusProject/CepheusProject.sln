@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CepheusProject", "CepheusProject.csproj", "{23B99FFF-0FB2-41CB-BBDD-3190C54432D9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestCepheusAlgorithms", "..\UnitTestCepheusAlgorithms\UnitTestCepheusAlgorithms.csproj", "{33D16B7F-61CE-490E-8F66-6B478F13F5CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CepheusProjectWpf", "..\CepheusProjectWpf\CepheusProjectWpf.csproj", "{EBF9EB4A-0378-4EE7-9614-6B91B42E866D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmsLibrary", "..\AlgorithmsLibrary\AlgorithmsLibrary.csproj", "{B0C5A96E-857E-4D16-BEDB-E54356AE668C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{23B99FFF-0FB2-41CB-BBDD-3190C54432D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23B99FFF-0FB2-41CB-BBDD-3190C54432D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23B99FFF-0FB2-41CB-BBDD-3190C54432D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23B99FFF-0FB2-41CB-BBDD-3190C54432D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33D16B7F-61CE-490E-8F66-6B478F13F5CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33D16B7F-61CE-490E-8F66-6B478F13F5CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33D16B7F-61CE-490E-8F66-6B478F13F5CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -27,6 +23,10 @@ Global
 		{EBF9EB4A-0378-4EE7-9614-6B91B42E866D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBF9EB4A-0378-4EE7-9614-6B91B42E866D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBF9EB4A-0378-4EE7-9614-6B91B42E866D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0C5A96E-857E-4D16-BEDB-E54356AE668C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C5A96E-857E-4D16-BEDB-E54356AE668C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C5A96E-857E-4D16-BEDB-E54356AE668C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C5A96E-857E-4D16-BEDB-E54356AE668C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

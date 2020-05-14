@@ -10,25 +10,25 @@ namespace UnitTestCepheusAlgorithms
 	public class FloydWarshallUnitTests
 	{
 		Floyd_Warshall fw = new Floyd_Warshall();
-		Graph<FloydWarschallVertex> InitializeGraph()
+		Graph<FloydWarshallVertex> InitializeGraph()
 		{
-			Graph<FloydWarschallVertex> graph = new Graph<FloydWarschallVertex>();
-			graph.AddVertex(new FloydWarschallVertex("A"));
-			graph.AddVertex(new FloydWarschallVertex("B"));
-			graph.AddVertex(new FloydWarschallVertex("C"));
-			graph.AddVertex(new FloydWarschallVertex("D"));
-			graph.AddVertex(new FloydWarschallVertex("E"));
-			graph.AddVertex(new FloydWarschallVertex("F"));
-			graph.AddVertex(new FloydWarschallVertex("G"));
+			Graph<FloydWarshallVertex> graph = new Graph<FloydWarshallVertex>();
+			graph.AddVertex(new FloydWarshallVertex("A"));
+			graph.AddVertex(new FloydWarshallVertex("B"));
+			graph.AddVertex(new FloydWarshallVertex("C"));
+			graph.AddVertex(new FloydWarshallVertex("D"));
+			graph.AddVertex(new FloydWarshallVertex("E"));
+			graph.AddVertex(new FloydWarshallVertex("F"));
+			graph.AddVertex(new FloydWarshallVertex("G"));
 
-			graph.AddEdge("ab", graph.GetVertex("A"), graph.GetVertex("B"), 7);
-			graph.AddEdge("bc", graph.GetVertex("B"), graph.GetVertex("C"), -3);
-			graph.AddEdge("ad", graph.GetVertex("A"), graph.GetVertex("D"), 6);
-			graph.AddEdge("ae", graph.GetVertex("A"), graph.GetVertex("E"), 4);
-			graph.AddEdge("ef", graph.GetVertex("E"), graph.GetVertex("F"), -5);
-			graph.AddEdge("fc", graph.GetVertex("F"), graph.GetVertex("C"), 2);
-			graph.AddEdge("gc", graph.GetVertex("G"), graph.GetVertex("C"), 1);
-			graph.AddEdge("bf", graph.GetVertex("B"), graph.GetVertex("F"), 1);
+			graph.AddEdge(graph.GetVertex("A"), graph.GetVertex("B"), 7);
+			graph.AddEdge(graph.GetVertex("B"), graph.GetVertex("C"), -3);
+			graph.AddEdge(graph.GetVertex("A"), graph.GetVertex("D"), 6);
+			graph.AddEdge(graph.GetVertex("A"), graph.GetVertex("E"), 4);
+			graph.AddEdge( graph.GetVertex("E"), graph.GetVertex("F"), -5);
+			graph.AddEdge( graph.GetVertex("F"), graph.GetVertex("C"), 2);
+			graph.AddEdge( graph.GetVertex("G"), graph.GetVertex("C"), 1);
+			graph.AddEdge(graph.GetVertex("B"), graph.GetVertex("F"), 1);
 			return graph;
 		}
 

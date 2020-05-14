@@ -24,8 +24,8 @@ namespace CepheusProjectWpf
 		{
 			InitializeComponent();
 		}
-		static List<EllipseVertex> Vertices = new List<EllipseVertex>();
-		static List<ArrowEdge> Edges = new List<ArrowEdge>();
+		public static List<EllipseVertex> Vertices = new List<EllipseVertex>();
+		public static List<ArrowEdge> Edges = new List<ArrowEdge>();
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -60,7 +60,7 @@ namespace CepheusProjectWpf
 			Vertices.Clear();
 			Edges.Clear();
 		}
-		class EllipseVertex : Shape
+		public class EllipseVertex : Shape
 		{
 			private bool isDraggingVertex = false;
 			bool wasMoving = false;
@@ -71,6 +71,7 @@ namespace CepheusProjectWpf
 			Canvas GraphCanvas;
 			TextBox txtName;
 			public bool isMarked { get; private set; }
+			public string Name => txtName.Text;
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
 			{
 				GraphCanvas = graphCanvas;
@@ -260,7 +261,7 @@ namespace CepheusProjectWpf
 				}
 			}
 		}
-		class ArrowEdge : Shape
+		public class ArrowEdge : Shape
 		{
 			protected override Geometry DefiningGeometry { get; }
 
@@ -275,7 +276,7 @@ namespace CepheusProjectWpf
 			TextBox txtLength;
 			public bool isMarked = false;
 			Line[] Arrow;
-
+			public int Length => Convert.ToInt32(txtLength.Text);
 			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex, List<EllipseVertex> vertices)
 			{
 				GraphCanvas = graphCanvas;
@@ -336,8 +337,19 @@ namespace CepheusProjectWpf
 				txtLength.Height = 23;
 				txtLength.Text = "1";
 				SetTxtLengthCoordinates();
+				txtLength.TextChanged += TxtLength_TextChanged;
 				GraphCanvas.Children.Add(txtLength);
 			}
+
+			private void TxtLength_TextChanged(object sender, TextChangedEventArgs e)
+			{
+				if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]"))
+				{
+					MessageBox.Show("Only integer length is acceptable.","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+					txtLength.Text = "1";
+				}
+			}
+
 			void SetTxtLengthCoordinates()
 			{
 				if(txtLength != null)

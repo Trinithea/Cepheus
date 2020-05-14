@@ -26,18 +26,18 @@ namespace UnitTestCepheusAlgorithms
 			graph.AddVertex(new DfsVertex("8"));
 			graph.AddVertex(new DfsVertex("9"));
 
-			graph.AddEdge("01", graph.GetVertex("0"), graph.GetVertex("1"),1); ;
-			graph.AddEdge("12", graph.GetVertex("1"), graph.GetVertex("2"), 1);
-			graph.AddEdge("13", graph.GetVertex("1"), graph.GetVertex("3"), 1);
-			graph.AddEdge("34", graph.GetVertex("3"), graph.GetVertex("4"), 1);
-			graph.AddEdge("53", graph.GetVertex("5"), graph.GetVertex("3"), 1);
-			graph.AddEdge("03", graph.GetVertex("0"), graph.GetVertex("3"), 1);
-			graph.AddEdge("63", graph.GetVertex("6"), graph.GetVertex("3"), 1);
-			graph.AddEdge("60", graph.GetVertex("6"), graph.GetVertex("0"), 1);
-			graph.AddEdge("67", graph.GetVertex("6"), graph.GetVertex("7"), 1);
-			graph.AddEdge("86", graph.GetVertex("8"), graph.GetVertex("6"), 1);
-			graph.AddEdge("09", graph.GetVertex("0"), graph.GetVertex("9"), 1);
-			graph.AddEdge("96", graph.GetVertex("9"), graph.GetVertex("6"), 1);
+			graph.AddEdge( graph.GetVertex("0"), graph.GetVertex("1"),1); ;
+			graph.AddEdge( graph.GetVertex("1"), graph.GetVertex("2"), 1);
+			graph.AddEdge( graph.GetVertex("1"), graph.GetVertex("3"), 1);
+			graph.AddEdge(graph.GetVertex("3"), graph.GetVertex("4"), 1);
+			graph.AddEdge( graph.GetVertex("5"), graph.GetVertex("3"), 1);
+			graph.AddEdge(graph.GetVertex("0"), graph.GetVertex("3"), 1);
+			graph.AddEdge( graph.GetVertex("6"), graph.GetVertex("3"), 1);
+			graph.AddEdge( graph.GetVertex("6"), graph.GetVertex("0"), 1);
+			graph.AddEdge( graph.GetVertex("6"), graph.GetVertex("7"), 1);
+			graph.AddEdge( graph.GetVertex("8"), graph.GetVertex("6"), 1);
+			graph.AddEdge( graph.GetVertex("0"), graph.GetVertex("9"), 1);
+			graph.AddEdge(graph.GetVertex("9"), graph.GetVertex("6"), 1);
 
 			return graph;
 		}
@@ -87,16 +87,16 @@ namespace UnitTestCepheusAlgorithms
 
 			dfs.Run(graph, graph.GetVertex("0"));
 
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("0").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("1").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("2").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("3").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("4").State);
-			Assert.AreEqual(IStateVertex.States.Unvisited, graph.GetVertex("5").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("6").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("7").State);
-			Assert.AreEqual(IStateVertex.States.Unvisited, graph.GetVertex("8").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("9").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("0").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("1").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("2").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("3").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("4").State);
+			Assert.AreEqual(States.Unvisited, graph.GetVertex("5").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("6").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("7").State);
+			Assert.AreEqual(States.Unvisited, graph.GetVertex("8").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("9").State);
 		}
 	}
 }

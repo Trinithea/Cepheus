@@ -18,13 +18,13 @@ namespace UnitTestCepheusAlgorithms
 			graph.AddVertex(new BfsVertex("F"));
 			graph.AddVertex(new BfsVertex("G"));
 
-			graph.AddEdge("ab", graph.GetVertex("A"), graph.GetVertex("B"),1);
-			graph.AddEdge("bc", graph.GetVertex("B"), graph.GetVertex("C"),1);
-			graph.AddEdge("ad", graph.GetVertex("A"), graph.GetVertex("D"),1);
-			graph.AddEdge("ae", graph.GetVertex("A"), graph.GetVertex("E"),1);
-			graph.AddEdge("ef", graph.GetVertex("E"), graph.GetVertex("F"),1);
-			graph.AddEdge("fc", graph.GetVertex("F"), graph.GetVertex("C"),1);
-			graph.AddEdge("gc", graph.GetVertex("G"), graph.GetVertex("C"),1);
+			graph.AddEdge( graph.GetVertex("A"), graph.GetVertex("B"),1);
+			graph.AddEdge(graph.GetVertex("B"), graph.GetVertex("C"),1);
+			graph.AddEdge( graph.GetVertex("A"), graph.GetVertex("D"),1);
+			graph.AddEdge( graph.GetVertex("A"), graph.GetVertex("E"),1);
+			graph.AddEdge( graph.GetVertex("E"), graph.GetVertex("F"),1);
+			graph.AddEdge( graph.GetVertex("F"), graph.GetVertex("C"),1);
+			graph.AddEdge(graph.GetVertex("G"), graph.GetVertex("C"),1);
 			return graph;
 		}
 
@@ -61,14 +61,14 @@ namespace UnitTestCepheusAlgorithms
 
 			bfs.Run(graph, graph.GetVertex("A"));
 
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("A").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("B").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("C").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("D").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("E").State);
-			Assert.AreEqual(IStateVertex.States.Closed, graph.GetVertex("F").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("A").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("B").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("C").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("D").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("E").State);
+			Assert.AreEqual(States.Closed, graph.GetVertex("F").State);
 
-			Assert.AreEqual(IStateVertex.States.Unvisited, graph.GetVertex("G").State);
+			Assert.AreEqual(States.Unvisited, graph.GetVertex("G").State);
 		}
 	}
 
