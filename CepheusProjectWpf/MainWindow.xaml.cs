@@ -63,6 +63,7 @@ namespace CepheusProjectWpf
 		class EllipseVertex : Shape
 		{
 			private bool isDraggingVertex = false;
+			bool wasMoving = false;
 			protected override Geometry DefiningGeometry { get; }
 			public Ellipse MainEllipse { get; private set; }
 			public List<ArrowEdge> OutEdges = new List<ArrowEdge>();
@@ -115,7 +116,7 @@ namespace CepheusProjectWpf
 				txtName.Text = "Name";
 				Canvas.SetLeft(txtName, left);
 				if (top - txtName.Height < 0)
-					Canvas.SetTop(txtName, top + MainEllipse.Height +txtName.Height) ;
+					Canvas.SetTop(txtName, top + MainEllipse.Height ) ;
 				else
 					Canvas.SetTop(txtName, top - txtName.Height);
 				GraphCanvas.Children.Add(txtName);
@@ -159,25 +160,27 @@ namespace CepheusProjectWpf
 			}
 			private void Ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 			{
-				isDraggingVertex = false;
+				
 				var draggable = (Shape)sender;
 				draggable.ReleaseMouseCapture();
-				if (isMarked)
+				if (isMarked || wasMoving)
 				{
 					((Ellipse)sender).Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
 					isMarked = false;
 				}
-				else
+				else 
 				{
 					((Ellipse)sender).Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
 					isMarked = true;
 				}
+				wasMoving = false;
+				isDraggingVertex = false;
 			}
 			private void Ellipse_MouseMove(object sender, MouseEventArgs e)
 			{
 				var draggableControl = (Shape)sender;
 				var mousePos = e.GetPosition(GraphCanvas);
-
+				
 				if (isDraggingVertex && draggableControl != null)
 				{
 					double left = mousePos.X - (((Shape)sender).Width / 2);
@@ -186,6 +189,7 @@ namespace CepheusProjectWpf
 					MoveWithOutEdges(Canvas.GetLeft(MainEllipse) + MainEllipse.Width / 2, Canvas.GetTop(MainEllipse) + MainEllipse.Height / 2);
 					MoveWithInEdges();
 					SetNameCoordinates(Canvas.GetLeft(MainEllipse), Canvas.GetTop(MainEllipse));
+					wasMoving = true;
 				}
 			}
 			#endregion
@@ -267,6 +271,7 @@ namespace CepheusProjectWpf
 			public EllipseVertex ToVertex { get; private set; }
 			private Canvas GraphCanvas { get; }
 			List<EllipseVertex> Vertices; //TODO asi trochu zbytečný
+			TextBox txtLength;
 			public bool isMarked = false;
 			Line[] Arrow;
 
@@ -316,9 +321,35 @@ namespace CepheusProjectWpf
 				SetStroke("Aqua");
 				SetThickness(2);
 				isDraggingEdge = true;
+				SetLengthTextBox();
 
 				GraphCanvas.Children.Add(LeftLine);
 				GraphCanvas.Children.Add(RightLine);
+			}
+			void SetLengthTextBox()
+			{
+				txtLength = new TextBox();
+				txtLength.Background = Brushes.Transparent;
+				txtLength.BorderBrush = Brushes.Transparent;
+				txtLength.Foreground = Brushes.White;
+				txtLength.Height = 23;
+				txtLength.Text = "1";
+				SetTxtLengthCoordinates();
+				GraphCanvas.Children.Add(txtLength);
+			}
+			void SetTxtLengthCoordinates()
+			{
+				if(txtLength != null)
+				{
+					double centerX = (MainLine.X1 + MainLine.X2) / 2;
+					double centerY = (MainLine.Y1 + MainLine.Y2 )/ 2;
+					Canvas.SetLeft(txtLength, centerX);
+					if (centerY - txtLength.Height < 0)
+						Canvas.SetTop(txtLength, centerY + txtLength.Height);
+					else
+						Canvas.SetTop(txtLength, centerY - txtLength.Height);
+				}
+				
 			}
 			#region MouseActions
 			private void MainLine_MouseLeave(object sender, MouseEventArgs e)
@@ -414,6 +445,8 @@ namespace CepheusProjectWpf
 				LeftLine.Y2 = leftPoint.Y;
 				RightLine.X2 = rightPoint.X;
 				RightLine.Y2 = rightPoint.Y;/**/
+
+				SetTxtLengthCoordinates();
 
 			}
 			public void SetEndCoordinatesToCenter(EllipseVertex vertex)
