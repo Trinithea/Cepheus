@@ -7,14 +7,14 @@ namespace Cepheus
 {
 	public sealed class Relaxation : Algorithm<BfsVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
 		public override string Name => "Relaxation algorithm";
 		public override string TimeComplexity => "O(n^2)";
 
-		public void Run(Graph<BfsVertex> graph, BfsVertex initialVertex)
+		public void Run()
 		{
 			graph.InitializeVertices();
 

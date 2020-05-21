@@ -8,7 +8,7 @@ namespace Cepheus
 {
 	public class Jarnik : Algorithm<JarnikVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
@@ -17,7 +17,7 @@ namespace Cepheus
 
 		public override string TimeComplexity => "O(m * log(n))";
 		Tree<JarnikVertex> MinimumSpanningTree;
-		public void Run(Graph<JarnikVertex> graph, JarnikVertex initialVertex)
+		public void Run()
 		{
 			graph.InitializeVertices();
 

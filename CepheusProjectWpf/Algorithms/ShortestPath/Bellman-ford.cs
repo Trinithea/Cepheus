@@ -7,13 +7,13 @@ namespace Cepheus
 {
 	public class Bellman_Ford : Algorithm<BfsVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
 		public override string Name => "Bellman-Ford's algorithm";
 		public override string TimeComplexity => "O(n * m)";
-		public void Run(Graph<BfsVertex> graph, BfsVertex initialVertex)
+		public void Run()
 		{
 			graph.InitializeVertices();
 

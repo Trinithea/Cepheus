@@ -28,6 +28,9 @@ namespace CepheusProjectWpf
 		}
 		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>();
 		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
+		public static int? initialVertex = null;
+		public static int? sinkVertex = null;
+		static int idCounter=0;
 		string SelectedAlgorithm => treeViewAlgorithms.SelectedItem.ToString();
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -65,6 +68,7 @@ namespace CepheusProjectWpf
 		}
 		public class EllipseVertex : Shape
 		{
+			public int UniqueId;
 			private bool isDraggingVertex = false;
 			bool wasMoving = false;
 			protected override Geometry DefiningGeometry { get; }
@@ -111,6 +115,8 @@ namespace CepheusProjectWpf
 				txtName = new TextBox();
 				SetNameTextBox(Canvas.GetLeft(newVertex),Canvas.GetTop(newVertex));
 				Vertices.Add(this, Name);
+				UniqueId = idCounter;
+				idCounter++;
 				return newVertex;
 			}
 			void SetNameTextBox(double left, double top)
@@ -279,7 +285,7 @@ namespace CepheusProjectWpf
 			private Canvas GraphCanvas { get; }
 			TextBox txtLength;
 			public bool isMarked = false;
-			public new string Name => FromVertex.Name + "->" + ToVertex.Name;
+			public new string Name => FromVertex.UniqueId + "->" + ToVertex.UniqueId;
 			Line[] Arrow;
 			public int Length => Convert.ToInt32(txtLength.Text);
 			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex)
@@ -611,9 +617,11 @@ namespace CepheusProjectWpf
 		
 		void StartProcessing()
 		{
-			Visitor visitor = new Visitor();
+			var visitor = new VisitorGraphCreator();
 			graphCanvas.IsEnabled = false;
-			availbaleAlgorithms[SelectedAlgorithm].Accept(visitor); //Create graph
+			var algorithm = availbaleAlgorithms[SelectedAlgorithm];
+			algorithm.Accept(visitor); //Create graph
+
 		}
 		bool InitialVertexMustBeUnique() 
 		{
@@ -621,12 +629,12 @@ namespace CepheusProjectWpf
 			warningWindow.ShowDialog();
 			return warningWindow.correct;
 		}
-		string GetInitialVertex() // jen u některejch!
+		int? GetInitialVertex() // jen u některejch!
 		{
 			var initialVertexWindow = new InitialVertexWindow();
 			initialVertexWindow.ShowDialog();
 			if (initialVertexWindow.correct)
-				return initialVertexWindow.nameOfInitialVertex;
+				return initialVertexWindow.initialVertexId;
 			else
 				return null;
 		}
@@ -638,22 +646,16 @@ namespace CepheusProjectWpf
 		}
 		void StepByStep()
 		{
-			if (InitialVertexMustBeUnique())
-			{
-				var nameOfInitialVertex = GetInitialVertex();
-				if(nameOfInitialVertex != null)
-				{
-					StartProcessing();
-				}
-			}
+			
 		}
 		void Run()
 		{
 			if (InitialVertexMustBeUnique())
 			{
-				var nameOfInitialVertex = GetInitialVertex();
+				var nameOfInitialVertex = GetInitialVertex();//TODO sourceand sink
 				if (nameOfInitialVertex != null)
 				{
+					initialVertex = nameOfInitialVertex;
 					StartProcessing();
 				}
 			}
@@ -665,12 +667,12 @@ namespace CepheusProjectWpf
 
 		private void imgRun_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-
+			Run();
 		}
 
 		private void btnRun_Click(object sender, RoutedEventArgs e)
 		{
-			
+			Run();
 		}
 	}
 }

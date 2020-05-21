@@ -10,7 +10,7 @@ namespace Cepheus
 		public override string Name => "Breadth-first search";
 		public override string TimeComplexity => "O(n + m)";
 
-		public void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
+		public void Run ()
 		{
 			graph.InitializeVertices();
 
@@ -32,6 +32,7 @@ namespace Cepheus
 						edge.To.Predecessor = vertex;
 						queue.Enqueue(edge.To);
 					}
+					
 				}
 				vertex.State = States.Closed;
 			}
@@ -58,7 +59,7 @@ namespace Cepheus
 
 
 
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}

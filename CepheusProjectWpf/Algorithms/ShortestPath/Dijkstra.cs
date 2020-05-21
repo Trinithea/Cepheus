@@ -7,24 +7,24 @@ namespace Cepheus
 {
 	public class Dijkstra : Algorithm<BfsVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
 		public override string Name => "Dijkstra's algorithm";
 		public override string TimeComplexity => "O((n + m) * log(n))";
 
-		public void Run(Graph<BfsVertex> graph, BfsVertex initalVertex)
+		public void Run()
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 
 			graph.InitializeVertices();
 
-			initalVertex.State = States.Open;
-			initalVertex.Distance = 0;
+			initialVertex.State = States.Open;
+			initialVertex.Distance = 0;
 
 			SortedList<int?, BfsVertex> openVertices = new SortedList<int?, BfsVertex>();
-			openVertices.Add(initalVertex.Distance, initalVertex);
+			openVertices.Add(initialVertex.Distance, initialVertex);
 			while(openVertices.Count > 0)
 			{
 				var vertex = openVertices[openVertices.Keys[0]]; // vertex with minimal rating
@@ -43,25 +43,27 @@ namespace Cepheus
 			}
 		}
 
-		public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
-		{
 
-			Run(graph, from); 
+		//TODO why is this here?
+		//public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		//{
 
-			var currentVertex = to;
-			int length = 0;
+		//	Run(graph, from); 
 
-			while(currentVertex.Predecessor != null)
-			{
-				length += (graph.GetEdge(currentVertex.Predecessor, currentVertex)).Length;
-				currentVertex = currentVertex.Predecessor;
-			}
+		//	var currentVertex = to;
+		//	int length = 0;
 
-			if (currentVertex == from)
-				return length;
-			else
-				return null;
-		}
+		//	while(currentVertex.Predecessor != null)
+		//	{
+		//		length += (graph.GetEdge(currentVertex.Predecessor, currentVertex)).Length;
+		//		currentVertex = currentVertex.Predecessor;
+		//	}
+
+		//	if (currentVertex == from)
+		//		return length;
+		//	else
+		//		return null;
+		//}
 
 	}
 }

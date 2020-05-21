@@ -9,7 +9,7 @@ namespace Cepheus
 	public class Goldberg : FlowAlgorithm<GoldbergVertex>
 	{
 		
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
@@ -18,19 +18,13 @@ namespace Cepheus
 		public override string TimeComplexity => "O(n^2 * m)";
 
 		public int MaximumFlow { get; private set; }
-		private FlowNetwork<GoldbergVertex> graph;
 
-		public void Run(FlowNetwork<GoldbergVertex> graph, string sourceVertexName, string sinkVertexName)
+		public void Run()
 		{
-			this.graph = graph;
-			graph.Source = graph.Vertices[sourceVertexName];
-			graph.Sink = graph.Vertices[sinkVertexName];
-
 			graph.InitializeVertices();
 			graph.Source.Height = graph.Vertices.Count;
 			graph.InitializeEdges();
 			InitializeEdgesFromSource(graph.Source);
-			this.graph = graph;
 
 			var positiveSurplusVertices = GetVerticesWithPositiveSurplus();
 

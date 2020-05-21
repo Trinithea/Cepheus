@@ -7,56 +7,111 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-    public class Visitor
+    public class Visitor { }
+    public class VisitorGraphCreator : Visitor
     {
-        public Graph Visit(BFS algorithm)
+        public void Visit(BFS algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(DFS algorithm)
+        public void Visit(DFS algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Dinic algorithm)
+        public void Visit(Dinic algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(FordFulkerson algorithm)
+        public void Visit(FordFulkerson algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Goldberg algorithm)
+        public void Visit(Goldberg algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Boruvka algorithm)
+        public void Visit(Boruvka algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Jarnik algorithm)
+        public void Visit(Jarnik algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Kruskal algorithm)
+        public void Visit(Kruskal algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Bellman_Ford algorithm)
+        public void Visit(Bellman_Ford algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Dijkstra algorithm)
+        public void Visit(Dijkstra algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Floyd_Warshall algorithm)
+        public void Visit(Floyd_Warshall algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
-        public Graph Visit(Relaxation algorithm)
+        public void Visit(Relaxation algorithm)
         {
-            return algorithm.CreateGraph(MainWindow.Vertices, MainWindow.Edges);
+            algorithm.CreateGraph();
         }
+    }
+    public class VisitorRunner : Visitor
+    {
+        public void Visit(BFS algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(DFS algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Dinic algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(FordFulkerson algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Goldberg algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Boruvka algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Jarnik algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Kruskal algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Bellman_Ford algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Dijkstra algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Floyd_Warshall algorithm)
+        {
+            algorithm.Run();
+        }
+        public void Visit(Relaxation algorithm)
+        {
+            algorithm.Run();
+        }
+    }
+    public class VisitorStepper : Visitor
+    {
 
     }
 }

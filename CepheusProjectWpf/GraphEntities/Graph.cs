@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
+using CepheusProjectWpf;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
@@ -12,15 +12,19 @@ namespace Cepheus
 		public Graph()
 		{
 			Edges = new Dictionary<string, Edge<TVertex>>();
-			Vertices = new Dictionary<string, TVertex>();
+			Vertices = new Dictionary<int, TVertex>();
+			UltimateEdges = new Dictionary<Edge<TVertex>, MainWindow.ArrowEdge>();
+			UltimateVertices = new Dictionary<TVertex, MainWindow.EllipseVertex>();
 		}
 		public Dictionary<string, Edge<TVertex>> Edges { get; private set; }
-		public Dictionary<string, TVertex> Vertices { get; private set; }
-		public void AddVertex(string vertexName)
+		public Dictionary<int, TVertex> Vertices { get; private set; }
+		public Dictionary<Edge<TVertex>, MainWindow.ArrowEdge> UltimateEdges { get; set; }
+		public Dictionary<TVertex, MainWindow.EllipseVertex> UltimateVertices { get; set; }
+		public void AddVertex(int uniqueId)
 		{
 			var vertex = new TVertex();
-			vertex.Name = vertexName;
-			Vertices.Add(vertex.Name,vertex);
+			vertex.UniqueId = uniqueId;
+			Vertices.Add(uniqueId, vertex);
 		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
 		public void AddEdge(TVertex from, TVertex to, string name, int length)
@@ -42,10 +46,10 @@ namespace Cepheus
 				vertex.Initialize();
 			}
 		}
-		public TVertex GetVertex(string name)
+		public TVertex GetVertex(int id)
 		{
-			if (Vertices.ContainsKey(name))
-				return Vertices[name];
+			if (Vertices.ContainsKey(id))
+				return Vertices[id];
 			else
 				return null;
 		}
@@ -60,7 +64,7 @@ namespace Cepheus
 
 		public Edge<TVertex> GetEdge(TVertex from, TVertex to)
 		{
-			string name = from.Name + to.Name;
+			string name = from.UniqueId +"->" + to.UniqueId;
 			if (Edges.ContainsKey(name))
 				return Edges[name];
 			else
@@ -126,16 +130,16 @@ namespace Cepheus
 			}
 			foreach (var edge in needToCreateOppositeEdge)
 			{
-				AddEdge( edge.To, edge.From, edge.To.Name + edge.From.Name, 0);
-				edge.OppositeEdge = (FlowEdge<TVertex>)Edges[edge.To.Name + edge.From.Name];
+				AddEdge( edge.To, edge.From, edge.To.UniqueId+"->" + edge.From.UniqueId, 0);
+				edge.OppositeEdge = (FlowEdge<TVertex>)Edges[edge.To.UniqueId + "->" + edge.From.UniqueId];
 				edge.OppositeEdge.OppositeEdge = edge;
 			}
 			needToCreateOppositeEdge.Clear();
 		}
 		//TODO be able to add edge only through this method, not with the Graph method
-		public new void AddEdge( TVertex from, TVertex to, string name, int capacity)
+		public new void AddEdge( TVertex from, TVertex to, string name, int capacity) //TODO má vracet tu hranu
 		{
-			if (!Edges.ContainsKey(name))
+			if (!Edges.ContainsKey(name)) //TODO unique names!!!!
 			{
 				FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity);
 				edge.Name = name;
@@ -143,7 +147,7 @@ namespace Cepheus
 				edge.To = to;
 				from.OutEdges.Add(edge);
 				to.InEdges.Add(edge);
-				Edges.Add(from.Name + to.Name, edge);
+				Edges.Add(from.UniqueId+"->" + to.UniqueId, edge);
 			}
 			else
 				((FlowEdge<TVertex>)Edges[name]).Capacity += capacity;

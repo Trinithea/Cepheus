@@ -20,21 +20,30 @@ namespace CepheusProjectWpf
 	public partial class InitialVertexWindow : Window
 	{
 		public bool correct = false;
-		public string nameOfInitialVertex;
 		public InitialVertexWindow()
 		{
 			InitializeComponent();
 		}
+		public int? initialVertexId = null;
 		bool IsNameUnique(string name) //TODO bleh time
 		{
-			List<string> usedNames = new List<string>();
-			foreach(var vertexName in MainWindow.Vertices.Values)
+			int i = 0;
+			foreach(var vertex in MainWindow.Vertices.Keys)
 			{
-				if (usedNames.Contains(name))
+				if (i==0 && vertex.Name == name)
+				{
+					i++;
+					initialVertexId = vertex.UniqueId;
+				}
+				else if (i==1 && vertex.Name == name)
+				{
 					return false;
-				usedNames.Add(vertexName);
+				}
 			}
-			return true;
+			if (i == 0)
+				return false;
+			else
+				return true;
 		}
 		private void btnConfirm_Click(object sender, RoutedEventArgs e)
 		{
@@ -42,17 +51,13 @@ namespace CepheusProjectWpf
 			{
 				if (IsNameUnique(txtInitialVertex.Text))
 				{
-					if (MainWindow.Vertices.ContainsValue(txtInitialVertex.Text))
-					{
-						nameOfInitialVertex = txtInitialVertex.Text;
-						correct = true;
-						this.Close();
-					}
-					else
-					{
-						lblErrorMessage.Content = "This name of vertex doesn't exist.";
-						lblErrorMessage.Visibility = Visibility.Visible;
-					}
+					correct = true;
+					this.Close();
+				}
+				else if (initialVertexId == null)
+				{
+					lblErrorMessage.Content = "This name of vertex doesn't exist.";
+					lblErrorMessage.Visibility = Visibility.Visible;
 				}
 				else
 				{
@@ -65,7 +70,7 @@ namespace CepheusProjectWpf
 				lblErrorMessage.Content = "Name can't be empty.";
 				lblErrorMessage.Visibility = Visibility.Visible;
 			}
-
+			
 		}
 	}
 }

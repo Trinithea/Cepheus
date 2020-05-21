@@ -9,7 +9,8 @@ namespace Cepheus
 	{
 		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
 		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
-		public string Name { get; set; }
+
+		public int UniqueId { get; set; }
 		
 		
 	}
@@ -18,10 +19,7 @@ namespace Cepheus
 		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public abstract void Initialize();
-		public override string ToString()
-		{
-			return Name + " - in: " + InEdges.Count + ", out: " + OutEdges.Count;
-		}
+		
 	}
 	public enum States { Open, Closed, Unvisited };
 	interface IStateVertex
@@ -133,9 +131,6 @@ namespace Cepheus
 		{
 			Height = 0;
 		}
-		public override string ToString()
-		{
-			return String.Format("{0} - surplus: {1}, height: {2}, in: {3}, out: {4}", Name, Surplus, Height, InEdges.Count, OutEdges.Count);
-		}
+		
 	}
 }

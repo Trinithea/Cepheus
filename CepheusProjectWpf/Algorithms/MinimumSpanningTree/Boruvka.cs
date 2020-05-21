@@ -8,19 +8,18 @@ namespace Cepheus
 {
 	public class Boruvka : Algorithm<BoruvkaVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
 		public override string Name => "Boruvka's algorithm";
 
 		public override string TimeComplexity => "m * log(n)";
-		internal Graph<BoruvkaVertex> graph;
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree {get; private set;}
-		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
+		public void Run()
 		{
 			graph.InitializeVertices(); // to get OutEdges sorted
-			this.graph = graph;
+			
 			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
 			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>(); //ID numbers of currents context components
@@ -75,7 +74,7 @@ namespace Cepheus
 			if (!minimumSpanningTree.EdgesToRemove.Contains(lightestEdge))
 			{
 				var vertex2 = lightestEdge.To;
-				minimumSpanningTree.EdgesToRemove.Add(graph.GetEdge(vertex2.Name + vertex.Name));
+				minimumSpanningTree.EdgesToRemove.Add(graph.GetEdge(vertex2.UniqueId + "->" + vertex.UniqueId));
 				//it means that between two components will be only one new edge
 			}
 

@@ -7,7 +7,7 @@ namespace Cepheus
 	public class FordFulkerson : FlowAlgorithm<BfsVertex>
 	{
 		
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
@@ -16,17 +16,15 @@ namespace Cepheus
 		public override string TimeComplexity => "O(m * f)";
 
 		public int MaximumFlow { get; private set; }
-		public void Run(FlowNetwork<BfsVertex> graph, string sourceVertexName, string sinkVertexName)
+		public void Run()
 		{
-			graph.Source = graph.Vertices[sourceVertexName];
-			graph.Sink = graph.Vertices[sinkVertexName];
 			graph.InitializeEdges();
-			var path = GetUnsaturatedPathFromSourceToSink(graph);
+			var path = GetUnsaturatedPathFromSourceToSink();
 			while(path != null ) // must be nenasycená and nemusí být nejkratší
 			{
 				int minimalReserve = GetMinimalReserve(path);
 				ImproveFlowOnPath(path,minimalReserve);
-				path = GetUnsaturatedPathFromSourceToSink(graph);
+				path = GetUnsaturatedPathFromSourceToSink();
 			}
 			MaximumFlow = graph.GetMaximumFlow();
 		}
@@ -49,7 +47,7 @@ namespace Cepheus
 			}
 				
 		}
-		public List<FlowEdge<BfsVertex>> GetUnsaturatedPathFromSourceToSink(FlowNetwork<BfsVertex> graph)
+		public List<FlowEdge<BfsVertex>> GetUnsaturatedPathFromSourceToSink()
 		{
 			// why I don't use BFS algorithm which is already implemeted? Because I have to use some flow network properties
 			
@@ -77,10 +75,10 @@ namespace Cepheus
 				vertex.State = States.Closed;
 			}
 
-			return GetPath(graph, graph.Source, graph.Sink);
+			return GetPath( graph.Source, graph.Sink);
 		}
 
-		public List<FlowEdge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
+		public List<FlowEdge<BfsVertex>> GetPath( BfsVertex from, BfsVertex to)
 		{
 			if (to.Predecessor == null) //'to' is not reachable from 'from'
 				return null;

@@ -8,36 +8,36 @@ namespace Cepheus
 {
 	public class Floyd_Warshall : Algorithm<FloydWarshallVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
 		public override string Name => "Floyd-Warshall's algorithm";
 		public override string TimeComplexity => "O(n^3)";
 		int?[,] distanceMatrix = null;
-		Dictionary<string, FloydWarshallVertex> vertices;
+		Dictionary<int, FloydWarshallVertex> vertices;
 
-		public int? GetDistance(Graph<FloydWarshallVertex> graph,string from, string to)
+
+		//TODO why is this here?
+		public int? GetDistance(Graph<FloydWarshallVertex> graph,int fromId, int toId)
 		{
 			if(distanceMatrix == null) // TODO what if there are only some changes
-				Run(graph, graph.GetVertex(from));
+				Run();
 
-			FloydWarshallVertex vertexFrom = vertices[from];
-			FloydWarshallVertex vertexTo = vertices[to];
+			FloydWarshallVertex vertexFrom = vertices[fromId];
+			FloydWarshallVertex vertexTo = vertices[toId];
 
 			return (distanceMatrix[vertexFrom.ID, vertexTo.ID]);
 		}
 
-
-		// initialVertex is not necessary but it's here for same type of argumetnts of method IAlgorithm.Run()
-		public void Run(Graph<FloydWarshallVertex> graph, FloydWarshallVertex initialVertex)
+		public void Run()
 		{
 			vertices = graph.Vertices;
 			int countOfVertices = vertices.Count;
 
 			FloydWarshallVertex[] verticesArray = GetVerticesInArrayWithConcreteId();
 
-			distanceMatrix = GetDistancesWithZeroInnerVertices(graph, verticesArray);
+			distanceMatrix = GetDistancesWithZeroInnerVertices( verticesArray);
 
 			for (int k = 0; k < countOfVertices; k++)
 			{
@@ -80,7 +80,7 @@ namespace Cepheus
 				return num2;
 		}
 
-		int?[,] GetDistancesWithZeroInnerVertices(Graph<FloydWarshallVertex> graph, FloydWarshallVertex[] vertices)
+		int?[,] GetDistancesWithZeroInnerVertices( FloydWarshallVertex[] vertices)
 		{
 			
 			int?[,] matrixOfDistances = new int?[vertices.Length,vertices.Length];

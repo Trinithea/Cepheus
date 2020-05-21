@@ -8,38 +8,49 @@ namespace Cepheus
 	{
 		public abstract string Name { get; }
 		public abstract string TimeComplexity { get; }
-		public abstract void Accept(Visitor visitor);
+		public abstract void Accept(VisitorGraphCreator visitor);
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
-	{ 
-		public Graph CreateGraph(Dictionary<MainWindow.EllipseVertex, string> vertices, Dictionary<MainWindow.ArrowEdge, string> edges)
+	{
+		public Graph<TVertex> graph;
+		public TVertex initialVertex; //TODO kliděn by mohlo být i uvnitř grafu
+		public void CreateGraph()
 		{
-			Graph<TVertex> graph = new Graph<TVertex>();
-			foreach (var vertexName in vertices.Values)
+			graph = new Graph<TVertex>();
+			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				graph.AddVertex(vertexName);
+				graph.AddVertex(vertex.UniqueId);
+				graph.UltimateVertices.Add(graph.GetVertex(vertex.UniqueId), vertex);
 			}
-			foreach (var edge in edges.Keys)
+			foreach (var edge in MainWindow.Edges.Keys)
 			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Name, edge.Length);
+				graph.AddEdge(graph.GetVertex(edge.FromVertex.UniqueId), graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length);
+				graph.UltimateEdges.Add(graph.GetEdge(edge.Name), edge);
 			}
-			return graph;
+			initialVertex = graph.GetVertex((int)MainWindow.initialVertex);
+		}
+		protected void ColorEdge(Edge<TVertex> edge)
+		{
+
 		}
 	}
 	public abstract class FlowAlgorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
-		public FlowNetwork<TVertex> CreateGraph(Dictionary<MainWindow.EllipseVertex, string> vertices, Dictionary<MainWindow.ArrowEdge, string> edges)
+		public FlowNetwork<TVertex> graph;
+		public void CreateGraph()
 		{
-			FlowNetwork<TVertex> graph = new FlowNetwork<TVertex>();
-			foreach (var vertexName in vertices.Values)
+			graph = new FlowNetwork<TVertex>();
+			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				graph.AddVertex(vertexName);
+				graph.AddVertex(vertex.UniqueId);
+
 			}
-			foreach (var edge in edges.Keys)
+			foreach (var edge in MainWindow.Edges.Keys)
 			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Name, edge.Length);
+				graph.AddEdge(graph.GetVertex(edge.FromVertex.UniqueId), graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length);
 			}
-			return graph;
+			graph.Source = graph.Vertices[(int)MainWindow.initialVertex];
+			graph.Sink = graph.Vertices[(int)MainWindow.sinkVertex];
 		}
 	}
 }

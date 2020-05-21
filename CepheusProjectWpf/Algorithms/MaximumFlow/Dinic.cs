@@ -6,7 +6,7 @@ namespace Cepheus
 {
 	 public class Dinic : FlowAlgorithm<BfsVertex>
 	 {
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
@@ -15,19 +15,16 @@ namespace Cepheus
 
 		public override string TimeComplexity => "O(n^2 * m)";
 		public int MaximumFlow { get; private set; }
-		private FlowNetwork<BfsVertex> graph;
-		public void Run(FlowNetwork<BfsVertex> graph,string sourceVertexName, string sinkVertexName)
+		public void Run()
 		{
-			this.graph = graph;
-			graph.Source = graph.Vertices[sourceVertexName];
-			graph.Sink = graph.Vertices[sinkVertexName];
-
 			BFS bfs = new BFS();
 
 			while (true)
 			{
 				var reserveNetwork = GetReserveNetwork();
-				bfs.Run(reserveNetwork, reserveNetwork.Source);
+				bfs.graph = reserveNetwork;
+				bfs.initialVertex = reserveNetwork.Source;
+				bfs.Run();
 				int? lengthOfShortestPath = reserveNetwork.Sink.Distance;
 				if (lengthOfShortestPath == null)
 					break;
@@ -51,19 +48,19 @@ namespace Cepheus
 			foreach (BfsVertex vertex in graph.Vertices.Values)
 			{
 				if (vertex == graph.Source)
-					reserveNetwork.AddVertex(graph.Source.Name);
+					reserveNetwork.AddVertex(graph.Source.UniqueId);
 				else if (vertex == graph.Sink)
-					reserveNetwork.AddVertex(graph.Sink.Name);
+					reserveNetwork.AddVertex(graph.Sink.UniqueId);
 				else
-					reserveNetwork.AddVertex(vertex.Name);
+					reserveNetwork.AddVertex(vertex.UniqueId);
 			}
 
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
 			{
 				if (edge.Capacity > edge.Flow)
-					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.From.Name + edge.To.Name, edge.Capacity - edge.Flow);
+					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.From.UniqueId), reserveNetwork.GetVertex(edge.To.UniqueId), edge.From.UniqueId+"->" + edge.To.UniqueId, edge.Capacity - edge.Flow);
 				if (edge.Flow > 0)
-					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.To.Name), reserveNetwork.GetVertex(edge.From.Name), edge.To.Name + edge.From.Name, edge.Flow);
+					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.To.UniqueId), reserveNetwork.GetVertex(edge.From.UniqueId), edge.To.UniqueId+"->" + edge.From.UniqueId, edge.Flow);
 			}
 			
 			return reserveNetwork;
@@ -73,7 +70,9 @@ namespace Cepheus
 		void CleanUpNetwork(FlowNetwork<BfsVertex> network)
 		{
 			BFS bfs = new BFS();
-			bfs.Run(network, network.Source);
+			bfs.graph = network;
+			bfs.initialVertex = network.Source;
+			bfs.Run();
 
 			RemoveVerticesAfterSink(network);
 
@@ -132,9 +131,12 @@ namespace Cepheus
 		{
 			network.SetFlowTo(0);
 			BFS bfs = new BFS();
-			bfs.Run(network, network.Source);
+			bfs.graph = network;
+			bfs.initialVertex = network.Source;
+			bfs.Run();
 			FordFulkerson ff = new FordFulkerson();
-			var path = ff.GetPath(network, network.Source, network.Sink);
+			ff.graph = network;
+			var path = ff.GetPath( network.Source, network.Sink);
 			//TODO do this with BFS
 			while(path !=  null)
 			{
@@ -155,8 +157,11 @@ namespace Cepheus
 				}
 
 				CleanUpNetwork(network);
-				bfs.Run(network, network.Source);
-				path = ff.GetPath(network, network.Source, network.Sink);
+				bfs.graph = network;
+				bfs.initialVertex = network.Source;
+				bfs.Run();
+				ff.graph = network;
+				path = ff.GetPath(network.Source, network.Sink);
 			}
 		}
 		

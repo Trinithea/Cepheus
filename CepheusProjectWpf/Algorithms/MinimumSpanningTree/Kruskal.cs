@@ -8,7 +8,7 @@ namespace Cepheus
 {
 	public class Kruskal : Algorithm<BoruvkaVertex>
 	{
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
@@ -16,7 +16,7 @@ namespace Cepheus
 
 		public override string TimeComplexity => "O(m * log(n))";
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree { get; private set; }
-		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
+		public void Run()
 		{
 			var edges = graph.GetEdgesSortedByLength();
 

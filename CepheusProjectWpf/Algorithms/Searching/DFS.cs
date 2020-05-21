@@ -10,7 +10,7 @@ namespace Cepheus
 		public override string Name => "Depth-first search";
 		public override string TimeComplexity => "O(n + m)";
 		static int Time = 0;
-		public void Run(Graph<DfsVertex> graph,DfsVertex initialVertex)
+		public void Run()
 		{
 			graph.InitializeVertices();
 
@@ -33,7 +33,7 @@ namespace Cepheus
 			vertex.OutTime = Time;
 		}
 		
-		public override void Accept(Visitor visitor)
+		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
 		}
