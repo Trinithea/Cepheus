@@ -5,10 +5,10 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-	public class DFS : IAlgorithm
+	public class DFS : Algorithm<DfsVertex>
 	{
-		public string Name => "Depth-first search";
-		public string TimeComplexity => "O(n + m)";
+		public override string Name => "Depth-first search";
+		public override string TimeComplexity => "O(n + m)";
 		static int Time = 0;
 		public void Run(Graph<DfsVertex> graph,DfsVertex initialVertex)
 		{
@@ -32,20 +32,8 @@ namespace Cepheus
 			Time++;
 			vertex.OutTime = Time;
 		}
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<DfsVertex> graph = new Graph<DfsVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new DfsVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
-		public void Accept(Visitor visitor)
+		
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}

@@ -6,15 +6,15 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-	public class Kruskal : IAlgorithm
+	public class Kruskal : Algorithm<BoruvkaVertex>
 	{
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Kruskal's algorithm";
+		public override string Name => "Kruskal's algorithm";
 
-		public string TimeComplexity => "O(m * log(n))";
+		public override string TimeComplexity => "O(m * log(n))";
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree { get; private set; }
 		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
 		{
@@ -38,19 +38,7 @@ namespace Cepheus
 
 			MinimumSpanningTree = minimumSpanningTree;
 		}
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<BoruvkaVertex> graph = new Graph<BoruvkaVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new BoruvkaVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
+		
 
 	}
 }

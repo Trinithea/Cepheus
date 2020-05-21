@@ -5,14 +5,14 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-	public class Bellman_Ford : IAlgorithm
+	public class Bellman_Ford : Algorithm<BfsVertex>
 	{
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Bellman-Ford's algorithm";
-		public string TimeComplexity => "O(n * m)";
+		public override string Name => "Bellman-Ford's algorithm";
+		public override string TimeComplexity => "O(n * m)";
 		public void Run(Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
 			graph.InitializeVertices();
@@ -41,18 +41,6 @@ namespace Cepheus
 				vertex.State = States.Closed;
 			}
 		}
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<BfsVertex> graph = new Graph<BfsVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new BfsVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
+
 	}
 }

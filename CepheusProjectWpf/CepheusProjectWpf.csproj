@@ -56,7 +56,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UIWindows\ErrorNonIntegerLengthWindow.xaml.cs">
+      <DependentUpon>ErrorNonIntegerLengthWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InitialVertexWindow.xaml.cs">
+      <DependentUpon>InitialVertexWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIWindows\WarningUniqueNameOfInitialVertex.xaml.cs">
+      <DependentUpon>WarningUniqueNameOfInitialVertex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Visitor.cs" />
+    <Page Include="UIWindows\ErrorNonIntegerLengthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InitialVertexWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +104,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Properties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIWindows\WarningUniqueNameOfInitialVertex.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,6 +154,14 @@
     <Resource Include="Resources\clear_graph_icon.png" />
     <Resource Include="Resources\run_icon.png" />
     <Resource Include="Resources\step_by_step_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\logo_borderless.png" />
+    <Resource Include="Resources\logo_white_border.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\error_icon.png" />
+    <Resource Include="Resources\warning_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

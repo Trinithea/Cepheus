@@ -6,14 +6,14 @@ using CepheusProjectWpf;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
-	public class Floyd_Warshall : IAlgorithm
+	public class Floyd_Warshall : Algorithm<FloydWarshallVertex>
 	{
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Floyd-Warshall's algorithm";
-		public string TimeComplexity => "O(n^3)";
+		public override string Name => "Floyd-Warshall's algorithm";
+		public override string TimeComplexity => "O(n^3)";
 		int?[,] distanceMatrix = null;
 		Dictionary<string, FloydWarshallVertex> vertices;
 
@@ -98,18 +98,6 @@ namespace Cepheus
 			}
 			return matrixOfDistances;
 		}
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<FloydWarshallVertex> graph = new Graph<FloydWarshallVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new FloydWarshallVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
+		
 	}
 }

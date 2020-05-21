@@ -6,15 +6,15 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-	public class Boruvka : IAlgorithm
+	public class Boruvka : Algorithm<BoruvkaVertex>
 	{
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Boruvka's algorithm";
+		public override string Name => "Boruvka's algorithm";
 
-		public string TimeComplexity => "m * log(n)";
+		public override string TimeComplexity => "m * log(n)";
 		internal Graph<BoruvkaVertex> graph;
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree {get; private set;}
 		public void Run(Graph<BoruvkaVertex> graph, BoruvkaVertex initialVertex)
@@ -126,18 +126,6 @@ namespace Cepheus
 			}
 		}
 		//TODO asi by stačilo používat tu MinimumSpanningTree a ne si to pořád předávat v parametrech
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<BoruvkaVertex> graph = new Graph<BoruvkaVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new BoruvkaVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
+		
 	}
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Cepheus
 {
 	public abstract class Graph { }
-	public class Graph<TVertex> : Graph where TVertex : VertexBase<TVertex>
+	public class Graph<TVertex> : Graph where TVertex : VertexBase<TVertex>, new()
 	{
 		public Graph()
 		{
@@ -16,15 +16,17 @@ namespace Cepheus
 		}
 		public Dictionary<string, Edge<TVertex>> Edges { get; private set; }
 		public Dictionary<string, TVertex> Vertices { get; private set; }
-		public void AddVertex(TVertex vertex)
+		public void AddVertex(string vertexName)
 		{
+			var vertex = new TVertex();
+			vertex.Name = vertexName;
 			Vertices.Add(vertex.Name,vertex);
 		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
-		public void AddEdge(TVertex from, TVertex to, int length)
+		public void AddEdge(TVertex from, TVertex to, string name, int length)
 		{
 			Edge<TVertex> edge = new Edge<TVertex>();
-			edge.Name = from.Name + "|"+ to.Name; // "|" is for avoiding same names for edges like ABC, which could be AB|C or A|BC
+			edge.Name = name;
 			edge.From = from;
 			edge.To = to;
 			edge.Length = length;
@@ -89,15 +91,13 @@ namespace Cepheus
 			edge.To.InEdges.Remove(edge);
 		}
 	}
-	public class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex> //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
+	public class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex>, new() //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
 	{
-		public FlowNetwork(TVertex source, TVertex sink)
+		public FlowNetwork()
 		{
-			Source = source;
-			Sink = sink;
 		}
-		public TVertex Source { get; }
-		public TVertex Sink { get; }
+		public TVertex Source { get; set; }
+		public TVertex Sink { get; set; }
 		public void AugmentFlow(List<FlowEdge<TVertex>> path, int minDifference) 
 		{
 			foreach (var edge in path)
@@ -126,14 +126,14 @@ namespace Cepheus
 			}
 			foreach (var edge in needToCreateOppositeEdge)
 			{
-				AddEdge(edge.To.Name + edge.From.Name, edge.To, edge.From, 0);
+				AddEdge( edge.To, edge.From, edge.To.Name + edge.From.Name, 0);
 				edge.OppositeEdge = (FlowEdge<TVertex>)Edges[edge.To.Name + edge.From.Name];
 				edge.OppositeEdge.OppositeEdge = edge;
 			}
 			needToCreateOppositeEdge.Clear();
 		}
 		//TODO be able to add edge only through this method, not with the Graph method
-		public new void AddEdge(string name, TVertex from, TVertex to, int capacity)
+		public new void AddEdge( TVertex from, TVertex to, string name, int capacity)
 		{
 			if (!Edges.ContainsKey(name))
 			{

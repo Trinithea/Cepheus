@@ -5,10 +5,10 @@ using System.Text;
 
 namespace Cepheus
 {
-	public class BFS : IAlgorithm
+	public class BFS : Algorithm<BfsVertex>
 	{
-		public string Name => "Breadth-first search";
-		public string TimeComplexity => "O(n + m)";
+		public override string Name => "Breadth-first search";
+		public override string TimeComplexity => "O(n + m)";
 
 		public void Run (Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
@@ -56,21 +56,9 @@ namespace Cepheus
 			}
 		}
 
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<BfsVertex> graph = new Graph<BfsVertex>();
-			foreach(var vertex in vertices)
-			{
-				graph.AddVertex(new BfsVertex(vertex.Name));
-			}
-			foreach(var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
 
-		public void Accept(Visitor visitor)
+
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}

@@ -1,25 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CepheusProjectWpf;
 
 namespace Cepheus
 {
 	
-	public class Goldberg : IAlgorithm
+	public class Goldberg : FlowAlgorithm<GoldbergVertex>
 	{
-		public void Accept(Visitor visitor)
+		
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Goldberg's algorithm";
+		public override string Name => "Goldberg's algorithm";
 
-		public string TimeComplexity => "O(n^2 * m)";
+		public override string TimeComplexity => "O(n^2 * m)";
 
 		public int MaximumFlow { get; private set; }
 		private FlowNetwork<GoldbergVertex> graph;
 
-		public void Run(FlowNetwork<GoldbergVertex> graph, GoldbergVertex source) //TODO is this source necessary
+		public void Run(FlowNetwork<GoldbergVertex> graph, string sourceVertexName, string sinkVertexName)
 		{
+			this.graph = graph;
+			graph.Source = graph.Vertices[sourceVertexName];
+			graph.Sink = graph.Vertices[sinkVertexName];
+
 			graph.InitializeVertices();
 			graph.Source.Height = graph.Vertices.Count;
 			graph.InitializeEdges();

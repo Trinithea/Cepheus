@@ -26,8 +26,8 @@ namespace CepheusProjectWpf
 			InitializeComponent();
 			SetAvailbaleAlgorithms();
 		}
-		public static List<EllipseVertex> Vertices = new List<EllipseVertex>();
-		public static List<ArrowEdge> Edges = new List<ArrowEdge>();
+		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>();
+		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
 		string SelectedAlgorithm => treeViewAlgorithms.SelectedItem.ToString();
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -44,10 +44,10 @@ namespace CepheusProjectWpf
 			List<EllipseVertex> verticesToRemove = new List<EllipseVertex>();
 			if (e.Key == Key.Delete)
 			{
-				foreach (ArrowEdge edge in Edges)
+				foreach (ArrowEdge edge in Edges.Keys)
 					if (edge.isMarked)
 						edgesToRemove.Add(edge);
-				foreach (EllipseVertex vertex in Vertices)
+				foreach (EllipseVertex vertex in Vertices.Keys)
 					if (vertex.isMarked)
 						verticesToRemove.Add(vertex);
 			}
@@ -74,7 +74,7 @@ namespace CepheusProjectWpf
 			Canvas GraphCanvas;
 			TextBox txtName;
 			public bool isMarked { get; private set; }
-			public string Name => txtName.Text;
+			public new string Name => txtName.Text;
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
 			{
 				GraphCanvas = graphCanvas;
@@ -104,11 +104,13 @@ namespace CepheusProjectWpf
 				newVertex.MouseRightButtonDown += Ellipse_MouseRightButtonDown;
 
 				GraphCanvas.Children.Add(newVertex);
-				Vertices.Add(this);
+				
+
 				MainEllipse = newVertex;
 
 				txtName = new TextBox();
 				SetNameTextBox(Canvas.GetLeft(newVertex),Canvas.GetTop(newVertex));
+				Vertices.Add(this, Name);
 				return newVertex;
 			}
 			void SetNameTextBox(double left, double top)
@@ -151,8 +153,8 @@ namespace CepheusProjectWpf
 
 			private void Ellipse_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 			{
-				ArrowEdge arrow = new ArrowEdge(GraphCanvas, this, Vertices);
-				Edges.Add(arrow);
+				ArrowEdge arrow = new ArrowEdge(GraphCanvas, this);
+				
 				OutEdges.Add(arrow);
 			}
 			private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -275,17 +277,16 @@ namespace CepheusProjectWpf
 			public EllipseVertex FromVertex { get; private set; }
 			public EllipseVertex ToVertex { get; private set; }
 			private Canvas GraphCanvas { get; }
-			List<EllipseVertex> Vertices; //TODO asi trochu zbytečný
 			TextBox txtLength;
 			public bool isMarked = false;
+			public new string Name => FromVertex.Name + "->" + ToVertex.Name;
 			Line[] Arrow;
 			public int Length => Convert.ToInt32(txtLength.Text);
-			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex, List<EllipseVertex> vertices)
+			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex)
 			{
 				GraphCanvas = graphCanvas;
 				CreateEdgeArrow(Canvas.GetLeft(currentVertex.MainEllipse) + currentVertex.MainEllipse.Width / 2, Canvas.GetTop(currentVertex.MainEllipse) + currentVertex.MainEllipse.Height / 2);
 				FromVertex = currentVertex;
-				Vertices = vertices;
 			}
 			private void SetStroke(string color)
 			{
@@ -348,7 +349,8 @@ namespace CepheusProjectWpf
 			{
 				if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]"))
 				{
-					MessageBox.Show("Only integer length is acceptable.","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+					var errorWindow = new UIWindows.ErrorNonIntegerLengthWindow();
+					errorWindow.Show();
 					txtLength.Text = "1";
 				}
 			}
@@ -371,13 +373,22 @@ namespace CepheusProjectWpf
 			private void MainLine_MouseLeave(object sender, MouseEventArgs e)
 			{
 				if(!isMarked && Arrow != null)
+				{
 					SetStroke("Aqua");
+					txtLength.Foreground = Brushes.White;
+				}
+					
 			}
 
 			private void MainLine_MouseEnter(object sender, MouseEventArgs e)
 			{
 				if(Arrow != null)
+				{
 					SetStroke("Orange");
+					txtLength.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
+				}
+					
+
 			}
 
 			private void MainLine_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -414,6 +425,7 @@ namespace CepheusProjectWpf
 					ToVertex = touchedVertex;
 					ToVertex.InEdges.Add(this);
 					SetEndCoordinatesToCenter(touchedVertex);
+					Edges.Add(this, Name);
 				}
 				else
 				{
@@ -424,7 +436,7 @@ namespace CepheusProjectWpf
 			#endregion
 			public EllipseVertex CheckIntersection(Point mousePosition)
 			{
-				foreach (EllipseVertex vertex in Vertices)
+				foreach (EllipseVertex vertex in Vertices.Keys)
 				{
 					var left = Canvas.GetLeft(vertex.MainEllipse);
 					var top = Canvas.GetTop(vertex.MainEllipse);
@@ -544,7 +556,7 @@ namespace CepheusProjectWpf
 			}
 			void SetVerticesToGreen()
 			{
-				foreach (EllipseVertex vertex in MainWindow.Vertices)
+				foreach (EllipseVertex vertex in Vertices.Keys)
 				{
 					//TODO zachovat barvu u omarkovanej (až nebude vector jen ellipsa :/ ), ale možná je to takhle lepší..
 					vertex.MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
@@ -589,27 +601,50 @@ namespace CepheusProjectWpf
 		{
 			ClearCanvas();
 		}
-		Dictionary<string, IAlgorithm> availbaleAlgorithms = new Dictionary<string, IAlgorithm>();
+		Dictionary<string, Algorithm> availbaleAlgorithms = new Dictionary<string, Algorithm>();
 		void SetAvailbaleAlgorithms()
 		{
-			List<IAlgorithm> algorithms = new List<IAlgorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new Bellman_Ford(), new Dijkstra(), new Floyd_Warshall(), new Relaxation() };
+			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new Bellman_Ford(), new Dijkstra(), new Floyd_Warshall(), new Relaxation() };
 			foreach (var algorithm in algorithms)
 				availbaleAlgorithms.Add(algorithm.Name, algorithm);
 		}
+		
 		void StartProcessing()
 		{
 			Visitor visitor = new Visitor();
 			graphCanvas.IsEnabled = false;
 			availbaleAlgorithms[SelectedAlgorithm].Accept(visitor); //Create graph
 		}
-
-
+		bool InitialVertexMustBeUnique() 
+		{
+			var warningWindow = new UIWindows.WarningUniqueNameOfInitialVertex();
+			warningWindow.Show();
+			return warningWindow.correct;
+		}
+		string GetInitialVertex() // jen u některejch!
+		{
+			var initialVertexWindow = new InitialVertexWindow();
+			initialVertexWindow.Show();
+			return initialVertexWindow.txtInitialVertex.Text;
+		}
 		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
+			StepByStep();
 
+			
 		}
-
-
+		void StepByStep()
+		{
+			if (InitialVertexMustBeUnique())
+			{
+				var nameOfInitialVertex = GetInitialVertex();
+			}
+			
+		}
+		void Run()
+		{
+			
+		}
 		private void btnStepByStep_Click(object sender, RoutedEventArgs e)
 		{
 

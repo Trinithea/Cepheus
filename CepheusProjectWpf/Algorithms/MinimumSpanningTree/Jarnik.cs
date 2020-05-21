@@ -6,16 +6,16 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-	public class Jarnik : IAlgorithm
+	public class Jarnik : Algorithm<JarnikVertex>
 	{
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
 		//TODO Jarník je na neorientovnaý grafy
-		public string Name => "Jarnik's algorithm";
+		public override string Name => "Jarnik's algorithm";
 
-		public string TimeComplexity => "O(m * log(n))";
+		public override string TimeComplexity => "O(m * log(n))";
 		Tree<JarnikVertex> MinimumSpanningTree;
 		public void Run(Graph<JarnikVertex> graph, JarnikVertex initialVertex)
 		{
@@ -61,18 +61,5 @@ namespace Cepheus
 			return sum;
 		} //TODO do this in datastructure
 
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<JarnikVertex> graph = new Graph<JarnikVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new JarnikVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
 	}
 }

@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using CepheusProjectWpf;
 namespace Cepheus
 {
-	public class FordFulkerson : IAlgorithm
+	public class FordFulkerson : FlowAlgorithm<BfsVertex>
 	{
-		public void Accept(Visitor visitor)
+		
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Ford-Fulkerson's algorithm";
+		public override string Name => "Ford-Fulkerson's algorithm";
 
-		public string TimeComplexity => "O(m * f)";
+		public override string TimeComplexity => "O(m * f)";
 
 		public int MaximumFlow { get; private set; }
-		public void Run(FlowNetwork<BfsVertex> graph, BfsVertex initialVertex)
+		public void Run(FlowNetwork<BfsVertex> graph, string sourceVertexName, string sinkVertexName)
 		{
+			graph.Source = graph.Vertices[sourceVertexName];
+			graph.Sink = graph.Vertices[sinkVertexName];
 			graph.InitializeEdges();
 			var path = GetUnsaturatedPathFromSourceToSink(graph);
 			while(path != null ) // must be nenasycená and nemusí být nejkratší

@@ -9,18 +9,14 @@ namespace Cepheus
 	{
 		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
 		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
-		public string Name { get; }
-		public Vertex(string name)
-		{
-			Name = name;
-		}
+		public string Name { get; set; }
+		
 		
 	}
 	public abstract class VertexBase<T> : Vertex where T : Vertex
 	{
 		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
-		public VertexBase(string name) : base(name) { }
 		public abstract void Initialize();
 		public override string ToString()
 		{
@@ -36,7 +32,7 @@ namespace Cepheus
 
 	public class BfsVertex : VertexBase<BfsVertex>, IStateVertex
 	{
-		public BfsVertex(string name) : base(name)
+		public BfsVertex()
 		{
 			State = States.Unvisited;
 			Predecessor = null;
@@ -57,7 +53,7 @@ namespace Cepheus
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
 	{
-		public DfsVertex(string name) : base(name)
+		public DfsVertex()
 		{
 			State =States.Unvisited;
 		}
@@ -78,7 +74,6 @@ namespace Cepheus
 
 	public class FloydWarshallVertex : VertexBase<FloydWarshallVertex>
 	{
-		public FloydWarshallVertex(string name) : base(name) { }
 
 		public int ID { get; set; }
 		public override void Initialize()
@@ -87,7 +82,6 @@ namespace Cepheus
 	}
 	public class JarnikVertex : VertexBase<JarnikVertex>
 	{
-		public JarnikVertex(string name) : base(name) { }
 		public enum States { Inside, Neighbour, Outside }
 		public States State { get; set; }
 		public int? Rating { get; set; }
@@ -103,7 +97,7 @@ namespace Cepheus
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>
 	{
 		public int ComponentID { get; set; }
-		public BoruvkaVertex(string name) : base(name) { }
+
 		public override void Initialize()
 		{
 			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));
@@ -114,13 +108,11 @@ namespace Cepheus
 	//TODO delete this
 	public class FlowVertex : VertexBase<FlowVertex>
 	{
-		public FlowVertex(string name) : base(name) { }
 		public override void Initialize() { }
 	}
 
 	public class GoldbergVertex : VertexBase<GoldbergVertex>
 	{
-		public GoldbergVertex(string name) : base(name) { }
 		public int Height { get; set; }
 		public int Surplus { get; set; }
 		public int UpdateSurplus()

@@ -1,0 +1,16 @@
+﻿<Window x:Class="CepheusProjectWpf.UIWindows.ErrorNonIntegerLengthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CepheusProjectWpf.UIWindows"
+        mc:Ignorable="d"
+        Title="Error" Height="119.532" Width="214.063" Background="{DynamicResource Dark}" Icon="/CepheusProjectWpf;component/Resources/error_icon.png" ResizeMode="NoResize">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="89" Margin="126,-14,-20,0" VerticalAlignment="Top" Width="100" Source="/CepheusProjectWpf;component/Resources/logo_borderless.png"/>
+
+        <Label Content="Only integer length is acceptable." HorizontalAlignment="Left" Height="37" Margin="10,10,0,0" VerticalAlignment="Top" Width="191" Foreground="White"/>
+        <Button x:Name="btnOk" Content="OK" HorizontalAlignment="Left" Height="26" Margin="57,47,0,0" VerticalAlignment="Top" Width="92" Background="{x:Null}" BorderBrush="{DynamicResource Blue}" Foreground="{DynamicResource Blue}" Click="btnOk_Click"/>
+
+    </Grid>
+</Window>

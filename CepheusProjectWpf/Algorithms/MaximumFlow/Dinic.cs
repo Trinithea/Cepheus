@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using CepheusProjectWpf;
-
 namespace Cepheus
 {
-	 public class Dinic : IAlgorithm
+	 public class Dinic : FlowAlgorithm<BfsVertex>
 	 {
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
 		//TODO try again to do it like in Pruvodce
-		public string Name => "Dinic's algorithm";
+		public override string Name => "Dinic's algorithm";
 
-		public string TimeComplexity => "O(n^2 * m)";
+		public override string TimeComplexity => "O(n^2 * m)";
 		public int MaximumFlow { get; private set; }
 		private FlowNetwork<BfsVertex> graph;
-		public void Run(FlowNetwork<BfsVertex> graph,BfsVertex initialVertex)
+		public void Run(FlowNetwork<BfsVertex> graph,string sourceVertexName, string sinkVertexName)
 		{
 			this.graph = graph;
+			graph.Source = graph.Vertices[sourceVertexName];
+			graph.Sink = graph.Vertices[sinkVertexName];
+
 			BFS bfs = new BFS();
 
 			while (true)
@@ -44,26 +46,24 @@ namespace Cepheus
 		}
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{
-			var source = new BfsVertex(graph.Source.Name);
-			var sink = new BfsVertex(graph.Sink.Name);
-			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>(source,sink) ;
+			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>() ;
 
 			foreach (BfsVertex vertex in graph.Vertices.Values)
 			{
 				if (vertex == graph.Source)
-					reserveNetwork.AddVertex(source);
+					reserveNetwork.AddVertex(graph.Source.Name);
 				else if (vertex == graph.Sink)
-					reserveNetwork.AddVertex(sink);
+					reserveNetwork.AddVertex(graph.Sink.Name);
 				else
-					reserveNetwork.AddVertex(new BfsVertex(vertex.Name));
+					reserveNetwork.AddVertex(vertex.Name);
 			}
 
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
 			{
 				if (edge.Capacity > edge.Flow)
-					reserveNetwork.AddEdge(edge.From.Name + edge.To.Name, reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.Capacity - edge.Flow);
+					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.From.Name), reserveNetwork.GetVertex(edge.To.Name), edge.From.Name + edge.To.Name, edge.Capacity - edge.Flow);
 				if (edge.Flow > 0)
-					reserveNetwork.AddEdge(edge.To.Name + edge.From.Name, reserveNetwork.GetVertex(edge.To.Name), reserveNetwork.GetVertex(edge.From.Name), edge.Flow);
+					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.To.Name), reserveNetwork.GetVertex(edge.From.Name), edge.To.Name + edge.From.Name, edge.Flow);
 			}
 			
 			return reserveNetwork;
@@ -174,5 +174,7 @@ namespace Cepheus
 
 		}
 		
-	 }
+
+
+	}
 }

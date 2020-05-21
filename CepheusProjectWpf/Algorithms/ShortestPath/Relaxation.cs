@@ -5,14 +5,14 @@ using CepheusProjectWpf;
 
 namespace Cepheus
 {
-	public sealed class Relaxation : IAlgorithm
+	public sealed class Relaxation : Algorithm<BfsVertex>
 	{
-		public void Accept(Visitor visitor)
+		public override void Accept(Visitor visitor)
 		{
 			visitor.Visit(this);
 		}
-		public string Name => "Relaxation algorithm";
-		public string TimeComplexity => "O(n^2)";
+		public override string Name => "Relaxation algorithm";
+		public override string TimeComplexity => "O(n^2)";
 
 		public void Run(Graph<BfsVertex> graph, BfsVertex initialVertex)
 		{
@@ -43,18 +43,6 @@ namespace Cepheus
 				openVertices.RemoveAt(0);
 			}
 		}
-		public Graph CreateGraph(List<MainWindow.EllipseVertex> vertices, List<MainWindow.ArrowEdge> edges)
-		{
-			Graph<BfsVertex> graph = new Graph<BfsVertex>();
-			foreach (var vertex in vertices)
-			{
-				graph.AddVertex(new BfsVertex(vertex.Name));
-			}
-			foreach (var edge in edges)
-			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.Name), graph.GetVertex(edge.ToVertex.Name), edge.Length);
-			}
-			return graph;
-		}
+
 	}
 }
