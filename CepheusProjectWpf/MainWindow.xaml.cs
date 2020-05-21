@@ -350,7 +350,7 @@ namespace CepheusProjectWpf
 				if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]"))
 				{
 					var errorWindow = new UIWindows.ErrorNonIntegerLengthWindow();
-					errorWindow.Show();
+					errorWindow.ShowDialog();
 					txtLength.Text = "1";
 				}
 			}
@@ -618,14 +618,17 @@ namespace CepheusProjectWpf
 		bool InitialVertexMustBeUnique() 
 		{
 			var warningWindow = new UIWindows.WarningUniqueNameOfInitialVertex();
-			warningWindow.Show();
+			warningWindow.ShowDialog();
 			return warningWindow.correct;
 		}
 		string GetInitialVertex() // jen u některejch!
 		{
 			var initialVertexWindow = new InitialVertexWindow();
-			initialVertexWindow.Show();
-			return initialVertexWindow.txtInitialVertex.Text;
+			initialVertexWindow.ShowDialog();
+			if (initialVertexWindow.correct)
+				return initialVertexWindow.nameOfInitialVertex;
+			else
+				return null;
 		}
 		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -638,12 +641,22 @@ namespace CepheusProjectWpf
 			if (InitialVertexMustBeUnique())
 			{
 				var nameOfInitialVertex = GetInitialVertex();
+				if(nameOfInitialVertex != null)
+				{
+					StartProcessing();
+				}
 			}
-			
 		}
 		void Run()
 		{
-			
+			if (InitialVertexMustBeUnique())
+			{
+				var nameOfInitialVertex = GetInitialVertex();
+				if (nameOfInitialVertex != null)
+				{
+					StartProcessing();
+				}
+			}
 		}
 		private void btnStepByStep_Click(object sender, RoutedEventArgs e)
 		{

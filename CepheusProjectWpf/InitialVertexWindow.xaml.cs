@@ -19,6 +19,8 @@ namespace CepheusProjectWpf
 	/// </summary>
 	public partial class InitialVertexWindow : Window
 	{
+		public bool correct = false;
+		public string nameOfInitialVertex;
 		public InitialVertexWindow()
 		{
 			InitializeComponent();
@@ -37,30 +39,33 @@ namespace CepheusProjectWpf
 		private void btnConfirm_Click(object sender, RoutedEventArgs e)
 		{
 			if (txtInitialVertex.Text != "")
-				this.Close();
+			{
+				if (IsNameUnique(txtInitialVertex.Text))
+				{
+					if (MainWindow.Vertices.ContainsValue(txtInitialVertex.Text))
+					{
+						nameOfInitialVertex = txtInitialVertex.Text;
+						correct = true;
+						this.Close();
+					}
+					else
+					{
+						lblErrorMessage.Content = "This name of vertex doesn't exist.";
+						lblErrorMessage.Visibility = Visibility.Visible;
+					}
+				}
+				else
+				{
+					lblErrorMessage.Content = "Name of initial vertex must be unique.";
+					lblErrorMessage.Visibility = Visibility.Visible;
+				}
+			}
 			else
 			{
 				lblErrorMessage.Content = "Name can't be empty.";
 				lblErrorMessage.Visibility = Visibility.Visible;
 			}
 
-			if (IsNameUnique(txtInitialVertex.Text))
-			{
-				if (MainWindow.Vertices.ContainsValue(txtInitialVertex.Text))
-					this.Close();
-				else
-				{
-					lblErrorMessage.Content = "This name of vertex doesn't exist.";
-					lblErrorMessage.Visibility = Visibility.Visible;
-				}
-			}
-			else
-			{
-				lblErrorMessage.Content = "Name of initial vertex must be unique.";
-				lblErrorMessage.Visibility = Visibility.Visible;
-			}
-				
-			
 		}
 	}
 }

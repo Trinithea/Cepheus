@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CepheusProjectWpf"
         mc:Ignorable="d"
-        Title="Set initial vertex" Height="158.172" Width="374.308" Icon="Resources/logo_icon.png" ResizeMode="NoResize">
+        Title="Set initial vertex" Height="150.505" Width="459.975" Icon="Resources/logo_icon.png" ResizeMode="NoResize">
     <Grid Background="{DynamicResource Dark}">
-        <Label x:Name="lblErrorMessage" Content="Name can't be empty." HorizontalAlignment="Left" Height="20" Margin="141,69,0,0" VerticalAlignment="Top" Width="145" Foreground="{DynamicResource Orange}" FontSize="6" Visibility="Hidden"/>
+        <Label x:Name="lblErrorMessage" Content="Name can't be empty." HorizontalAlignment="Left" Height="25" Margin="141,69,0,0" VerticalAlignment="Top" Width="222" Foreground="{DynamicResource Orange}" FontSize="9" Visibility="Hidden"/>
 
-        <Image HorizontalAlignment="Left" Height="155" Margin="254,-6,-11,-22" VerticalAlignment="Top" Width="123" Source="Resources/logo_borderless.png"/>
+        <Image HorizontalAlignment="Left" Height="155" Margin="345,-22,-14,-11" VerticalAlignment="Top" Width="123" Source="Resources/logo_borderless.png" Opacity="0.5"/>
         <Label Content="Set initial vertex" HorizontalAlignment="Left" Height="35" Margin="10,10,0,0" VerticalAlignment="Top" Width="249" Foreground="White" FontSize="18"/>
         <Label Content="Name of initial vertex:" HorizontalAlignment="Left" Height="28" Margin="10,45,0,0" VerticalAlignment="Top" Width="134" Foreground="{DynamicResource Blue}"/>
         <TextBox x:Name="txtInitialVertex" HorizontalAlignment="Left" Height="23" Margin="144,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" Background="{x:Null}" Foreground="White" BorderBrush="{DynamicResource Blue}"/>
-        <Button x:Name="btnConfirm" Content="Confirm" HorizontalAlignment="Left" Height="26" Margin="220,77,0,0" VerticalAlignment="Top" Width="69" Background="{x:Null}" BorderBrush="{DynamicResource Blue}" Foreground="{DynamicResource Blue}" Click="btnConfirm_Click"/>
+        <Button x:Name="btnConfirm" Content="Confirm" HorizontalAlignment="Left" Height="26" Margin="294,47,0,0" VerticalAlignment="Top" Width="69" Background="{x:Null}" BorderBrush="{DynamicResource Blue}" Foreground="{DynamicResource Blue}" Click="btnConfirm_Click"/>
 
     </Grid>
 </Window>
