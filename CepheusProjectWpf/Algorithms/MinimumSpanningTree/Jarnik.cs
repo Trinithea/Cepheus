@@ -12,6 +12,10 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 		//TODO Jarník je na neorientovnaý grafy
 		public override string Name => "Jarnik's algorithm";
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Cepheus
 {
@@ -10,7 +11,7 @@ namespace Cepheus
 		public override string Name => "Breadth-first search";
 		public override string TimeComplexity => "O(n + m)";
 
-		public void Run ()
+		public async void Run ()
 		{
 			graph.InitializeVertices();
 
@@ -23,6 +24,7 @@ namespace Cepheus
 			while(queue.Count > 0)
 			{
 				BfsVertex vertex = queue.Dequeue();
+				ColorVertex(vertex);
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					if (edge.To.State ==States.Unvisited)
@@ -31,10 +33,16 @@ namespace Cepheus
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
 						queue.Enqueue(edge.To);
+						ColorEdge(edge);
+						ColorVertex(edge.To);
+						await Task.Delay(750);
 					}
-					
 				}
 				vertex.State = States.Closed;
+				UncolorVertex(vertex);
+				foreach (var edge in vertex.OutEdges)
+					UncolorEdge(edge);
+				await Task.Delay(1000);
 			}
 
 		}
@@ -57,7 +65,10 @@ namespace Cepheus
 			}
 		}
 
-
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 
 		public override void Accept(VisitorGraphCreator visitor)
 		{

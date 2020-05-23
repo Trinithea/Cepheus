@@ -11,6 +11,10 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 		public override string Name => "Dijkstra's algorithm";
 		public override string TimeComplexity => "O((n + m) * log(n))";
 

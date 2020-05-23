@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 using CepheusProjectWpf;
 namespace Cepheus
 {
@@ -9,6 +11,7 @@ namespace Cepheus
 		public abstract string Name { get; }
 		public abstract string TimeComplexity { get; }
 		public abstract void Accept(VisitorGraphCreator visitor);
+		public abstract void Accept(VisitorRunner visitor);
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
@@ -31,9 +34,25 @@ namespace Cepheus
 		}
 		protected void ColorEdge(Edge<TVertex> edge)
 		{
-
+			graph.UltimateEdges[edge].SetStroke("Orange");
 		}
+		protected void UncolorEdge(Edge<TVertex> edge)
+		{
+			graph.UltimateEdges[edge].SetStroke("Aqua");
+		}
+		protected void ColorVertex(TVertex vertex)
+		{
+			graph.UltimateVertices[vertex].SetStroke("Orange");
+		}
+		protected void UncolorVertex(TVertex vertex)
+		{
+			graph.UltimateVertices[vertex].SetStroke("Aqua");
+		}
+
 	}
+
+
+	
 	public abstract class FlowAlgorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
 		public FlowNetwork<TVertex> graph;

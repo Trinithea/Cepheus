@@ -12,6 +12,10 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 		public override string Name => "Kruskal's algorithm";
 
 		public override string TimeComplexity => "O(m * log(n))";

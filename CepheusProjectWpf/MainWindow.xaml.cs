@@ -119,6 +119,7 @@ namespace CepheusProjectWpf
 				idCounter++;
 				return newVertex;
 			}
+
 			void SetNameTextBox(double left, double top)
 			{
 				txtName.Background = Brushes.Transparent;
@@ -146,6 +147,10 @@ namespace CepheusProjectWpf
 					Canvas.SetTop(txtName, top - txtName.Height);
 			}
 			#region MouseActions
+			public void SetStroke(string color)
+			{
+				MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources[color];
+			}
 			private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 			{
 				if (!isMarked)
@@ -294,7 +299,7 @@ namespace CepheusProjectWpf
 				CreateEdgeArrow(Canvas.GetLeft(currentVertex.MainEllipse) + currentVertex.MainEllipse.Width / 2, Canvas.GetTop(currentVertex.MainEllipse) + currentVertex.MainEllipse.Height / 2);
 				FromVertex = currentVertex;
 			}
-			private void SetStroke(string color)
+			public void SetStroke(string color)
 			{
 				for (int i = 0; i < Arrow.Length; i++)
 					Arrow[i].Stroke = (SolidColorBrush)Application.Current.Resources[color];
@@ -615,13 +620,19 @@ namespace CepheusProjectWpf
 				availbaleAlgorithms.Add(algorithm.Name, algorithm);
 		}
 		
-		void StartProcessing()
+		void StartCreating()
 		{
 			var visitor = new VisitorGraphCreator();
-			graphCanvas.IsEnabled = false;
-			var algorithm = availbaleAlgorithms[SelectedAlgorithm];
+			DisableEverything();
+			var algorithm = availbaleAlgorithms["Breadth-first search"];
 			algorithm.Accept(visitor); //Create graph
-
+		}
+		void StartRunning()
+		{
+			var visitor = new VisitorRunner();
+			var algorithm = availbaleAlgorithms["Breadth-first search"];
+			algorithm.Accept(visitor); //Run
+			
 		}
 		bool InitialVertexMustBeUnique() 
 		{
@@ -637,6 +648,26 @@ namespace CepheusProjectWpf
 				return initialVertexWindow.initialVertexId;
 			else
 				return null;
+		}
+		void DisableEverything()
+		{
+			graphCanvas.IsEnabled = false;
+			imgClear.IsEnabled = false;
+			imgRun.IsEnabled = false;
+			imgStepByStep.IsEnabled = false;
+			btnClear.IsEnabled = false;
+			btnStepByStep.IsEnabled = false;
+			btnRun.IsEnabled = false;
+		}
+		public void EnableEverything() //TODO spouštět v jinym vlákně
+		{
+			graphCanvas.IsEnabled = true;
+			imgClear.IsEnabled = true;
+			imgRun.IsEnabled = true;
+			imgStepByStep.IsEnabled = true;
+			btnClear.IsEnabled = true;
+			btnStepByStep.IsEnabled = true;
+			btnRun.IsEnabled = true;
 		}
 		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -656,7 +687,8 @@ namespace CepheusProjectWpf
 				if (nameOfInitialVertex != null)
 				{
 					initialVertex = nameOfInitialVertex;
-					StartProcessing();
+					StartCreating();
+					StartRunning();
 				}
 			}
 		}

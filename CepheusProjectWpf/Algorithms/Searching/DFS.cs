@@ -32,7 +32,10 @@ namespace Cepheus
 			Time++;
 			vertex.OutTime = Time;
 		}
-		
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);

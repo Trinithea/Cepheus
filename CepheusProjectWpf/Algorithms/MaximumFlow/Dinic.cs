@@ -10,6 +10,10 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 		//TODO try again to do it like in Pruvodce
 		public override string Name => "Dinic's algorithm";
 

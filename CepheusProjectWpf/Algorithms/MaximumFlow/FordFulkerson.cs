@@ -11,6 +11,10 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
+		public override void Accept(VisitorRunner visitor)
+		{
+			visitor.Visit(this);
+		}
 		public override string Name => "Ford-Fulkerson's algorithm";
 
 		public override string TimeComplexity => "O(m * f)";
