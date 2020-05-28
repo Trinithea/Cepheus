@@ -11,7 +11,7 @@ namespace Cepheus
 		public abstract string Name { get; }
 		public abstract string TimeComplexity { get; }
 		public abstract void Accept(VisitorGraphCreator visitor);
-		public abstract void Accept(VisitorRunner visitor);
+		public abstract Task Accept(VisitorRunner visitor);
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CepheusProjectWpf;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
@@ -12,9 +13,9 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 		public override string Name => "Floyd-Warshall's algorithm";
 		public override string TimeComplexity => "O(n^3)";
@@ -34,7 +35,7 @@ namespace Cepheus
 			return (distanceMatrix[vertexFrom.ID, vertexTo.ID]);
 		}
 
-		public void Run()
+		public async Task Run()
 		{
 			vertices = graph.Vertices;
 			int countOfVertices = vertices.Count;

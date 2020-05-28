@@ -61,53 +61,53 @@ namespace Cepheus
     }
     public class VisitorRunner : Visitor
     {
-        public void Visit(BFS algorithm)
+        public async Task Visit(BFS algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(DFS algorithm)
+        public async Task Visit(DFS algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Dinic algorithm)
+        public async Task Visit(Dinic algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(FordFulkerson algorithm)
+        public async Task Visit(FordFulkerson algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Goldberg algorithm)
+        public async Task Visit(Goldberg algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Boruvka algorithm)
+        public async Task Visit(Boruvka algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Jarnik algorithm)
+        public async Task Visit(Jarnik algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Kruskal algorithm)
+        public async Task Visit(Kruskal algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Bellman_Ford algorithm)
+        public async Task Visit(Bellman_Ford algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Dijkstra algorithm)
+        public async Task Visit(Dijkstra algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Floyd_Warshall algorithm)
+        public async Task Visit(Floyd_Warshall algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
-        public void Visit(Relaxation algorithm)
+        public async Task Visit(Relaxation algorithm)
         {
-            algorithm.Run();
+            await algorithm.Run();
         }
     }
     public class VisitorStepper : Visitor

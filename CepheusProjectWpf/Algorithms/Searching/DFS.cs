@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CepheusProjectWpf;
 
 namespace Cepheus
@@ -10,7 +11,7 @@ namespace Cepheus
 		public override string Name => "Depth-first search";
 		public override string TimeComplexity => "O(n + m)";
 		static int Time = 0;
-		public void Run()
+		public async Task Run()
 		{
 			graph.InitializeVertices();
 
@@ -32,9 +33,9 @@ namespace Cepheus
 			Time++;
 			vertex.OutTime = Time;
 		}
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 		public override void Accept(VisitorGraphCreator visitor)
 		{

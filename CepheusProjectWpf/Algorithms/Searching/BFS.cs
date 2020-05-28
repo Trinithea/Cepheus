@@ -11,7 +11,7 @@ namespace Cepheus
 		public override string Name => "Breadth-first search";
 		public override string TimeComplexity => "O(n + m)";
 
-		public async void Run ()
+		public async Task Run ()
 		{
 			graph.InitializeVertices();
 
@@ -65,9 +65,9 @@ namespace Cepheus
 			}
 		}
 
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 
 		public override void Accept(VisitorGraphCreator visitor)

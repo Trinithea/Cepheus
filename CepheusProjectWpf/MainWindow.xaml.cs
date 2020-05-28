@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -627,11 +628,13 @@ namespace CepheusProjectWpf
 			var algorithm = availbaleAlgorithms["Breadth-first search"];
 			algorithm.Accept(visitor); //Create graph
 		}
-		void StartRunning()
+		async Task StartRunning()
 		{
 			var visitor = new VisitorRunner();
 			var algorithm = availbaleAlgorithms["Breadth-first search"];
-			algorithm.Accept(visitor); //Run
+			await algorithm.Accept(visitor); //Run
+
+			//EnableEverything();
 			
 		}
 		bool InitialVertexMustBeUnique() 
@@ -679,7 +682,7 @@ namespace CepheusProjectWpf
 		{
 			
 		}
-		void Run()
+		async Task Run()
 		{
 			if (InitialVertexMustBeUnique())
 			{
@@ -687,8 +690,9 @@ namespace CepheusProjectWpf
 				if (nameOfInitialVertex != null)
 				{
 					initialVertex = nameOfInitialVertex;
-					StartCreating();
-					StartRunning();
+					StartCreating(); //tady se disabluje
+					await StartRunning(); //tady se spustí někdy metoda async void Run()
+					EnableEverything();
 				}
 			}
 		}

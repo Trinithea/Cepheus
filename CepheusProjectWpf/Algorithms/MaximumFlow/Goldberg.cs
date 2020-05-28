@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CepheusProjectWpf;
 
 namespace Cepheus
@@ -13,9 +14,9 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 		public override string Name => "Goldberg's algorithm";
 
@@ -23,7 +24,7 @@ namespace Cepheus
 
 		public int MaximumFlow { get; private set; }
 
-		public void Run()
+		public async Task Run()
 		{
 			graph.InitializeVertices();
 			graph.Source.Height = graph.Vertices.Count;

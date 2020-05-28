@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CepheusProjectWpf;
 namespace Cepheus
 {
@@ -10,16 +11,16 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 		//TODO try again to do it like in Pruvodce
 		public override string Name => "Dinic's algorithm";
 
 		public override string TimeComplexity => "O(n^2 * m)";
 		public int MaximumFlow { get; private set; }
-		public void Run()
+		public async Task Run()
 		{
 			BFS bfs = new BFS();
 

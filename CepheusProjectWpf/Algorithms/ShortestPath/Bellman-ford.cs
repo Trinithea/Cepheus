@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using CepheusProjectWpf;
 
 namespace Cepheus
@@ -11,13 +12,13 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 		public override string Name => "Bellman-Ford's algorithm";
 		public override string TimeComplexity => "O(n * m)";
-		public void Run()
+		public async Task Run()
 		{
 			graph.InitializeVertices();
 

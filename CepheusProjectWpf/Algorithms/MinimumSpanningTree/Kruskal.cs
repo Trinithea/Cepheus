@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Cepheus.DataStructures;
 using CepheusProjectWpf;
 
@@ -12,15 +13,15 @@ namespace Cepheus
 		{
 			visitor.Visit(this);
 		}
-		public override void Accept(VisitorRunner visitor)
+		public async override Task Accept(VisitorRunner visitor)
 		{
-			visitor.Visit(this);
+			await visitor.Visit(this);
 		}
 		public override string Name => "Kruskal's algorithm";
 
 		public override string TimeComplexity => "O(m * log(n))";
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree { get; private set; }
-		public void Run()
+		public async Task Run()
 		{
 			var edges = graph.GetEdgesSortedByLength();
 
