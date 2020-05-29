@@ -32,7 +32,7 @@ namespace CepheusProjectWpf
 		public static int? initialVertex = null;
 		public static int? sinkVertex = null;
 		static int idCounter=0;
-		string SelectedAlgorithm => treeViewAlgorithms.SelectedItem.ToString();
+		//string SelectedAlgorithm => treeViewAlgorithms.SelectedItem.ToString();
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -656,21 +656,13 @@ namespace CepheusProjectWpf
 		{
 			graphCanvas.IsEnabled = false;
 			imgClear.IsEnabled = false;
-			imgRun.IsEnabled = false;
-			imgStepByStep.IsEnabled = false;
 			btnClear.IsEnabled = false;
-			btnStepByStep.IsEnabled = false;
-			btnRun.IsEnabled = false;
 		}
 		public void EnableEverything() //TODO spouštět v jinym vlákně
 		{
 			graphCanvas.IsEnabled = true;
 			imgClear.IsEnabled = true;
-			imgRun.IsEnabled = true;
-			imgStepByStep.IsEnabled = true;
 			btnClear.IsEnabled = true;
-			btnStepByStep.IsEnabled = true;
-			btnRun.IsEnabled = true;
 		}
 		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -709,6 +701,11 @@ namespace CepheusProjectWpf
 		private void btnRun_Click(object sender, RoutedEventArgs e)
 		{
 			Run();
+		}
+
+		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
 	}
 }
