@@ -191,5 +191,11 @@
     <Resource Include="Resources\zoom_in_icon.png" />
     <Resource Include="Resources\zoom_out_icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\mouse_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\famous_graphs_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

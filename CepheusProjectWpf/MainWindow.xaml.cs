@@ -613,25 +613,29 @@ namespace CepheusProjectWpf
 		{
 			ClearCanvas();
 		}
-		Dictionary<string, Algorithm> availbaleAlgorithms = new Dictionary<string, Algorithm>();
+		//Dictionary<string, Algorithm> availbaleAlgorithms = new Dictionary<string, Algorithm>();
 		void SetAvailbaleAlgorithms()
 		{
 			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new Bellman_Ford(), new Dijkstra(), new Floyd_Warshall(), new Relaxation() };
 			foreach (var algorithm in algorithms)
-				availbaleAlgorithms.Add(algorithm.Name, algorithm);
+			{
+				//availbaleAlgorithms.Add(algorithm.Name, algorithm);
+				cmbAlgorithms.Items.Add(algorithm);
+			}
+				
 		}
 		
 		void StartCreating()
 		{
 			var visitor = new VisitorGraphCreator();
 			DisableEverything();
-			var algorithm = availbaleAlgorithms["Breadth-first search"];
+			var algorithm = (Algorithm)cmbAlgorithms.SelectedItem;
 			algorithm.Accept(visitor); //Create graph
 		}
 		async Task StartRunning()
 		{
 			var visitor = new VisitorRunner();
-			var algorithm = availbaleAlgorithms["Breadth-first search"];
+			var algorithm = (Algorithm)cmbAlgorithms.SelectedItem;
 			await algorithm.Accept(visitor); //Run
 
 			//EnableEverything();
@@ -688,24 +692,39 @@ namespace CepheusProjectWpf
 				}
 			}
 		}
-		private void btnStepByStep_Click(object sender, RoutedEventArgs e)
+		void Lighten(Grid uc)
 		{
-
+			uc.Background = new SolidColorBrush(Color.FromRgb(28, 29, 41));
+		}
+		void Darken(Grid uc)
+		{
+			uc.Background = new SolidColorBrush(Color.FromRgb(18, 19, 27));
+		}
+		private async void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			Lighten(gridRun);
+			await Run();
+			Darken(gridRun);
 		}
 
-		private void imgRun_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		private void gridRun_MouseEnter(object sender, MouseEventArgs e)
 		{
-			Run();
+			Lighten(gridRun);
 		}
 
-		private void btnRun_Click(object sender, RoutedEventArgs e)
+		private void gridRun_MouseLeave(object sender, MouseEventArgs e)
 		{
-			Run();
+			Darken(gridRun);
 		}
 
-		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		private void gridStepByStep_MouseEnter(object sender, MouseEventArgs e)
 		{
+			Lighten(gridStepByStep);
+		}
 
+		private void gridStepByStep_MouseLeave(object sender, MouseEventArgs e)
+		{
+			Darken(gridStepByStep);
 		}
 	}
 }

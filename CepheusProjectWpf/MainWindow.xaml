@@ -29,31 +29,32 @@
         <Rectangle Grid.ColumnSpan="3" Fill="{DynamicResource Dark}" Stroke="#FF10429B" MaxHeight="34" MinHeight="34" Height="34" VerticalAlignment="Top"/>
 
         <Grid Background="#FF12131B" Margin="0,3,0,0" Grid.Column="1" HorizontalAlignment="Left" Width="419" MinHeight="28" MaxHeight="28" Height="28" VerticalAlignment="Top">
-            <ComboBox HorizontalAlignment="Left" Margin="10,2,0,2" Width="220" AutomationProperties.HelpText="Choose algorithm..." ToolTip="Choose algorithm..."/>
+            <ComboBox x:Name="cmbAlgorithms" HorizontalAlignment="Left" Margin="10,2,0,2" Width="220" AutomationProperties.HelpText="Choose algorithm..." ToolTip="Choose algorithm..."/>
             <Image HorizontalAlignment="Left" Margin="235,2,0,2" Width="20" Source="Resources/info_icon.png" RenderTransformOrigin="-0.083,0.556"/>
-            <Grid HorizontalAlignment="Left" Height="26" Margin="260,2,0,0" VerticalAlignment="Top" Width="51">
+            <Grid x:Name="gridRun" HorizontalAlignment="Left" Height="26" Margin="260,2,0,0" VerticalAlignment="Top" Width="51" MouseUp="gridRun_MouseUp" MouseEnter="gridRun_MouseEnter" MouseLeave="gridRun_MouseLeave">
                 <Image HorizontalAlignment="Left" Width="20" Source="Resources/play_icon2.png" RenderTransformOrigin="0.488,0.9"/>
                 <Label Content="Run" Margin="20,0,0,0" Foreground="White" RenderTransformOrigin="0.484,0.556"/>
             </Grid>
-            <Grid HorizontalAlignment="Left" Margin="316,2,0,0" Width="102">
+            <Grid x:Name="gridStepByStep" HorizontalAlignment="Left" Margin="316,2,0,0" Width="102" MouseEnter="gridStepByStep_MouseEnter" MouseLeave="gridStepByStep_MouseLeave">
                 <Image Source="Resources/sbs_icon.png" RenderTransformOrigin="1.306,0.487" Margin="0,0,71,0"/>
                 <Label Content="Step by step" Margin="24,0,0,0" Foreground="White" RenderTransformOrigin="0.484,0.556"/>
             </Grid>
         </Grid>
-        <Grid Grid.Column="1" Margin="424,3,0,0" Background="#FF12131B" HorizontalAlignment="Left" Width="100" MinHeight="28" MaxHeight="28" Height="28" VerticalAlignment="Top">
+        <Grid Grid.Column="1" Margin="615,3,0,0" Background="#FF12131B" HorizontalAlignment="Left" Width="100" MinHeight="28" MaxHeight="28" Height="28" VerticalAlignment="Top">
             <Image HorizontalAlignment="Left" Width="30" Source="Resources/save_icon.png" AutomationProperties.HelpText="Save graph" ToolTip="Save graph"/>
             <Image HorizontalAlignment="Left" Margin="35,0,0,0" Width="30" Source="Resources/open_icon.png" AutomationProperties.HelpText="Open graph" ToolTip="Open graph"/>
             <Image HorizontalAlignment="Left" Height="28" Margin="70,0,0,0" VerticalAlignment="Top" Width="30" Source="Resources/print_icon.png" AutomationProperties.HelpText="Print" ToolTip="Print graph"/>
 
         </Grid >
         <Image Grid.Column="1" ToolTip="About Cepheus" Source="Resources/logo_icon.png" AutomationProperties.HelpText="About Cepheus" Margin="0,4,10,0" MinHeight="25" MaxHeight="25" HorizontalAlignment="Right" Width="25" Height="25" VerticalAlignment="Top" MinWidth="25" MaxWidth="25"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="529,3,0,0" VerticalAlignment="Top" Width="157" MinHeight="28" MaxHeight="28" OpacityMask="#FF12131B" Background="#FF12131B">
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="424,3,0,0" VerticalAlignment="Top" Width="186" MinHeight="28" MaxHeight="28" OpacityMask="#FF12131B" Background="#FF12131B">
             <Ellipse Fill="{DynamicResource Aqua}" HorizontalAlignment="Left" Height="20" Stroke="White" VerticalAlignment="Top" Width="20" Margin="7,5,0,0" ToolTip="Current color"/>
             <Ellipse Fill="{DynamicResource Orange}" HorizontalAlignment="Left" Height="20" Stroke="White" VerticalAlignment="Top" Width="20" Margin="32,5,0,0" RenderTransformOrigin="1.9,0.4" ToolTip="Highlight color"/>
-            <Image HorizontalAlignment="Left" Height="20" Margin="57,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Fill color" Source="Resources/fill_color_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
-            <Image HorizontalAlignment="Left" Height="20" Margin="82,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Zoom in" Source="Resources/zoom_in_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
-            <Image HorizontalAlignment="Left" Height="20" Margin="107,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Zoom out" Source="Resources/zoom_out_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
-            <Image HorizontalAlignment="Left" Height="20" Margin="132,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Famous graphs" Source="Resources/known_graphs_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="82,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Fill color" Source="Resources/fill_color_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="107,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Zoom in" Source="Resources/zoom_in_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="132,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Zoom out" Source="Resources/zoom_out_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="25" Margin="157,3,0,0" VerticalAlignment="Top" Width="25" ToolTip="Famous graphs" Source="Resources/famous_graphs_icon.png" MinHeight="25" MaxHeight="25" MinWidth="25" MaxWidth="25"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="57,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Cursor" Source="Resources/mouse_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
         </Grid>
         <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="615,3,0,0" VerticalAlignment="Top" Width="225" Background="#FF12131B" Visibility="Hidden">
             <Image HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Source="Resources/error_icon.png" Margin="5,5,0,0"/>
