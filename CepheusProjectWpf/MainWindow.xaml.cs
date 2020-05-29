@@ -692,39 +692,53 @@ namespace CepheusProjectWpf
 				}
 			}
 		}
-		void Lighten(Grid uc)
+		void LightenGrid(Grid uc)
 		{
 			uc.Background = new SolidColorBrush(Color.FromRgb(28, 29, 41));
 		}
-		void Darken(Grid uc)
+		
+
+		void DarkenGrid(Grid uc)
 		{
 			uc.Background = new SolidColorBrush(Color.FromRgb(18, 19, 27));
 		}
 		private async void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			Lighten(gridRun);
+			LightenGrid(gridRun);
 			await Run();
-			Darken(gridRun);
+			DarkenGrid(gridRun);
 		}
 
 		private void gridRun_MouseEnter(object sender, MouseEventArgs e)
 		{
-			Lighten(gridRun);
+			LightenGrid(gridRun);
 		}
 
 		private void gridRun_MouseLeave(object sender, MouseEventArgs e)
 		{
-			Darken(gridRun);
+			DarkenGrid(gridRun);
 		}
 
 		private void gridStepByStep_MouseEnter(object sender, MouseEventArgs e)
 		{
-			Lighten(gridStepByStep);
+			LightenGrid(gridStepByStep);
 		}
 
 		private void gridStepByStep_MouseLeave(object sender, MouseEventArgs e)
 		{
-			Darken(gridStepByStep);
+			DarkenGrid(gridStepByStep);
 		}
+
+		private void DarkenImage(object sender, MouseEventArgs e)
+		{
+			((Image)sender).Opacity =0.5;
+		}
+
+		private void LightenImage(object sender, MouseEventArgs e)
+		{
+			((Image)sender).Opacity =1;
+		}
+
+		
 	}
 }
