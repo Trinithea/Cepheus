@@ -46,11 +46,14 @@
             <Image HorizontalAlignment="Left" Height="28" Margin="70,0,0,0" VerticalAlignment="Top" Width="30" Source="Resources/print_icon.png" AutomationProperties.HelpText="Print" ToolTip="Print graph"/>
 
         </Grid >
-        <Image Grid.Column="1" ToolTip="About Cepheus" Source="Resources/small_logo.png" AutomationProperties.HelpText="About Cepheus" Margin="0,3,10,0" MinHeight="28" MaxHeight="28" HorizontalAlignment="Right" Width="28" Height="34" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="529,3,0,0" VerticalAlignment="Top" Width="81" MinHeight="28" MaxHeight="28" OpacityMask="#FF12131B" Background="#FF12131B">
+        <Image Grid.Column="1" ToolTip="About Cepheus" Source="Resources/logo_icon.png" AutomationProperties.HelpText="About Cepheus" Margin="0,4,10,0" MinHeight="25" MaxHeight="25" HorizontalAlignment="Right" Width="25" Height="25" VerticalAlignment="Top" MinWidth="25" MaxWidth="25"/>
+        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="529,3,0,0" VerticalAlignment="Top" Width="157" MinHeight="28" MaxHeight="28" OpacityMask="#FF12131B" Background="#FF12131B">
             <Ellipse Fill="{DynamicResource Aqua}" HorizontalAlignment="Left" Height="20" Stroke="White" VerticalAlignment="Top" Width="20" Margin="7,5,0,0" ToolTip="Current color"/>
             <Ellipse Fill="{DynamicResource Orange}" HorizontalAlignment="Left" Height="20" Stroke="White" VerticalAlignment="Top" Width="20" Margin="32,5,0,0" RenderTransformOrigin="1.9,0.4" ToolTip="Highlight color"/>
             <Image HorizontalAlignment="Left" Height="20" Margin="57,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Fill color" Source="Resources/fill_color_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="82,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Zoom in" Source="Resources/zoom_in_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="107,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Zoom out" Source="Resources/zoom_out_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image HorizontalAlignment="Left" Height="20" Margin="132,5,0,0" VerticalAlignment="Top" Width="20" ToolTip="Famous graphs" Source="Resources/known_graphs_icon.png" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
         </Grid>
         <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="615,3,0,0" VerticalAlignment="Top" Width="225" Background="#FF12131B" Visibility="Hidden">
             <Image HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Source="Resources/error_icon.png" Margin="5,5,0,0"/>
