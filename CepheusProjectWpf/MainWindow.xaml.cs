@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -742,17 +743,34 @@ namespace CepheusProjectWpf
 		private void imgInfo_MouseEnter(object sender, MouseEventArgs e)
 		{
 			DarkenImage(sender,e);
-			TxbInfo.Visibility = Visibility.Visible;
+			gridInfo.Visibility = Visibility.Visible;
+			string text;
 			if (cmbAlgorithms.SelectedItem != null)
-				TxbInfo.Text = ((Algorithm)cmbAlgorithms.SelectedItem).Description + "\n Time complexity: " + ((Algorithm)cmbAlgorithms.SelectedItem).TimeComplexity;
+			{
+				text = ((Algorithm)cmbAlgorithms.SelectedItem).Description;
+				TxbTimComplexity.Visibility = Visibility.Visible;
+				TxbTimComplexity.Text = "Time complexity: "+ ((Algorithm)cmbAlgorithms.SelectedItem).TimeComplexity;
+			}
 			else
-				TxbInfo.Text = "No algorithm is selected.";
+			{
+				TxbTimComplexity.Visibility = Visibility.Hidden;
+				text = "No algorithm is selected.";
+			}
+
+			TxbInfo.Text = text;
 		}
+		
 
 		private void imgInfo_MouseLeave(object sender, MouseEventArgs e)
 		{
 			LightenImage(sender, e);
-			TxbInfo.Visibility = Visibility.Hidden;
+			gridInfo.Visibility = Visibility.Hidden;
+		}
+
+		private void ImgHelp_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			var helpWindow = new UIWindows.HelpWindow();
+			helpWindow.ShowDialog();
 		}
 	}
 }

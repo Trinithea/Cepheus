@@ -8,6 +8,8 @@
             <SolidColorBrush x:Key="Dark">#FF0C0D13</SolidColorBrush>
             <SolidColorBrush x:Key="Aqua">#21A296</SolidColorBrush>
             <SolidColorBrush x:Key="Orange">#F04C48</SolidColorBrush>
+            <SolidColorBrush x:Key="Yellow">#FFF1C40F</SolidColorBrush>
+            <SolidColorBrush x:Key="Green">#FF2ECC71</SolidColorBrush>
             <SolidColorBrush x:Key="Blue" Color="#FF1B5FD8"/>
             <SolidColorBrush x:Key="Dark blue" Color="#FF10429B"/>
         </ResourceDictionary>
