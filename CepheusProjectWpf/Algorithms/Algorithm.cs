@@ -13,6 +13,7 @@ namespace Cepheus
 		public abstract void Accept(VisitorGraphCreator visitor);
 		public abstract Task Accept(VisitorRunner visitor);
 		public override string ToString() => Name;
+		public abstract string Description { get; } //short description of the algorithm from Wikipedia.com
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{

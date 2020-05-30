@@ -42,7 +42,7 @@ namespace Cepheus
         {
             algorithm.CreateGraph();
         }
-        public void Visit(Bellman_Ford algorithm)
+        public void Visit(BellmanFord algorithm)
         {
             algorithm.CreateGraph();
         }
@@ -50,7 +50,7 @@ namespace Cepheus
         {
             algorithm.CreateGraph();
         }
-        public void Visit(Floyd_Warshall algorithm)
+        public void Visit(FloydWarshall algorithm)
         {
             algorithm.CreateGraph();
         }
@@ -93,7 +93,7 @@ namespace Cepheus
         {
             await algorithm.Run();
         }
-        public async Task Visit(Bellman_Ford algorithm)
+        public async Task Visit(BellmanFord algorithm)
         {
             await algorithm.Run();
         }
@@ -101,7 +101,7 @@ namespace Cepheus
         {
             await algorithm.Run();
         }
-        public async Task Visit(Floyd_Warshall algorithm)
+        public async Task Visit(FloydWarshall algorithm)
         {
             await algorithm.Run();
         }

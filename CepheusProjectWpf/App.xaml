@@ -11,5 +11,6 @@
             <SolidColorBrush x:Key="Blue" Color="#FF1B5FD8"/>
             <SolidColorBrush x:Key="Dark blue" Color="#FF10429B"/>
         </ResourceDictionary>
+
     </Application.Resources>
 </Application>

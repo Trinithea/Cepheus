@@ -616,7 +616,7 @@ namespace CepheusProjectWpf
 		//Dictionary<string, Algorithm> availbaleAlgorithms = new Dictionary<string, Algorithm>();
 		void SetAvailbaleAlgorithms()
 		{
-			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new Bellman_Ford(), new Dijkstra(), new Floyd_Warshall(), new Relaxation() };
+			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new BellmanFord(), new Dijkstra(), new FloydWarshall(), new Relaxation() };
 			foreach (var algorithm in algorithms)
 			{
 				//availbaleAlgorithms.Add(algorithm.Name, algorithm);
@@ -694,7 +694,7 @@ namespace CepheusProjectWpf
 		}
 		void LightenGrid(Grid uc)
 		{
-			uc.Background = new SolidColorBrush(Color.FromRgb(28, 29, 41));
+			uc.Background = new SolidColorBrush(Color.FromRgb(44, 47, 68));
 		}
 		
 
@@ -739,6 +739,20 @@ namespace CepheusProjectWpf
 			((Image)sender).Opacity =1;
 		}
 
-		
+		private void imgInfo_MouseEnter(object sender, MouseEventArgs e)
+		{
+			DarkenImage(sender,e);
+			TxbInfo.Visibility = Visibility.Visible;
+			if (cmbAlgorithms.SelectedItem != null)
+				TxbInfo.Text = ((Algorithm)cmbAlgorithms.SelectedItem).Description + "\n Time complexity: " + ((Algorithm)cmbAlgorithms.SelectedItem).TimeComplexity;
+			else
+				TxbInfo.Text = "No algorithm is selected.";
+		}
+
+		private void imgInfo_MouseLeave(object sender, MouseEventArgs e)
+		{
+			LightenImage(sender, e);
+			TxbInfo.Visibility = Visibility.Hidden;
+		}
 	}
 }

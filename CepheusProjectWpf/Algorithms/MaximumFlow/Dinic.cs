@@ -20,6 +20,9 @@ namespace Cepheus
 
 		public override string TimeComplexity => "O(n^2 * m)";
 		public int MaximumFlow { get; private set; }
+
+		public override string Description => "Dinic's algorithm or Dinitz's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic's algorithm to achieve its performance. ";
+
 		public async Task Run()
 		{
 			BFS bfs = new BFS();

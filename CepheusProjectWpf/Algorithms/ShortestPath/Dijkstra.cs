@@ -19,6 +19,8 @@ namespace Cepheus
 		public override string Name => "Dijkstra's algorithm";
 		public override string TimeComplexity => "O((n + m) * log(n))";
 
+		public override string Description => "Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.";
+
 		public async Task Run()
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.

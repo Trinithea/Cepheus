@@ -21,6 +21,9 @@ namespace Cepheus
 
 		public override string TimeComplexity => "m * log(n)";
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree {get; private set;}
+
+		public override string Description => "Not implemented.";//TODO
+
 		public async Task Run()
 		{
 			graph.InitializeVertices(); // to get OutEdges sorted

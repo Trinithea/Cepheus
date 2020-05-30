@@ -7,7 +7,7 @@ using CepheusProjectWpf;
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
-	public class Floyd_Warshall : Algorithm<FloydWarshallVertex>
+	public class FloydWarshall : Algorithm<FloydWarshallVertex>
 	{
 		public override void Accept(VisitorGraphCreator visitor)
 		{
@@ -19,6 +19,9 @@ namespace Cepheus
 		}
 		public override string Name => "Floyd-Warshall's algorithm";
 		public override string TimeComplexity => "O(n^3)";
+
+		public override string Description => "In computer science, the Floyd–Warshall algorithm (also known as Floyd's algorithm, the Roy–Warshall algorithm, the Roy–Floyd algorithm, or the WFI algorithm) is an algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles). A single execution of the algorithm will find the lengths (summed weights) of shortest paths between all pairs of vertices. Although it does not return details of the paths themselves, it is possible to reconstruct the paths with simple modifications to the algorithm.";
+
 		int?[,] distanceMatrix = null;
 		Dictionary<int, FloydWarshallVertex> vertices;
 
