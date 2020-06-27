@@ -156,12 +156,17 @@ namespace CepheusProjectWpf
 			private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 			{
 				if (!isMarked)
-					((Ellipse)sender).Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
+				{
+					SetStroke("Aqua");
+					txtName.Foreground = Brushes.White;
+				}
+					
 			}
 
 			private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
 			{
-				((Ellipse)sender).Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
+				SetStroke("Orange");
+				txtName.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
 			}
 
 			private void Ellipse_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -184,12 +189,14 @@ namespace CepheusProjectWpf
 				draggable.ReleaseMouseCapture();
 				if (isMarked || wasMoving)
 				{
-					((Ellipse)sender).Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
+					SetStroke("Aqua");
+					txtName.Foreground = Brushes.White;
 					isMarked = false;
 				}
 				else 
 				{
-					((Ellipse)sender).Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
+					SetStroke("Orange");
+					txtName.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
 					isMarked = true;
 				}
 				wasMoving = false;
@@ -410,16 +417,14 @@ namespace CepheusProjectWpf
 				if (isMarked)
 				{
 					isMarked = false;
-					MainLine.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
-					LeftLine.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
-					RightLine.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
+					SetStroke("Aqua");
+					txtLength.Foreground = Brushes.White;
 				}
 				else
 				{
 					isMarked = true;
-					MainLine.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
-					LeftLine.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
-					RightLine.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
+					SetStroke("Orange");
+					txtLength.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
 				}
 			}
 			private void MainLine_MouseMove(object sender, MouseEventArgs e)

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CepheusProjectWpf.UIWindows"
         mc:Ignorable="d"
-        Title="Starting with Cepheus" Height="665.638" Width="534.978" ResizeMode="NoResize" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png">
+        Title="Starting with Cepheus" Height="665.638" Width="532.978" ResizeMode="NoResize" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png">
     <ScrollViewer Height="639" VerticalAlignment="Top" Margin="0,0,4,-2">
-        <Grid Background="{DynamicResource Dark}" Height="955" Width="525">
+        <Grid Background="{DynamicResource Dark}" Height="955" Width="523">
             <Label Content="STARTING WITH CEPHEUS" Height="59" FontWeight="Bold" FontSize="36" Margin="29,10,34,0" VerticalAlignment="Top" Foreground="{DynamicResource Blue}"/>
             <Label Content="How to add vertices?" Height="35" Margin="165,74,165,0" VerticalAlignment="Top" FontSize="18" FontFamily="/CepheusProjectWpf;component/Resources/#Roboto" Foreground="{DynamicResource Yellow}"/>
             <Image Height="131" Margin="150,140,157,0" VerticalAlignment="Top" Source="/CepheusProjectWpf;component/Resources/add_vertex.PNG"/>
