@@ -5,26 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CepheusProjectWpf.UIWindows"
         mc:Ignorable="d"
-        Title="Starting with Cepheus" Height="665.638" Width="532.978" ResizeMode="NoResize" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png">
-    <ScrollViewer Height="639" VerticalAlignment="Top" Margin="0,0,4,-2">
-        <Grid Background="{DynamicResource Dark}" Height="955" Width="523">
-            <Label Content="STARTING WITH CEPHEUS" Height="59" FontWeight="Bold" FontSize="36" Margin="29,10,34,0" VerticalAlignment="Top" Foreground="{DynamicResource Blue}"/>
-            <Label Content="How to add vertices?" Height="35" Margin="165,74,165,0" VerticalAlignment="Top" FontSize="18" FontFamily="/CepheusProjectWpf;component/Resources/#Roboto" Foreground="{DynamicResource Yellow}"/>
-            <Image Height="131" Margin="150,140,157,0" VerticalAlignment="Top" Source="/CepheusProjectWpf;component/Resources/add_vertex.PNG"/>
-            <Label Content="Press left Ctrl and left click on canvas." Margin="149,109,147,0" VerticalAlignment="Top" Foreground="#FFB8960F"/>
-            <Label Content="How to add edges?" Height="35" Margin="173,241,174,0" VerticalAlignment="Top" FontSize="18" FontFamily="/CepheusProjectWpf;component/Resources/#Roboto" Foreground="{DynamicResource Green}"/>
-            <Image Height="134" Margin="141,304,144,0" VerticalAlignment="Top" Source="/CepheusProjectWpf;component/Resources/add_ege.PNG"/>
-            <Label Content="Press right button on vertex and drag the arrow to another vertex." Margin="80,276,79,0" VerticalAlignment="Top" Foreground="{DynamicResource Aqua}" Height="28"/>
-            <Label Content="How to remove elements?" Height="35" Margin="141,443,140,0" VerticalAlignment="Top" FontSize="18" FontFamily="/CepheusProjectWpf;component/Resources/#Roboto" Foreground="{DynamicResource Orange}"/>
-            <Image Height="134" Margin="143,511,142,0" VerticalAlignment="Top" Source="/CepheusProjectWpf;component/Resources/area_to_remove.PNG"/>
-            <Label Content="Mark vertices and edges by clicking left button, then press delete." Margin="80,478,79,0" VerticalAlignment="Top" Foreground="#FFAC2E2B" Height="28"/>
-            <Label Content="How to change values?" Height="35" Margin="163,692,163,0" VerticalAlignment="Top" FontSize="18" FontFamily="/CepheusProjectWpf;component/Resources/#Roboto" Foreground="{DynamicResource Blue}"/>
-            <Image HorizontalAlignment="Left" Height="134" Margin="154,755,0,0" VerticalAlignment="Top" Width="236" Source="/CepheusProjectWpf;component/Resources/change_values.PNG"/>
-            <Label Content="Simply click on name of vertex or length of edge and rewrite." Margin="94,727,93,0" VerticalAlignment="Top" Foreground="#FF1655C7" Height="28"/>
-            <Button Content="Close" Margin="176,894,176,27" Background="{DynamicResource Dark}" BorderBrush="{DynamicResource Dark blue}" Foreground="{DynamicResource Blue}" Click="Button_Click" FontSize="16"/>
+        Title="Starting with Cepheus" Height="560" Width="880" ResizeMode="NoResize" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png" WindowStyle="ThreeDBorderWindow">
+    <Window.Background>
+        <ImageBrush ImageSource="/CepheusProjectWpf;component/Resources/tutorial.png"/>
+    </Window.Background>
+    <Image Margin="0,5,5,0" Source="/CepheusProjectWpf;component/Resources/close.png" Height="29" VerticalAlignment="Top" HorizontalAlignment="Right" Width="29" MouseUp="Image_MouseUp" Visibility="Collapsed"/>
 
-
-        </Grid>
-    </ScrollViewer>
 
 </Window>

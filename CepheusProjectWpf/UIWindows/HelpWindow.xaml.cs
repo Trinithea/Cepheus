@@ -22,9 +22,10 @@ namespace CepheusProjectWpf.UIWindows
 		public HelpWindow()
 		{
 			InitializeComponent();
+			
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void Image_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			this.Close();
 		}
