@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CepheusProjectWpf.UIWindows"
         mc:Ignorable="d"
-        Title="Starting with Cepheus" Height="560" Width="880" ResizeMode="NoResize" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png" WindowStyle="ThreeDBorderWindow">
+        Title="Starting with Cepheus" Height="553.417" Width="792" ResizeMode="NoResize" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png" WindowStyle="ThreeDBorderWindow">
     <Window.Background>
-        <ImageBrush ImageSource="/CepheusProjectWpf;component/Resources/tutorial.png"/>
+        <ImageBrush ImageSource="/CepheusProjectWpf;component/Resources/tutorial_smallest.png"/>
     </Window.Background>
-    <Image Margin="0,5,5,0" Source="/CepheusProjectWpf;component/Resources/close.png" Height="29" VerticalAlignment="Top" HorizontalAlignment="Right" Width="29" MouseUp="Image_MouseUp" Visibility="Collapsed"/>
+    
 
 
 </Window>

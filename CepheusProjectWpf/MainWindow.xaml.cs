@@ -33,7 +33,10 @@ namespace CepheusProjectWpf
 		public static int? initialVertex = null;
 		public static int? sinkVertex = null;
 		static int idCounter=0;
-		//string SelectedAlgorithm => treeViewAlgorithms.SelectedItem.ToString();
+		public static string DefaultColor = "Aqua";
+		public static string HiglightColor = "Orange";
+		public static List<GraphShape> Marked = new List<GraphShape>();
+		public static bool AttemptToRun = false;
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -49,12 +52,8 @@ namespace CepheusProjectWpf
 			List<EllipseVertex> verticesToRemove = new List<EllipseVertex>();
 			if (e.Key == Key.Delete)
 			{
-				foreach (ArrowEdge edge in Edges.Keys)
-					if (edge.isMarked)
-						edgesToRemove.Add(edge);
-				foreach (EllipseVertex vertex in Vertices.Keys)
-					if (vertex.isMarked)
-						verticesToRemove.Add(vertex);
+				foreach (var shape in Marked)
+					shape.Delete(); //TODO - create MyShape with abstract method Delete 
 			}
 
 			foreach (var edge in edgesToRemove)
@@ -68,7 +67,21 @@ namespace CepheusProjectWpf
 			Vertices.Clear();
 			Edges.Clear();
 		}
-		public class EllipseVertex : Shape
+
+		public abstract class GraphShape : Shape
+		{
+			public abstract void Delete();
+			public abstract void SetStroke(string color);
+			public void SetDefaultLook() => SetStroke(DefaultColor);
+			public void SetMarkedLook() => SetStroke(HiglightColor);
+			public void Unmark()
+			{
+				SetDefaultLook();
+				isMarked = false;
+			}
+			public bool isMarked = false;
+		}
+		public class EllipseVertex : GraphShape
 		{
 			public int UniqueId;
 			private bool isDraggingVertex = false;
@@ -79,7 +92,6 @@ namespace CepheusProjectWpf
 			public List<ArrowEdge> InEdges = new List<ArrowEdge>();
 			Canvas GraphCanvas;
 			TextBox txtName;
-			public bool isMarked { get; private set; }
 			public new string Name => txtName.Text;
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
 			{
@@ -149,24 +161,26 @@ namespace CepheusProjectWpf
 					Canvas.SetTop(txtName, top - txtName.Height);
 			}
 			#region MouseActions
-			public void SetStroke(string color)
+			public override void SetStroke(string color)
 			{
 				MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources[color];
+				if(color == DefaultColor)
+					txtName.Foreground = Brushes.White;
+				else
+					txtName.Foreground = (SolidColorBrush)Application.Current.Resources[color];
 			}
 			private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 			{
 				if (!isMarked)
 				{
-					SetStroke("Aqua");
-					txtName.Foreground = Brushes.White;
+					SetDefaultLook();
 				}
 					
 			}
 
 			private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
 			{
-				SetStroke("Orange");
-				txtName.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
+				SetMarkedLook();
 			}
 
 			private void Ellipse_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -189,15 +203,23 @@ namespace CepheusProjectWpf
 				draggable.ReleaseMouseCapture();
 				if (isMarked || wasMoving)
 				{
-					SetStroke("Aqua");
-					txtName.Foreground = Brushes.White;
-					isMarked = false;
+					Unmark();
+					Marked.Remove(this); //TODO nic moc...
 				}
 				else 
 				{
-					SetStroke("Orange");
-					txtName.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
+					SetMarkedLook();
 					isMarked = true;
+					Marked.Add(this);
+					if (AttemptToRun)
+					{
+						if(Marked.Count>1)
+						{
+							Marked[0].Unmark();
+							Marked.RemoveAt(0);
+						}
+						initialVertex = UniqueId;
+					}
 				}
 				wasMoving = false;
 				isDraggingVertex = false;
@@ -228,7 +250,7 @@ namespace CepheusProjectWpf
 					edge.SetEndCoordinatesToCenter(edge.ToVertex);
 				}
 			}
-			public void Delete()
+			public override void Delete()
 			{
 				Vertices.Remove(this);
 				GraphCanvas.Children.Remove(MainEllipse);
@@ -285,8 +307,9 @@ namespace CepheusProjectWpf
 					Canvas.SetTop(MainEllipse, top);
 				}
 			}
+
 		}
-		public class ArrowEdge : Shape
+		public class ArrowEdge : GraphShape
 		{
 			protected override Geometry DefiningGeometry { get; }
 
@@ -298,7 +321,6 @@ namespace CepheusProjectWpf
 			public EllipseVertex ToVertex { get; private set; }
 			private Canvas GraphCanvas { get; }
 			TextBox txtLength;
-			public bool isMarked = false;
 			public new string Name => FromVertex.UniqueId + "->" + ToVertex.UniqueId;
 			Line[] Arrow;
 			public int Length => Convert.ToInt32(txtLength.Text);
@@ -308,10 +330,17 @@ namespace CepheusProjectWpf
 				CreateEdgeArrow(Canvas.GetLeft(currentVertex.MainEllipse) + currentVertex.MainEllipse.Width / 2, Canvas.GetTop(currentVertex.MainEllipse) + currentVertex.MainEllipse.Height / 2);
 				FromVertex = currentVertex;
 			}
-			public void SetStroke(string color)
+			public override void SetStroke(string color)
 			{
 				for (int i = 0; i < Arrow.Length; i++)
 					Arrow[i].Stroke = (SolidColorBrush)Application.Current.Resources[color];
+				if(txtLength != null)
+				{
+					if (color == DefaultColor)
+						txtLength.Foreground = Brushes.White;
+					else
+						txtLength.Foreground = (SolidColorBrush)Application.Current.Resources[color];
+				}
 			}
 			private void SetThickness(int thickness)
 			{
@@ -344,7 +373,7 @@ namespace CepheusProjectWpf
 				RightLine.Y1 = MainLine.Y2;
 				Arrow = new Line[3] { MainLine, LeftLine, RightLine };
 				SetEnd(MainLine.X1, MainLine.Y1);
-				SetStroke("Aqua");
+				SetDefaultLook();
 				SetThickness(2);
 				isDraggingEdge = true;
 				SetLengthTextBox();
@@ -394,21 +423,16 @@ namespace CepheusProjectWpf
 			{
 				if(!isMarked && Arrow != null)
 				{
-					SetStroke("Aqua");
-					txtLength.Foreground = Brushes.White;
+					SetDefaultLook();
 				}
-					
 			}
 
 			private void MainLine_MouseEnter(object sender, MouseEventArgs e)
 			{
 				if(Arrow != null)
 				{
-					SetStroke("Orange");
-					txtLength.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
+					SetMarkedLook();
 				}
-					
-
 			}
 
 			private void MainLine_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -417,14 +441,14 @@ namespace CepheusProjectWpf
 				if (isMarked)
 				{
 					isMarked = false;
-					SetStroke("Aqua");
-					txtLength.Foreground = Brushes.White;
+					Marked.Remove(this);
+					SetDefaultLook();
 				}
 				else
 				{
 					isMarked = true;
-					SetStroke("Orange");
-					txtLength.Foreground = (SolidColorBrush)Application.Current.Resources["Orange"];
+					Marked.Add(this);
+					SetMarkedLook();
 				}
 			}
 			private void MainLine_MouseMove(object sender, MouseEventArgs e)
@@ -597,7 +621,7 @@ namespace CepheusProjectWpf
 
 				SetEnd(newLeft, newTop);
 			}
-			public void Delete()
+			public override void Delete()
 			{
 				GraphCanvas.Children.Remove(MainLine);
 				GraphCanvas.Children.Remove(RightLine);
@@ -608,6 +632,7 @@ namespace CepheusProjectWpf
 				if(ToVertex != null)
 					ToVertex.InEdges.Remove(this);
 			}
+
 		}
 
 		private void imgClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -628,7 +653,6 @@ namespace CepheusProjectWpf
 				//availbaleAlgorithms.Add(algorithm.Name, algorithm);
 				cmbAlgorithms.Items.Add(algorithm);
 			}
-				
 		}
 		
 		void StartCreating()
@@ -686,17 +710,12 @@ namespace CepheusProjectWpf
 		}
 		async Task Run()
 		{
-			if (InitialVertexMustBeUnique())
-			{
-				var nameOfInitialVertex = GetInitialVertex();//TODO sourceand sink
-				if (nameOfInitialVertex != null)
-				{
-					initialVertex = nameOfInitialVertex;
-					StartCreating(); //tady se disabluje
-					await StartRunning(); //tady se spustí někdy metoda async void Run()
-					EnableEverything();
-				}
-			}
+			btnOkRun.Visibility = Visibility.Hidden;
+			lblInfo.Visibility = Visibility.Hidden;
+
+			StartCreating(); //tady se disabluje
+			await StartRunning(); //tady se spustí někdy metoda async void Run()
+			EnableEverything();
 		}
 		void LightenGrid(Grid uc)
 		{
@@ -708,11 +727,33 @@ namespace CepheusProjectWpf
 		{
 			uc.Background = new SolidColorBrush(Color.FromRgb(18, 19, 27));
 		}
-		private async void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
+		
+		void UnmarkEverything()
 		{
-			LightenGrid(gridRun);
-			await Run();
-			DarkenGrid(gridRun);
+			foreach (GraphShape shape in Marked)
+			{
+				shape.Unmark();
+			}
+			Marked.Clear();
+		}
+		private void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			lblInfo.Visibility = Visibility.Hidden;
+			if(cmbAlgorithms.SelectedItem != null)
+			{
+				LightenGrid(gridRun);
+				lblInfo.Content = "Select the initial vertex."; //TODO tady dát jinou message pro sink/source
+				lblInfo.Visibility = Visibility.Visible;
+				btnOkRun.Visibility = Visibility.Visible;
+				AttemptToRun = true;
+				UnmarkEverything();
+				
+			}
+			else
+			{
+				lblInfo.Content = "You have to choose an algorithm in the upper left corner corner.";
+				lblInfo.Visibility = Visibility.Visible;
+			}
 		}
 
 		private void gridRun_MouseEnter(object sender, MouseEventArgs e)
@@ -777,5 +818,19 @@ namespace CepheusProjectWpf
 			var helpWindow = new UIWindows.HelpWindow();
 			helpWindow.ShowDialog();
 		}
+
+		private async void btnOkRun_Click(object sender, RoutedEventArgs e)
+		{
+			if(Marked.Count == 1) //initial vertex is selected //TODO sink & source
+			{
+				await Run();
+				DarkenGrid(gridRun);
+				
+				AttemptToRun = false;
+				Marked[0].Unmark();
+				Marked.Clear();
+			}		
+		}
+
 	}
 }

@@ -220,10 +220,10 @@
     <Resource Include="Resources\change_values.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\tutorial.png" />
+    <Resource Include="Resources\close.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\close.png" />
+    <Resource Include="Resources\tutorial_smallest.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
