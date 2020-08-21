@@ -747,7 +747,6 @@ namespace CepheusProjectWpf
 				btnOkRun.Visibility = Visibility.Visible;
 				AttemptToRun = true;
 				UnmarkEverything();
-				
 			}
 			else
 			{
@@ -815,8 +814,7 @@ namespace CepheusProjectWpf
 
 		private void ImgHelp_MouseUp(object sender, MouseButtonEventArgs e)
 		{
-			var helpWindow = new UIWindows.HelpWindow();
-			helpWindow.ShowDialog();
+			
 		}
 
 		private async void btnOkRun_Click(object sender, RoutedEventArgs e)
@@ -832,5 +830,15 @@ namespace CepheusProjectWpf
 			}		
 		}
 
+
+		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)
+		{
+			imgTutorial.Visibility = Visibility.Visible;
+		}
+
+		private void ImgHelp_MouseLeave(object sender, MouseEventArgs e)
+		{
+			imgTutorial.Visibility = Visibility.Hidden;
+		}
 	}
 }
