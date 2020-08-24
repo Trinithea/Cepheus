@@ -19,7 +19,7 @@ namespace Cepheus
 		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public abstract void Initialize();
-		
+		public abstract string Informations { get; }
 	}
 	public enum States { Open, Closed, Unvisited };
 	interface IStateVertex
@@ -47,6 +47,7 @@ namespace Cepheus
 			Distance = null;
 			Predecessor = null;
 		}
+		public override string Informations => "State: " + State + "\nDistance: "+Distance;
 	}
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
@@ -65,7 +66,8 @@ namespace Cepheus
 			InTime = null;
 			OutTime = null;
 		}
-	}
+		public override string Informations => "State: " + State + "\nInTime: " + InTime + "\nOutTime" + OutTime;
+		}
 
 	// Dijkstra vertex is same as BFS vertex
 	// Bellman-Ford could be BFS vertex also
@@ -77,6 +79,7 @@ namespace Cepheus
 		public override void Initialize()
 		{
 		}
+		public override string Informations => "ID: " + ID;
 	}
 	public class JarnikVertex : VertexBase<JarnikVertex>
 	{
@@ -90,6 +93,7 @@ namespace Cepheus
 			Rating = null;
 			Predecessor = null;
 		}
+		public override string Informations => "State: " + State + "\nRating: " + Rating;
 	}
 
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>
@@ -100,6 +104,7 @@ namespace Cepheus
 		{
 			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));
 		}
+		public override string Informations => "ComponentID: "+ComponentID;
 	}
 
 
@@ -107,6 +112,7 @@ namespace Cepheus
 	public class FlowVertex : VertexBase<FlowVertex>
 	{
 		public override void Initialize() { }
+		public override string Informations => "";
 	}
 
 	public class GoldbergVertex : VertexBase<GoldbergVertex>
@@ -131,6 +137,6 @@ namespace Cepheus
 		{
 			Height = 0;
 		}
-		
+		public override string Informations => "Height: " + Height + "\nSurplus: " + Surplus;
 	}
 }
