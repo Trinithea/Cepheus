@@ -37,6 +37,12 @@ namespace CepheusProjectWpf
 		public static string HiglightColor = "Orange";
 		public static List<GraphShape> Marked = new List<GraphShape>();
 		public static bool AttemptToRun = false;
+
+		public void WriteErrorMessage(string message)
+		{
+			lblInfo.Visibility = Visibility.Visible;
+			lblInfo.Content = message;
+		}
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -54,12 +60,13 @@ namespace CepheusProjectWpf
 			{
 				foreach (var shape in Marked)
 					shape.Delete(); //TODO - create MyShape with abstract method Delete 
+				Marked.Clear();
 			}
-
+			/*
 			foreach (var edge in edgesToRemove)
 				edge.Delete();
 			foreach (var vertex in verticesToRemove)
-				vertex.Delete();
+				vertex.Delete();*/
 		}
 		void ClearCanvas()
 		{
@@ -91,7 +98,7 @@ namespace CepheusProjectWpf
 			public List<ArrowEdge> OutEdges = new List<ArrowEdge>();
 			public List<ArrowEdge> InEdges = new List<ArrowEdge>();
 			Canvas GraphCanvas;
-			TextBox txtName;
+			public TextBox txtName;
 			public new string Name => txtName.Text;
 			public EllipseVertex(Point mousePos, Canvas graphCanvas)
 			{
@@ -262,6 +269,7 @@ namespace CepheusProjectWpf
 					edgesToRemove.Add(edge);
 				foreach (var edge in edgesToRemove)
 					edge.Delete();
+				
 			}
 			void MoveWithInEdges()
 			{
@@ -400,6 +408,7 @@ namespace CepheusProjectWpf
 				{
 					var errorWindow = new UIWindows.ErrorNonIntegerLengthWindow();
 					errorWindow.ShowDialog();
+					
 					txtLength.Text = "1";
 				}
 			}
@@ -631,6 +640,7 @@ namespace CepheusProjectWpf
 				FromVertex.OutEdges.Remove(this);
 				if(ToVertex != null)
 					ToVertex.InEdges.Remove(this);
+				
 			}
 
 		}
@@ -670,21 +680,6 @@ namespace CepheusProjectWpf
 
 			//EnableEverything();
 			
-		}
-		bool InitialVertexMustBeUnique() 
-		{
-			var warningWindow = new UIWindows.WarningUniqueNameOfInitialVertex();
-			warningWindow.ShowDialog();
-			return warningWindow.correct;
-		}
-		int? GetInitialVertex() // jen u některejch!
-		{
-			var initialVertexWindow = new InitialVertexWindow();
-			initialVertexWindow.ShowDialog();
-			if (initialVertexWindow.correct)
-				return initialVertexWindow.initialVertexId;
-			else
-				return null;
 		}
 		void DisableEverything()
 		{

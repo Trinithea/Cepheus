@@ -36,19 +36,19 @@ namespace Cepheus
 		}
 		protected void ColorEdge(Edge<TVertex> edge)
 		{
-			graph.UltimateEdges[edge].SetStroke("Orange");
+			graph.UltimateEdges[edge].SetMarkedLook();
 		}
 		protected void UncolorEdge(Edge<TVertex> edge)
 		{
-			graph.UltimateEdges[edge].SetStroke("Aqua");
+			graph.UltimateEdges[edge].SetDefaultLook();
 		}
 		protected void ColorVertex(TVertex vertex)
 		{
-			graph.UltimateVertices[vertex].SetStroke("Orange");
+			graph.UltimateVertices[vertex].SetMarkedLook();
 		}
 		protected void UncolorVertex(TVertex vertex)
 		{
-			graph.UltimateVertices[vertex].SetStroke("Aqua");
+			graph.UltimateVertices[vertex].SetDefaultLook();
 		}
 
 	}
