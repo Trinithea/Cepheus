@@ -21,8 +21,22 @@ namespace Cepheus
 		public abstract void Initialize();
 		public abstract string Informations { get; }
 		public string Name { get; set; }
+		public string GetStateName(States state) //should be in interface IStateVertex but the can!t be an explicit implementation in C# 7.3
+		{
+			switch (state)
+			{
+				case States.Closed:
+					return "Closed";
+				case States.Open:
+					return "Open";
+				default:
+					return "Unvisited";
+			}
+		}
 	}
 	public enum States { Open, Closed, Unvisited };
+	
+	
 	interface IStateVertex
 	{
 		States State { get; set; }
@@ -48,7 +62,7 @@ namespace Cepheus
 			Distance = null;
 			Predecessor = null;
 		}
-		public override string Informations => "State: " + State + "\nDistance: "+Distance;
+		public override string Informations => "\nVertex " + Name + " has state: " + GetStateName(State) + " and is in distance: " + Distance + " from initial vertex.";
 	}
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
@@ -94,7 +108,7 @@ namespace Cepheus
 			Rating = null;
 			Predecessor = null;
 		}
-		public override string Informations => "State: " + State + "\nRating: " + Rating;
+		public override string Informations => "";
 	}
 
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>

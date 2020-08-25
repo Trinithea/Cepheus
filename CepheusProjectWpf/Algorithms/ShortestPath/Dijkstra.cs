@@ -26,30 +26,55 @@ namespace Cepheus
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 
 			graph.InitializeVertices();
+			outputConsole.Text += "\n\nVertices are inicialized.";
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
+			PrintVertex(initialVertex);
+			ColorVertex(initialVertex);
 
 			SortedList<int?, BfsVertex> openVertices = new SortedList<int?, BfsVertex>();
 			openVertices.Add(initialVertex.Distance, initialVertex);
 			while(openVertices.Count > 0)
 			{
 				var vertex = openVertices[openVertices.Keys[0]]; // vertex with minimal rating
+				
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
+					ColorEdge(edge);
 					if(edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = States.Open;
+						await Task.Delay(delay - 250);
+						ColorVertex(edge.To);
+						PrintVertex(edge.To);
 						openVertices.Add(edge.To.Distance, edge.To);
 						edge.To.Predecessor = vertex;
 					}
+					await Task.Delay(delay);
 				}
 				vertex.State = States.Closed;
+				UncolorVertex(vertex);
+				PrintVertex(vertex);
 				openVertices.RemoveAt(0);
+				PrintOpenvertices(openVertices);
+				foreach (var edge in vertex.OutEdges)
+					UncolorEdge(edge);
+				await Task.Delay(delay);
 			}
 		}
+		void PrintVertex(BfsVertex vertex)
+		{
+			outputConsole.Text += vertex.Informations;
+		}
 
+		void PrintOpenvertices(SortedList<int?, BfsVertex> openVertices)
+		{
+			outputConsole.Text += "\nOpen vertices in sorted order (distance is in brackets): ";
+			foreach(var vertex in openVertices)
+				outputConsole.Text += String.Format("{0} ({1}), ", vertex.Value.Name, vertex.Key);
+		}
 
 		//TODO why is this here?
 		//public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)

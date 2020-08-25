@@ -44,7 +44,7 @@ namespace CepheusProjectWpf
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
 			{
 				var mousePos = e.GetPosition(graphCanvas);
-				EllipseVertex vertex = new EllipseVertex(mousePos, graphCanvas);
+				EllipseVertex vertex = new EllipseVertex(mousePos, graphCanvas,txtConsole);
 				vertex.KeepVertexInCanvas(Canvas.GetLeft(vertex.MainEllipse), Canvas.GetTop(vertex.MainEllipse));
 			}
 		}
@@ -95,11 +95,13 @@ namespace CepheusProjectWpf
 			public List<ArrowEdge> InEdges = new List<ArrowEdge>();
 			Canvas GraphCanvas;
 			public TextBox txtName;
+			TextBox outputConsole;
 			public new string Name => txtName.Text;
-			public EllipseVertex(Point mousePos, Canvas graphCanvas)
+			public EllipseVertex(Point mousePos, Canvas graphCanvas, TextBox console)
 			{
 				GraphCanvas = graphCanvas;
 				CreateVertexEllipse(mousePos);
+				outputConsole = console;
 			}
 			private Ellipse CreateVertexEllipse(Point mousePos)
 			{
@@ -188,7 +190,7 @@ namespace CepheusProjectWpf
 
 			private void Ellipse_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
 			{
-				ArrowEdge arrow = new ArrowEdge(GraphCanvas, this);
+				ArrowEdge arrow = new ArrowEdge(GraphCanvas, this,outputConsole);
 				
 				OutEdges.Add(arrow);
 			}
@@ -328,11 +330,13 @@ namespace CepheusProjectWpf
 			public new string Name => FromVertex.UniqueId + "->" + ToVertex.UniqueId;
 			Line[] Arrow;
 			public int Length => Convert.ToInt32(txtLength.Text);
-			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex)
+			TextBox outputConsole;
+			public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex, TextBox console)
 			{
 				GraphCanvas = graphCanvas;
 				CreateEdgeArrow(Canvas.GetLeft(currentVertex.MainEllipse) + currentVertex.MainEllipse.Width / 2, Canvas.GetTop(currentVertex.MainEllipse) + currentVertex.MainEllipse.Height / 2);
 				FromVertex = currentVertex;
+				outputConsole = console;
 			}
 			public override void SetStroke(string color)
 			{
@@ -400,11 +404,10 @@ namespace CepheusProjectWpf
 
 			private void TxtLength_TextChanged(object sender, TextChangedEventArgs e)
 			{
-				if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]"))
+				if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]")) //TODO nebo ^-?[0-9] pro záporné hodnoty
 				{
-					var errorWindow = new UIWindows.ErrorNonIntegerLengthWindow();
-					errorWindow.ShowDialog();
-					
+					outputConsole.Text += "\n\nOnly integer length of an edge is acceptable...";
+
 					txtLength.Text = "1";
 				}
 			}
@@ -434,7 +437,7 @@ namespace CepheusProjectWpf
 
 			private void MainLine_MouseEnter(object sender, MouseEventArgs e)
 			{
-				if(Arrow != null)
+				if(Arrow != null && AttemptToRun ==false)
 				{
 					SetMarkedLook();
 				}
@@ -442,18 +445,20 @@ namespace CepheusProjectWpf
 
 			private void MainLine_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 			{
-
-				if (isMarked)
+				if (!AttemptToRun)
 				{
-					isMarked = false;
-					Marked.Remove(this);
-					SetDefaultLook();
-				}
-				else
-				{
-					isMarked = true;
-					Marked.Add(this);
-					SetMarkedLook();
+					if (isMarked)
+					{
+						isMarked = false;
+						Marked.Remove(this);
+						SetDefaultLook();
+					}
+					else
+					{
+						isMarked = true;
+						Marked.Add(this);
+						SetMarkedLook();
+					}
 				}
 			}
 			private void MainLine_MouseMove(object sender, MouseEventArgs e)
@@ -703,7 +708,7 @@ namespace CepheusProjectWpf
 		{
 			btnOkRun.Visibility = Visibility.Hidden;
 			lblInfo.Visibility = Visibility.Hidden;
-			txtConsole.Text += "Selected algorithm is running.";
+			txtConsole.Text += "\n\nSelected algorithm is running.";
 			((Algorithm)cmbAlgorithms.SelectedItem).SetOutputConsole(txtConsole);
 			StartCreating(); //tady se disabluje
 			await StartRunning(); //tady se spustí někdy metoda async void Run()
@@ -816,7 +821,7 @@ namespace CepheusProjectWpf
 			{
 				await Run();
 				DarkenGrid(gridRun);
-				
+				txtConsole.Text += "\n\n"+ ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
 				AttemptToRun = false;
 				Marked[0].Unmark();
 				Marked.Clear();

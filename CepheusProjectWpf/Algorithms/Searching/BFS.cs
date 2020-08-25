@@ -16,11 +16,11 @@ namespace Cepheus
 		public async Task Run ()
 		{
 			graph.InitializeVertices();
-			outputConsole.Text += "Vertices are inicialized.";
+			outputConsole.Text += "\n\nVertices are inicialized.";
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
-			PrintVertexInConsole(initialVertex);
+			PrintVertex(initialVertex);
 
 
 
@@ -33,33 +33,34 @@ namespace Cepheus
 				ColorVertex(vertex);
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
+					ColorEdge(edge);
 					if (edge.To.State ==States.Unvisited)
 					{
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
-						PrintVertexInConsole(edge.To);
+						PrintVertex(edge.To);
 						PrintQueued(edge.To);
 						queue.Enqueue(edge.To);
-						ColorEdge(edge);
+						await Task.Delay(delay-250);
 						ColorVertex(edge.To);
-						await Task.Delay(750);
+						await Task.Delay(delay);
 					}
 				}
 				vertex.State = States.Closed;
-				PrintVertexInConsole(vertex);
+				PrintVertex(vertex);
 				PrintDequeued(vertex);
 				UncolorVertex(vertex);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
-				await Task.Delay(1000);
+				await Task.Delay(delay);
 			}
 
 		}
 
-		void PrintVertexInConsole(BfsVertex vertex)
+		void PrintVertex(BfsVertex vertex)
 		{
-			outputConsole.Text += "\nVertex " + vertex.Name + " has state: " + vertex.State + " and is in distance: " + vertex.Distance + " from initial vertex.";
+			outputConsole.Text += vertex.Informations;
 		}
 		void PrintQueued(BfsVertex vertex)
 		{

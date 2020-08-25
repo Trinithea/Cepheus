@@ -17,24 +17,47 @@ namespace Cepheus
 		public async Task Run()
 		{
 			graph.InitializeVertices();
+			outputConsole.Text += "\n\nVertices are inicialized.";
 
 			Time = 0;
 			
-			Recursion(initialVertex);
+			Recursion(initialVertex); //TODO přijde mi, že to nečeká na skončení té rekurze ale běží dál
 		}
-		static void Recursion(DfsVertex vertex)
+		async void Recursion(DfsVertex vertex)
 		{
 			vertex.State = States.Open;
 			Time++;
 			vertex.InTime = Time;
-			foreach(Edge<DfsVertex> edge in vertex.OutEdges)
+			PrintOpenedVertex(vertex);
+			ColorVertex(vertex);
+			foreach (Edge<DfsVertex> edge in vertex.OutEdges)
 			{
+				ColorEdge(edge);
 				if (edge.To.State == States.Unvisited)
+				{
+					await Task.Delay(delay-250);
+					ColorVertex(edge.To);
+					await Task.Delay(delay);
 					Recursion(edge.To);
+				}
+				UncolorEdge(edge);
+				await Task.Delay(delay);
 			}
 			vertex.State = States.Closed;
 			Time++;
 			vertex.OutTime = Time;
+			PrintClosedVertex(vertex);
+			UncolorVertex(vertex);
+			await Task.Delay(delay);
+		}
+
+		void PrintOpenedVertex(DfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has been opened in time: " + vertex.InTime;
+		}
+		void PrintClosedVertex(DfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has been closed in time: " + vertex.OutTime;
 		}
 		public async override Task Accept(VisitorRunner visitor)
 		{

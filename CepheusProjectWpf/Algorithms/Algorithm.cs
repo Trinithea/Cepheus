@@ -16,8 +16,9 @@ namespace Cepheus
 		public abstract Task Accept(VisitorRunner visitor);
 		public override string ToString() => Name;
 		public abstract string Description { get; } //short description of the algorithm from Wikipedia.com
-		public TextBox outputConsole;
+		protected TextBox outputConsole;
 		public void SetOutputConsole(TextBox console) => outputConsole = console;
+		protected int delay = 750;
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
