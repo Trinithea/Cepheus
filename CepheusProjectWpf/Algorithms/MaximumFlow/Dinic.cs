@@ -56,11 +56,11 @@ namespace Cepheus
 			foreach (BfsVertex vertex in graph.Vertices.Values)
 			{
 				if (vertex == graph.Source)
-					reserveNetwork.AddVertex(graph.Source.UniqueId);
+					reserveNetwork.AddVertex(graph.Source.UniqueId, graph.Source.Name);
 				else if (vertex == graph.Sink)
-					reserveNetwork.AddVertex(graph.Sink.UniqueId);
+					reserveNetwork.AddVertex(graph.Sink.UniqueId, graph.Sink.Name);
 				else
-					reserveNetwork.AddVertex(vertex.UniqueId);
+					reserveNetwork.AddVertex(vertex.UniqueId, vertex.Name);
 			}
 
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)

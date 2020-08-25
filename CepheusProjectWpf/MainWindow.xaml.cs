@@ -27,6 +27,7 @@ namespace CepheusProjectWpf
 		{
 			InitializeComponent();
 			SetAvailbaleAlgorithms();
+			txtConsole.Text = "Welcome in Cepheus. Feel free to creat any graphs you want and experiment with prepared algorithms. If you're using this app for the first time, there's a tutorial made exactly for you in the upper right corner.";
 		}
 		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>();
 		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
@@ -38,11 +39,6 @@ namespace CepheusProjectWpf
 		public static List<GraphShape> Marked = new List<GraphShape>();
 		public static bool AttemptToRun = false;
 
-		public void WriteErrorMessage(string message)
-		{
-			lblInfo.Visibility = Visibility.Visible;
-			lblInfo.Content = message;
-		}
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -707,7 +703,8 @@ namespace CepheusProjectWpf
 		{
 			btnOkRun.Visibility = Visibility.Hidden;
 			lblInfo.Visibility = Visibility.Hidden;
-
+			txtConsole.Text += "Selected algorithm is running.";
+			((Algorithm)cmbAlgorithms.SelectedItem).SetOutputConsole(txtConsole);
 			StartCreating(); //tady se disabluje
 			await StartRunning(); //tady se spustí někdy metoda async void Run()
 			EnableEverything();
@@ -737,7 +734,8 @@ namespace CepheusProjectWpf
 			if(cmbAlgorithms.SelectedItem != null)
 			{
 				LightenGrid(gridRun);
-				lblInfo.Content = "Select the initial vertex."; //TODO tady dát jinou message pro sink/source
+				txtConsole.Text += "\n\n"+((Algorithm)cmbAlgorithms.SelectedItem).Name + " attempts to run...";
+				txtConsole.Text = txtConsole.Text + "\n\nSelect the initial vertex. Then press green Done button.";
 				lblInfo.Visibility = Visibility.Visible;
 				btnOkRun.Visibility = Visibility.Visible;
 				AttemptToRun = true;
@@ -745,7 +743,7 @@ namespace CepheusProjectWpf
 			}
 			else
 			{
-				lblInfo.Content = "You have to choose an algorithm in the upper left corner corner.";
+				txtConsole.Text += "\n\nYou have to choose an algorithm in the upper left corner corner.";
 				lblInfo.Visibility = Visibility.Visible;
 			}
 		}

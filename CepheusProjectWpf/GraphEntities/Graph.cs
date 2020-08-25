@@ -20,10 +20,11 @@ namespace Cepheus
 		public Dictionary<int, TVertex> Vertices { get; private set; }
 		public Dictionary<Edge<TVertex>, MainWindow.ArrowEdge> UltimateEdges { get; set; }
 		public Dictionary<TVertex, MainWindow.EllipseVertex> UltimateVertices { get; set; }
-		public void AddVertex(int uniqueId)
+		public void AddVertex(int uniqueId, string name)
 		{
 			var vertex = new TVertex();
 			vertex.UniqueId = uniqueId;
+			vertex.Name = name;
 			Vertices.Add(uniqueId, vertex);
 		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
@@ -45,6 +46,7 @@ namespace Cepheus
 			{
 				vertex.Initialize();
 			}
+
 		}
 		public TVertex GetVertex(int id)
 		{

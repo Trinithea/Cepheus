@@ -16,9 +16,13 @@ namespace Cepheus
 		public async Task Run ()
 		{
 			graph.InitializeVertices();
+			outputConsole.Text += "Vertices are inicialized.";
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
+			PrintVertexInConsole(initialVertex);
+
+
 
 			Queue<BfsVertex> queue = new Queue<BfsVertex>();
 			queue.Enqueue(initialVertex);
@@ -34,6 +38,8 @@ namespace Cepheus
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
+						PrintVertexInConsole(edge.To);
+						PrintQueued(edge.To);
 						queue.Enqueue(edge.To);
 						ColorEdge(edge);
 						ColorVertex(edge.To);
@@ -41,12 +47,27 @@ namespace Cepheus
 					}
 				}
 				vertex.State = States.Closed;
+				PrintVertexInConsole(vertex);
+				PrintDequeued(vertex);
 				UncolorVertex(vertex);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
 				await Task.Delay(1000);
 			}
 
+		}
+
+		void PrintVertexInConsole(BfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has state: " + vertex.State + " and is in distance: " + vertex.Distance + " from initial vertex.";
+		}
+		void PrintQueued(BfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has been enqueued.";
+		}
+		void PrintDequeued(BfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has been dequeued.";
 		}
 
 		//TODO udělat generický před edge, ať to neni tak hnusně nakopírovaný ve FF

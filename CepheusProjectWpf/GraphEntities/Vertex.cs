@@ -20,6 +20,7 @@ namespace Cepheus
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public abstract void Initialize();
 		public abstract string Informations { get; }
+		public string Name { get; set; }
 	}
 	public enum States { Open, Closed, Unvisited };
 	interface IStateVertex

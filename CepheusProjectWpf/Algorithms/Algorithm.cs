@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using CepheusProjectWpf;
+
 namespace Cepheus
 {
 	public abstract class Algorithm 
@@ -14,6 +16,8 @@ namespace Cepheus
 		public abstract Task Accept(VisitorRunner visitor);
 		public override string ToString() => Name;
 		public abstract string Description { get; } //short description of the algorithm from Wikipedia.com
+		public TextBox outputConsole;
+		public void SetOutputConsole(TextBox console) => outputConsole = console;
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
@@ -24,7 +28,7 @@ namespace Cepheus
 			graph = new Graph<TVertex>();
 			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				graph.AddVertex(vertex.UniqueId);
+				graph.AddVertex(vertex.UniqueId, vertex.Name);
 				graph.UltimateVertices.Add(graph.GetVertex(vertex.UniqueId), vertex);
 			}
 			foreach (var edge in MainWindow.Edges.Keys)
@@ -63,7 +67,7 @@ namespace Cepheus
 			graph = new FlowNetwork<TVertex>();
 			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				graph.AddVertex(vertex.UniqueId);
+				graph.AddVertex(vertex.UniqueId, vertex.Name);
 
 			}
 			foreach (var edge in MainWindow.Edges.Keys)
