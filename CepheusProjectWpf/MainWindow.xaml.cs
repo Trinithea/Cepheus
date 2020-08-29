@@ -326,7 +326,7 @@ namespace CepheusProjectWpf
 			public EllipseVertex FromVertex { get; private set; }
 			public EllipseVertex ToVertex { get; private set; }
 			private Canvas GraphCanvas { get; }
-			TextBox txtLength;
+			public TextBox txtLength;
 			public new string Name => FromVertex.UniqueId + "->" + ToVertex.UniqueId;
 			Line[] Arrow;
 			public int Length => Convert.ToInt32(txtLength.Text);
@@ -827,16 +827,46 @@ namespace CepheusProjectWpf
 				Marked.Clear();
 			}		
 		}
-
-
 		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)
 		{
 			imgTutorial.Visibility = Visibility.Visible;
 		}
-
 		private void ImgHelp_MouseLeave(object sender, MouseEventArgs e)
 		{
 			imgTutorial.Visibility = Visibility.Hidden;
+		}
+		private void imgPrint_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			try
+			{
+				PrintDialog dialog = new PrintDialog();
+				var brush = graphCanvas.Background;
+				ChangeCanvasLook(Brushes.White, Brushes.White, Brushes.Black);
+				if (dialog.ShowDialog() != true)
+					return;
+				
+				dialog.PrintVisual(graphCanvas, "Graph canvas");
+				ChangeCanvasLook((SolidColorBrush)Application.Current.Resources["Dark"], Brushes.Black, Brushes.White);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message, "Some mistake occured...", MessageBoxButton.OK, MessageBoxImage.Error);
+				ChangeCanvasLook((SolidColorBrush)Application.Current.Resources["Dark"], Brushes.Black, Brushes.White);
+			}
+		}
+		private void ChangeCanvasLook(Brush canvasBackground, Brush dangerousColor,Brush newColor)
+		{
+			graphCanvas.Background = canvasBackground;
+			foreach (var vertex in Vertices)
+			{
+				if (vertex.Key.txtName.Foreground == dangerousColor)
+					vertex.Key.txtName.Foreground = newColor;
+			}
+			foreach (var edge in Edges)
+			{
+				if (edge.Key.txtLength.Foreground == dangerousColor)
+					edge.Key.txtLength.Foreground = newColor;
+			}
 		}
 	}
 }

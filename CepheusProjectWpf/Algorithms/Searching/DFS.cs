@@ -17,7 +17,7 @@ namespace Cepheus
 		public async Task Run()
 		{
 			graph.InitializeVertices();
-			outputConsole.Text += "\n\nVertices are inicialized.";
+			PrintVerticesInitialized(graph);
 
 			Time = 0;
 			
@@ -32,9 +32,10 @@ namespace Cepheus
 			ColorVertex(vertex);
 			foreach (Edge<DfsVertex> edge in vertex.OutEdges)
 			{
-				ColorEdge(edge);
+				
 				if (edge.To.State == States.Unvisited)
 				{
+					ColorEdge(edge);
 					await Task.Delay(delay-250);
 					ColorVertex(edge.To);
 					await Task.Delay(delay);

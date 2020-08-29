@@ -30,7 +30,7 @@ namespace Cepheus
 		public int? GetDistance(Graph<FloydWarshallVertex> graph,int fromId, int toId)
 		{
 			if(distanceMatrix == null) // TODO what if there are only some changes
-				Run();
+				Run(); //TODO await?
 
 			FloydWarshallVertex vertexFrom = vertices[fromId];
 			FloydWarshallVertex vertexTo = vertices[toId];

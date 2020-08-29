@@ -27,7 +27,9 @@ namespace Cepheus
 		public async Task Run()
 		{
 			graph.InitializeVertices(); // to get OutEdges sorted
-			
+			PrintVerticesInitialized();
+
+
 			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
 			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
 			List<int> ids = new List<int>(); //ID numbers of currents context components

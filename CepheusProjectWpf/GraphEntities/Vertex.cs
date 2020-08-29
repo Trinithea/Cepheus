@@ -5,22 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Cepheus
 {
-	public class Vertex
+	public static class IntExtensions
+	{
+		public static string Print(this int? i)
+		{
+			if (i == null)
+				return "Infinity";
+			else
+				return i.ToString();
+		}
+	}
+	public abstract class Vertex
 	{
 		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
 		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
-
+		public abstract string Informations { get; }
 		public int UniqueId { get; set; }
-		
-		
+		public string Name { get; set; }
+
+
 	}
 	public abstract class VertexBase<T> : Vertex where T : Vertex
 	{
 		public new List<Edge<T>> OutEdges = new List<Edge<T>>();
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
 		public abstract void Initialize();
-		public abstract string Informations { get; }
-		public string Name { get; set; }
+		
 		public string GetStateName(States state) //should be in interface IStateVertex but the can!t be an explicit implementation in C# 7.3
 		{
 			switch (state)
@@ -62,7 +72,7 @@ namespace Cepheus
 			Distance = null;
 			Predecessor = null;
 		}
-		public override string Informations => "\nVertex " + Name + " has state: " + GetStateName(State) + " and is in distance: " + Distance + " from initial vertex.";
+		public override string Informations => "\nVertex " + Name + " has state: " + GetStateName(State) + " and is in distance: " + Distance.Print() + " from initial vertex with predecessor " + Predecessor.Name;
 	}
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
@@ -81,8 +91,8 @@ namespace Cepheus
 			InTime = null;
 			OutTime = null;
 		}
-		public override string Informations => "State: " + State + "\nInTime: " + InTime + "\nOutTime" + OutTime;
-		}
+		public override string Informations => "State: " + State + "\nInTime: " + InTime.Print() + "\nOutTime" + OutTime.Print();
+		}//TODO is intime/outime really inifinity by default?
 
 	// Dijkstra vertex is same as BFS vertex
 	// Bellman-Ford could be BFS vertex also
@@ -108,7 +118,19 @@ namespace Cepheus
 			Rating = null;
 			Predecessor = null;
 		}
-		public override string Informations => "";
+		string GetState(States state)
+		{
+			switch (state)
+			{
+				case States.Inside:
+					return "Inside";
+				case States.Neighbour:
+					return "Neighbour";
+				default:
+					return "Outside";
+			}
+		}
+		public override string Informations => "Vertex " + Name+ " is in state: "+ GetState(State) + " with rating: " + Rating.Print() + " with predecessor " + Predecessor.Name;
 	}
 
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>

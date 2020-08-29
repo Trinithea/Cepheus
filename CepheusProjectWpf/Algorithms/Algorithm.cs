@@ -19,6 +19,30 @@ namespace Cepheus
 		protected TextBox outputConsole;
 		public void SetOutputConsole(TextBox console) => outputConsole = console;
 		protected int delay = 750;
+		protected void PrintQueued(BfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has been enqueued.";
+		}
+		protected void PrintDequeued(BfsVertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " has been dequeued.";
+		}
+		protected void PrintVertex(Vertex vertex)
+		{
+			outputConsole.Text += vertex.Informations;
+		}
+		protected void PrintVerticesInitialized<T>(Graph<T> graph) where T: VertexBase<T>, new()
+		{
+			outputConsole.Text += "\n\nVertices are inicialized.";
+			foreach (var vertex in graph.Vertices.Values)
+				PrintVertex(vertex);
+			outputConsole.Text += "\n";
+		}
+		protected void PrintVertexAddedToMinimumSpanningTree(Vertex vertex)
+		{
+			outputConsole.Text += "\nVertex " + vertex.Name + " added to minimum spanning tree";
+		}
+
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{

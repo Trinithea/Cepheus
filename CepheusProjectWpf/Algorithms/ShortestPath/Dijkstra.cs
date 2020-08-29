@@ -26,7 +26,7 @@ namespace Cepheus
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 
 			graph.InitializeVertices();
-			outputConsole.Text += "\n\nVertices are inicialized.";
+			PrintVerticesInitialized(graph);
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
@@ -41,9 +41,10 @@ namespace Cepheus
 				
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
-					ColorEdge(edge);
+					
 					if(edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
+						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = States.Open;
 						await Task.Delay(delay - 250);
@@ -63,10 +64,6 @@ namespace Cepheus
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
-		}
-		void PrintVertex(BfsVertex vertex)
-		{
-			outputConsole.Text += vertex.Informations;
 		}
 
 		void PrintOpenvertices(SortedList<int?, BfsVertex> openVertices)

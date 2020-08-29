@@ -28,13 +28,17 @@ namespace Cepheus
 		public async Task Run()
 		{
 			graph.InitializeVertices();
+			PrintVerticesInitialized(graph);
 
 			MinimumSpanningTree = new Tree<JarnikVertex>();
 			initialVertex.State = JarnikVertex.States.Neighbour;
 			initialVertex.Rating = 0;
+			PrintVertex(initialVertex);
+			ColorVertex(initialVertex);
 
 			SortedList<int?, JarnikVertex> neighbours = new SortedList<int?, JarnikVertex>();
 			neighbours.Add(initialVertex.Rating,initialVertex);
+			PrintSortedNeighbours(neighbours);
 
 			while(neighbours.Count > 0)
 			{
@@ -42,7 +46,13 @@ namespace Cepheus
 				vertex.State = JarnikVertex.States.Inside;
 				neighbours.RemoveAt(0);
 				if (vertex.Predecessor != null)
+				{
 					MinimumSpanningTree.Edges.Add(graph.GetEdge(vertex.Predecessor, vertex));
+					ColorVertex(vertex.Predecessor);
+					ColorVertex(vertex);
+					ColorEdge(graph.GetEdge(vertex.Predecessor, vertex));
+				}
+					
 
 				foreach(Edge<JarnikVertex> edge in vertex.OutEdges)
 				{
@@ -58,6 +68,12 @@ namespace Cepheus
 				}	
 
 			}
+		}
+		void PrintSortedNeighbours(SortedList<int?, JarnikVertex> neighbours)
+		{
+			outputConsole.Text += "\nSorted neighbours are (rating is in parenthesses): ";
+			foreach (var neighbour in neighbours)
+				outputConsole.Text += neighbour.Value.Name + " (" + neighbour.Key + "), ";
 		}
 
 		public Tree<JarnikVertex> GetMinimumSpan() => MinimumSpanningTree; //TODO can't be null

@@ -24,31 +24,46 @@ namespace Cepheus
 		public async Task Run()
 		{
 			graph.InitializeVertices();
+			PrintVerticesInitialized(graph);
 
 			initialVertex.State = States.Open;
 
 			initialVertex.Distance = 0;
-
+			PrintVertex(initialVertex);
 			Queue<BfsVertex> openVertices = new Queue<BfsVertex>();
 
 			openVertices.Enqueue(initialVertex);
-
+			PrintQueued(initialVertex);
 			while (openVertices.Count > 0)
 			{
 				var vertex = openVertices.Dequeue(); // some open vertex
+				PrintDequeued(vertex);
 				foreach (Edge<BfsVertex> edge in vertex.OutEdges)
 				{
+					
 					if (edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
+						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = States.Open;
 						openVertices.Enqueue(edge.To);
+						await Task.Delay(delay - 250);
+						ColorVertex(edge.To);
+						PrintVertex(edge.To);
+						PrintQueued(edge.To);
 						edge.To.Predecessor = vertex;
 					}
+					await Task.Delay(delay);
 				}
 				vertex.State = States.Closed;
+				UncolorVertex(vertex);
+				PrintVertex(vertex);
+				foreach (var edge in vertex.OutEdges)
+					UncolorEdge(edge);
+				await Task.Delay(delay);
 			}
 		}
+
 
 	}
 }

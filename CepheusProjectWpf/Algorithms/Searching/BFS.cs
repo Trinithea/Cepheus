@@ -16,7 +16,7 @@ namespace Cepheus
 		public async Task Run ()
 		{
 			graph.InitializeVertices();
-			outputConsole.Text += "\n\nVertices are inicialized.";
+			PrintVerticesInitialized(graph);
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
@@ -33,9 +33,10 @@ namespace Cepheus
 				ColorVertex(vertex);
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
-					ColorEdge(edge);
+					
 					if (edge.To.State ==States.Unvisited)
 					{
+						ColorEdge(edge);
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
@@ -58,18 +59,8 @@ namespace Cepheus
 
 		}
 
-		void PrintVertex(BfsVertex vertex)
-		{
-			outputConsole.Text += vertex.Informations;
-		}
-		void PrintQueued(BfsVertex vertex)
-		{
-			outputConsole.Text += "\nVertex " + vertex.Name + " has been enqueued.";
-		}
-		void PrintDequeued(BfsVertex vertex)
-		{
-			outputConsole.Text += "\nVertex " + vertex.Name + " has been dequeued.";
-		}
+		
+		
 
 		//TODO udělat generický před edge, ať to neni tak hnusně nakopírovaný ve FF
 		public List<Edge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
