@@ -40,7 +40,7 @@ namespace Cepheus
 
 		public async Task Run()
 		{
-			vertices = graph.Vertices;
+			vertices = Graph.Vertices;
 			int countOfVertices = vertices.Count;
 
 			FloydWarshallVertex[] verticesArray = GetVerticesInArrayWithConcreteId();
@@ -97,7 +97,7 @@ namespace Cepheus
 			{
 				for (int j = 0; j < vertices.Length; j++)
 				{
-					var edge = graph.GetEdge(vertices[i], vertices[j]);
+					var edge = Graph.GetEdge(vertices[i], vertices[j]);
 					if (edge == null)
 						matrixOfDistances[i, j] = null;
 					else

@@ -16,8 +16,8 @@ namespace Cepheus
 		static int Time = 0;
 		public async Task Run()
 		{
-			graph.InitializeVertices();
-			PrintVerticesInitialized(graph);
+			Graph.InitializeVertices();
+			PrintVerticesInitialized(Graph);
 
 			Time = 0;
 			

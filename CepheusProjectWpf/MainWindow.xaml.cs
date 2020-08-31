@@ -27,7 +27,8 @@ namespace CepheusProjectWpf
 		{
 			InitializeComponent();
 			SetAvailbaleAlgorithms();
-			txtConsole.Text = "Welcome in Cepheus. Feel free to creat any graphs you want and experiment with prepared algorithms. If you're using this app for the first time, there's a tutorial made exactly for you in the upper right corner.";
+			txtConsole.Text = "Welcome to Cepheus. Feel free to create any graphs you want and experiment with the prepared algorithms. If you're using this app for the first time, there's a tutorial made right for you in the upper right corner.";
+			txtConsole.Text += "\nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lost focus."; //TODO write this properly!!
 		}
 		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>();
 		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
@@ -38,7 +39,9 @@ namespace CepheusProjectWpf
 		public static string HiglightColor = "Orange";
 		public static List<GraphShape> Marked = new List<GraphShape>();
 		public static bool AttemptToRun = false;
-
+		public static bool isFlowAlgorithm = false;
+		List<Algorithm> flowAlgorithms = new List<Algorithm>();
+		public static int sourceSinkCounter = 0;
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
@@ -132,9 +135,9 @@ namespace CepheusProjectWpf
 				MainEllipse = newVertex;
 
 				txtName = new TextBox();
+				UniqueId = idCounter;
 				SetNameTextBox(Canvas.GetLeft(newVertex),Canvas.GetTop(newVertex));
 				Vertices.Add(this, Name);
-				UniqueId = idCounter;
 				idCounter++;
 				return newVertex;
 			}
@@ -145,7 +148,7 @@ namespace CepheusProjectWpf
 				txtName.BorderBrush = Brushes.Transparent;
 				txtName.Foreground = Brushes.White;
 				txtName.Height = 23;
-				txtName.Text = "Name";
+				txtName.Text = "Vertex #"+UniqueId;
 				Canvas.SetLeft(txtName, left);
 				if (top - txtName.Height < 0)
 					Canvas.SetTop(txtName, top + MainEllipse.Height ) ;
@@ -218,12 +221,20 @@ namespace CepheusProjectWpf
 					Marked.Add(this);
 					if (AttemptToRun)
 					{
-						if(Marked.Count>1)
+						if(!isFlowAlgorithm && Marked.Count>1)
 						{
 							Marked[0].Unmark();
 							Marked.RemoveAt(0);
 						}
-						initialVertex = UniqueId;
+						if (isFlowAlgorithm && sourceSinkCounter == 1)
+							sinkVertex = UniqueId;
+						else
+						{
+							initialVertex = UniqueId;
+							if (isFlowAlgorithm)
+								outputConsole.Text += "\nSelect the sink vertex and press Done again.";
+						}
+							
 					}
 				}
 				wasMoving = false;
@@ -318,7 +329,6 @@ namespace CepheusProjectWpf
 		public class ArrowEdge : GraphShape
 		{
 			protected override Geometry DefiningGeometry { get; }
-
 			public Line MainLine { get; private set; }
 			public Line LeftLine { get; private set; }
 			public Line RightLine { get; private set; }
@@ -663,6 +673,8 @@ namespace CepheusProjectWpf
 			{
 				//availbaleAlgorithms.Add(algorithm.Name, algorithm);
 				cmbAlgorithms.Items.Add(algorithm);
+				if (algorithm is Dinic || algorithm is FordFulkerson || algorithm is Goldberg)
+					flowAlgorithms.Add(algorithm);
 			}
 		}
 		
@@ -740,10 +752,16 @@ namespace CepheusProjectWpf
 			{
 				LightenGrid(gridRun);
 				txtConsole.Text += "\n\n"+((Algorithm)cmbAlgorithms.SelectedItem).Name + " attempts to run...";
-				txtConsole.Text = txtConsole.Text + "\n\nSelect the initial vertex. Then press green Done button.";
+				if (flowAlgorithms.Contains(((Algorithm)cmbAlgorithms.SelectedItem)))
+					isFlowAlgorithm = true;
+				if (isFlowAlgorithm)
+					txtConsole.Text = txtConsole.Text + "\n\nSelect the source vertex. Then press green Done button.";
+				else
+					txtConsole.Text = txtConsole.Text + "\n\nSelect the initial vertex. Then press green Done button.";
 				lblInfo.Visibility = Visibility.Visible;
 				btnOkRun.Visibility = Visibility.Visible;
 				AttemptToRun = true;
+				
 				UnmarkEverything();
 			}
 			else
@@ -817,14 +835,22 @@ namespace CepheusProjectWpf
 
 		private async void btnOkRun_Click(object sender, RoutedEventArgs e)
 		{
-			if(Marked.Count == 1) //initial vertex is selected //TODO sink & source
+			if(Marked.Count >= 1) //initial vertex is selected or sink & source
 			{
-				await Run();
-				DarkenGrid(gridRun);
-				txtConsole.Text += "\n\n"+ ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
-				AttemptToRun = false;
-				Marked[0].Unmark();
-				Marked.Clear();
+				if (isFlowAlgorithm && sourceSinkCounter < 1)
+					sourceSinkCounter++;
+				else
+				{
+					await Run();
+					DarkenGrid(gridRun);
+					txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
+					AttemptToRun = false;
+					foreach (var marked in Marked) // can be one or two marked
+						marked.Unmark();
+					Marked.Clear();
+					sourceSinkCounter = 0;
+					isFlowAlgorithm = false;
+				}
 			}		
 		}
 		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)

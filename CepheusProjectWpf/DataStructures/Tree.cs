@@ -19,7 +19,7 @@ namespace Cepheus.DataStructures
 	{
 		public List<TVertex> Vertices = new List<TVertex>();
 		public Dictionary<string, Edge<TVertex>> Edges = new Dictionary<string, Edge<TVertex>>();
-		public List<Edge<TVertex>> NewEdges = new List<Edge<TVertex>>();
+		public List<Edge<TVertex>> NewEdges = new List<Edge<TVertex>>(); //TODO wtf are NewEdges like edges to merge components???
 		public List<Edge<TVertex>> EdgesToRemove = new List<Edge<TVertex>>();
 		public Dictionary<int,ComponentTree<TVertex>> ContextComponents = new Dictionary<int, ComponentTree<TVertex>>();
 

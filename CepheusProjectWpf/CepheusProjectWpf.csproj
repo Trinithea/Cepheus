@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataStructures\BinaryHeap.cs" />
     <Compile Include="UIWindows\ErrorNonIntegerLengthWindow.xaml.cs">
       <DependentUpon>ErrorNonIntegerLengthWindow.xaml</DependentUpon>
     </Compile>

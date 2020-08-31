@@ -26,20 +26,28 @@ namespace Cepheus
 
 		public async Task Run()
 		{
-			var edges = graph.GetEdgesSortedByLength();
+			Graph.InitializeVertices(); // to get OutEdges sorted
+			PrintVerticesInitialized(Graph);
+			outputConsole.Text += "\nOutEdges are sorted from lightest to heaviest for each vertex."; //TODO asi každej neví, co je outedges...
+			var edges = Graph.GetEdgesSortedByLength(); //minimum binary heap
 
 			var minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(graph.Vertices.Values);
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(Graph.Vertices.Values);
 			List<int> ids = new List<int>(); //ID numbers of currents context components
 			Boruvka boruvkaAlgorithm = new Boruvka();
+			boruvkaAlgorithm.SetOutputConsole(outputConsole);
+			boruvkaAlgorithm.Graph = Graph;
 			boruvkaAlgorithm.Initialize(minimumSpanningTree, ids); //we can use the same method for initializing components nad IDs
 
-			for (int i = 0; i < edges.Count; i++)
+			for (int i = 1; i <= edges.Count; i++)
 			{
-				if(edges[i].From.ComponentID != edges[i].To.ComponentID)
+				if(edges.Heap[i].Item2.From.ComponentID != edges.Heap[i].Item2.To.ComponentID)
 				{
-					minimumSpanningTree.Edges.Add(edges[i].Name, edges[i]);
-					minimumSpanningTree.NewEdges.Add(edges[i]);
+					await Task.Delay(delay);
+					ColorEdge(edges.Heap[i].Item2);
+					minimumSpanningTree.Edges.Add(edges.Heap[i].Item2.Name, edges.Heap[i].Item2);
+					PrintEdgeAddedToMinimumSpanningTree(edges.Heap[i].Item2.From, edges.Heap[i].Item2.To);
+					minimumSpanningTree.NewEdges.Add(edges.Heap[i].Item2);
 					boruvkaAlgorithm.MergeContextComponents(minimumSpanningTree, ids);
 				}
 			}

@@ -23,8 +23,8 @@ namespace Cepheus
 
 		public async Task Run()
 		{
-			graph.InitializeVertices();
-			PrintVerticesInitialized(graph);
+			Graph.InitializeVertices();
+			PrintVerticesInitialized(Graph);
 
 			initialVertex.State = States.Open;
 

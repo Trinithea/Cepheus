@@ -33,51 +33,54 @@ namespace Cepheus
 		}
 		protected void PrintVerticesInitialized<T>(Graph<T> graph) where T: VertexBase<T>, new()
 		{
-			outputConsole.Text += "\n\nVertices are inicialized.";
+			outputConsole.Text += "\n\n";
 			foreach (var vertex in graph.Vertices.Values)
 				PrintVertex(vertex);
 			outputConsole.Text += "\n";
+
+			outputConsole.Text += "\nVertices are inicialized...";
 		}
-		protected void PrintVertexAddedToMinimumSpanningTree(Vertex vertex)
+		protected void PrintEdgeAddedToMinimumSpanningTree(Vertex vertex, Vertex predecessor)
 		{
-			outputConsole.Text += "\nVertex " + vertex.Name + " added to minimum spanning tree";
+			outputConsole.Text += "\nEdge " + vertex.Name + "->"+predecessor.Name+" added to minimum spanning tree.";
 		}
 
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
-		public Graph<TVertex> graph;
+		public Graph<TVertex> Graph { get; set; }
 		public TVertex initialVertex; //TODO kliděn by mohlo být i uvnitř grafu
 		public void CreateGraph()
 		{
-			graph = new Graph<TVertex>();
+			Graph = new Graph<TVertex>();
 			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				graph.AddVertex(vertex.UniqueId, vertex.Name);
-				graph.UltimateVertices.Add(graph.GetVertex(vertex.UniqueId), vertex);
+				Graph.AddVertex(vertex.UniqueId, vertex.Name);
+				Graph.UltimateVertices.Add(Graph.GetVertex(vertex.UniqueId), vertex);
 			}
 			foreach (var edge in MainWindow.Edges.Keys)
 			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.UniqueId), graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length);
-				graph.UltimateEdges.Add(graph.GetEdge(edge.Name), edge);
+				Graph.AddEdge(Graph.GetVertex(edge.FromVertex.UniqueId), Graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length);
+				Graph.UltimateEdges.Add(Graph.GetEdge(edge.Name), edge);
 			}
-			initialVertex = graph.GetVertex((int)MainWindow.initialVertex);
+			initialVertex = Graph.GetVertex((int)MainWindow.initialVertex);
 		}
 		protected void ColorEdge(Edge<TVertex> edge)
 		{
-			graph.UltimateEdges[edge].SetMarkedLook();
+			Graph.UltimateEdges[edge].SetMarkedLook();
 		}
+
 		protected void UncolorEdge(Edge<TVertex> edge)
 		{
-			graph.UltimateEdges[edge].SetDefaultLook();
+			Graph.UltimateEdges[edge].SetDefaultLook();
 		}
 		protected void ColorVertex(TVertex vertex)
 		{
-			graph.UltimateVertices[vertex].SetMarkedLook();
+			Graph.UltimateVertices[vertex].SetMarkedLook();
 		}
 		protected void UncolorVertex(TVertex vertex)
 		{
-			graph.UltimateVertices[vertex].SetDefaultLook();
+			Graph.UltimateVertices[vertex].SetDefaultLook();
 		}
 
 	}

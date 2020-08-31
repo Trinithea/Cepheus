@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using CepheusProjectWpf;
+using CepheusProjectWpf.DataStructures;
+
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
 {
@@ -72,11 +74,11 @@ namespace Cepheus
 			else
 				return null;
 		}
-		public SortedList<int,Edge<TVertex>> GetEdgesSortedByLength()
+		public BinaryHeap<int, Edge<TVertex>> GetEdgesSortedByLength()
 		{
-			var edges = new SortedList<int, Edge<TVertex>>();
+			var edges = new BinaryHeap<int, Edge<TVertex>>(Edges.Count);
 			foreach (Edge<TVertex> edge in Edges.Values)
-				edges.Add(edge.Length, edge);
+				edges.Insert(edge.Length, edge);
 			return edges;
 		}
 		public void RemoveVertex(TVertex vertex)

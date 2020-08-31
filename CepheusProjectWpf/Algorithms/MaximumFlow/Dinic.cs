@@ -30,9 +30,9 @@ namespace Cepheus
 			while (true)
 			{
 				var reserveNetwork = GetReserveNetwork();
-				bfs.graph = reserveNetwork;
+				bfs.Graph = reserveNetwork;
 				bfs.initialVertex = reserveNetwork.Source;
-				bfs.Run();
+				await bfs.Run();
 				int? lengthOfShortestPath = reserveNetwork.Sink.Distance;
 				if (lengthOfShortestPath == null)
 					break;
@@ -78,7 +78,7 @@ namespace Cepheus
 		void CleanUpNetwork(FlowNetwork<BfsVertex> network)
 		{
 			BFS bfs = new BFS();
-			bfs.graph = network;
+			bfs.Graph = network;
 			bfs.initialVertex = network.Source;
 			bfs.Run();
 
@@ -139,7 +139,7 @@ namespace Cepheus
 		{
 			network.SetFlowTo(0);
 			BFS bfs = new BFS();
-			bfs.graph = network;
+			bfs.Graph = network;
 			bfs.initialVertex = network.Source;
 			bfs.Run();
 			FordFulkerson ff = new FordFulkerson();
@@ -165,7 +165,7 @@ namespace Cepheus
 				}
 
 				CleanUpNetwork(network);
-				bfs.graph = network;
+				bfs.Graph = network;
 				bfs.initialVertex = network.Source;
 				bfs.Run();
 				ff.graph = network;

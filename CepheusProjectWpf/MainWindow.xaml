@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CepheusProjectWpf"
         mc:Ignorable="d"
-        Title="Cepheus" Height="879" Width="1059" Icon="Resources/logo_icon.png" KeyDown="Window_KeyDown" MinWidth="909" MinHeight="596">
+        Title="Cepheus" Height="879" Width="1059" Icon="Resources/logo_icon.png" KeyDown="Window_KeyDown" MinWidth="1059" MinHeight="879">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="34*"/>

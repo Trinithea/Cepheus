@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using CepheusProjectWpf;
+using CepheusProjectWpf.DataStructures;
 
 namespace Cepheus
 {
@@ -16,7 +17,7 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Dijkstra's algorithm";
+		public override string Name => "Dijkstra's algorithm with binary heap";
 		public override string TimeComplexity => "O((n + m) * log(n))";
 
 		public override string Description => "Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.";
@@ -25,24 +26,24 @@ namespace Cepheus
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
 
-			graph.InitializeVertices();
-			PrintVerticesInitialized(graph);
+			Graph.InitializeVertices();
+			PrintVerticesInitialized(Graph);
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
 			PrintVertex(initialVertex);
 			ColorVertex(initialVertex);
 
-			SortedList<int?, BfsVertex> openVertices = new SortedList<int?, BfsVertex>();
-			openVertices.Add(initialVertex.Distance, initialVertex);
+			var openVertices = new BinaryHeap<int, BfsVertex>(Graph.Vertices.Count);
+			openVertices.Insert(initialVertex.Distance, initialVertex);
 			while(openVertices.Count > 0)
 			{
-				var vertex = openVertices[openVertices.Keys[0]]; // vertex with minimal rating
+				var vertex = openVertices.Min(); // vertex with minimal rating
 				
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					
-					if(edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
+					if(edge.To.Distance == Int32.MaxValue || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
 						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;
@@ -50,7 +51,7 @@ namespace Cepheus
 						await Task.Delay(delay - 250);
 						ColorVertex(edge.To);
 						PrintVertex(edge.To);
-						openVertices.Add(edge.To.Distance, edge.To);
+						openVertices.Insert(edge.To.Distance, edge.To);
 						edge.To.Predecessor = vertex;
 					}
 					await Task.Delay(delay);
@@ -58,7 +59,7 @@ namespace Cepheus
 				vertex.State = States.Closed;
 				UncolorVertex(vertex);
 				PrintVertex(vertex);
-				openVertices.RemoveAt(0);
+				openVertices.ExtractMin();
 				PrintOpenvertices(openVertices);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
@@ -66,11 +67,13 @@ namespace Cepheus
 			}
 		}
 
-		void PrintOpenvertices(SortedList<int?, BfsVertex> openVertices)
+		void PrintOpenvertices(BinaryHeap<int,BfsVertex> openVertices)
 		{
 			outputConsole.Text += "\nOpen vertices in sorted order (distance is in brackets): ";
-			foreach(var vertex in openVertices)
-				outputConsole.Text += String.Format("{0} ({1}), ", vertex.Value.Name, vertex.Key);
+			for (int i = 1; i <= openVertices.Count; i++)
+			{
+				outputConsole.Text += String.Format("{0} ({1}), ", openVertices.Heap[i].Item2.Name, openVertices.Heap[i].Item1);
+			}
 		}
 
 		//TODO why is this here?

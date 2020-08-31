@@ -7,6 +7,13 @@ namespace Cepheus
 {
 	public static class IntExtensions
 	{
+		public static string Print(this int i)
+		{
+			if (i == Int32.MaxValue)
+				return "Infinity";
+			else
+				return i.ToString();
+		}
 		public static string Print(this int? i)
 		{
 			if (i == null)
@@ -22,7 +29,13 @@ namespace Cepheus
 		public abstract string Informations { get; }
 		public int UniqueId { get; set; }
 		public string Name { get; set; }
-
+		protected string GetPredecessorName(Vertex predecessor)
+		{
+			if (predecessor == null)
+				return "None";
+			else
+				return predecessor.Name;
+		}
 
 	}
 	public abstract class VertexBase<T> : Vertex where T : Vertex
@@ -59,20 +72,21 @@ namespace Cepheus
 		{
 			State = States.Unvisited;
 			Predecessor = null;
-			Distance = null;
+			Distance = Int32.MaxValue;
 		}
 		public BfsVertex Predecessor { get; set; }
+		
 		public States State { get; set; }
 
-		public int? Distance = null;
+		public int Distance { get; set; }
 
 		public override void Initialize()
 		{
 			State = States.Unvisited;
-			Distance = null;
+			Distance = Int32.MaxValue;
 			Predecessor = null;
 		}
-		public override string Informations => "\nVertex " + Name + " has state: " + GetStateName(State) + " and is in distance: " + Distance.Print() + " from initial vertex with predecessor " + Predecessor.Name;
+		public override string Informations => "\nVertex " + Name + " has state: " + GetStateName(State) + " and is in distance: " + Distance.Print() + " from initial vertex with predecessor " + Predecessor?.Name;
 	}
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
@@ -110,12 +124,12 @@ namespace Cepheus
 	{
 		public enum States { Inside, Neighbour, Outside }
 		public States State { get; set; }
-		public int? Rating { get; set; }
+		public int Rating { get; set; }
 		public JarnikVertex Predecessor { get; set; }
 		public override void Initialize()
 		{
 			State = States.Outside;
-			Rating = null;
+			Rating = Int32.MaxValue;
 			Predecessor = null;
 		}
 		string GetState(States state)
@@ -130,7 +144,7 @@ namespace Cepheus
 					return "Outside";
 			}
 		}
-		public override string Informations => "Vertex " + Name+ " is in state: "+ GetState(State) + " with rating: " + Rating.Print() + " with predecessor " + Predecessor.Name;
+		public override string Informations => "\nVertex " + Name+ " is in state: "+ GetState(State) + " with rating: " + Rating.Print() + " with predecessor " + Predecessor?.Name;
 	}
 
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>
@@ -141,7 +155,7 @@ namespace Cepheus
 		{
 			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));
 		}
-		public override string Informations => "ComponentID: "+ComponentID;
+		public override string Informations => "\nVertex "+Name+" is in the component: "+ComponentID;
 	}
 
 
