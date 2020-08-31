@@ -7,11 +7,34 @@
         <ResourceDictionary>
             <SolidColorBrush x:Key="Dark">#FF0C0D13</SolidColorBrush>
             <SolidColorBrush x:Key="Aqua">#21A296</SolidColorBrush>
+            <SolidColorBrush x:Key="Aqua1">#30F0DD</SolidColorBrush>
+            <SolidColorBrush x:Key="Aqua2">#59B3AA</SolidColorBrush>
+            <SolidColorBrush x:Key="Aqua3">#78F0E4</SolidColorBrush>
+            <SolidColorBrush x:Key="Aqua4">#167067</SolidColorBrush>
             <SolidColorBrush x:Key="Orange">#F04C48</SolidColorBrush>
+            <SolidColorBrush x:Key="Orange_1">#702322</SolidColorBrush>
+            <SolidColorBrush x:Key="Orange_2">#F29391</SolidColorBrush>
+            <SolidColorBrush x:Key="Orange_3">#704443</SolidColorBrush>
+            <SolidColorBrush x:Key="Orange_4">#BD3B39</SolidColorBrush>
             <SolidColorBrush x:Key="Yellow">#FFF1C40F</SolidColorBrush>
+            <SolidColorBrush x:Key="Yellow1">#735D07</SolidColorBrush>
+            <SolidColorBrush x:Key="Yellow2">#F4D558</SolidColorBrush>
+            <SolidColorBrush x:Key="Yellow3">#BF9B0B</SolidColorBrush>
             <SolidColorBrush x:Key="Green">#FF2ECC71</SolidColorBrush>
-            <SolidColorBrush x:Key="Blue" Color="#FF1B5FD8"/>
+            <SolidColorBrush x:Key="Green1">#124D2A</SolidColorBrush>
+            <SolidColorBrush x:Key="Green2">#71D59A</SolidColorBrush>
+            <SolidColorBrush x:Key="Green3">#294D38</SolidColorBrush>
+            <SolidColorBrush x:Key="Green4">#239954</SolidColorBrush>
+            <SolidColorBrush x:Key="Blue" Color="#1B5FD8"/>
+            <SolidColorBrush x:Key="Blue1" Color="#0B2859"/>
+            <SolidColorBrush x:Key="Blue2" Color="#5E8DDF"/>
+            <SolidColorBrush x:Key="Blue3" Color="#253859"/>
             <SolidColorBrush x:Key="Dark blue" Color="#FF10429B"/>
+            <SolidColorBrush x:Key="Purple" Color="#9D5FD8"/>
+            <SolidColorBrush x:Key="Purple1" Color="#C3A5DF"/>
+            <SolidColorBrush x:Key="Purple2" Color="#7949A6"/>
+            <SolidColorBrush x:Key="Violet" Color="#D92E69"/>
+            <SolidColorBrush x:Key="Violet1" Color="#A62351"/>
         </ResourceDictionary>
 
     </Application.Resources>

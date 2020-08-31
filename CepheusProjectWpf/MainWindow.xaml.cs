@@ -29,14 +29,22 @@ namespace CepheusProjectWpf
 			SetAvailbaleAlgorithms();
 			txtConsole.Text = "Welcome to Cepheus. Feel free to create any graphs you want and experiment with the prepared algorithms. If you're using this app for the first time, there's a tutorial made right for you in the upper right corner.";
 			txtConsole.Text += "\nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lost focus."; //TODO write this properly!!
+			DefaultColor = (SolidColorBrush)Application.Current.Resources["Aqua"];
+			HiglightColor = (SolidColorBrush)Application.Current.Resources["Orange"];
+			ellipseHighlightColor = imgHighlightColor;
+			ellipseDefaultColor = imgDefaultColor;
 		}
 		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>();
 		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
 		public static int? initialVertex = null;
 		public static int? sinkVertex = null;
 		static int idCounter=0;
-		public static string DefaultColor = "Aqua";
-		public static string HiglightColor = "Orange";
+		private static Ellipse ellipseHighlightColor;
+		private static Ellipse ellipseDefaultColor;
+		public static SolidColorBrush DefaultColor { get; private set; }
+		
+		public static SolidColorBrush HiglightColor { get; private set; }
+
 		public static List<GraphShape> Marked = new List<GraphShape>();
 		public static bool AttemptToRun = false;
 		public static bool isFlowAlgorithm = false;
@@ -77,7 +85,7 @@ namespace CepheusProjectWpf
 		public abstract class GraphShape : Shape
 		{
 			public abstract void Delete();
-			public abstract void SetStroke(string color);
+			public abstract void SetStroke(SolidColorBrush color);
 			public void SetDefaultLook() => SetStroke(DefaultColor);
 			public void SetMarkedLook() => SetStroke(HiglightColor);
 			public void Unmark()
@@ -169,13 +177,13 @@ namespace CepheusProjectWpf
 					Canvas.SetTop(txtName, top - txtName.Height);
 			}
 			#region MouseActions
-			public override void SetStroke(string color)
+			public override void SetStroke(SolidColorBrush color)
 			{
-				MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources[color];
+				MainEllipse.Stroke = color;
 				if(color == DefaultColor)
 					txtName.Foreground = Brushes.White;
 				else
-					txtName.Foreground = (SolidColorBrush)Application.Current.Resources[color];
+					txtName.Foreground = color;
 			}
 			private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
 			{
@@ -348,16 +356,16 @@ namespace CepheusProjectWpf
 				FromVertex = currentVertex;
 				outputConsole = console;
 			}
-			public override void SetStroke(string color)
+			public override void SetStroke(SolidColorBrush color)
 			{
 				for (int i = 0; i < Arrow.Length; i++)
-					Arrow[i].Stroke = (SolidColorBrush)Application.Current.Resources[color];
+					Arrow[i].Stroke = color;
 				if(txtLength != null)
 				{
 					if (color == DefaultColor)
 						txtLength.Foreground = Brushes.White;
 					else
-						txtLength.Foreground = (SolidColorBrush)Application.Current.Resources[color];
+						txtLength.Foreground = color;
 				}
 			}
 			private void SetThickness(int thickness)
@@ -610,7 +618,7 @@ namespace CepheusProjectWpf
 					KeepEdgeInCanvas();
 					var touchedVertex = CheckIntersection(mousePos);
 					if (touchedVertex != null)
-						touchedVertex.MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources["Orange"];
+						touchedVertex.SetMarkedLook();
 					else
 						SetVerticesToGreen();
 
@@ -621,7 +629,7 @@ namespace CepheusProjectWpf
 				foreach (EllipseVertex vertex in Vertices.Keys)
 				{
 					//TODO zachovat barvu u omarkovanej (až nebude vector jen ellipsa :/ ), ale možná je to takhle lepší..
-					vertex.MainEllipse.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"];
+					vertex.SetDefaultLook();
 				}
 			}
 			private void KeepEdgeInCanvas()
@@ -706,16 +714,7 @@ namespace CepheusProjectWpf
 			imgClear.IsEnabled = true;
 			btnClear.IsEnabled = true;
 		}
-		private void imgStepByStep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-		{
-			StepByStep();
 
-			
-		}
-		void StepByStep()
-		{
-			
-		}
 		async Task Run()
 		{
 			btnOkRun.Visibility = Visibility.Hidden;
@@ -781,15 +780,7 @@ namespace CepheusProjectWpf
 			DarkenGrid(gridRun);
 		}
 
-		private void gridStepByStep_MouseEnter(object sender, MouseEventArgs e)
-		{
-			LightenGrid(gridStepByStep);
-		}
-
-		private void gridStepByStep_MouseLeave(object sender, MouseEventArgs e)
-		{
-			DarkenGrid(gridStepByStep);
-		}
+		
 
 		private void DarkenImage(object sender, MouseEventArgs e)
 		{
@@ -894,5 +885,49 @@ namespace CepheusProjectWpf
 					edge.Key.txtLength.Foreground = newColor;
 			}
 		}
+
+		private void imgHighlightColor_MouseEnter(object sender, MouseEventArgs e)
+		{
+			menuDefaultColors.Visibility = Visibility.Hidden;
+			menuHiglightColors.Visibility = Visibility.Visible;
+		}
+
+		private void imgDefaultColor_MouseEnter(object sender, MouseEventArgs e)
+		{
+			menuHiglightColors.Visibility = Visibility.Hidden;
+			menuDefaultColors.Visibility = Visibility.Visible;
+		}
+
+		private void menuHiglightColors_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			HiglightColor = menuHiglightColors.SelectedColor;
+			imgHighlightColor.Fill = HiglightColor;
+			foreach (var graphShape in Marked)
+				graphShape.SetMarkedLook();
+		}
+
+		private void menuHiglightColors_MouseLeave(object sender, MouseEventArgs e)
+		{
+			menuHiglightColors.Visibility = Visibility.Hidden;
+		}
+
+		private void menuDefaultColors_MouseLeave(object sender, MouseEventArgs e)
+		{
+			menuDefaultColors.Visibility = Visibility.Hidden;
+		}
+
+		private void menuDefaultColors_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			DefaultColor = menuDefaultColors.SelectedColor;
+			imgDefaultColor.Fill = DefaultColor;
+			foreach (var vertex in Vertices.Keys)
+				if (vertex.MainEllipse.Stroke != HiglightColor)
+					vertex.SetDefaultLook();
+			foreach (var edge in Edges.Keys)
+				if (edge.MainLine.Stroke != HiglightColor)
+					edge.SetDefaultLook();
+		}
+
+		
 	}
 }

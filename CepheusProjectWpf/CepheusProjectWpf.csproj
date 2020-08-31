@@ -110,7 +110,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Properties.xaml">
+    <Page Include="Colors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -124,8 +124,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties.xaml.cs">
-      <DependentUpon>Properties.xaml</DependentUpon>
+    <Compile Include="Colors.xaml.cs">
+      <DependentUpon>Colors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
