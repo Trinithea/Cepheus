@@ -118,7 +118,7 @@ namespace Cepheus
 		public override void Initialize()
 		{
 		}
-		public override string Informations => "ID: " + ID;
+		public override string Informations => "\nVertex "+ Name+" has ID: " + ID;
 	}
 	public class JarnikVertex : VertexBase<JarnikVertex>
 	{

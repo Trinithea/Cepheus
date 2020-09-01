@@ -63,7 +63,8 @@ namespace Cepheus
 				Graph.AddEdge(Graph.GetVertex(edge.FromVertex.UniqueId), Graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length);
 				Graph.UltimateEdges.Add(Graph.GetEdge(edge.Name), edge);
 			}
-			initialVertex = Graph.GetVertex((int)MainWindow.initialVertex);
+			if(MainWindow.initialVertex != null)
+				initialVertex = Graph.GetVertex((int)MainWindow.initialVertex);
 		}
 		protected void ColorEdge(Edge<TVertex> edge)
 		{

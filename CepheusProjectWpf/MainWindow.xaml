@@ -20,13 +20,13 @@
             <ImageBrush ImageSource="Resources/night_sky.jpg"/>
         </Grid.Background>
 
-        <Rectangle Grid.Column="1" Fill="{DynamicResource Blue}" Margin="0,5,0,236" Stroke="{DynamicResource Blue}" Grid.Row="1"/>
-        <Canvas x:Name="graphCanvas" Margin="1,6,1,266" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Grid.Column="1" Grid.Row="1">
+        <Rectangle Grid.Column="1" Fill="{DynamicResource Blue}" Margin="0,5,0,299" Stroke="{DynamicResource Blue}" Grid.Row="1"/>
+        <Canvas x:Name="graphCanvas" Margin="1,6,1,329" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Grid.Column="1" Grid.Row="1">
             <local:ColorsUserControl x:Name="menuHiglightColors" Height="140" Canvas.Left="144" Canvas.Top="-23" Width="228" BorderThickness="1" Visibility="Hidden" MouseUp="menuHiglightColors_MouseUp" MouseLeave="menuHiglightColors_MouseLeave" Panel.ZIndex="5"/>
             <local:ColorsUserControl x:Name="menuDefaultColors" Height="140" Canvas.Left="118" Canvas.Top="-23" Width="227" BorderThickness="1" Visibility="Hidden" MouseLeave="menuDefaultColors_MouseLeave" MouseUp="menuDefaultColors_MouseUp" Panel.ZIndex="5"/>
         </Canvas>
-        <Button x:Name="btnClear" Content="Clear canvas" Grid.Column="1" Margin="0,0,1,236" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Blue}" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88" Click="btnClear_Click" Grid.Row="1" FontSize="14"/>
-        <Image x:Name="imgClear" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,89,236" Width="30" Source="Resources/clear_graph_icon.png" Height="30" VerticalAlignment="Bottom" MouseLeftButtonUp="imgClear_MouseLeftButtonUp" Grid.Row="1"/>
+        <Button x:Name="btnClear" Content="Clear canvas" Grid.Column="1" Margin="0,0,0,299" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Blue}" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="88" Click="btnClear_Click" Grid.Row="1" FontSize="14"/>
+        <Image x:Name="imgClear" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,88,299" Width="30" Source="Resources/clear_graph_icon.png" Height="30" VerticalAlignment="Bottom" MouseLeftButtonUp="imgClear_MouseLeftButtonUp" Grid.Row="1"/>
         <Rectangle Grid.ColumnSpan="3" Fill="{DynamicResource Dark}" Stroke="#FF10429B" MaxHeight="34" MinHeight="34" Height="34" VerticalAlignment="Top"/>
 
         <Grid Background="#FF12131B" Margin="0,3,0,0" Grid.Column="1" HorizontalAlignment="Left" Width="313" MinHeight="28" MaxHeight="28" Height="28" VerticalAlignment="Top">
@@ -68,9 +68,7 @@
         <Label x:Name="lblInfo" Content="Label" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,11.4" Grid.Row="1" Width="673" FontSize="18" ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="Hidden" Height="35" VerticalAlignment="Bottom" Foreground="White"/>
         <Button x:Name="btnOkRun" Content="Done" Grid.Column="1" Margin="0,0,124,236" Grid.Row="1" Background="#FF2ECC71" BorderBrush="#FF1ABC9C" Foreground="#FF1B5FD8" FontSize="16" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="78" Visibility="Hidden" Click="btnOkRun_Click"/>
         <Image x:Name="imgTutorial" HorizontalAlignment="Right" Margin="0,5.6,2,0" Source="Resources/tutorial.png" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <TextBox x:Name="txtConsole" Grid.Column="1" Margin="0,0,0,15" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Height="221" VerticalAlignment="Bottom" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Dark}" Foreground="White" SelectionBrush="{DynamicResource Dark blue}" FontFamily="Courier New" Padding="0"/>
-
-
+        <TextBox x:Name="txtConsole" Grid.Column="1" Margin="0,0,0,15" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Height="284" VerticalAlignment="Bottom" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Dark}" Foreground="White" SelectionBrush="{DynamicResource Dark blue}" FontFamily="Courier New" Padding="0"/>
 
     </Grid>
 </Window>

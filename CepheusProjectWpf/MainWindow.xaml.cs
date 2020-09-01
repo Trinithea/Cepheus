@@ -49,6 +49,8 @@ namespace CepheusProjectWpf
 		public static bool AttemptToRun = false;
 		public static bool isFlowAlgorithm = false;
 		List<Algorithm> flowAlgorithms = new List<Algorithm>();
+		List<Algorithm> onlyPositiveEdgesAlgorithms = new List<Algorithm>();
+		List<Algorithm> dontNeedInitialVertexAlgorithms = new List<Algorithm>();
 		public static int sourceSinkCounter = 0;
 		private void graphCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
@@ -422,12 +424,30 @@ namespace CepheusProjectWpf
 
 			private void TxtLength_TextChanged(object sender, TextChangedEventArgs e)
 			{
-				if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]")) //TODO nebo ^-?[0-9] pro záporné hodnoty
+				if(txtLength.Text != "")
 				{
-					outputConsole.Text += "\n\nOnly integer length of an edge is acceptable...";
+					var length = new StringBuilder(txtLength.Text);
+					bool wrong = false;
+					if (length[0] != '-')
+					{
+						if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]")) //TODO nebo ^-?[0-9] pro záporné hodnoty
+							wrong = true;
+					}
+					else
+					{
+						length.Remove(0, 1);
+						if (System.Text.RegularExpressions.Regex.IsMatch(length.ToString(), "[^0-9]"))
+							wrong = true;
+					}
+					if (wrong)
+					{
+						outputConsole.Text += "\n\nOnly integer length of an edge is acceptable...";
 
-					txtLength.Text = "1";
+						txtLength.Text = "1";
+					}
+
 				}
+
 			}
 
 			void SetTxtLengthCoordinates()
@@ -676,14 +696,18 @@ namespace CepheusProjectWpf
 		//Dictionary<string, Algorithm> availbaleAlgorithms = new Dictionary<string, Algorithm>();
 		void SetAvailbaleAlgorithms()
 		{
-			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dinic(), new FordFulkerson(), new Goldberg(), new Boruvka(), new Jarnik(), new Kruskal(), new BellmanFord(), new Dijkstra(), new FloydWarshall(), new Relaxation() };
+			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dijkstra(), new Relaxation(), new BellmanFord(), new FloydWarshall(), new Jarnik(), new Boruvka(), new Kruskal(), new FordFulkerson(), new Dinic(),  new Goldberg()  };
 			foreach (var algorithm in algorithms)
 			{
-				//availbaleAlgorithms.Add(algorithm.Name, algorithm);
 				cmbAlgorithms.Items.Add(algorithm);
 				if (algorithm is Dinic || algorithm is FordFulkerson || algorithm is Goldberg)
 					flowAlgorithms.Add(algorithm);
+				if (algorithm is Dijkstra)
+					onlyPositiveEdgesAlgorithms.Add(algorithm);
+				if (algorithm is Kruskal || algorithm is Boruvka || algorithm is FloydWarshall)
+					dontNeedInitialVertexAlgorithms.Add(algorithm);
 			}
+			
 		}
 		
 		void StartCreating()
@@ -744,24 +768,46 @@ namespace CepheusProjectWpf
 			}
 			Marked.Clear();
 		}
-		private void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
+		bool CheckLengthsIfPositive()
+		{
+			foreach (var edge in Edges.Keys)
+				if (edge.Length < 0)
+					return false;
+			return true;
+		}
+		private async void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			lblInfo.Visibility = Visibility.Hidden;
 			if(cmbAlgorithms.SelectedItem != null)
 			{
 				LightenGrid(gridRun);
 				txtConsole.Text += "\n\n"+((Algorithm)cmbAlgorithms.SelectedItem).Name + " attempts to run...";
+				if(onlyPositiveEdgesAlgorithms.Contains(cmbAlgorithms.SelectedItem))
+				{
+					if (!CheckLengthsIfPositive())
+					{
+						txtConsole.Text += "\nIn Dijkstra's algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again.";
+						return;
+					}
+				}
 				if (flowAlgorithms.Contains(((Algorithm)cmbAlgorithms.SelectedItem)))
 					isFlowAlgorithm = true;
 				if (isFlowAlgorithm)
-					txtConsole.Text = txtConsole.Text + "\n\nSelect the source vertex. Then press green Done button.";
+					txtConsole.Text += "\n\nSelect the source vertex. Then press green Done button.";
 				else
-					txtConsole.Text = txtConsole.Text + "\n\nSelect the initial vertex. Then press green Done button.";
-				lblInfo.Visibility = Visibility.Visible;
-				btnOkRun.Visibility = Visibility.Visible;
-				AttemptToRun = true;
-				
+				{
+					if(!dontNeedInitialVertexAlgorithms.Contains(cmbAlgorithms.SelectedItem))
+						txtConsole.Text += "\n\nSelect the initial vertex. Then press green Done button.";
+				}
 				UnmarkEverything();
+				if (!dontNeedInitialVertexAlgorithms.Contains(cmbAlgorithms.SelectedItem))
+				{
+					lblInfo.Visibility = Visibility.Visible;
+					btnOkRun.Visibility = Visibility.Visible;
+					AttemptToRun = true;
+				}
+				else
+					await Execute();
 			}
 			else
 			{
@@ -832,17 +878,21 @@ namespace CepheusProjectWpf
 					sourceSinkCounter++;
 				else
 				{
-					await Run();
-					DarkenGrid(gridRun);
-					txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
-					AttemptToRun = false;
-					foreach (var marked in Marked) // can be one or two marked
-						marked.Unmark();
-					Marked.Clear();
-					sourceSinkCounter = 0;
-					isFlowAlgorithm = false;
+					await Execute();
 				}
 			}		
+		}
+		private async Task Execute()
+		{
+			await Run();
+			DarkenGrid(gridRun);
+			txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
+			AttemptToRun = false;
+			foreach (var marked in Marked) // can be one or two marked
+				marked.Unmark();
+			Marked.Clear();
+			sourceSinkCounter = 0;
+			isFlowAlgorithm = false;
 		}
 		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)
 		{

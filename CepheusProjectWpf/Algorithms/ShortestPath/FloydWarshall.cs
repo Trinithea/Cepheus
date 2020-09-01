@@ -44,17 +44,22 @@ namespace Cepheus
 			int countOfVertices = vertices.Count;
 
 			FloydWarshallVertex[] verticesArray = GetVerticesInArrayWithConcreteId();
+			PrintVerticesInitialized(Graph);
 
 			distanceMatrix = GetDistancesWithZeroInnerVertices( verticesArray);
+			Print2DMatrix(distanceMatrix);
 
 			for (int k = 0; k < countOfVertices; k++)
 			{
+				await Task.Delay(delay);
+				outputConsole.Text += "\nThe shortest path can contain vertices with index from 0 to " + k;
 				for (int i = 0; i < countOfVertices; i++)
 					for (int j = 0; j < countOfVertices; j++)
 					{
 						distanceMatrix[i, j] = GetMinimum(distanceMatrix[i, j], distanceMatrix[i, k] + distanceMatrix[k, j]);
 					}
-
+				Print2DMatrix(distanceMatrix);
+				outputConsole.Text += "\n";
 			}
 				
 		}
@@ -70,7 +75,6 @@ namespace Cepheus
 				vertex.ID = index;
 				index++;
 			}
-
 			return verticesArray;
 		}
 
@@ -97,14 +101,43 @@ namespace Cepheus
 			{
 				for (int j = 0; j < vertices.Length; j++)
 				{
-					var edge = Graph.GetEdge(vertices[i], vertices[j]);
-					if (edge == null)
-						matrixOfDistances[i, j] = null;
+					if (i == j)
+						matrixOfDistances[i, j] = 0;
 					else
-						matrixOfDistances[i, j] = edge.Length;
+					{
+						var edge = Graph.GetEdge(vertices[i], vertices[j]);
+						if (edge == null)
+							matrixOfDistances[i, j] = null;
+						else
+							matrixOfDistances[i, j] = edge.Length;
+					}
+					
 				}
 			}
 			return matrixOfDistances;
+		}
+
+		void Print2DMatrix(int?[,] matrix) //TODO počítání mezer při delších lengths
+		{
+			outputConsole.Text += "\nMatrix of distances:";
+			outputConsole.Text += "\n   | ";
+			for (int i = 0; i < vertices.Count; i++)
+				outputConsole.Text += i + "  ";
+			outputConsole.Text += "\n---|";
+			for (int i = 0; i < vertices.Count; i++)
+				outputConsole.Text += "---";
+			for (int i = 0; i < vertices.Count; i++)
+			{
+				outputConsole.Text += "\n "+i+" | ";
+				for (int j = 0; j < vertices.Count; j++)
+				{
+					if (matrix[i, j] == null)
+						outputConsole.Text += "∞  ";
+					else
+						outputConsole.Text += matrix[i, j] + "  ";
+				}
+			}
+			outputConsole.Text += "\n";
 		}
 		
 	}

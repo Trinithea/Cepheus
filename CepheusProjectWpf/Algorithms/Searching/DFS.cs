@@ -21,9 +21,9 @@ namespace Cepheus
 
 			Time = 0;
 			
-			Recursion(initialVertex); //TODO přijde mi, že to nečeká na skončení té rekurze ale běží dál
+			await Recursion(initialVertex); //TODO přijde mi, že to nečeká na skončení té rekurze ale běží dál
 		}
-		async void Recursion(DfsVertex vertex)
+		async Task Recursion(DfsVertex vertex)
 		{
 			vertex.State = States.Open;
 			Time++;
@@ -39,7 +39,7 @@ namespace Cepheus
 					await Task.Delay(delay-250);
 					ColorVertex(edge.To);
 					await Task.Delay(delay);
-					Recursion(edge.To);
+					await Recursion(edge.To);
 				}
 				UncolorEdge(edge);
 				await Task.Delay(delay);
