@@ -22,7 +22,6 @@ namespace Cepheus
 
 		public override string TimeComplexity => "O(n^2 * m)";
 
-		public int MaximumFlow { get; private set; }
 
 		public override string Description => "In mathematical optimization, the push–relabel algorithm (alternatively, preflow–push algorithm) is an algorithm for computing maximum flows in a flow network. The name \"push–relabel\" comes from the two basic operations used in the algorithm. Throughout its execution, the algorithm maintains a \"preflow\" and gradually converts it into a maximum flow by moving flow locally between neighboring nodes using push operations under the guidance of an admissible network maintained by relabel operations. In comparison, the Ford–Fulkerson algorithm performs global augmentations that send flow following paths from the source all the way to the sink.";
 

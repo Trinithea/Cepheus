@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using CepheusProjectWpf;
 using CepheusProjectWpf.DataStructures;
 
@@ -131,21 +132,22 @@ namespace Cepheus
 				edge.OppositeEdge = (FlowEdge<TVertex>)GetEdge(edge.To, edge.From);
 				if (edge.OppositeEdge == null)
 					needToCreateOppositeEdge.Add(edge);
+				edge.UpdateCurrentFlowInfo();
 			}
 			foreach (var edge in needToCreateOppositeEdge)
 			{
-				AddEdge( edge.To, edge.From, edge.To.UniqueId+"->" + edge.From.UniqueId, 0);
+				AddEdge( edge.To, edge.From, edge.To.UniqueId+"->" + edge.From.UniqueId, 0,null);
 				edge.OppositeEdge = (FlowEdge<TVertex>)Edges[edge.To.UniqueId + "->" + edge.From.UniqueId];
 				edge.OppositeEdge.OppositeEdge = edge;
 			}
 			needToCreateOppositeEdge.Clear();
 		}
 		//TODO be able to add edge only through this method, not with the Graph method
-		public new void AddEdge( TVertex from, TVertex to, string name, int capacity) //TODO má vracet tu hranu
+		public void AddEdge( TVertex from, TVertex to, string name, int capacity, TextBox txtLength) //TODO má vracet tu hranu
 		{
 			if (!Edges.ContainsKey(name)) //TODO unique names!!!!
 			{
-				FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity);
+				FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity,txtLength);
 				edge.Name = name;
 				edge.From = from;
 				edge.To = to;

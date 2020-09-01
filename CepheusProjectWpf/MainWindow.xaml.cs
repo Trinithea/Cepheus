@@ -241,8 +241,7 @@ namespace CepheusProjectWpf
 						else
 						{
 							initialVertex = UniqueId;
-							if (isFlowAlgorithm)
-								outputConsole.Text += "\nSelect the sink vertex and press Done again.";
+							
 						}
 							
 					}
@@ -418,13 +417,12 @@ namespace CepheusProjectWpf
 				txtLength.Height = 23;
 				txtLength.Text = "1";
 				SetTxtLengthCoordinates();
-				txtLength.TextChanged += TxtLength_TextChanged;
+				txtLength.KeyUp += TxtLength_KeyUp;
 				GraphCanvas.Children.Add(txtLength);
 			}
-
-			private void TxtLength_TextChanged(object sender, TextChangedEventArgs e)
+			private void TxtLength_KeyUp(object sender, KeyEventArgs e)
 			{
-				if(txtLength.Text != "")
+				if (txtLength.Text != "")
 				{
 					var length = new StringBuilder(txtLength.Text);
 					bool wrong = false;
@@ -441,14 +439,14 @@ namespace CepheusProjectWpf
 					}
 					if (wrong)
 					{
-						outputConsole.Text += "\n\nOnly integer length of an edge is acceptable...";
-
 						txtLength.Text = "1";
+						outputConsole.Text += "\n\nOnly integer length of an edge is acceptable...";
 					}
 
 				}
 
 			}
+			
 
 			void SetTxtLengthCoordinates()
 			{
@@ -723,7 +721,6 @@ namespace CepheusProjectWpf
 			var algorithm = (Algorithm)cmbAlgorithms.SelectedItem;
 			await algorithm.Accept(visitor); //Run
 
-			//EnableEverything();
 			
 		}
 		void DisableEverything()
@@ -747,7 +744,7 @@ namespace CepheusProjectWpf
 			((Algorithm)cmbAlgorithms.SelectedItem).SetOutputConsole(txtConsole);
 			StartCreating(); //tady se disabluje
 			await StartRunning(); //tady se spustí někdy metoda async void Run()
-			EnableEverything();
+			
 		}
 		void LightenGrid(Grid uc)
 		{
@@ -869,18 +866,36 @@ namespace CepheusProjectWpf
 		{
 			
 		}
-
+		void SetBackLengthOfEdges() // get rid of flow in "Flow/Length"
+		{
+			foreach(var edge in Edges.Keys)
+			{
+				var value = edge.txtLength.Text.Split('/');
+				edge.txtLength.Text = value[1];
+			}
+		}
 		private async void btnOkRun_Click(object sender, RoutedEventArgs e)
 		{
 			if(Marked.Count >= 1) //initial vertex is selected or sink & source
 			{
 				if (isFlowAlgorithm && sourceSinkCounter < 1)
+				{
 					sourceSinkCounter++;
+					if (isFlowAlgorithm)
+						txtConsole.Text += "\nSelect the sink vertex and press Done again.";
+				}
 				else
 				{
 					await Execute();
 				}
 			}		
+			else if (isFlowAlgorithm)
+			{
+				SetBackLengthOfEdges();
+				EnableEverything();
+				isFlowAlgorithm = false;
+				btnOkRun.Visibility = Visibility.Hidden;
+			}
 		}
 		private async Task Execute()
 		{
@@ -888,11 +903,19 @@ namespace CepheusProjectWpf
 			DarkenGrid(gridRun);
 			txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
 			AttemptToRun = false;
+			if (isFlowAlgorithm)
+			{
+				btnOkRun.Visibility = Visibility.Visible;
+				txtConsole.Text += "\nPlease press Done button to continue. The flow from edges will be removed.";
+			}
+			else
+				EnableEverything();
 			foreach (var marked in Marked) // can be one or two marked
 				marked.Unmark();
+			
 			Marked.Clear();
 			sourceSinkCounter = 0;
-			isFlowAlgorithm = false;
+			
 		}
 		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)
 		{

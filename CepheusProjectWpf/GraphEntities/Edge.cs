@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Cepheus
 {
@@ -20,12 +21,20 @@ namespace Cepheus
 		public int Capacity { get; set; } //TODO only non-negative numbers
 		public int Flow { get; set; } //TODO only non-negative numbers
 		public int Reserve => Capacity - Flow + OppositeEdge.Flow;
-	
+		public TextBox currentFlowInfo { get; }
+		public void UpdateCurrentFlowInfo()
+		{
+			if(currentFlowInfo!=null)
+				currentFlowInfo.Text = Flow + "/" + Capacity;
+		}
+
+
 		public FlowEdge<T> OppositeEdge { get; set; } // TODO set visibility is discutable //TODO isnt ReverseEdge better?
-		public FlowEdge(int capacity)
+		public FlowEdge(int capacity, TextBox txtLength)
 		{
 			Capacity = capacity;
 			Flow = 0;
+			currentFlowInfo = txtLength;
 		}
 		public override string ToString()
 		{

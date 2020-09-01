@@ -20,46 +20,61 @@ namespace Cepheus
 
 		public override string TimeComplexity => "O(m * f)";
 
-		public int MaximumFlow { get; private set; }
 
 		public override string Description => "The Ford–Fulkerson method or Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the maximum flow in a flow network. It is sometimes called a \"method\" instead of an \"algorithm\" as the approach to finding augmenting paths in a residual graph is not fully specified or it is specified in several implementations with different running times. It was published in 1956 by L. R. Ford Jr. and D. R. Fulkerson. The name \"Ford–Fulkerson\" is often also used for the Edmonds–Karp algorithm, which is a fully defined implementation of the Ford–Fulkerson method. ";
-
+		public List<FlowEdge<BfsVertex>> PathFromSourceToSink;
 		public async Task Run()
 		{
 			graph.InitializeEdges();
-			var path = GetUnsaturatedPathFromSourceToSink();
-			while(path != null ) // must be nenasycená and nemusí být nejkratší
+			PrintEdgesAreInitialized();
+
+			
+			await GetUnsaturatedPathFromSourceToSink();
+
+			while(PathFromSourceToSink != null ) // must be nenasycená and nemusí být nejkratší
 			{
-				int minimalReserve = GetMinimalReserve(path);
-				ImproveFlowOnPath(path,minimalReserve);
-				path = GetUnsaturatedPathFromSourceToSink();
+				int minimalReserve = GetMinimalReserve();
+				await ImproveFlowOnPath(minimalReserve);
+				await GetUnsaturatedPathFromSourceToSink();
 			}
 			MaximumFlow = graph.GetMaximumFlow();
+			PrintMaximumFlow();
 		}
-		int GetMinimalReserve(List<FlowEdge<BfsVertex>> path)
+		int GetMinimalReserve()
 		{
-			int min = path[0].Reserve;
-			for (int i = 0; i < path.Count; i++)
-				if (path[i].Reserve < min)
-					min = path[i].Reserve;
+			int min = PathFromSourceToSink[0].Reserve;
+			var minEdge = PathFromSourceToSink[0];
+			for (int i = 0; i < PathFromSourceToSink.Count; i++)
+				if (PathFromSourceToSink[i].Reserve < min)
+				{
+					min = PathFromSourceToSink[i].Reserve;
+					minEdge= PathFromSourceToSink[i];
+				}
+			
+			outputConsole.Text += "\nThe lowest reserve is " + min + " of the edge " + minEdge.From.Name+"->"+minEdge.To.Name;
 			return min;
+
 		}
-		void ImproveFlowOnPath(List<FlowEdge<BfsVertex>> path,int minimalReserve)
+		async Task ImproveFlowOnPath(int minimalReserve)
 		{
-			for (int i = 0; i < path.Count; i++)
+			for (int i = 0; i < PathFromSourceToSink.Count; i++)
 			{
-				var edge = path[i];
+				var edge = PathFromSourceToSink[i];
 				int delta = Math.Min(edge.OppositeEdge.Flow, minimalReserve);
 				edge.OppositeEdge.Flow -= delta;
 				edge.Flow += minimalReserve - delta;
+				await Task.Delay(delay);
+				edge.UpdateCurrentFlowInfo();
 			}
-				
 		}
-		public List<FlowEdge<BfsVertex>> GetUnsaturatedPathFromSourceToSink()
+		public async Task GetUnsaturatedPathFromSourceToSink()
 		{
-			// why I don't use BFS algorithm which is already implemeted? Because I have to use some flow network properties
-			
+			// why I don't use BFS algorithm which is already implemeted? Because I need edge.Reserve in condition...
+			outputConsole.Text += "\n\nLooking for a path from source to sink by BFS algorithm...";
+
 			graph.InitializeVertices();
+			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
+					UncolorEdge(edge);
 
 			graph.Source.State = States.Open;
 			graph.Source.Distance = 0;
@@ -74,6 +89,10 @@ namespace Cepheus
 				{
 					if (edge.To.State == States.Unvisited && edge.Reserve > 0)
 					{
+						await Task.Delay(delay);
+						ColorEdge(edge);
+						await Task.Delay(delay - 250);
+						ColorVertex(edge.To);
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
@@ -81,25 +100,35 @@ namespace Cepheus
 					}
 				}
 				vertex.State = States.Closed;
+				UncolorVertex(vertex);
+				foreach (FlowEdge<BfsVertex> edge in vertex.OutEdges)
+					UncolorEdge(edge);
 			}
 
-			return GetPath( graph.Source, graph.Sink);
+			await GetPath( graph.Source, graph.Sink);
 		}
 
-		public List<FlowEdge<BfsVertex>> GetPath( BfsVertex from, BfsVertex to)
+		public async Task GetPath( BfsVertex from, BfsVertex to)
 		{
+			outputConsole.Text += "\nConstructing the path from source to sink...";
 			if (to.Predecessor == null) //'to' is not reachable from 'from'
-				return null;
+			{
+				PathFromSourceToSink = null;
+				outputConsole.Text += "\nThe sink is not reachable from the source.";
+			}
 			else
 			{
 				var currentVertex = to;
 				var path = new List<FlowEdge<BfsVertex>>();
 				while (currentVertex.Predecessor != null)
 				{
-					path.Insert(0, (FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex));
+					var edge = (FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex);
+					path.Insert(0, edge);
+					await Task.Delay(delay);
+					ColorEdge(edge);
 					currentVertex = currentVertex.Predecessor;
 				}
-				return path;
+				PathFromSourceToSink = path;
 			}
 		}
 	}

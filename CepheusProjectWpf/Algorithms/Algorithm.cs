@@ -38,13 +38,17 @@ namespace Cepheus
 				PrintVertex(vertex);
 			outputConsole.Text += "\n";
 
-			outputConsole.Text += "\nVertices are inicialized...";
+			outputConsole.Text += "\nVertices are initialized...";
+		}
+		protected void PrintEdgesAreInitialized()
+		{
+			outputConsole.Text += "\n\nEdges are initialized...";
 		}
 		protected void PrintEdgeAddedToMinimumSpanningTree(Vertex vertex, Vertex predecessor)
 		{
 			outputConsole.Text += "\nEdge " + vertex.Name + "->"+predecessor.Name+" added to minimum spanning tree.";
 		}
-
+		
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
@@ -91,20 +95,42 @@ namespace Cepheus
 	public abstract class FlowAlgorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
 		public FlowNetwork<TVertex> graph;
+		public int MaximumFlow { get; protected set; }
 		public void CreateGraph()
 		{
 			graph = new FlowNetwork<TVertex>();
 			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
 				graph.AddVertex(vertex.UniqueId, vertex.Name);
-
+				graph.UltimateVertices.Add(graph.GetVertex(vertex.UniqueId), vertex);
 			}
 			foreach (var edge in MainWindow.Edges.Keys)
 			{
-				graph.AddEdge(graph.GetVertex(edge.FromVertex.UniqueId), graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length);
+				graph.AddEdge(graph.GetVertex(edge.FromVertex.UniqueId), graph.GetVertex(edge.ToVertex.UniqueId), edge.Name, edge.Length, edge.txtLength);
+				graph.UltimateEdges.Add(graph.GetEdge(edge.Name), edge);
 			}
 			graph.Source = graph.Vertices[(int)MainWindow.initialVertex];
 			graph.Sink = graph.Vertices[(int)MainWindow.sinkVertex];
 		}
+		protected void PrintMaximumFlow()
+		{
+			outputConsole.Text += "\n\nThe maximum flow in this network is: " + MaximumFlow;
+		}
+		protected void ColorEdge(FlowEdge<TVertex> edge)
+		{
+			if (edge.currentFlowInfo != null) //if null, then edge is artificially created opposite edge
+				graph.UltimateEdges[edge].SetMarkedLook();
+		}
+
+		protected void UncolorEdge(FlowEdge<TVertex> edge)
+		{
+			if (edge.currentFlowInfo != null) 
+				graph.UltimateEdges[edge].SetDefaultLook();
+		}
+		
+		protected void ColorVertex(TVertex vertex) => graph.UltimateVertices[vertex].SetMarkedLook();
+		
+		protected void UncolorVertex(TVertex vertex) => graph.UltimateVertices[vertex].SetDefaultLook();
+		
 	}
 }
