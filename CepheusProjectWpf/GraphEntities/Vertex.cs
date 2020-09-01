@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+
 namespace Cepheus
 {
 	public static class IntExtensions
@@ -159,17 +161,13 @@ namespace Cepheus
 	}
 
 
-	//TODO delete this
-	public class FlowVertex : VertexBase<FlowVertex>
-	{
-		public override void Initialize() { }
-		public override string Informations => "";
-	}
+	
 
 	public class GoldbergVertex : VertexBase<GoldbergVertex>
 	{
 		public int Height { get; set; }
 		public int Surplus { get; set; }
+		public TextBox txtName;
 		public int UpdateSurplus()
 		{
 			int sum = 0;
@@ -184,10 +182,11 @@ namespace Cepheus
 			Surplus = sum;
 			return sum;
 		}
+		public void UpdateHeightInName() => txtName.Text = Name + " (" + Height + ")";
 		public override void Initialize() 
 		{
 			Height = 0;
 		}
-		public override string Informations => "Height: " + Height + "\nSurplus: " + Surplus;
+		public override string Informations => "\nVertex " + Name+ " has height: " + Height + " and surplus: " + Surplus;
 	}
 }

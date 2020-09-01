@@ -889,7 +889,7 @@ namespace CepheusProjectWpf
 					await Execute();
 				}
 			}		
-			else if (isFlowAlgorithm)
+			else if (isFlowAlgorithm && AttemptToRun == false)
 			{
 				SetBackLengthOfEdges();
 				EnableEverything();
@@ -906,7 +906,7 @@ namespace CepheusProjectWpf
 			if (isFlowAlgorithm)
 			{
 				btnOkRun.Visibility = Visibility.Visible;
-				txtConsole.Text += "\nPlease press Done button to continue. The flow from edges will be removed.";
+				txtConsole.Text += "\nPlease, press Done button to continue. The flow from edges will be removed.";
 			}
 			else
 				EnableEverything();
