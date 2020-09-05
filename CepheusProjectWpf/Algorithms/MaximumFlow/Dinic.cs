@@ -50,6 +50,7 @@ namespace Cepheus
 		}
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{
+			outputConsole.Text += "\nCreating network of reserves...";
 			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>() ;
 
 			foreach (BfsVertex vertex in graph.Vertices.Values)
@@ -65,9 +66,13 @@ namespace Cepheus
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
 			{
 				if (edge.Capacity > edge.Flow)
-					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.From.UniqueId), reserveNetwork.GetVertex(edge.To.UniqueId), edge.From.UniqueId+"->" + edge.To.UniqueId, edge.Capacity - edge.Flow);
+				{
+					reserveNetwork.AddEdge(reserveNetwork.GetVertex(edge.From.UniqueId), reserveNetwork.GetVertex(edge.To.UniqueId), edge.From.UniqueId + "->" + edge.To.UniqueId, edge.Capacity - edge.Flow); //TODO tady ještě přidat argument na konec s TextBoxem, jinak špatnej overload
+					outputConsole.Text += "\nEdge " + edge.From.Name + "->" + edge.To.Name +" added with reserve (length)";
+				}
 				if (edge.Flow > 0)
 					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.To.UniqueId), reserveNetwork.GetVertex(edge.From.UniqueId), edge.To.UniqueId+"->" + edge.From.UniqueId, edge.Flow);
+				
 			}
 			
 			return reserveNetwork;

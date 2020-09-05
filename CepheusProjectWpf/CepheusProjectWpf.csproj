@@ -60,20 +60,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DataStructures\BinaryHeap.cs" />
-    <Compile Include="UIWindows\ErrorNonIntegerLengthWindow.xaml.cs">
+    <Compile Include="GraphShapes\ArrowEdge.cs" />
+    <Compile Include="GraphShapes\EllipseVertex.cs" />
+    <Compile Include="GraphShapes\GraphShape.cs" />
+    <Compile Include="Import,Export\Export.cs" />
+    <Compile Include="UIWindows %28remove!%29\ErrorNonIntegerLengthWindow.xaml.cs">
       <DependentUpon>ErrorNonIntegerLengthWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="InitialVertexWindow.xaml.cs">
       <DependentUpon>InitialVertexWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIWindows\HelpWindow.xaml.cs">
+    <Compile Include="UIWindows %28remove!%29\HelpWindow.xaml.cs">
       <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIWindows\WarningUniqueNameOfInitialVertex.xaml.cs">
+    <Compile Include="UIWindows %28remove!%29\WarningUniqueNameOfInitialVertex.xaml.cs">
       <DependentUpon>WarningUniqueNameOfInitialVertex.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visitor.cs" />
-    <Page Include="UIWindows\ErrorNonIntegerLengthWindow.xaml">
+    <Page Include="UIWindows %28remove!%29\ErrorNonIntegerLengthWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -114,11 +118,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIWindows\HelpWindow.xaml">
+    <Page Include="UIWindows %28remove!%29\HelpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIWindows\WarningUniqueNameOfInitialVertex.xaml">
+    <Page Include="UIWindows %28remove!%29\WarningUniqueNameOfInitialVertex.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
