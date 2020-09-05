@@ -20,14 +20,30 @@ namespace CepheusProjectWpf.Import_Export
         public static string Print(Dictionary<EllipseVertex,string> vertices, Dictionary<ArrowEdge,string> edges)
         {
             var text = new StringBuilder();
+            var rootDescriptor = new RootDescriptor();
+
+            GetVertexDescriptor(rootDescriptor);
             text.Append("Vertices:\n");
             foreach (var vertex in vertices.Keys)
-                text.Append(vertex.Description);
+                text.Append(rootDescriptor.Serialize(vertex));
+
+            GetEdgeDescriptor(rootDescriptor);
             text.Append("Edges:\n");
             foreach (var edge in edges.Keys)
-                text.Append(edge.Description);
+                text.Append(rootDescriptor.Serialize(edge));
+
             text.Remove(text.Length - 1, 1); //last new line
             return text.ToString();
         }
-	}
+        static RootDescriptor GetVertexDescriptor(RootDescriptor rootDescriptor)
+        {
+            rootDescriptor.Descriptor = Descriptor.DescriptorsByType[typeof(EllipseVertex)];
+            return rootDescriptor;
+        }
+        static RootDescriptor GetEdgeDescriptor(RootDescriptor rootDescriptor)
+        {
+            rootDescriptor.Descriptor = Descriptor.DescriptorsByType[typeof(ArrowEdge)];
+            return rootDescriptor;
+        }
+    }
 }

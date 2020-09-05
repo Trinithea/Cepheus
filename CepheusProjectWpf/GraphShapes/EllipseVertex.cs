@@ -24,7 +24,10 @@ namespace CepheusProjectWpf.GraphShapes
 		Canvas GraphCanvas;
 		public TextBox txtName;
 		TextBox outputConsole;
-
+		double left => Canvas.GetLeft(MainEllipse);
+		double top => Canvas.GetTop(MainEllipse);
+		public double Left => left + MainEllipse.Width; 
+		public double Top => top + MainEllipse.Height; 
 		public new string Name => txtName.Text;
 
 		protected override StringBuilder description { get

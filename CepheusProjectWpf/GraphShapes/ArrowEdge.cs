@@ -25,7 +25,8 @@ namespace CepheusProjectWpf.GraphShapes
 		public new string Name => FromVertex.UniqueId + "->" + ToVertex.UniqueId;
 		Line[] Arrow;
 		public int Length => Convert.ToInt32(txtLength.Text);
-
+		public double Left => Canvas.GetLeft(MainLine);
+		public double Top => Canvas.GetTop(MainLine);
 		protected override StringBuilder description 
 		{ get 
 			{

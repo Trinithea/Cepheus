@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using CepheusProjectWpf;
 using CepheusProjectWpf.DataStructures;
+using CepheusProjectWpf.GraphShapes;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("UnitTestCepheusAlgorithms")]
 namespace Cepheus
@@ -16,13 +17,13 @@ namespace Cepheus
 		{
 			Edges = new Dictionary<string, Edge<TVertex>>();
 			Vertices = new Dictionary<int, TVertex>();
-			UltimateEdges = new Dictionary<Edge<TVertex>, MainWindow.ArrowEdge>();
-			UltimateVertices = new Dictionary<TVertex, MainWindow.EllipseVertex>();
+			UltimateEdges = new Dictionary<Edge<TVertex>, ArrowEdge>();
+			UltimateVertices = new Dictionary<TVertex, EllipseVertex>();
 		}
 		public Dictionary<string, Edge<TVertex>> Edges { get; private set; }
 		public Dictionary<int, TVertex> Vertices { get; private set; }
-		public Dictionary<Edge<TVertex>, MainWindow.ArrowEdge> UltimateEdges { get; set; }
-		public Dictionary<TVertex, MainWindow.EllipseVertex> UltimateVertices { get; set; }
+		public Dictionary<Edge<TVertex>, ArrowEdge> UltimateEdges { get; set; }
+		public Dictionary<TVertex, EllipseVertex> UltimateVertices { get; set; }
 		public void AddVertex(int uniqueId, string name)
 		{
 			var vertex = new TVertex();
