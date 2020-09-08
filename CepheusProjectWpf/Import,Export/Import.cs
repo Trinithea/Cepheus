@@ -14,9 +14,6 @@ namespace CepheusProjectWpf.Import_Export
 	{
 		static Canvas canvas;
 		static TextBox outputConsole;
-		//zvyš IdCounter o počet vrcholů
-		
-		//stejně tak vyřešit i chybný zápis od souboru!!
 		public static void Upload(Canvas graphCanvas, TextBox console)
 		{
 			canvas = graphCanvas;

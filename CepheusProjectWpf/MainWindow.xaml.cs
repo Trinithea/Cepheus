@@ -86,6 +86,7 @@ namespace CepheusProjectWpf
 			Vertices.Clear();
 			VerticesById.Clear();
 			Edges.Clear();
+			IdCounter = 0;
 		}
 
 		private void imgClear_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
