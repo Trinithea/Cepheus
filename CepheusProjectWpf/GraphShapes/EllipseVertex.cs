@@ -26,34 +26,20 @@ namespace CepheusProjectWpf.GraphShapes
 		TextBox outputConsole;
 		double left => Canvas.GetLeft(MainEllipse);
 		double top => Canvas.GetTop(MainEllipse);
-		public double Left => left + MainEllipse.Width; 
-		public double Top => top + MainEllipse.Height; 
+		public double Left => left + MainEllipse.Width/2; 
+		public double Top => top + MainEllipse.Height/2; 
 		public new string Name => txtName.Text;
 
-		protected override StringBuilder description { get
-			{
-				var desc = new StringBuilder();
-				double left = Canvas.GetLeft(this) + Width / 2;
-				double top = Canvas.GetRight(this) + Height / 2;
-				desc.Append(left);
-				desc.Append(";");
-				desc.Append(top);
-				desc.Append(";");
-				desc.Append(Name);
-				desc.Append(";");
-				desc.Append(UniqueId);
-				desc.Append("\n");
-				return desc;
-			}
-			set { } }
+		
 
-		public EllipseVertex(Point mousePos, Canvas graphCanvas, TextBox console)
+		public EllipseVertex(Point mousePos, int uniqueId, string name, Canvas graphCanvas, TextBox console)
 		{
 			GraphCanvas = graphCanvas;
-			CreateVertexEllipse(mousePos);
+			CreateVertexEllipse(mousePos, uniqueId,name);
 			outputConsole = console;
+			
 		}
-		private Ellipse CreateVertexEllipse(Point mousePos)
+		private Ellipse CreateVertexEllipse(Point mousePos, int uniqueId, string name)
 		{
 			Ellipse newVertex = new Ellipse();
 
@@ -82,20 +68,25 @@ namespace CepheusProjectWpf.GraphShapes
 			MainEllipse = newVertex;
 
 			txtName = new TextBox();
-			UniqueId = MainWindow.IdCounter;
-			SetNameTextBox(Canvas.GetLeft(newVertex), Canvas.GetTop(newVertex));
+
+			UniqueId = uniqueId;
+			SetNameTextBox(Canvas.GetLeft(newVertex), Canvas.GetTop(newVertex), name);
 			MainWindow.Vertices.Add(this, Name);
+			MainWindow.VerticesById.Add(UniqueId, this);
 			MainWindow.IdCounter++;
 			return newVertex;
 		}
 
-		void SetNameTextBox(double left, double top)
+		void SetNameTextBox(double left, double top, string name)
 		{
 			txtName.Background = Brushes.Transparent;
 			txtName.BorderBrush = Brushes.Transparent;
 			txtName.Foreground = Brushes.White;
 			txtName.Height = 23;
-			txtName.Text = "Vertex #" + UniqueId;
+			if (name == null)
+				txtName.Text = "Vertex #" + UniqueId;
+			else
+				txtName.Text = name;
 			Canvas.SetLeft(txtName, left);
 			if (top - txtName.Height < 0)
 				Canvas.SetTop(txtName, top + MainEllipse.Height);
@@ -215,6 +206,7 @@ namespace CepheusProjectWpf.GraphShapes
 		public override void Delete()
 		{
 			MainWindow.Vertices.Remove(this);
+			MainWindow.VerticesById.Remove(UniqueId);
 			GraphCanvas.Children.Remove(MainEllipse);
 			GraphCanvas.Children.Remove(txtName);
 			List<ArrowEdge> edgesToRemove = new List<ArrowEdge>();

@@ -9,6 +9,17 @@ namespace CepheusProjectWpf.Import_Export
 {
 	public class RootDescriptor 
 	{
+		public Dictionary<Type, Descriptor> DescriptorsByType;
+		public RootDescriptor()
+		{
+			vertexDescriptor = new VertexDescriptor();
+			edgeDescriptor = new EdgeDescriptor();
+			DescriptorsByType = new Dictionary<Type, Descriptor>();
+			DescriptorsByType.Add(typeof(EllipseVertex), vertexDescriptor);
+			DescriptorsByType.Add(typeof(ArrowEdge), edgeDescriptor);
+		}
+		static VertexDescriptor vertexDescriptor;
+		static EdgeDescriptor edgeDescriptor;
 		public Descriptor Descriptor { get; set; }
 		public string Serialize<T>(T instance) where T:GraphShape
 		{
@@ -17,19 +28,7 @@ namespace CepheusProjectWpf.Import_Export
 	}
 	public abstract class Descriptor
 	{
-		public static Dictionary<Type, Descriptor> DescriptorsByType;
-		static Descriptor()
-		{
-			vertexDescriptor = new VertexDescriptor();
-			edgeDescriptor = new EdgeDescriptor();
-			DescriptorsByType = new Dictionary<Type,Descriptor>();
-			DescriptorsByType.Add(typeof(EllipseVertex), vertexDescriptor);
-			DescriptorsByType.Add(typeof(ArrowEdge), edgeDescriptor);
-		}
 		public abstract string GetDescription(Descriptor descriptor, GraphShape shape);
-
-		static VertexDescriptor vertexDescriptor;
-		static EdgeDescriptor edgeDescriptor;
 	}
 	public abstract class Descriptor<T> :Descriptor where T:GraphShape
 	{
@@ -41,7 +40,7 @@ namespace CepheusProjectWpf.Import_Export
 			foreach(var property in Properties)
 			{
 				description.Append(property.Invoke((T)shape));
-				description.Append(",");
+				description.Append(";");
 			}
 			description.Remove(description.Length - 1, 1);
 			return description.ToString();

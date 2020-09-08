@@ -40,7 +40,7 @@
         </Grid>
         <Grid Grid.Column="1" Margin="509,3,0,0" Background="#FF12131B" HorizontalAlignment="Left" Width="82" MinHeight="28" MaxHeight="28" Height="28" VerticalAlignment="Top">
             <Image x:Name="imgSave" HorizontalAlignment="Left" Width="20" Source="Resources/save_icon.png" AutomationProperties.HelpText="Save graph" ToolTip="Save graph" MouseEnter="DarkenImage" MouseLeave="LightenImage" Height="20" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20" Margin="4,5,0,3" MouseLeftButtonUp="imgSave_MouseLeftButtonUp"/>
-            <Image x:Name="imgOpen" HorizontalAlignment="Left" Margin="29,5,0,3" Width="20" Source="Resources/open_icon.png" AutomationProperties.HelpText="Open graph" ToolTip="Open graph" MouseEnter="DarkenImage" MouseLeave="LightenImage" Height="20" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20"/>
+            <Image x:Name="imgOpen" HorizontalAlignment="Left" Margin="29,5,0,3" Width="20" Source="Resources/open_icon.png" AutomationProperties.HelpText="Open graph" ToolTip="Open graph" MouseEnter="DarkenImage" MouseLeave="LightenImage" Height="20" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20" MouseLeftButtonUp="imgOpen_MouseLeftButtonUp"/>
             <Image x:Name="imgPrint" HorizontalAlignment="Left" Height="20" Margin="54,5,0,0" VerticalAlignment="Top" Width="20" Source="Resources/print_icon.png" AutomationProperties.HelpText="Print" ToolTip="Print graph" MouseEnter="DarkenImage" MouseLeave="LightenImage" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20" MouseLeftButtonUp="imgPrint_MouseLeftButtonUp"/>
 
         </Grid >

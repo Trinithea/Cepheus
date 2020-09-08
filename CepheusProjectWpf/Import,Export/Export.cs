@@ -15,12 +15,23 @@ namespace CepheusProjectWpf.Import_Export
             Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
             saveFileDialog.Filter = "Text files (*.txt)|*.txt";
             if (saveFileDialog.ShowDialog() == true)
-                File.WriteAllText(saveFileDialog.FileName, text);
+            {
+                try
+                {
+                    File.WriteAllText(saveFileDialog.FileName, text);
+                }
+                catch
+                {
+                    //TODO
+                }
+            }
+            //TODO else
         }
         public static string Print(Dictionary<EllipseVertex,string> vertices, Dictionary<ArrowEdge,string> edges)
         {
             var text = new StringBuilder();
             var rootDescriptor = new RootDescriptor();
+            
 
             GetVertexDescriptor(rootDescriptor);
             text.Append("Vertices:\n");
@@ -35,15 +46,14 @@ namespace CepheusProjectWpf.Import_Export
             text.Remove(text.Length - 1, 1); //last new line
             return text.ToString();
         }
-        static RootDescriptor GetVertexDescriptor(RootDescriptor rootDescriptor)
+        static void GetVertexDescriptor(RootDescriptor rootDescriptor)
         {
-            rootDescriptor.Descriptor = Descriptor.DescriptorsByType[typeof(EllipseVertex)];
-            return rootDescriptor;
+         //   System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Descriptor).TypeHandle);
+            rootDescriptor.Descriptor = rootDescriptor.DescriptorsByType[typeof(EllipseVertex)];
         }
-        static RootDescriptor GetEdgeDescriptor(RootDescriptor rootDescriptor)
+        static void GetEdgeDescriptor(RootDescriptor rootDescriptor)
         {
-            rootDescriptor.Descriptor = Descriptor.DescriptorsByType[typeof(ArrowEdge)];
-            return rootDescriptor;
+            rootDescriptor.Descriptor = rootDescriptor.DescriptorsByType[typeof(ArrowEdge)];
         }
     }
 }

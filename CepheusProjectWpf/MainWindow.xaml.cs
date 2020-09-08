@@ -36,8 +36,9 @@ namespace CepheusProjectWpf
 			ellipseHighlightColor = imgHighlightColor;
 			ellipseDefaultColor = imgDefaultColor;
 		}
-		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>();
-		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
+		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>(); //TODO this could be a list..
+		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>(); //TODO this could be a list..
+		public static Dictionary<int, EllipseVertex> VerticesById = new Dictionary<int, EllipseVertex>();
 		public static int? initialVertex = null;
 		public static int? sinkVertex = null;
 		public static int IdCounter=0;
@@ -59,7 +60,7 @@ namespace CepheusProjectWpf
 			if (/*!isDraggingVertex &&*/ Keyboard.IsKeyDown(Key.LeftCtrl))
 			{
 				var mousePos = e.GetPosition(graphCanvas);
-				EllipseVertex vertex = new EllipseVertex(mousePos, graphCanvas,txtConsole);
+				EllipseVertex vertex = new EllipseVertex(mousePos, IdCounter, null, graphCanvas,txtConsole);
 				vertex.KeepVertexInCanvas(Canvas.GetLeft(vertex.MainEllipse), Canvas.GetTop(vertex.MainEllipse));
 			}
 		}
@@ -83,6 +84,7 @@ namespace CepheusProjectWpf
 		{
 			graphCanvas.Children.Clear();
 			Vertices.Clear();
+			VerticesById.Clear();
 			Edges.Clear();
 		}
 
@@ -423,6 +425,11 @@ namespace CepheusProjectWpf
 		private void imgSave_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			Export.Save(Export.Print(Vertices, Edges));
+		}
+
+		private void imgOpen_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			Import.Upload(graphCanvas, txtConsole);
 		}
 	}
 }

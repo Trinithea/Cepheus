@@ -27,32 +27,27 @@ namespace CepheusProjectWpf.GraphShapes
 		public int Length => Convert.ToInt32(txtLength.Text);
 		public double Left => Canvas.GetLeft(MainLine);
 		public double Top => Canvas.GetTop(MainLine);
-		protected override StringBuilder description 
-		{ get 
-			{
-				var desc = new StringBuilder();
-				desc.Append(Canvas.GetLeft(this));
-				desc.Append(";");
-				desc.Append(Canvas.GetTop(this));
-				desc.Append(";");
-				desc.Append(Length);
-				desc.Append(";");
-				desc.Append(FromVertex.UniqueId);
-				desc.Append(";");
-				desc.Append(ToVertex.UniqueId);
-				desc.Append("\n");
-				return desc;
-			}
-		  set { } 
-		}
+		
 
 		TextBox outputConsole;
 		public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex, TextBox console)
 		{
 			GraphCanvas = graphCanvas;
-			CreateEdgeArrow(Canvas.GetLeft(currentVertex.MainEllipse) + currentVertex.MainEllipse.Width / 2, Canvas.GetTop(currentVertex.MainEllipse) + currentVertex.MainEllipse.Height / 2);
+			double X = Canvas.GetLeft(currentVertex.MainEllipse) + currentVertex.MainEllipse.Width / 2;
+			double Y = Canvas.GetTop(currentVertex.MainEllipse) + currentVertex.MainEllipse.Height / 2;
+			CreateEdgeArrow(X,Y,X,Y,"1",false);
 			FromVertex = currentVertex;
 			outputConsole = console;
+		}
+		public ArrowEdge(Canvas graphCanvas, EllipseVertex fromVertex, EllipseVertex toVertex, double X1, double Y1, double X2, double Y2, string length, TextBox console)
+		{
+			GraphCanvas = graphCanvas;
+			CreateEdgeArrow(X1, Y1, X2, Y2,length,true);
+			outputConsole = console;
+			FromVertex = fromVertex;
+			FromVertex.OutEdges.Add(this);
+			ToVertex = toVertex;
+			ToVertex.InEdges.Add(this);
 		}
 		public override void SetStroke(SolidColorBrush color)
 		{
@@ -74,21 +69,22 @@ namespace CepheusProjectWpf.GraphShapes
 				Arrow[i].StrokeThickness = thickness;
 			}
 		}
-		private void CreateEdgeArrow(double X, double Y)
+		private void CreateEdgeArrow(double X1, double Y1, double X2, double Y2, string length, bool fromFile)
 		{
 			MainLine = new Line();
 			GraphCanvas.Children.Add(MainLine);
-			MainLine.X1 = X;
-			MainLine.Y1 = Y;
-			MainLine.X2 = X;
-			MainLine.Y2 = Y;
+			MainLine.X1 = X1;
+			MainLine.Y1 = Y1;
+			MainLine.X2 = X2;
+			MainLine.Y2 = Y2;
 			Canvas.SetZIndex(MainLine, 1);
 			MainLine.MouseLeftButtonDown += MainLine_MouseLeftButtonDown;
 			MainLine.MouseRightButtonUp += MainLine_MouseRightButtonUp;
 			MainLine.MouseMove += MainLine_MouseMove;
 			MainLine.MouseEnter += MainLine_MouseEnter;
 			MainLine.MouseLeave += MainLine_MouseLeave;
-			MainLine.CaptureMouse();
+			if(!fromFile)
+				MainLine.CaptureMouse();
 			LeftLine = new Line();
 			LeftLine.X1 = MainLine.X2;
 			LeftLine.Y1 = MainLine.Y2;
@@ -96,23 +92,24 @@ namespace CepheusProjectWpf.GraphShapes
 			RightLine.X1 = MainLine.X2;
 			RightLine.Y1 = MainLine.Y2;
 			Arrow = new Line[3] { MainLine, LeftLine, RightLine };
-			SetEnd(MainLine.X1, MainLine.Y1);
+			SetEnd(MainLine.X2, MainLine.Y2);
 			SetDefaultLook();
 			SetThickness(2);
-			isDraggingEdge = true;
-			SetLengthTextBox();
+			if(!fromFile)
+				isDraggingEdge = true;
+			SetLengthTextBox(length);
 
 			GraphCanvas.Children.Add(LeftLine);
 			GraphCanvas.Children.Add(RightLine);
 		}
-		void SetLengthTextBox()
+		void SetLengthTextBox(string length)
 		{
 			txtLength = new TextBox();
 			txtLength.Background = Brushes.Transparent;
 			txtLength.BorderBrush = Brushes.Transparent;
 			txtLength.Foreground = Brushes.White;
 			txtLength.Height = 23;
-			txtLength.Text = "1";
+			txtLength.Text = length;
 			SetTxtLengthCoordinates();
 			txtLength.KeyUp += TxtLength_KeyUp;
 			GraphCanvas.Children.Add(txtLength);

@@ -65,6 +65,7 @@
     <Compile Include="GraphShapes\GraphShape.cs" />
     <Compile Include="Import,Export\Descriptor.cs" />
     <Compile Include="Import,Export\Export.cs" />
+    <Compile Include="Import,Export\Import.cs" />
     <Compile Include="UIWindows %28remove!%29\ErrorNonIntegerLengthWindow.xaml.cs">
       <DependentUpon>ErrorNonIntegerLengthWindow.xaml</DependentUpon>
     </Compile>

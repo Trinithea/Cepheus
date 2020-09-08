@@ -20,7 +20,7 @@ namespace CepheusProjectWpf.GraphShapes
 			isMarked = false;
 		}
 		public bool isMarked = false;
-		protected abstract StringBuilder description { get; set; }
-		public string Description => description.ToString();
+
+	
 	}
 }
