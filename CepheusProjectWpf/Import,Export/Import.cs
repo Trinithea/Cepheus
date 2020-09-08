@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CepheusProjectWpf.Import_Export
@@ -14,8 +15,7 @@ namespace CepheusProjectWpf.Import_Export
 		static Canvas canvas;
 		static TextBox outputConsole;
 		//zvyš IdCounter o počet vrcholů
-		//createvertex
-		//správně ošetřit špatný formát
+		
 		//stejně tak vyřešit i chybný zápis od souboru!!
 		public static void Upload(Canvas graphCanvas, TextBox console)
 		{
@@ -30,15 +30,21 @@ namespace CepheusProjectWpf.Import_Export
 				{
 					ReadFile(openFileDialog.FileName);
 				}
+				catch (FormatException)
+				{
+					MessageBox.Show("File has an incorrect format.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
 				catch
 				{
-					//TODO
+					MessageBox.Show("There is some problem with reading this file. Please, try it again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 			}
-			//TODO else
+			else
+				MessageBox.Show("Can't open an OpenFileDialog", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 		static void ReadFile(string url)
 		{
+			int idCounter = 0;
 			StreamReader reader = new StreamReader(url);
 			if (!reader.EndOfStream) // file is not empty
 			{
@@ -47,21 +53,41 @@ namespace CepheusProjectWpf.Import_Export
 					string line = reader.ReadLine();
 					while (line != "Edges:")
 					{
-						ConvertLineToVertex(line);
+						try
+						{
+							ConvertLineToVertex(line);
+							idCounter++;
+						}
+						catch
+						{
+							throw new FormatException();
+						}
 						line = reader.ReadLine();
 					}
-					line = reader.ReadLine();
+					if(!reader.EndOfStream)
+						line = reader.ReadLine();
 					while (!reader.EndOfStream)
 					{
-						ConvertLineToEdge(line);
+						try
+						{
+							ConvertLineToEdge(line);
+						}
+						catch
+						{
+							throw new FormatException();
+						}
 						line = reader.ReadLine();
 					}
 					ConvertLineToEdge(line);
 				}
-				//TODO else
+				else
+				{
+					throw new FormatException();
+				}
 			}
-			//TODO else
-				
+			else
+				MessageBox.Show("The file is empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			MainWindow.IdCounter = idCounter;
 		}
 
 		static void ConvertLineToVertex(string line)

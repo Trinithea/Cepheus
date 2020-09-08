@@ -66,23 +66,13 @@
     <Compile Include="Import,Export\Descriptor.cs" />
     <Compile Include="Import,Export\Export.cs" />
     <Compile Include="Import,Export\Import.cs" />
-    <Compile Include="UIWindows %28remove!%29\ErrorNonIntegerLengthWindow.xaml.cs">
-      <DependentUpon>ErrorNonIntegerLengthWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="InitialVertexWindow.xaml.cs">
       <DependentUpon>InitialVertexWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UIWindows %28remove!%29\HelpWindow.xaml.cs">
-      <DependentUpon>HelpWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UIWindows %28remove!%29\WarningUniqueNameOfInitialVertex.xaml.cs">
-      <DependentUpon>WarningUniqueNameOfInitialVertex.xaml</DependentUpon>
+    <Compile Include="UIWindows %28remove!%29\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visitor.cs" />
-    <Page Include="UIWindows %28remove!%29\ErrorNonIntegerLengthWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="InitialVertexWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,11 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UIWindows %28remove!%29\HelpWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UIWindows %28remove!%29\WarningUniqueNameOfInitialVertex.xaml">
+    <Page Include="UIWindows %28remove!%29\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

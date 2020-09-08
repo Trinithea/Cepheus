@@ -429,6 +429,7 @@ namespace CepheusProjectWpf
 
 		private void imgOpen_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
+			ClearCanvas();
 			Import.Upload(graphCanvas, txtConsole);
 		}
 	}

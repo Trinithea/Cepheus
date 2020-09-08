@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using CepheusProjectWpf.GraphShapes;
 
 namespace CepheusProjectWpf.Import_Export
@@ -22,10 +23,11 @@ namespace CepheusProjectWpf.Import_Export
                 }
                 catch
                 {
-                    //TODO
+                    MessageBox.Show("Can't write to the selected file. Please check if the file is closed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            //TODO else
+            else
+                MessageBox.Show("Can't open an SaveFileDialog", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         public static string Print(Dictionary<EllipseVertex,string> vertices, Dictionary<ArrowEdge,string> edges)
         {
@@ -48,7 +50,6 @@ namespace CepheusProjectWpf.Import_Export
         }
         static void GetVertexDescriptor(RootDescriptor rootDescriptor)
         {
-         //   System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(Descriptor).TypeHandle);
             rootDescriptor.Descriptor = rootDescriptor.DescriptorsByType[typeof(EllipseVertex)];
         }
         static void GetEdgeDescriptor(RootDescriptor rootDescriptor)
