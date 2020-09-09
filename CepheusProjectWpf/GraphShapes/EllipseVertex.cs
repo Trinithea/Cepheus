@@ -21,7 +21,7 @@ namespace CepheusProjectWpf.GraphShapes
 		public Ellipse MainEllipse { get; private set; }
 		public List<ArrowEdge> OutEdges = new List<ArrowEdge>();
 		public List<ArrowEdge> InEdges = new List<ArrowEdge>();
-		Canvas GraphCanvas;
+		public Canvas GraphCanvas;
 		public TextBox txtName;
 		TextBox outputConsole;
 		double left => Canvas.GetLeft(MainEllipse);
@@ -258,9 +258,9 @@ namespace CepheusProjectWpf.GraphShapes
 				Canvas.SetTop(MainEllipse, top);
 			}
 		}
-		public EllipseVertex DrawThisOnCanvasAndReturnCopy(Canvas canvas)
+		public EllipseVertex DrawThisOnCanvasAndReturnCopy(Canvas canvas, double leftDifference, double topDifference)
 		{
-			var copy = new EllipseVertex(new Point(Left, Top), UniqueId, Name, canvas, outputConsole);
+			var copy = new EllipseVertex(new Point(Left - leftDifference, Top - topDifference), UniqueId, Name, canvas, outputConsole);
 			return copy;
 		}
 	}

@@ -24,12 +24,20 @@ namespace Cepheus
 		public override string TimeComplexity => "O(n^2 * m)";
 		Canvas netOfReservesCanvas;
 		NetOfReservesWindow netOfReservesWindow;
+		double windowWidth;
+		double windowHeight;
+		double leftDifference;
+		double topDifference;
 		public override string Description => "Dinic's algorithm or Dinitz's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic's algorithm to achieve its performance. ";
 
 		public async Task Run()
 		{
 			BFS bfs = new BFS();
-			
+			netOfReservesWindow = new NetOfReservesWindow();
+			netOfReservesCanvas = netOfReservesWindow.NetCanvas;
+			GetDimensionsOfNetOfReservesWindow();
+			netOfReservesWindow.Width = windowWidth;
+			netOfReservesWindow.Height = windowHeight;
 			while (true)
 			{
 				ShowNetOfReservesWindow();
@@ -59,17 +67,50 @@ namespace Cepheus
 		void ShowNetOfReservesWindow()
 		{
 			netOfReservesWindow = new NetOfReservesWindow();
+			netOfReservesWindow.Width = windowWidth;
+			netOfReservesWindow.Height = windowHeight;
 			netOfReservesCanvas = netOfReservesWindow.NetCanvas;
 			GetReserveNetwork();
 			netOfReservesWindow.ShowDialog();
 			
 		}
+
+		//pro posunutí grafu ke kraji
+		void GetDimensionsOfNetOfReservesWindow()
+		{
+			var originCanvas = graph.UltimateVertices[graph.Source].GraphCanvas;
+			double vertexWidth = graph.UltimateVertices[graph.Source].MainEllipse.Width;
+			double vertexHeight = graph.UltimateVertices[graph.Source].MainEllipse.Height;
+			double left = originCanvas.ActualWidth; //the left coordinate of vertex which is leftmost
+			double top = originCanvas.ActualHeight; //the top coordinate of vertex which is topmost
+			double right = 0; //the left coordinate of vertex which is rightmost
+			double bottom = 0; //the top coordinate of vertex which is most down
+
+			foreach (var vertex in graph.UltimateVertices)
+			{
+				if (vertex.Value.Left < left)
+					left = vertex.Value.Left;
+				if (vertex.Value.Top < top)
+					top = vertex.Value.Top;
+				if (vertex.Value.Left > right)
+					right = vertex.Value.Left;
+				if (vertex.Value.Top > bottom)
+					bottom = vertex.Value.Top;
+			}
+
+			double reserve = 50;
+			leftDifference = left - reserve;
+			topDifference = top - reserve;
+			windowWidth = right - leftDifference + vertexWidth + reserve +netOfReservesCanvas.Margin.Left+ netOfReservesCanvas.Margin.Right;
+			windowHeight = bottom - topDifference + vertexHeight + reserve + netOfReservesCanvas.Margin.Top + netOfReservesCanvas.Margin.Bottom;
+		}
+
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{
 			outputConsole.Text += "\nCreating network of reserves...";
 			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>() ;
 
-
+			
 			foreach (var vertex in graph.UltimateVertices)
 			{
 				BfsVertex newVertex = null;
@@ -80,7 +121,7 @@ namespace Cepheus
 				else
 					newVertex = reserveNetwork.AddVertex(vertex.Key.UniqueId, vertex.Key.Name);
 
-				var copy = vertex.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas);
+				var copy = vertex.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, leftDifference,topDifference);
 				reserveNetwork.UltimateVertices.Add(newVertex, copy);
 			}
 			foreach (var edge in graph.UltimateEdges)
@@ -99,7 +140,7 @@ namespace Cepheus
 				}
 				if (newEdge != null)
 				{
-					var copy = edge.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, reserveNetwork.UltimateVertices[newEdge.From], reserveNetwork.UltimateVertices[newEdge.To]);
+					var copy = edge.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, reserveNetwork.UltimateVertices[newEdge.From], reserveNetwork.UltimateVertices[newEdge.To],leftDifference,topDifference);
 					newEdge.currentFlowInfo = copy.txtLength;
 					reserveNetwork.UltimateEdges.Add(newEdge, copy);
 				}

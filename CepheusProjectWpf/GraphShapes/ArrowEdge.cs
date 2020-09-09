@@ -373,9 +373,9 @@ namespace CepheusProjectWpf.GraphShapes
 				ToVertex.InEdges.Remove(this);
 
 		}
-		public ArrowEdge DrawThisOnCanvasAndReturnCopy(Canvas canvas,EllipseVertex fromVertex, EllipseVertex toVertex)
+		public ArrowEdge DrawThisOnCanvasAndReturnCopy(Canvas canvas,EllipseVertex fromVertex, EllipseVertex toVertex, double leftDifference, double topDifference)
 		{
-			var copy = new ArrowEdge(canvas, FromVertex, ToVertex, MainLine.X1, MainLine.Y1, MainLine.X2, MainLine.Y2, txtLength.Text, outputConsole);
+			var copy = new ArrowEdge(canvas, FromVertex, ToVertex, MainLine.X1 - leftDifference, MainLine.Y1- topDifference, MainLine.X2- leftDifference, MainLine.Y2- topDifference, txtLength.Text, outputConsole);
 			return copy;
 		}
 	}

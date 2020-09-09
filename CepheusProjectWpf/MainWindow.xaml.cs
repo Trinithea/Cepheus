@@ -44,6 +44,7 @@ namespace CepheusProjectWpf
 		public static int IdCounter=0;
 		private static Ellipse ellipseHighlightColor;
 		private static Ellipse ellipseDefaultColor;
+		
 		public static SolidColorBrush DefaultColor { get; private set; }
 		
 		public static SolidColorBrush HiglightColor { get; private set; }
