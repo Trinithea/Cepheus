@@ -74,7 +74,7 @@ namespace Cepheus
 
 			graph.InitializeVertices();
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
-					UncolorEdge(edge);
+					UncolorEdge(graph,edge);
 
 			graph.Source.State = States.Open;
 			graph.Source.Distance = 0;
@@ -90,9 +90,9 @@ namespace Cepheus
 					if (edge.To.State == States.Unvisited && edge.Reserve > 0)
 					{
 						await Task.Delay(delay);
-						ColorEdge(edge);
+						ColorEdge(graph,edge);
 						await Task.Delay(delay - 250);
-						ColorVertex(edge.To);
+						ColorVertex(graph,edge.To);
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
@@ -100,9 +100,9 @@ namespace Cepheus
 					}
 				}
 				vertex.State = States.Closed;
-				UncolorVertex(vertex);
+				UncolorVertex(graph,vertex);
 				foreach (FlowEdge<BfsVertex> edge in vertex.OutEdges)
-					UncolorEdge(edge);
+					UncolorEdge(graph,edge);
 			}
 
 			await GetPath( graph.Source, graph.Sink);
@@ -125,7 +125,7 @@ namespace Cepheus
 					var edge = (FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex);
 					path.Insert(0, edge);
 					await Task.Delay(delay);
-					ColorEdge(edge);
+					ColorEdge(graph,edge);
 					currentVertex = currentVertex.Predecessor;
 				}
 				PathFromSourceToSink = path;

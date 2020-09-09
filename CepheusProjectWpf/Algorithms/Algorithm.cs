@@ -72,12 +72,23 @@ namespace Cepheus
 		}
 		protected void ColorEdge(Edge<TVertex> edge)
 		{
-			Graph.UltimateEdges[edge].SetMarkedLook();
+			if(edge is FlowEdge<TVertex>)
+				if (((FlowEdge<TVertex>)edge).currentFlowInfo != null) //if null, then edge is artificially created opposite edge
+					Graph.UltimateEdges[edge].SetMarkedLook();
+				else { }
+			else
+				Graph.UltimateEdges[edge].SetMarkedLook();
+
 		}
 
 		protected void UncolorEdge(Edge<TVertex> edge)
 		{
-			Graph.UltimateEdges[edge].SetDefaultLook();
+			if (edge is FlowEdge<TVertex>)
+				if (((FlowEdge<TVertex>)edge).currentFlowInfo != null)
+					Graph.UltimateEdges[edge].SetDefaultLook();
+				else { }
+			else
+				Graph.UltimateEdges[edge].SetDefaultLook();
 		}
 		protected void ColorVertex(TVertex vertex)
 		{
@@ -116,21 +127,22 @@ namespace Cepheus
 		{
 			outputConsole.Text += "\n\nThe maximum flow in this network is: " + MaximumFlow;
 		}
-		protected void ColorEdge(FlowEdge<TVertex> edge)
+		protected void ColorEdge(FlowNetwork<TVertex> graph,FlowEdge<TVertex> edge)
 		{
 			if (edge.currentFlowInfo != null) //if null, then edge is artificially created opposite edge
 				graph.UltimateEdges[edge].SetMarkedLook();
 		}
 
-		protected void UncolorEdge(FlowEdge<TVertex> edge)
+		protected void UncolorEdge(FlowNetwork<TVertex> graph, FlowEdge<TVertex> edge)
 		{
 			if (edge.currentFlowInfo != null) 
 				graph.UltimateEdges[edge].SetDefaultLook();
 		}
 		
-		protected void ColorVertex(TVertex vertex) => graph.UltimateVertices[vertex].SetMarkedLook();
+		protected void ColorVertex(FlowNetwork<TVertex> graph, TVertex vertex) => graph.UltimateVertices[vertex].SetMarkedLook();
 		
-		protected void UncolorVertex(TVertex vertex) => graph.UltimateVertices[vertex].SetDefaultLook();
+		protected void UncolorVertex(FlowNetwork<TVertex> graph, TVertex vertex) => graph.UltimateVertices[vertex].SetDefaultLook();
+
 		
 	}
 }

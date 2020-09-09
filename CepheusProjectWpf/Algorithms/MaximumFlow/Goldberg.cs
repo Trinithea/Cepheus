@@ -64,18 +64,18 @@ namespace Cepheus
 		}
 		async Task InitializeEdgesFromSource(GoldbergVertex source)
 		{
-			ColorVertex(graph.Source);
+			ColorVertex(graph,graph.Source);
 			foreach (FlowEdge<GoldbergVertex> edge in source.OutEdges)
 			{
 				await Task.Delay(delay);
-				ColorEdge(edge);
+				ColorEdge(graph,edge);
 				edge.Flow = edge.Capacity;
 				edge.UpdateCurrentFlowInfo();
 			}
 			await Task.Delay(delay);
-			UncolorVertex(graph.Source);
+			UncolorVertex(graph,graph.Source);
 			foreach (FlowEdge<GoldbergVertex> edge in source.OutEdges)
-				UncolorEdge(edge);
+				UncolorEdge(graph,edge);
 
 		}
 		async Task GetVerticesWithPositiveSurplus()
@@ -87,7 +87,7 @@ namespace Cepheus
 				{
 					await Task.Delay(delay);
 					vertices.Add(vertex);
-					ColorVertex(vertex);
+					ColorVertex(graph,vertex);
 				}
 			positiveSurplusVertices = vertices;
 		}
@@ -101,13 +101,13 @@ namespace Cepheus
 				if(edge.Reserve > 0 && from.Height > edge.To.Height) 
 				{
 					await Task.Delay(delay);
-					ColorEdge(edge);
+					ColorEdge(graph,edge);
 					int delta = Math.Min(from.Surplus, edge.Reserve);
 					edge.Flow += delta;
 					edge.UpdateCurrentFlowInfo();
 					transfered = true;
 					await Task.Delay(delay - 250);
-					ColorVertex(edge.To);
+					ColorVertex(graph,edge.To);
 					outputConsole.Text += "\nTransfering "+delta+" on edge " + from.Name + "->" + edge.To.Name;
 					edge.To.Surplus += delta;
 					PrintVertex(edge.To);
@@ -118,7 +118,7 @@ namespace Cepheus
 					{
 						positiveSurplusVertices.RemoveAt(positiveSurplusVertices.Count - 1); // that's from position
 						await Task.Delay(delay);
-						UncolorVertex(from);
+						UncolorVertex(graph,from);
 					}
 						
 
@@ -127,9 +127,9 @@ namespace Cepheus
 					else
 					{
 						await Task.Delay(delay);
-						UncolorVertex(edge.To);
+						UncolorVertex(graph,edge.To);
 					}
-					UncolorEdge(edge);
+					UncolorEdge(graph,edge);
 					break;
 				}
 				if (!transfered)

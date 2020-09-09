@@ -18,7 +18,6 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		//TODO try again to do it like in Pruvodce
 		public override string Name => "Dinic's algorithm";
 
 		public override string TimeComplexity => "O(n^2 * m)";
@@ -28,11 +27,12 @@ namespace Cepheus
 		double windowHeight;
 		double leftDifference;
 		double topDifference;
+		BFS bfs;
 		public override string Description => "Dinic's algorithm or Dinitz's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic's algorithm to achieve its performance. ";
 
 		public async Task Run()
 		{
-			BFS bfs = new BFS();
+			bfs = new BFS();
 			netOfReservesWindow = new NetOfReservesWindow();
 			netOfReservesCanvas = netOfReservesWindow.NetCanvas;
 			GetDimensionsOfNetOfReservesWindow();
@@ -40,38 +40,49 @@ namespace Cepheus
 			netOfReservesWindow.Height = windowHeight;
 			while (true)
 			{
-				ShowNetOfReservesWindow();
-				var reserveNetwork = GetReserveNetwork();
+				var reserveNetwork = ShowNetOfReservesWindow();
 				bfs.Graph = reserveNetwork;
 				bfs.initialVertex = reserveNetwork.Source;
+				bfs.SetOutputConsole(outputConsole);
+				PrintSearchingPath();
 				await bfs.Run();
 				int? lengthOfShortestPath = reserveNetwork.Sink.Distance;
-				if (lengthOfShortestPath == null)
+				if (lengthOfShortestPath == Int32.MaxValue)
+				{
+					outputConsole.Text += "\nPath from source to sink in the net of reserves doesn't exist.";
+					netOfReservesWindow.Close();
 					break;
-				CleanUpNetwork(reserveNetwork);
+				}
+				else
+					outputConsole.Text += "\nThe shortest path from source to sink conatins " + lengthOfShortestPath + " edges.";
+					
+				await CleanUpNetwork(reserveNetwork);
 
 				//save edges in reserve network before they will be removed
 				var edges = new List<FlowEdge<BfsVertex>>();
 				foreach (var edge in reserveNetwork.Edges.Values)
 					edges.Add((FlowEdge<BfsVertex>)edge);
 
-				GetBlockingFlow(reserveNetwork);
+				await GetBlockingFlow(reserveNetwork);
 				await Task.Delay(2 * delay);
 				netOfReservesWindow.Close();
-				ImproveFlow(graph,edges);
+				await ImproveFlow(graph,edges);
 
 			}
 
 			MaximumFlow = graph.GetMaximumFlow();
+			PrintMaximumFlow();
 		}
-		void ShowNetOfReservesWindow()
+		FlowNetwork<BfsVertex> ShowNetOfReservesWindow()
 		{
 			netOfReservesWindow = new NetOfReservesWindow();
 			netOfReservesWindow.Width = windowWidth;
 			netOfReservesWindow.Height = windowHeight;
 			netOfReservesCanvas = netOfReservesWindow.NetCanvas;
-			GetReserveNetwork();
-			netOfReservesWindow.ShowDialog();
+			var reserveNetwork = GetReserveNetwork();
+			netOfReservesWindow.Show();
+			netOfReservesCanvas.IsEnabled = false;
+			return reserveNetwork;
 			
 		}
 
@@ -107,7 +118,7 @@ namespace Cepheus
 
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{
-			outputConsole.Text += "\nCreating network of reserves...";
+			outputConsole.Text += "\nCreating the network of reserves...";
 			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>() ;
 
 			
@@ -115,9 +126,15 @@ namespace Cepheus
 			{
 				BfsVertex newVertex = null;
 				if (vertex.Key == graph.Source)
-					newVertex = reserveNetwork.AddVertex(graph.Source.UniqueId, graph.Source.Name);					
+				{
+					newVertex = reserveNetwork.AddVertex(graph.Source.UniqueId, graph.Source.Name);
+					reserveNetwork.Source = newVertex;
+				}		
 				else if (vertex.Key == graph.Sink)
+				{
 					newVertex = reserveNetwork.AddVertex(graph.Sink.UniqueId, graph.Sink.Name);
+					reserveNetwork.Sink = newVertex;
+				}
 				else
 					newVertex = reserveNetwork.AddVertex(vertex.Key.UniqueId, vertex.Key.Name);
 
@@ -130,71 +147,97 @@ namespace Cepheus
 				FlowEdge<BfsVertex> newEdge = null;
 				if (flowEdge.Capacity > flowEdge.Flow)
 				{
-					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.From.UniqueId), reserveNetwork.GetVertex(flowEdge.To.UniqueId), flowEdge.From.UniqueId + "->" + flowEdge.To.UniqueId, flowEdge.Capacity - flowEdge.Flow, null); //TODO tady ještě přidat argument na konec s TextBoxem, jinak špatnej overload
-					outputConsole.Text += "\nEdge " + flowEdge.From.Name + "->" + flowEdge.To.Name +" added with reserve (length)";
-					
+					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.From.UniqueId), reserveNetwork.GetVertex(flowEdge.To.UniqueId), flowEdge.From.UniqueId + "->" + flowEdge.To.UniqueId, flowEdge.Capacity - flowEdge.Flow, null); 
+					outputConsole.Text += "\nEdge " + flowEdge.From.Name + "->" + flowEdge.To.Name +" added with reserve "+ (flowEdge.Capacity - flowEdge.Flow);
+					var copy = edge.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, reserveNetwork.UltimateVertices[newEdge.From], reserveNetwork.UltimateVertices[newEdge.To], leftDifference, topDifference);
+					newEdge.currentFlowInfo = copy.txtLength;
+					newEdge.UpdateCurrentFlowInfo();
+					reserveNetwork.UltimateEdges.Add(newEdge, copy);
 				}
 				if (flowEdge.Flow > 0)
 				{
 					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.To.UniqueId), reserveNetwork.GetVertex(flowEdge.From.UniqueId), flowEdge.To.UniqueId + "->" + flowEdge.From.UniqueId, flowEdge.Flow, null);
+					outputConsole.Text += "\nEdge " + flowEdge.From.Name + "->" + flowEdge.To.Name + " added with reserve " + flowEdge.Flow;
 				}
-				if (newEdge != null)
-				{
-					var copy = edge.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, reserveNetwork.UltimateVertices[newEdge.From], reserveNetwork.UltimateVertices[newEdge.To],leftDifference,topDifference);
-					newEdge.currentFlowInfo = copy.txtLength;
-					reserveNetwork.UltimateEdges.Add(newEdge, copy);
-				}
+				
 			}
 			return reserveNetwork;
 		}
 
 		
-		void CleanUpNetwork(FlowNetwork<BfsVertex> network)
+		async Task CleanUpNetwork(FlowNetwork<BfsVertex> network)
 		{
-			BFS bfs = new BFS();
+			outputConsole.Text += "\nCleaning the network of reserves...";
 			bfs.Graph = network;
-			bfs.initialVertex = network.Source;
-			bfs.Run();
+			PrintSearchingPath();
+			await bfs.Run(); 
 
-			RemoveVerticesAfterSink(network);
+			await RemoveVerticesAfterSink(network);
+			await Task.Delay(delay);
 
-			RemoveNotForwardEdges(network);
+			await RemoveNotForwardEdges(network);
+			await Task.Delay(delay);
 
-			RemoveVerticesWithZeroOutEdges(network);
+			await RemoveVerticesWithZeroOutEdges(network);
+			await Task.Delay(delay);
 		}
-		void RemoveVerticesAfterSink(FlowNetwork<BfsVertex> network)
+		async Task RemoveVerticesAfterSink(FlowNetwork<BfsVertex> network)
 		{
+			outputConsole.Text += "\nRemoving every vertex which is further from source than sink...";
+			PrintVertex(network.Sink);
 			// remove every vertex after sink
 			var verticesToRemove = new List<BfsVertex>();
 			int? maxDistance = network.Sink.Distance;
 
 			foreach (var vertex in network.Vertices.Values)
 				if (vertex.Distance > maxDistance)
+				{
 					verticesToRemove.Add(vertex);
+					ColorVertex(network,vertex);
+					await Task.Delay(delay - 250);
+				}
 
 			for (int i = 0; i < verticesToRemove.Count; i++)
+			{
 				network.RemoveVertex(verticesToRemove[i]);
+				PrintVertexRemovedFromReserveNetwork(verticesToRemove[i]);
+			}
 			verticesToRemove.Clear();
 		}
-		void RemoveNotForwardEdges(FlowNetwork<BfsVertex> network)
+		async Task RemoveNotForwardEdges(FlowNetwork<BfsVertex> network)
 		{
+			outputConsole.Text += "\nRemoving every edge to previous layers or edges inside layers...";
 			// remove every edge to previous layers or edges inside layers
 			var edgesToRemove = new List<FlowEdge<BfsVertex>>();
 
 			foreach (FlowEdge<BfsVertex> edge in network.Edges.Values)
 				if (edge.To.Distance <= edge.From.Distance)
+				{
 					edgesToRemove.Add(edge);
+					ColorEdge(network, edge);
+					await Task.Delay(delay-250);
+				}
+					
 					
 			for (int i = 0; i < edgesToRemove.Count; i++)
+			{
 				network.RemoveEdge(edgesToRemove[i]);
+				PrintEdgeRemovedFromReserveNetwork(edgesToRemove[i]);
+			}
+				
 		}
-		void RemoveVerticesWithZeroOutEdges(FlowNetwork<BfsVertex> network)
+		async Task RemoveVerticesWithZeroOutEdges(FlowNetwork<BfsVertex> network)
 		{
+			outputConsole.Text += "\nRemoving vertices with no outcoming edges...";
 			var verticesToRemove = new Queue<BfsVertex>();
 
 			foreach (var vertex in network.Vertices.Values)
 				if (vertex.OutEdges.Count == 0 && vertex != network.Sink && vertex != network.Source)
+				{
 					verticesToRemove.Enqueue(vertex);
+					ColorVertex(network,vertex);
+					await Task.Delay(delay);
+				}
 
 			while (verticesToRemove.Count > 0)
 			{
@@ -203,22 +246,28 @@ namespace Cepheus
 				for (int i = 0; i < vertex.InEdges.Count; i++)
 					fromVertices.Add(vertex.InEdges[i].From);
 				network.RemoveVertex(vertex);
+				PrintVertexRemovedFromReserveNetwork(vertex);
 				for (int i = 0; i < fromVertices.Count; i++)
 					if (fromVertices[i].OutEdges.Count == 0)
+					{
 						verticesToRemove.Enqueue(fromVertices[i]);
+						ColorVertex(network, fromVertices[i]);
+						await Task.Delay(delay);
+					}
 			}
 		}
 		
-		void GetBlockingFlow(FlowNetwork<BfsVertex> network)
+		async Task GetBlockingFlow(FlowNetwork<BfsVertex> network)
 		{
 			network.SetFlowTo(0);
-			BFS bfs = new BFS();
 			bfs.Graph = network;
 			bfs.initialVertex = network.Source;
-			bfs.Run();
+			PrintSearchingPath();
+			await bfs.Run();
 			FordFulkerson ff = new FordFulkerson();
 			ff.graph = network;
-			ff.GetPath(network.Source, network.Sink);
+			ff.SetOutputConsole(outputConsole);
+			await ff.GetPath(network.Source, network.Sink);
 			var path = ff.PathFromSourceToSink;
 			//TODO do this with BFS
 			while(path !=  null)
@@ -233,37 +282,65 @@ namespace Cepheus
 
 				for (int i = 0; i < path.Count; i++)
 				{
+					outputConsole.Text += "\nRemoving saturated edges...";
 					path[i].Flow += min;
+					path[i].UpdateCurrentFlowInfo();
 					if (path[i].Flow == path[i].Capacity)
+					{
+						ColorEdge(network, path[i]);
+						await Task.Delay(delay);
 						network.RemoveEdge(path[i]);
-						
+						PrintEdgeRemovedFromReserveNetwork(path[i]);
+					}
 				}
 
-				CleanUpNetwork(network);
+				await CleanUpNetwork(network);
 				bfs.Graph = network;
 				bfs.initialVertex = network.Source;
-				bfs.Run();
-				ff.graph = network;
-				ff.GetPath(network.Source, network.Sink);
-				path = ff.PathFromSourceToSink;
+				if (network.UltimateVertices.ContainsKey(network.Source))
+				{
+					PrintSearchingPath();
+					await bfs.Run();
+					ff.graph = network;
+					await ff.GetPath(network.Source, network.Sink);
+					path = ff.PathFromSourceToSink;
+				}
+				else
+					path = null;
+				
 			}
 		}
 		
-		void ImproveFlow(FlowNetwork<BfsVertex> network, List<FlowEdge<BfsVertex>> edgesFromReserveNetwork)
+		async Task ImproveFlow(FlowNetwork<BfsVertex> network, List<FlowEdge<BfsVertex>> edgesFromReserveNetwork)
 		{
+			outputConsole.Text += "\nImproving the flow...";
 			for (int i = 0; i < edgesFromReserveNetwork.Count; i++)
 			{
 				var edge = network.GetEdge(edgesFromReserveNetwork[i].Name);
 				if (edge != null)
+				{
 					((FlowEdge<BfsVertex>)edge).Flow += edgesFromReserveNetwork[i].Flow;
+					await UpdateEdge(network,(FlowEdge<BfsVertex>)edge);
+				}
+					
 				var oppositeEdge = network.GetEdge(edgesFromReserveNetwork[i].To, edgesFromReserveNetwork[i].From);
 				if(oppositeEdge != null)
+				{
 					((FlowEdge<BfsVertex>)oppositeEdge).Flow -= edgesFromReserveNetwork[i].Flow;
+					await UpdateEdge(network,(FlowEdge<BfsVertex>)oppositeEdge);
+				}
 			}
-
 		}
-		
+		async Task UpdateEdge(FlowNetwork<BfsVertex> network, FlowEdge<BfsVertex> edge)
+		{
+			ColorEdge(network, edge);
+			(edge).UpdateCurrentFlowInfo();
+			await Task.Delay(delay);
+			UncolorEdge(network,edge);
+		}
 
-
-	}
+		void PrintVertexRemovedFromReserveNetwork(BfsVertex vertex) => outputConsole.Text += "\nVertex " + vertex.Name + " is removed from the network of reserves.";
+		void PrintEdgeRemovedFromReserveNetwork(FlowEdge<BfsVertex> edge) => outputConsole.Text += "\nEdge " + edge.From.Name+"->"+edge.To.Name + " is removed from the network of reserves.";
+		void PrintSearchingPath() => outputConsole.Text += "\nSearching path from source to sink through BFS...";
+	 }
 }

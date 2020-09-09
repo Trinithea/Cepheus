@@ -94,12 +94,30 @@ namespace Cepheus
 			foreach (var edge in removable)
 				RemoveEdge(edge);
 			removable.Clear();
+			Vertices.Remove(vertex.UniqueId);
+			UltimateVertices[vertex].Delete();
+			UltimateVertices.Remove(vertex);
 		}
 		public void RemoveEdge(Edge<TVertex> edge)
 		{
 			Edges.Remove(edge.Name);
 			edge.From.OutEdges.Remove(edge);
 			edge.To.InEdges.Remove(edge);
+			if(edge is FlowEdge<TVertex>)
+			{
+				if (((FlowEdge<TVertex>)edge).currentFlowInfo != null) //opposite edge
+				{
+					UltimateEdges[edge].Delete();
+					UltimateEdges.Remove(edge);
+				}
+			}
+			else
+			{
+				UltimateEdges[edge].Delete();
+				UltimateEdges.Remove(edge);
+			}
+				
+			
 		}
 	}
 	public class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex>, new() //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
