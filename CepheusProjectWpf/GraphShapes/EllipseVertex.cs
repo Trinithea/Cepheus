@@ -71,9 +71,7 @@ namespace CepheusProjectWpf.GraphShapes
 
 			UniqueId = uniqueId;
 			SetNameTextBox(Canvas.GetLeft(newVertex), Canvas.GetTop(newVertex), name);
-			MainWindow.Vertices.Add(this, Name);
-			MainWindow.VerticesById.Add(UniqueId, this);
-			MainWindow.IdCounter++;
+			
 			return newVertex;
 		}
 
@@ -205,8 +203,6 @@ namespace CepheusProjectWpf.GraphShapes
 		}
 		public override void Delete()
 		{
-			MainWindow.Vertices.Remove(this);
-			MainWindow.VerticesById.Remove(UniqueId);
 			GraphCanvas.Children.Remove(MainEllipse);
 			GraphCanvas.Children.Remove(txtName);
 			List<ArrowEdge> edgesToRemove = new List<ArrowEdge>();
@@ -262,6 +258,10 @@ namespace CepheusProjectWpf.GraphShapes
 				Canvas.SetTop(MainEllipse, top);
 			}
 		}
-
+		public EllipseVertex DrawThisOnCanvasAndReturnCopy(Canvas canvas)
+		{
+			var copy = new EllipseVertex(new Point(Left, Top), UniqueId, Name, canvas, outputConsole);
+			return copy;
+		}
 	}
 }

@@ -332,11 +332,11 @@ namespace CepheusProjectWpf.GraphShapes
 				if (touchedVertex != null)
 					touchedVertex.SetMarkedLook();
 				else
-					SetVerticesToGreen();
+					SetVerticesToDefault();
 
 			}
 		}
-		void SetVerticesToGreen()
+		void SetVerticesToDefault()
 		{
 			foreach (EllipseVertex vertex in MainWindow.Vertices.Keys)
 			{
@@ -367,12 +367,16 @@ namespace CepheusProjectWpf.GraphShapes
 			GraphCanvas.Children.Remove(RightLine);
 			GraphCanvas.Children.Remove(LeftLine);
 			GraphCanvas.Children.Remove(txtLength);
-			MainWindow.Edges.Remove(this);
+			
 			FromVertex.OutEdges.Remove(this);
 			if (ToVertex != null)
 				ToVertex.InEdges.Remove(this);
 
 		}
-
+		public ArrowEdge DrawThisOnCanvasAndReturnCopy(Canvas canvas,EllipseVertex fromVertex, EllipseVertex toVertex)
+		{
+			var copy = new ArrowEdge(canvas, FromVertex, ToVertex, MainLine.X1, MainLine.Y1, MainLine.X2, MainLine.Y2, txtLength.Text, outputConsole);
+			return copy;
+		}
 	}
 }

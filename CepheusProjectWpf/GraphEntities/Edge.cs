@@ -21,7 +21,7 @@ namespace Cepheus
 		public int Capacity { get; set; } //TODO only non-negative numbers
 		public int Flow { get; set; } //TODO only non-negative numbers
 		public int Reserve => Capacity - Flow + OppositeEdge.Flow;
-		public TextBox currentFlowInfo { get; }
+		public TextBox currentFlowInfo { get; set; }
 		public void UpdateCurrentFlowInfo()
 		{
 			if(currentFlowInfo!=null)

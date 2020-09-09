@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using CepheusProjectWpf;
+using CepheusProjectWpf.UIWindows__remove__;
+using CepheusProjectWpf.GraphShapes;
 namespace Cepheus
 {
 	 public class Dinic : FlowAlgorithm<BfsVertex>
@@ -19,15 +22,17 @@ namespace Cepheus
 		public override string Name => "Dinic's algorithm";
 
 		public override string TimeComplexity => "O(n^2 * m)";
-
+		Canvas netOfReservesCanvas;
+		NetOfReservesWindow netOfReservesWindow;
 		public override string Description => "Dinic's algorithm or Dinitz's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic's algorithm to achieve its performance. ";
 
 		public async Task Run()
 		{
 			BFS bfs = new BFS();
-
+			
 			while (true)
 			{
+				ShowNetOfReservesWindow();
 				var reserveNetwork = GetReserveNetwork();
 				bfs.Graph = reserveNetwork;
 				bfs.initialVertex = reserveNetwork.Source;
@@ -43,38 +48,62 @@ namespace Cepheus
 					edges.Add((FlowEdge<BfsVertex>)edge);
 
 				GetBlockingFlow(reserveNetwork);
+				await Task.Delay(2 * delay);
+				netOfReservesWindow.Close();
 				ImproveFlow(graph,edges);
+
 			}
 
 			MaximumFlow = graph.GetMaximumFlow();
+		}
+		void ShowNetOfReservesWindow()
+		{
+			netOfReservesWindow = new NetOfReservesWindow();
+			netOfReservesCanvas = netOfReservesWindow.NetCanvas;
+			GetReserveNetwork();
+			netOfReservesWindow.ShowDialog();
+			
 		}
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{
 			outputConsole.Text += "\nCreating network of reserves...";
 			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>() ;
 
-			foreach (BfsVertex vertex in graph.Vertices.Values)
-			{
-				if (vertex == graph.Source)
-					reserveNetwork.AddVertex(graph.Source.UniqueId, graph.Source.Name);
-				else if (vertex == graph.Sink)
-					reserveNetwork.AddVertex(graph.Sink.UniqueId, graph.Sink.Name);
-				else
-					reserveNetwork.AddVertex(vertex.UniqueId, vertex.Name);
-			}
 
-			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
+			foreach (var vertex in graph.UltimateVertices)
 			{
-				if (edge.Capacity > edge.Flow)
-				{
-					reserveNetwork.AddEdge(reserveNetwork.GetVertex(edge.From.UniqueId), reserveNetwork.GetVertex(edge.To.UniqueId), edge.From.UniqueId + "->" + edge.To.UniqueId, edge.Capacity - edge.Flow); //TODO tady ještě přidat argument na konec s TextBoxem, jinak špatnej overload
-					outputConsole.Text += "\nEdge " + edge.From.Name + "->" + edge.To.Name +" added with reserve (length)";
-				}
-				if (edge.Flow > 0)
-					reserveNetwork.AddEdge( reserveNetwork.GetVertex(edge.To.UniqueId), reserveNetwork.GetVertex(edge.From.UniqueId), edge.To.UniqueId+"->" + edge.From.UniqueId, edge.Flow);
-				
+				BfsVertex newVertex = null;
+				if (vertex.Key == graph.Source)
+					newVertex = reserveNetwork.AddVertex(graph.Source.UniqueId, graph.Source.Name);					
+				else if (vertex.Key == graph.Sink)
+					newVertex = reserveNetwork.AddVertex(graph.Sink.UniqueId, graph.Sink.Name);
+				else
+					newVertex = reserveNetwork.AddVertex(vertex.Key.UniqueId, vertex.Key.Name);
+
+				var copy = vertex.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas);
+				reserveNetwork.UltimateVertices.Add(newVertex, copy);
 			}
-			
+			foreach (var edge in graph.UltimateEdges)
+			{
+				FlowEdge<BfsVertex> flowEdge = (FlowEdge<BfsVertex>)edge.Key;
+				FlowEdge<BfsVertex> newEdge = null;
+				if (flowEdge.Capacity > flowEdge.Flow)
+				{
+					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.From.UniqueId), reserveNetwork.GetVertex(flowEdge.To.UniqueId), flowEdge.From.UniqueId + "->" + flowEdge.To.UniqueId, flowEdge.Capacity - flowEdge.Flow, null); //TODO tady ještě přidat argument na konec s TextBoxem, jinak špatnej overload
+					outputConsole.Text += "\nEdge " + flowEdge.From.Name + "->" + flowEdge.To.Name +" added with reserve (length)";
+					
+				}
+				if (flowEdge.Flow > 0)
+				{
+					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.To.UniqueId), reserveNetwork.GetVertex(flowEdge.From.UniqueId), flowEdge.To.UniqueId + "->" + flowEdge.From.UniqueId, flowEdge.Flow, null);
+				}
+				if (newEdge != null)
+				{
+					var copy = edge.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, reserveNetwork.UltimateVertices[newEdge.From], reserveNetwork.UltimateVertices[newEdge.To]);
+					newEdge.currentFlowInfo = copy.txtLength;
+					reserveNetwork.UltimateEdges.Add(newEdge, copy);
+				}
+			}
 			return reserveNetwork;
 		}
 

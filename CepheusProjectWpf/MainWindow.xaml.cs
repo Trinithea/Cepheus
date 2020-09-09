@@ -61,24 +61,31 @@ namespace CepheusProjectWpf
 			{
 				var mousePos = e.GetPosition(graphCanvas);
 				EllipseVertex vertex = new EllipseVertex(mousePos, IdCounter, null, graphCanvas,txtConsole);
+				Vertices.Add(vertex, vertex.Name);
+				VerticesById.Add(vertex.UniqueId, vertex);
+				IdCounter++;
 				vertex.KeepVertexInCanvas(Canvas.GetLeft(vertex.MainEllipse), Canvas.GetTop(vertex.MainEllipse));
 			}
 		}
 		private void Window_KeyDown(object sender, KeyEventArgs e)
 		{
-			List<ArrowEdge> edgesToRemove = new List<ArrowEdge>();
-			List<EllipseVertex> verticesToRemove = new List<EllipseVertex>();
 			if (e.Key == Key.Delete)
 			{
 				foreach (var shape in Marked)
-					shape.Delete(); //TODO - create MyShape with abstract method Delete 
+				{
+					shape.Delete();
+					if(shape is EllipseVertex)
+					{
+						Vertices.Remove((EllipseVertex)shape);
+						VerticesById.Remove(((EllipseVertex)shape).UniqueId);
+					}
+					else if(shape is ArrowEdge)
+						Edges.Remove((ArrowEdge)shape);
+					
+				}
+					
 				Marked.Clear();
 			}
-			/*
-			foreach (var edge in edgesToRemove)
-				edge.Delete();
-			foreach (var vertex in verticesToRemove)
-				vertex.Delete();*/
 		}
 		void ClearCanvas()
 		{
@@ -160,8 +167,8 @@ namespace CepheusProjectWpf
 		}
 		void SetNames()
 		{
-			foreach (var vertex in Vertices)
-				Vertices[vertex.Key] = vertex.Key.Name;
+			foreach (var vertex in VerticesById.Values)
+				Vertices[vertex] = vertex.Name;
 		}
 
 		void DarkenGrid(Grid uc)
@@ -355,8 +362,10 @@ namespace CepheusProjectWpf
 				var brush = graphCanvas.Background;
 				ChangeCanvasLook(Brushes.White, Brushes.White, Brushes.Black);
 				if (dialog.ShowDialog() != true)
+				{
+					ChangeCanvasLook((SolidColorBrush)Application.Current.Resources["Dark"], Brushes.Black, Brushes.White);
 					return;
-				
+				}
 				dialog.PrintVisual(graphCanvas, "Graph canvas");
 				ChangeCanvasLook((SolidColorBrush)Application.Current.Resources["Dark"], Brushes.Black, Brushes.White);
 			}

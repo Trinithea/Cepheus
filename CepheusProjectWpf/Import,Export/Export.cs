@@ -26,8 +26,6 @@ namespace CepheusProjectWpf.Import_Export
                     MessageBox.Show("Can't write to the selected file. Please check if the file is closed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            else
-                MessageBox.Show("Can't open an SaveFileDialog", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         public static string Print(Dictionary<EllipseVertex,string> vertices, Dictionary<ArrowEdge,string> edges)
         {

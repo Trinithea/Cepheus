@@ -11,17 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CepheusProjectWpf.GraphShapes;
 
 namespace CepheusProjectWpf.UIWindows__remove__
 {
-	/// <summary>
-	/// Interaction logic for Window1.xaml
-	/// </summary>
-	public partial class Window1 : Window
+	public partial class NetOfReservesWindow : Window
 	{
-		public Window1()
+		public Canvas NetCanvas;
+		public static Dictionary<int, EllipseVertex> VerticesById = new Dictionary<int, EllipseVertex>();
+		public NetOfReservesWindow()
 		{
 			InitializeComponent();
+			NetCanvas = netCanvas;
 		}
 	}
 }

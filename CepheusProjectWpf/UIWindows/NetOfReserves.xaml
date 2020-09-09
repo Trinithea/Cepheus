@@ -1,0 +1,13 @@
+﻿<Window x:Class="CepheusProjectWpf.UIWindows__remove__.NetOfReservesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CepheusProjectWpf.UIWindows__remove__"
+        mc:Ignorable="d"
+        Title="Net of reserves" Height="450" Width="800" Icon="/CepheusProjectWpf;component/Resources/logo_icon.png">
+    <Grid Background="{DynamicResource Dark}">
+        <Rectangle Fill="{DynamicResource Dark blue}" Margin="10" Stroke="{DynamicResource Dark blue}"/>
+        <Canvas x:Name="netCanvas" Margin="11" Background="{DynamicResource Dark}"/>
+    </Grid>
+</Window>

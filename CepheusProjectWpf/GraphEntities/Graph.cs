@@ -24,12 +24,13 @@ namespace Cepheus
 		public Dictionary<int, TVertex> Vertices { get; private set; }
 		public Dictionary<Edge<TVertex>, ArrowEdge> UltimateEdges { get; set; }
 		public Dictionary<TVertex, EllipseVertex> UltimateVertices { get; set; }
-		public void AddVertex(int uniqueId, string name)
+		public TVertex AddVertex(int uniqueId, string name)
 		{
 			var vertex = new TVertex();
 			vertex.UniqueId = uniqueId;
 			vertex.Name = name;
 			Vertices.Add(uniqueId, vertex);
+			return vertex;
 		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
 		public void AddEdge(TVertex from, TVertex to, string name, int length)
@@ -144,7 +145,7 @@ namespace Cepheus
 			needToCreateOppositeEdge.Clear();
 		}
 		//TODO be able to add edge only through this method, not with the Graph method
-		public void AddEdge( TVertex from, TVertex to, string name, int capacity, TextBox txtLength) //TODO má vracet tu hranu
+		public FlowEdge<TVertex> AddEdge( TVertex from, TVertex to, string name, int capacity, TextBox txtLength) //TODO má vracet tu hranu
 		{
 			if (!Edges.ContainsKey(name)) //TODO unique names!!!!
 			{
@@ -155,9 +156,14 @@ namespace Cepheus
 				from.OutEdges.Add(edge);
 				to.InEdges.Add(edge);
 				Edges.Add(from.UniqueId+"->" + to.UniqueId, edge);
+				return edge;
 			}
 			else
+			{
 				((FlowEdge<TVertex>)Edges[name]).Capacity += capacity;
+				return (FlowEdge<TVertex>)Edges[name];
+			}
+				
 			
 		}
 		public void SetFlowTo(int flow)

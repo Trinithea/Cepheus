@@ -36,12 +36,9 @@ namespace CepheusProjectWpf.Import_Export
 					MessageBox.Show("There is some problem with reading this file. Please, try it again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 			}
-			else
-				MessageBox.Show("Can't open an OpenFileDialog", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 		static void ReadFile(string url)
 		{
-			int idCounter = 0;
 			StreamReader reader = new StreamReader(url);
 			if (!reader.EndOfStream) // file is not empty
 			{
@@ -53,7 +50,6 @@ namespace CepheusProjectWpf.Import_Export
 						try
 						{
 							ConvertLineToVertex(line);
-							idCounter++;
 						}
 						catch
 						{
@@ -84,7 +80,6 @@ namespace CepheusProjectWpf.Import_Export
 			}
 			else
 				MessageBox.Show("The file is empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			MainWindow.IdCounter = idCounter;
 		}
 
 		static void ConvertLineToVertex(string line)
@@ -96,6 +91,9 @@ namespace CepheusProjectWpf.Import_Export
 			string name = vertexInfo[3];
 
 			var newVertex = new EllipseVertex(new System.Windows.Point(left, top), uniqueId, name, canvas, outputConsole); //creates new vertex right on canvas in MainWindow
+			MainWindow.Vertices.Add(newVertex, newVertex.Name);
+			MainWindow.VerticesById.Add(newVertex.UniqueId, newVertex);
+			MainWindow.IdCounter++;
 		}
 		static void ConvertLineToEdge(string line)
 		{
@@ -109,6 +107,7 @@ namespace CepheusProjectWpf.Import_Export
 			int toVertexId = Convert.ToInt32(edgeInfo[6]);
 
 			var newEdge = new ArrowEdge(canvas, MainWindow.VerticesById[fromVertexId], MainWindow.VerticesById[toVertexId], X1, Y1, X2, Y2, length, outputConsole); //creates new edge on canvas
+			MainWindow.Edges.Add(newEdge, newEdge.Name);
 		}
 
 	}
