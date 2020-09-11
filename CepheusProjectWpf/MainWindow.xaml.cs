@@ -30,7 +30,7 @@ namespace CepheusProjectWpf
 		{
 			//System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
 			InitializeComponent();
-			SetAvailbaleAlgorithms();
+			UpdateControls();
 			txtConsole.Text = CepheusProjectWpf.Properties.Resources.Welcome;
 			txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TroubleDel;
 			DefaultColor = (SolidColorBrush)Application.Current.Resources["Aqua"];
@@ -467,7 +467,7 @@ namespace CepheusProjectWpf
 
 		void UpdateControls()
 		{
-			SetAvailbaleAlgorithms(); //TODO ale možná trochu moc náročný
+			SetAvailbaleAlgorithms(); 
 			btnClear.Content = Properties.Resources.ClearCanvas_Content;
 			btnOkRun.Content = Properties.Resources.Done;
 			lblRun.Content = Properties.Resources.Run;
@@ -517,6 +517,53 @@ namespace CepheusProjectWpf
 		private void imgAboutCepheus_MouseLeave(object sender, MouseEventArgs e)
 		{
 			gridAbout.Visibility = Visibility.Hidden;
+		}
+
+		private void imgFamousGraphs_MouseEnter(object sender, MouseEventArgs e)
+		{
+			DarkenImage(sender, e);
+			gridCommonGraphs.Visibility = Visibility.Visible;
+		}
+
+		private void gridCommonGraphs_MouseLeave(object sender, MouseEventArgs e)
+		{
+			gridCommonGraphs.Visibility = Visibility.Hidden;
+		}
+
+		private void img5_5_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+			Import.ReadFileFromText(Properties.Resources._5_5_Prasatko, graphCanvas,txtConsole);
+		}
+
+		private void img14_2_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+			Import.ReadFileFromText(Properties.Resources._14_2_Toky_v_sitich, graphCanvas, txtConsole);
+		}
+
+		private void img7_2_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+			Import.ReadFileFromText(Properties.Resources._7_2_Minimalni_kostry, graphCanvas, txtConsole);
+		}
+
+		private void img6_1_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+			Import.ReadFileFromText(Properties.Resources._6_1_Stredovy_graf, graphCanvas, txtConsole);
+		}
+
+		private void img5_13_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+			Import.ReadFileFromText(Properties.Resources._5_13_Grafove_komponenty, graphCanvas, txtConsole);
+		}
+
+		private void img5_10_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			ClearCanvas();
+			Import.ReadFileFromText(Properties.Resources._5_10_Mosty_a_artikulace, graphCanvas, txtConsole);
 		}
 	}
 }

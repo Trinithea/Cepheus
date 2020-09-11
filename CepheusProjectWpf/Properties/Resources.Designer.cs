@@ -61,6 +61,127 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vertices:
+        ///599.094339622641;322.355752212389;0;Zdroj
+        ///721.094339622641;215.355752212389;1;A
+        ///922.094339622641;201.355752212389;2;C
+        ///1037.09433962264;335.355752212389;3;Stok
+        ///643.094339622641;476.355752212389;4;B
+        ///985.094339622641;476.355752212389;5;D
+        ///Edges:
+        ///599.094339622641;322.355752212389;713.576212564746;221.949519386118;10;0;1
+        ///721.094339622641;215.355752212389;912.118508544244;202.05058621785;7;1;2
+        ///922.094339622641;201.355752212389;1030.58176337833;327.767185110326;10;2;3
+        ///599.094339622641;322.355752212389;640 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _14_2_Toky_v_sitich {
+            get {
+                return ResourceManager.GetString("14_2_Toky_v_sitich", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices:
+        ///430.094339622641;174.355752212389;0;Vertex #0
+        ///430.094339622641;254.355752212389;1;Vertex #1
+        ///518.094339622641;217.355752212389;2;Vertex #2
+        ///602.094339622641;216.355752212389;3;Vertex #3
+        ///667.094339622641;152.355752212389;4;Vertex #4
+        ///761.094339622641;151.355752212389;5;Vertex #5
+        ///813.094339622641;213.355752212389;6;Vertex #6
+        ///670.094339622641;281.355752212389;7;Vertex #7
+        ///761.094339622641;280.355752212389;8;Vertex #8
+        ///935.094339622641;171.355752212389;9;Vertex #9
+        ///936.094339622641;250.355752212389;10;Verte [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _5_10_Mosty_a_artikulace {
+            get {
+                return ResourceManager.GetString("5_10_Mosty_a_artikulace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices:
+        ///462.094339622641;154.355752212389;0;Vertex #0
+        ///295.094339622641;193.355752212389;1;Vertex #1
+        ///598.094339622641;79.3557522123893;2;Vertex #2
+        ///742.094339622641;128.355752212389;3;Vertex #3
+        ///714.094339622641;239.355752212389;4;Vertex #4
+        ///574.094339622641;332.355752212389;5;Vertex #5
+        ///Edges:
+        ///462.094339622641;154.355752212389;304.83232143087;191.081612748192;1;0;1
+        ///295.094339622641;193.355752212389;452.356357814413;156.629891676586;1;1;0
+        ///462.094339622641;154.355752212389;589.337623839477;84.1848234163402;1;0; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _5_13_Grafove_komponenty {
+            get {
+                return ResourceManager.GetString("5_13_Grafove_komponenty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices:
+        ///765.094339622641;129.355752212389;0;Vertex #0
+        ///579.094339622641;125.355752212389;1;Vertex #1
+        ///500.094339622641;71.3557522123893;2;Vertex #2
+        ///569.094339622641;248.355752212389;3;Vertex #3
+        ///528.094339622641;326.355752212389;4;Vertex #4
+        ///625.094339622641;327.355752212389;5;Vertex #5
+        ///764.094339622641;249.355752212389;6;Vertex #6
+        ///748.094339622641;323.355752212389;7;Vertex #7
+        ///809.094339622641;322.355752212389;8;Vertex #8
+        ///879.094339622641;193.355752212389;9;Vertex #9
+        ///Edges:
+        ///765.094339622641;129.355752212389;5 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _5_5_Prasatko {
+            get {
+                return ResourceManager.GetString("5_5_Prasatko", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices:
+        ///570.094339622641;245.591150442478;0;Vertex #0
+        ///704.094339622641;202.591150442478;1;Vertex #1
+        ///570.094339622641;119.591150442478;2;Vertex #2
+        ///437.094339622641;197.591150442478;3;Vertex #3
+        ///492.094339622641;359.591150442478;4;Vertex #4
+        ///649.094339622641;364.591150442478;5;Vertex #5
+        ///829.094339622641;163.591150442478;6;Vertex #6
+        ///568.094339622641;16.5911504424779;7;Vertex #7
+        ///334.094339622641;155.591150442478;8;Vertex #8
+        ///427.094339622641;457.591150442478;9;Vertex #9
+        ///723.094339622641;472.591150442478;10;Verte [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _6_1_Stredovy_graf {
+            get {
+                return ResourceManager.GetString("6_1_Stredovy_graf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertices:
+        ///366.094339622641;71.5911504424779;0;Vertex #0
+        ///556.094339622641;74.5911504424779;1;Vertex #1
+        ///759.094339622641;74.5911504424779;2;Vertex #2
+        ///365.094339622641;223.591150442478;3;Vertex #3
+        ///555.094339622641;222.591150442478;4;Vertex #4
+        ///757.094339622641;224.591150442478;5;Vertex #5
+        ///364.094339622641;398.591150442478;6;Vertex #6
+        ///564.094339622641;397.591150442478;7;Vertex #7
+        ///758.094339622641;402.591150442478;8;Vertex #8
+        ///Edges:
+        ///366.094339622641;71.5911504424779;546.095585927013;74.4332753841259;10;0;1
+        ///556.09 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _7_2_Minimalni_kostry {
+            get {
+                return ResourceManager.GetString("7_2_Minimalni_kostry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About Cepheus.
         /// </summary>
         internal static string About {

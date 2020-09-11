@@ -25,7 +25,7 @@ namespace CepheusProjectWpf.Import_Export
 			{
 				try
 				{
-					ReadFile(openFileDialog.FileName);
+					ReadFileFromUrl(openFileDialog.FileName);
 				}
 				catch (FormatException)
 				{
@@ -37,7 +37,65 @@ namespace CepheusProjectWpf.Import_Export
 				}
 			}
 		}
-		static void ReadFile(string url)
+
+		public static void ReadFileFromText(string text, Canvas graphCanvas, TextBox console)
+		{
+			canvas = graphCanvas;
+			outputConsole = console;
+
+			var lines = text.Split('\n');
+			int i = 0;
+
+			if (text!="") // file is not empty
+			{
+				if (lines[0] == "Vertices:" && lines.Length >1)
+				{
+					i++;
+					string line = lines[i];
+					
+					while (line != "Edges:")
+					{
+						try
+						{
+							ConvertLineToVertex(line);
+						}
+						catch
+						{
+							throw new FormatException();
+						}
+						i++;
+						line = lines[i];
+					}
+					if (i< lines.Length)
+					{
+						i++;
+						line = lines[i] ;
+					}
+						
+					while (i < lines.Length)
+					{
+						try
+						{
+							ConvertLineToEdge(line);
+						}
+						catch
+						{
+							throw new FormatException();
+						}
+						i++;
+						if (i < lines.Length )
+							line = lines[i];
+					}
+				}
+				else
+				{
+					throw new FormatException();
+				}
+			}
+			else
+				MessageBox.Show(CepheusProjectWpf.Properties.Resources.FileEmpty, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+		static void ReadFileFromUrl(string url)
 		{
 			StreamReader reader = new StreamReader(url);
 			if (!reader.EndOfStream) // file is not empty

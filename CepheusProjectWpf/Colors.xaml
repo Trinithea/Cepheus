@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CepheusProjectWpf"
-             mc:Ignorable="d" Height="133.8" Width="224.533" BorderBrush="{DynamicResource Dark blue}" Foreground="{x:Null}">
+             mc:Ignorable="d" Height="133.8" Width="224.533" BorderBrush="{DynamicResource Blue}" Foreground="{x:Null}">
     <Grid x:Name="mainGrid" Background="{DynamicResource Dark}" Margin="0">
         <Rectangle Fill="{DynamicResource Aqua1}" HorizontalAlignment="Left" Height="25" Margin="10,70,0,0" VerticalAlignment="Top" Width="25"/>
         <Rectangle Fill="{DynamicResource Blue}" HorizontalAlignment="Left" Height="25" Margin="10,100,0,0" VerticalAlignment="Top" Width="25"/>
