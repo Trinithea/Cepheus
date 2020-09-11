@@ -225,9 +225,9 @@ namespace CepheusProjectWpf.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Clear canvas.
         /// </summary>
-        internal static string Clear {
+        internal static string ClearCanvas_Content {
             get {
-                return ResourceManager.GetString("Clear", resourceCulture);
+                return ResourceManager.GetString("ClearCanvas.Content", resourceCulture);
             }
         }
         

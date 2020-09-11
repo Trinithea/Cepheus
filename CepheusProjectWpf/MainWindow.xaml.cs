@@ -27,6 +27,7 @@ namespace CepheusProjectWpf
 	{
 		public MainWindow()
 		{
+			//System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
 			InitializeComponent();
 			SetAvailbaleAlgorithms();
 			txtConsole.Text = CepheusProjectWpf.Properties.Resources.Welcome;
@@ -109,6 +110,7 @@ namespace CepheusProjectWpf
 		//Dictionary<string, Algorithm> availbaleAlgorithms = new Dictionary<string, Algorithm>();
 		void SetAvailbaleAlgorithms()
 		{
+			cmbAlgorithms.Items.Clear();
 			List<Algorithm> algorithms = new List<Algorithm>() { new BFS(), new DFS(), new Dijkstra(), new Relaxation(), new BellmanFord(), new FloydWarshall(), new Jarnik(), new Boruvka(), new Kruskal(), new FordFulkerson(), new Dinic(),  new Goldberg()  };
 			foreach (var algorithm in algorithms)
 			{
@@ -442,6 +444,67 @@ namespace CepheusProjectWpf
 		{
 			ClearCanvas();
 			Import.Upload(graphCanvas, txtConsole);
+		}
+
+		private void imgCzech_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			if (!changedCulture)
+			{
+				defaultCultureInfo = Thread.CurrentThread.CurrentUICulture;
+				changedCulture = true;
+			}
+			System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
+			UpdateControls();
+		}
+		System.Globalization.CultureInfo defaultCultureInfo;
+		bool changedCulture = false;
+		private void imgEnglish_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			System.Threading.Thread.CurrentThread.CurrentUICulture = defaultCultureInfo;
+			UpdateControls();
+		}
+
+		void UpdateControls()
+		{
+			SetAvailbaleAlgorithms(); //TODO ale možná trochu moc náročný
+			btnClear.Content = Properties.Resources.ClearCanvas_Content;
+			btnOkRun.Content = Properties.Resources.Done;
+			lblRun.Content = Properties.Resources.Run;
+			imgInfo.ToolTip = Properties.Resources.Desc;
+			imgDefaultColor.ToolTip = Properties.Resources.DefaultColor;
+			imgHighlightColor.ToolTip = Properties.Resources.HighlightColor;
+			imgCursor.ToolTip = Properties.Resources.Cursor;
+			imgCan.ToolTip = Properties.Resources.FillColor;
+			imgZoomIn.ToolTip = Properties.Resources.ZoomIn;
+			imgZoomOut.ToolTip = Properties.Resources.ZoomOut;
+			imgFamousGraphs.ToolTip = Properties.Resources.CommonGraphs;
+			imgSave.ToolTip = Properties.Resources.Save;
+			imgOpen.ToolTip = Properties.Resources.Import;
+			imgPrint.ToolTip = Properties.Resources.Print;
+			ImgHelp.ToolTip = Properties.Resources.Tutorial;
+			imgAboutCepheus.ToolTip = Properties.Resources.About;
+			imgCzech.ToolTip = Properties.Resources.Czech;
+			imgEnglish.ToolTip = Properties.Resources.English;
+		}
+
+		private void imgCzech_MouseEnter(object sender, MouseEventArgs e)
+		{
+			DarkenImage(sender, e);
+		}
+
+		private void imgCzech_MouseLeave(object sender, MouseEventArgs e)
+		{
+			LightenImage(sender, e);
+		}
+
+		private void imgEnglish_MouseEnter(object sender, MouseEventArgs e)
+		{
+			DarkenImage(sender, e);
+		}
+
+		private void imgEnglish_MouseLeave(object sender, MouseEventArgs e)
+		{
+			LightenImage(sender, e);
 		}
 	}
 }

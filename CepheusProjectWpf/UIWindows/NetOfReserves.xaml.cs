@@ -23,6 +23,7 @@ namespace CepheusProjectWpf.UIWindows__remove__
 		{
 			InitializeComponent();
 			NetCanvas = netCanvas;
+			Title = Properties.Resources.Net_of_reserves;
 		}
 	}
 }

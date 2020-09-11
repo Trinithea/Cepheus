@@ -171,7 +171,7 @@
   <data name="CleaningReserveNet" xml:space="preserve">
     <value>Cleaning the network of reserves...</value>
   </data>
-  <data name="Clear" xml:space="preserve">
+  <data name="ClearCanvas.Content" xml:space="preserve">
     <value>Clear canvas</value>
   </data>
   <data name="Closed" xml:space="preserve">
