@@ -36,7 +36,7 @@ namespace Cepheus
 			List<int> ids = new List<int>(); //ID numbers of currents context components
 
 			Initialize(minimumSpanningTree,ids); // each vertex is a context component
-			outputConsole.Text += "\nContext components are inicialized...";
+			outputConsole.Text += "\nContext components are inicialized.";
 
 			while(minimumSpanningTree.ContextComponents.Count > 1) // graph is not continuous
 			{

@@ -59,5 +59,1220 @@ namespace CepheusProjectWpf.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About Cepheus.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  added to minimum spanning tree..
+        /// </summary>
+        internal static string AddedToMinSpTree {
+            get {
+                return ResourceManager.GetString("AddedToMinSpTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  added with reserve .
+        /// </summary>
+        internal static string AddedWithReserve {
+            get {
+                return ResourceManager.GetString("AddedWithReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  and surplus: .
+        /// </summary>
+        internal static string AndSurplus {
+            get {
+                return ResourceManager.GetString("AndSurplus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  attempts to run....
+        /// </summary>
+        internal static string AttemptToRun {
+            get {
+                return ResourceManager.GetString("AttemptToRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bellman-Ford&apos;s algorithm.
+        /// </summary>
+        internal static string BFAlgo {
+            get {
+                return ResourceManager.GetString("BFAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Bellman–Ford algorithm is an algorithm that computes shortest paths from a single source vertex to all of the other vertices in a weighted digraph. It is slower than Dijkstra&apos;s algorithm for the same problem, but more versatile, as it is capable of handling graphs in which some of the edge weights are negative numbers..
+        /// </summary>
+        internal static string BFDesc {
+            get {
+                return ResourceManager.GetString("BFDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breadth-first search.
+        /// </summary>
+        internal static string BFSAlgo {
+            get {
+                return ResourceManager.GetString("BFSAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breadth-first search (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a &apos;search key&apos;), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level..
+        /// </summary>
+        internal static string BFSDesc {
+            get {
+                return ResourceManager.GetString("BFSDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n + m).
+        /// </summary>
+        internal static string BFSTime {
+            get {
+                return ResourceManager.GetString("BFSTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n * m).
+        /// </summary>
+        internal static string BFTime {
+            get {
+                return ResourceManager.GetString("BFTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boruvka&apos;s algorithm.
+        /// </summary>
+        internal static string BoruvkaAlgo {
+            get {
+                return ResourceManager.GetString("BoruvkaAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description is not implemented..
+        /// </summary>
+        internal static string BoruvkaDesc {
+            get {
+                return ResourceManager.GetString("BoruvkaDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to m * log(n).
+        /// </summary>
+        internal static string BoruvkaTime {
+            get {
+                return ResourceManager.GetString("BoruvkaTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nIn brackets after name of a vertex you see its height..
+        /// </summary>
+        internal static string BracketsHeight {
+            get {
+                return ResourceManager.GetString("BracketsHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t write to the selected file. Please check if the file is closed..
+        /// </summary>
+        internal static string CantWrite {
+            get {
+                return ResourceManager.GetString("CantWrite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nYou have to choose an algorithm in the upper left corner corner..
+        /// </summary>
+        internal static string ChooseAlgo {
+            get {
+                return ResourceManager.GetString("ChooseAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nCleaning the network of reserves....
+        /// </summary>
+        internal static string CleaningReserveNet {
+            get {
+                return ResourceManager.GetString("CleaningReserveNet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear canvas.
+        /// </summary>
+        internal static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        internal static string Closed {
+            get {
+                return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has been closed in time: .
+        /// </summary>
+        internal static string CloseTime {
+            get {
+                return ResourceManager.GetString("CloseTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Common graphs.
+        /// </summary>
+        internal static string CommonGraphs {
+            get {
+                return ResourceManager.GetString("CommonGraphs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nConstructing the path from source to sink....
+        /// </summary>
+        internal static string ConstructingPath {
+            get {
+                return ResourceManager.GetString("ConstructingPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nContext components are inicialized..
+        /// </summary>
+        internal static string ContextComponentInicialized {
+            get {
+                return ResourceManager.GetString("ContextComponentInicialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nContext components are merging....
+        /// </summary>
+        internal static string ContextComponentsMerging {
+            get {
+                return ResourceManager.GetString("ContextComponentsMerging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nPlease, press Done button to continue. The flow from edges will be removed..
+        /// </summary>
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nCreating the network of reserves....
+        /// </summary>
+        internal static string CreatingReserveNet {
+            get {
+                return ResourceManager.GetString("CreatingReserveNet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cursor.
+        /// </summary>
+        internal static string Cursor {
+            get {
+                return ResourceManager.GetString("Cursor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Czech.
+        /// </summary>
+        internal static string Czech {
+            get {
+                return ResourceManager.GetString("Czech", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default color.
+        /// </summary>
+        internal static string DefaultColor {
+            get {
+                return ResourceManager.GetString("DefaultColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has been dequeued..
+        /// </summary>
+        internal static string Dequed {
+            get {
+                return ResourceManager.GetString("Dequed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description of algorithm.
+        /// </summary>
+        internal static string Desc {
+            get {
+                return ResourceManager.GetString("Desc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Depth-first search.
+        /// </summary>
+        internal static string DFSAlgo {
+            get {
+                return ResourceManager.GetString("DFSAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Depth-first search (DFS) is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking..
+        /// </summary>
+        internal static string DFSDesc {
+            get {
+                return ResourceManager.GetString("DFSDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n + m).
+        /// </summary>
+        internal static string DFSTime {
+            get {
+                return ResourceManager.GetString("DFSTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkstra&apos;s algorithm with binary heap.
+        /// </summary>
+        internal static string DijkstraAlgo {
+            get {
+                return ResourceManager.GetString("DijkstraAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkstra&apos;s algorithm (or Dijkstra&apos;s Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks..
+        /// </summary>
+        internal static string DijkstraDesc {
+            get {
+                return ResourceManager.GetString("DijkstraDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nIn Dijkstra&apos;s algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again..
+        /// </summary>
+        internal static string DijkstraPosLengths {
+            get {
+                return ResourceManager.GetString("DijkstraPosLengths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O((n + m) * log(n)).
+        /// </summary>
+        internal static string DijkstraTime {
+            get {
+                return ResourceManager.GetString("DijkstraTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinic&apos;s algorithm.
+        /// </summary>
+        internal static string DinicAlgo {
+            get {
+                return ResourceManager.GetString("DinicAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dinic&apos;s algorithm or Dinitz&apos;s algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic&apos;s algorithm to achieve its performance..
+        /// </summary>
+        internal static string DinicDescription {
+            get {
+                return ResourceManager.GetString("DinicDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n^2 * m).
+        /// </summary>
+        internal static string DinicTime {
+            get {
+                return ResourceManager.GetString("DinicTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nDividing vertices to layers according to their distance from the source....
+        /// </summary>
+        internal static string DividingVertices {
+            get {
+                return ResourceManager.GetString("DividingVertices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nEdges are initialized....
+        /// </summary>
+        internal static string EdgesInicialized {
+            get {
+                return ResourceManager.GetString("EdgesInicialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has been enqueued..
+        /// </summary>
+        internal static string Enqued {
+            get {
+                return ResourceManager.GetString("Enqued", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ford-Fulkerson&apos;s algorithm.
+        /// </summary>
+        internal static string FFAlgo {
+            get {
+                return ResourceManager.GetString("FFAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Ford–Fulkerson method or Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the maximum flow in a flow network. It is sometimes called a \&quot;method\&quot; instead of an \&quot;algorithm\&quot; as the approach to finding augmenting paths in a residual graph is not fully specified or it is specified in several implementations with different running times. It was published in 1956 by L. R. Ford Jr. and D. R. Fulkerson. The name \&quot;Ford–Fulkerson\&quot; is often also used for the Edmonds–Karp algorithm, which is a [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FFDesc {
+            get {
+                return ResourceManager.GetString("FFDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(m * f).
+        /// </summary>
+        internal static string FFTime {
+            get {
+                return ResourceManager.GetString("FFTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file is empty..
+        /// </summary>
+        internal static string FileEmpty {
+            get {
+                return ResourceManager.GetString("FileEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fill color.
+        /// </summary>
+        internal static string FillColor {
+            get {
+                return ResourceManager.GetString("FillColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  from initial vertex with predecessor .
+        /// </summary>
+        internal static string FromInitVPred {
+            get {
+                return ResourceManager.GetString("FromInitVPred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floyd-Warshall&apos;s algorithm.
+        /// </summary>
+        internal static string FWAlgo {
+            get {
+                return ResourceManager.GetString("FWAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In computer science, the Floyd–Warshall algorithm (also known as Floyd&apos;s algorithm, the Roy–Warshall algorithm, the Roy–Floyd algorithm, or the WFI algorithm) is an algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles). A single execution of the algorithm will find the lengths (summed weights) of shortest paths between all pairs of vertices. Although it does not return details of the paths themselves, it is possible to reconstruct the p [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FWDesc {
+            get {
+                return ResourceManager.GetString("FWDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n^3).
+        /// </summary>
+        internal static string FWTime {
+            get {
+                return ResourceManager.GetString("FWTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Goldberg&apos;s algorithm.
+        /// </summary>
+        internal static string GoldbergAlgo {
+            get {
+                return ResourceManager.GetString("GoldbergAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In mathematical optimization, the push–relabel algorithm (alternatively, preflow–push algorithm) is an algorithm for computing maximum flows in a flow network. The name \push–relabel\&quot; comes from the two basic operations used in the algorithm. Throughout its execution, the algorithm maintains a \&quot;preflow\&quot; and gradually converts it into a maximum flow by moving flow locally between neighboring nodes using push operations under the guidance of an admissible network maintained by relabel operations. In compar [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GoldbergDesc {
+            get {
+                return ResourceManager.GetString("GoldbergDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n^2 * m).
+        /// </summary>
+        internal static string GoldbergTime {
+            get {
+                return ResourceManager.GetString("GoldbergTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has finished..
+        /// </summary>
+        internal static string HasFinished {
+            get {
+                return ResourceManager.GetString("HasFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has height: .
+        /// </summary>
+        internal static string HasHeight {
+            get {
+                return ResourceManager.GetString("HasHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has ID: .
+        /// </summary>
+        internal static string HasId {
+            get {
+                return ResourceManager.GetString("HasId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has state: .
+        /// </summary>
+        internal static string HasState {
+            get {
+                return ResourceManager.GetString("HasState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight color.
+        /// </summary>
+        internal static string HighlightColor {
+            get {
+                return ResourceManager.GetString("HighlightColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open graph.
+        /// </summary>
+        internal static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nImproving the flow....
+        /// </summary>
+        internal static string ImproveFlow {
+            get {
+                return ResourceManager.GetString("ImproveFlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File has an incorrect format..
+        /// </summary>
+        internal static string IncorrectFormat {
+            get {
+                return ResourceManager.GetString("IncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Infinity.
+        /// </summary>
+        internal static string Infinity {
+            get {
+                return ResourceManager.GetString("Infinity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inside.
+        /// </summary>
+        internal static string Inside {
+            get {
+                return ResourceManager.GetString("Inside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  is in component: .
+        /// </summary>
+        internal static string IsInComp {
+            get {
+                return ResourceManager.GetString("IsInComp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  and is in distance: .
+        /// </summary>
+        internal static string IsInDistance {
+            get {
+                return ResourceManager.GetString("IsInDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jarnik&apos;s algorithm.
+        /// </summary>
+        internal static string JarnikAlgo {
+            get {
+                return ResourceManager.GetString("JarnikAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In computer science, Prim&apos;s (also known as Jarník&apos;s) algorithm is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree is minimized. The algorithm operates by building this tree one vertex at a time, from an arbitrary starting vertex, at each step adding the cheapest possible connection from the tree to another vertex..
+        /// </summary>
+        internal static string JarnikDesc {
+            get {
+                return ResourceManager.GetString("JarnikDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(m * log(n)).
+        /// </summary>
+        internal static string JarnikTime {
+            get {
+                return ResourceManager.GetString("JarnikTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kruskal&apos;s algorithm.
+        /// </summary>
+        internal static string KruskalAlgo {
+            get {
+                return ResourceManager.GetString("KruskalAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kruskal&apos;s algorithm is a minimum-spanning-tree algorithm which finds an edge of the least possible weight that connects any two trees in the forest. It is a greedy algorithm in graph theory as it finds a minimum spanning tree for a connected weighted graph adding increasing cost arcs at each step. This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree is minimized. If the graph is not connected, then it finds a minimum span [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string KruskalDesc {
+            get {
+                return ResourceManager.GetString("KruskalDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(m * log(n)).
+        /// </summary>
+        internal static string KruskalTime {
+            get {
+                return ResourceManager.GetString("KruskalTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nThe lowest reserve is .
+        /// </summary>
+        internal static string LowestReserve {
+            get {
+                return ResourceManager.GetString("LowestReserve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nMarking vertices with positive surplus....
+        /// </summary>
+        internal static string MarkingSurplus {
+            get {
+                return ResourceManager.GetString("MarkingSurplus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nMatrix of distances: .
+        /// </summary>
+        internal static string MatrixDist {
+            get {
+                return ResourceManager.GetString("MatrixDist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nThe maximum flow in this network is: .
+        /// </summary>
+        internal static string MaxFlow {
+            get {
+                return ResourceManager.GetString("MaxFlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some mistake occured....
+        /// </summary>
+        internal static string Mistake {
+            get {
+                return ResourceManager.GetString("Mistake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Neighbour.
+        /// </summary>
+        internal static string Neighbour {
+            get {
+                return ResourceManager.GetString("Neighbour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Net of reserves.
+        /// </summary>
+        internal static string Net_of_reserves {
+            get {
+                return ResourceManager.GetString("Net of reserves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nEdge .
+        /// </summary>
+        internal static string NLEdgeSpace {
+            get {
+                return ResourceManager.GetString("NLEdgeSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nTransfering .
+        /// </summary>
+        internal static string NLTransfering {
+            get {
+                return ResourceManager.GetString("NLTransfering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nVertex .
+        /// </summary>
+        internal static string NLVertexSpace {
+            get {
+                return ResourceManager.GetString("NLVertexSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No algorithm is selected..
+        /// </summary>
+        internal static string NonAlgoSelected {
+            get {
+                return ResourceManager.GetString("NonAlgoSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nNothing was transfered..
+        /// </summary>
+        internal static string NothingTransfered {
+            get {
+                return ResourceManager.GetString("NothingTransfered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  of the edge .
+        /// </summary>
+        internal static string OfTheEdge {
+            get {
+                return ResourceManager.GetString("OfTheEdge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  on edge .
+        /// </summary>
+        internal static string OnEdge {
+            get {
+                return ResourceManager.GetString("OnEdge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nOnly integer length of an edge is acceptable....
+        /// </summary>
+        internal static string OnlyInteger {
+            get {
+                return ResourceManager.GetString("OnlyInteger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  has been opened in time: .
+        /// </summary>
+        internal static string OpenTime {
+            get {
+                return ResourceManager.GetString("OpenTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nOpen vertices in sorted order (distance is in brackets): .
+        /// </summary>
+        internal static string OpenVerticesSorted {
+            get {
+                return ResourceManager.GetString("OpenVerticesSorted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nOutcoming edges are sorted from lightest to heaviest for each vertex..
+        /// </summary>
+        internal static string OutEdgesSorted {
+            get {
+                return ResourceManager.GetString("OutEdgesSorted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outside.
+        /// </summary>
+        internal static string Outside {
+            get {
+                return ResourceManager.GetString("Outside", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nPath from source to sink in the net of reserves doesn&apos;t exist..
+        /// </summary>
+        internal static string PathDoesntExist {
+            get {
+                return ResourceManager.GetString("PathDoesntExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print graph.
+        /// </summary>
+        internal static string Print {
+            get {
+                return ResourceManager.GetString("Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is some problem with reading this file. Please, try it again..
+        /// </summary>
+        internal static string ProblemReading {
+            get {
+                return ResourceManager.GetString("ProblemReading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relaxation algorithm.
+        /// </summary>
+        internal static string RelaxAlgo {
+            get {
+                return ResourceManager.GetString("RelaxAlgo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description is not implemented..
+        /// </summary>
+        internal static string RelaxDesc {
+            get {
+                return ResourceManager.GetString("RelaxDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O(n^2).
+        /// </summary>
+        internal static string RelaxTime {
+            get {
+                return ResourceManager.GetString("RelaxTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  is removed from the network of reserves..
+        /// </summary>
+        internal static string RemovedFromReserveNet {
+            get {
+                return ResourceManager.GetString("RemovedFromReserveNet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nRemoving every edge to previous layers or edges inside layers....
+        /// </summary>
+        internal static string RemovingBackEdges {
+            get {
+                return ResourceManager.GetString("RemovingBackEdges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nRemoving every vertex which is further from source than sink....
+        /// </summary>
+        internal static string RemovingFarVertices {
+            get {
+                return ResourceManager.GetString("RemovingFarVertices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nRemoving vertices with no outcoming edges....
+        /// </summary>
+        internal static string RemovingNoOutVertices {
+            get {
+                return ResourceManager.GetString("RemovingNoOutVertices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nRemoving saturated edges....
+        /// </summary>
+        internal static string RemovingSaturatedEdges {
+            get {
+                return ResourceManager.GetString("RemovingSaturatedEdges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run.
+        /// </summary>
+        internal static string Run {
+            get {
+                return ResourceManager.GetString("Run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save graph.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nLooking for a path from source to sink using BFS algorithm....
+        /// </summary>
+        internal static string SearchingPath {
+            get {
+                return ResourceManager.GetString("SearchingPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nSelected algorithm is running..
+        /// </summary>
+        internal static string SelectedAlgoRunning {
+            get {
+                return ResourceManager.GetString("SelectedAlgoRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nSelect the initial vertex. Then press green Done button..
+        /// </summary>
+        internal static string SelectInit {
+            get {
+                return ResourceManager.GetString("SelectInit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nSelect the sink vertex and press Done again..
+        /// </summary>
+        internal static string SelectSink {
+            get {
+                return ResourceManager.GetString("SelectSink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \n\nSelect the source vertex. Then press green Done button..
+        /// </summary>
+        internal static string SelectSource {
+            get {
+                return ResourceManager.GetString("SelectSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nThe shortest path can contain vertices with index from 0 to .
+        /// </summary>
+        internal static string ShortesPathContain {
+            get {
+                return ResourceManager.GetString("ShortesPathContain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nThe shortest path from source to sink conatins .
+        /// </summary>
+        internal static string ShortestPathContains {
+            get {
+                return ResourceManager.GetString("ShortestPathContains", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nThe sink is not reachable from the source..
+        /// </summary>
+        internal static string SinkNotReachable {
+            get {
+                return ResourceManager.GetString("SinkNotReachable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nSorted neighbours are (rating is in parenthesses):.
+        /// </summary>
+        internal static string SortedNeighbours {
+            get {
+                return ResourceManager.GetString("SortedNeighbours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  edges..
+        /// </summary>
+        internal static string SpaceEdges {
+            get {
+                return ResourceManager.GetString("SpaceEdges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time complexity: .
+        /// </summary>
+        internal static string TimeComplexity {
+            get {
+                return ResourceManager.GetString("TimeComplexity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nTransfering surplus....
+        /// </summary>
+        internal static string TransferingSurplus {
+            get {
+                return ResourceManager.GetString("TransferingSurplus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus..
+        /// </summary>
+        internal static string TroubleDel {
+            get {
+                return ResourceManager.GetString("TroubleDel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tutorial.
+        /// </summary>
+        internal static string Tutorial {
+            get {
+                return ResourceManager.GetString("Tutorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unvisited.
+        /// </summary>
+        internal static string Unvisited {
+            get {
+                return ResourceManager.GetString("Unvisited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertex #.
+        /// </summary>
+        internal static string VertexHash {
+            get {
+                return ResourceManager.GetString("VertexHash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nVertices are initialized....
+        /// </summary>
+        internal static string VerticesInicialized {
+            get {
+                return ResourceManager.GetString("VerticesInicialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \nVertices with positive surplus are staying marked..
+        /// </summary>
+        internal static string VerticisSurplus {
+            get {
+                return ResourceManager.GetString("VerticisSurplus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Cepheus. Feel free to create any graphs you want and experiment with the prepared algorithms. If you&apos;re using this app for the first time, there&apos;s a tutorial made right for you in the upper right corner..
+        /// </summary>
+        internal static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  with predecessor .
+        /// </summary>
+        internal static string WithPred {
+            get {
+                return ResourceManager.GetString("WithPred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  with rating: .
+        /// </summary>
+        internal static string WithRating {
+            get {
+                return ResourceManager.GetString("WithRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom in.
+        /// </summary>
+        internal static string ZoomIn {
+            get {
+                return ResourceManager.GetString("ZoomIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom out.
+        /// </summary>
+        internal static string ZoomOut {
+            get {
+                return ResourceManager.GetString("ZoomOut", resourceCulture);
+            }
+        }
     }
 }

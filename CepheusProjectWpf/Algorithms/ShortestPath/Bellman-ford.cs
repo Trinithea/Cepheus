@@ -41,7 +41,7 @@ namespace Cepheus
 				foreach (Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					
-					if (edge.To.Distance == null || edge.To.Distance > (vertex.Distance + edge.Length))
+					if (edge.To.Distance == Int32.MaxValue || edge.To.Distance > (vertex.Distance + edge.Length))
 					{
 						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;

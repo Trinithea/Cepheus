@@ -118,28 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About Cepheus</value>
+    <value>O aplikaci Cepheus</value>
   </data>
   <data name="AddedToMinSpTree" xml:space="preserve">
-    <value> added to minimum spanning tree.</value>
+    <value> je přidaná do minimální kostry.</value>
   </data>
   <data name="AddedWithReserve" xml:space="preserve">
-    <value> added with reserve </value>
+    <value> je přidaná s rezervou </value>
   </data>
   <data name="AndSurplus" xml:space="preserve">
-    <value> and surplus: </value>
+    <value> a přebytek: </value>
   </data>
   <data name="AttemptToRun" xml:space="preserve">
-    <value> attempts to run...</value>
+    <value> se snaží spustit...</value>
   </data>
   <data name="BFAlgo" xml:space="preserve">
-    <value>Bellman-Ford's algorithm</value>
+    <value>Bellman-Fordův algoritmus</value>
   </data>
   <data name="BFDesc" xml:space="preserve">
     <value>The Bellman–Ford algorithm is an algorithm that computes shortest paths from a single source vertex to all of the other vertices in a weighted digraph. It is slower than Dijkstra's algorithm for the same problem, but more versatile, as it is capable of handling graphs in which some of the edge weights are negative numbers.</value>
   </data>
   <data name="BFSAlgo" xml:space="preserve">
-    <value>Breadth-first search</value>
+    <value>Prohledávání do šířky</value>
   </data>
   <data name="BFSDesc" xml:space="preserve">
     <value>Breadth-first search (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a 'search key'), and explores all of the neighbor nodes at the present depth prior to moving on to the nodes at the next depth level.</value>
@@ -151,7 +151,7 @@
     <value>O(n * m)</value>
   </data>
   <data name="BoruvkaAlgo" xml:space="preserve">
-    <value>Boruvka's algorithm</value>
+    <value>Borůvkův algoritmus</value>
   </data>
   <data name="BoruvkaDesc" xml:space="preserve">
     <value>Description is not implemented.</value>
@@ -160,61 +160,61 @@
     <value>m * log(n)</value>
   </data>
   <data name="BracketsHeight" xml:space="preserve">
-    <value>\nIn brackets after name of a vertex you see its height.</value>
+    <value>\nV závorkách za jménem vrcholu uvidíte jeho výšku.</value>
   </data>
   <data name="CantWrite" xml:space="preserve">
-    <value>Can't write to the selected file. Please check if the file is closed.</value>
+    <value>Zápis do souboru nemůže být proveden. Zkontrolujte, že je soubor zavřený.</value>
   </data>
   <data name="ChooseAlgo" xml:space="preserve">
-    <value>\n\nYou have to choose an algorithm in the upper left corner corner.</value>
+    <value>\n\nMusíte nejprve vlevo nahoře zvolit z nabídky algoritmus, který chcete spustit.</value>
   </data>
   <data name="CleaningReserveNet" xml:space="preserve">
-    <value>\nCleaning the network of reserves...</value>
+    <value>\nČištění sítě rezerv…</value>
   </data>
   <data name="Clear" xml:space="preserve">
-    <value>Clear canvas</value>
+    <value>Vyčisti plátno</value>
   </data>
   <data name="Closed" xml:space="preserve">
-    <value>Closed</value>
+    <value>Uzavřený</value>
   </data>
   <data name="CloseTime" xml:space="preserve">
-    <value> has been closed in time: </value>
+    <value> byl uzavřen v čase: </value>
   </data>
   <data name="CommonGraphs" xml:space="preserve">
-    <value>Common graphs</value>
+    <value>Známé grafy</value>
   </data>
   <data name="ConstructingPath" xml:space="preserve">
-    <value>\nConstructing the path from source to sink...</value>
+    <value>\nKonstrukce cesty ze zdroje ke stoku…</value>
   </data>
   <data name="ContextComponentInicialized" xml:space="preserve">
-    <value>\nContext components are inicialized.</value>
+    <value>\nKomponenty souvislosti jsou inicializovány.</value>
   </data>
   <data name="ContextComponentsMerging" xml:space="preserve">
-    <value>\n\nContext components are merging...</value>
+    <value>\n\nSlévání komponent souvislosti…</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>\nPlease, press Done button to continue. The flow from edges will be removed.</value>
+    <value>\nAbyste mohli pokračovat, stiskněte prosím Hotovo. Pak se smaže tok z hran.</value>
   </data>
   <data name="CreatingReserveNet" xml:space="preserve">
-    <value>\nCreating the network of reserves...</value>
+    <value>\nVytváření sítě rezerv…</value>
   </data>
   <data name="Cursor" xml:space="preserve">
-    <value>Cursor</value>
+    <value>Kurzor</value>
   </data>
   <data name="Czech" xml:space="preserve">
-    <value>Czech</value>
+    <value>Čeština</value>
   </data>
   <data name="DefaultColor" xml:space="preserve">
-    <value>Default color</value>
+    <value>Základní barva</value>
   </data>
   <data name="Dequed" xml:space="preserve">
-    <value> has been dequeued.</value>
+    <value> byl odebrán z fronty.</value>
   </data>
   <data name="Desc" xml:space="preserve">
-    <value>Description of algorithm</value>
+    <value>Popis algoritmu</value>
   </data>
   <data name="DFSAlgo" xml:space="preserve">
-    <value>Depth-first search</value>
+    <value>Prohledávání do hloubky</value>
   </data>
   <data name="DFSDesc" xml:space="preserve">
     <value>Depth-first search (DFS) is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking.</value>
@@ -223,19 +223,19 @@
     <value>O(n + m)</value>
   </data>
   <data name="DijkstraAlgo" xml:space="preserve">
-    <value>Dijkstra's algorithm with binary heap</value>
+    <value>Dijsktrův algoritmus s binární haldou</value>
   </data>
   <data name="DijkstraDesc" xml:space="preserve">
     <value>Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.</value>
   </data>
   <data name="DijkstraPosLengths" xml:space="preserve">
-    <value>\nIn Dijkstra's algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again.</value>
+    <value>\nV Dijkstrově algoritmy mohou být pouze nezáporné délky hran. Opravte tedy všechny záporné délky a znovu stiskněte Spustit.</value>
   </data>
   <data name="DijkstraTime" xml:space="preserve">
     <value>O((n + m) * log(n))</value>
   </data>
   <data name="DinicAlgo" xml:space="preserve">
-    <value>Dinic's algorithm</value>
+    <value>Dinicův algoritmus</value>
   </data>
   <data name="DinicDescription" xml:space="preserve">
     <value>Dinic's algorithm or Dinitz's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic's algorithm to achieve its performance.</value>
@@ -244,25 +244,25 @@
     <value>O(n^2 * m)</value>
   </data>
   <data name="DividingVertices" xml:space="preserve">
-    <value>\nDividing vertices to layers according to their distance from the source...</value>
+    <value>\nRozdělení vcholů na vrstvy dle vzdálenosti od zdroje…</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done</value>
+    <value>Hotovo</value>
   </data>
   <data name="EdgesInicialized" xml:space="preserve">
-    <value>\n\nEdges are initialized...</value>
+    <value>\n\nInicializace hran…</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value>English</value>
+    <value>Angličtina</value>
   </data>
   <data name="Enqued" xml:space="preserve">
-    <value> has been enqueued.</value>
+    <value> byl přidán do fronty.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Chyba</value>
   </data>
   <data name="FFAlgo" xml:space="preserve">
-    <value>Ford-Fulkerson's algorithm</value>
+    <value>Ford-Fulkersonův algoritmus</value>
   </data>
   <data name="FFDesc" xml:space="preserve">
     <value>The Ford–Fulkerson method or Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the maximum flow in a flow network. It is sometimes called a \"method\" instead of an \"algorithm\" as the approach to finding augmenting paths in a residual graph is not fully specified or it is specified in several implementations with different running times. It was published in 1956 by L. R. Ford Jr. and D. R. Fulkerson. The name \"Ford–Fulkerson\" is often also used for the Edmonds–Karp algorithm, which is a fully defined implementation of the Ford–Fulkerson method. "</value>
@@ -271,16 +271,16 @@
     <value>O(m * f)</value>
   </data>
   <data name="FileEmpty" xml:space="preserve">
-    <value>The file is empty.</value>
+    <value>Soubor je prázdný.</value>
   </data>
   <data name="FillColor" xml:space="preserve">
-    <value>Fill color</value>
+    <value>Vyplnit barvou</value>
   </data>
   <data name="FromInitVPred" xml:space="preserve">
-    <value> from initial vertex with predecessor </value>
+    <value> od počátečního vrcholu s předchůdcem </value>
   </data>
   <data name="FWAlgo" xml:space="preserve">
-    <value>Floyd-Warshall's algorithm</value>
+    <value>Floyd-Warshallův algoritmus</value>
   </data>
   <data name="FWDesc" xml:space="preserve">
     <value>In computer science, the Floyd–Warshall algorithm (also known as Floyd's algorithm, the Roy–Warshall algorithm, the Roy–Floyd algorithm, or the WFI algorithm) is an algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (but with no negative cycles). A single execution of the algorithm will find the lengths (summed weights) of shortest paths between all pairs of vertices. Although it does not return details of the paths themselves, it is possible to reconstruct the paths with simple modifications to the algorithm.</value>
@@ -289,7 +289,7 @@
     <value>O(n^3)</value>
   </data>
   <data name="GoldbergAlgo" xml:space="preserve">
-    <value>Goldberg's algorithm</value>
+    <value>Goldbergův algoritmus</value>
   </data>
   <data name="GoldbergDesc" xml:space="preserve">
     <value>In mathematical optimization, the push–relabel algorithm (alternatively, preflow–push algorithm) is an algorithm for computing maximum flows in a flow network. The name \push–relabel\" comes from the two basic operations used in the algorithm. Throughout its execution, the algorithm maintains a \"preflow\" and gradually converts it into a maximum flow by moving flow locally between neighboring nodes using push operations under the guidance of an admissible network maintained by relabel operations. In comparison, the Ford–Fulkerson algorithm performs global augmentations that send flow following paths from the source all the way to the sink.</value>
@@ -298,43 +298,43 @@
     <value>O(n^2 * m)</value>
   </data>
   <data name="HasFinished" xml:space="preserve">
-    <value> has finished.</value>
+    <value> skončil.</value>
   </data>
   <data name="HasHeight" xml:space="preserve">
-    <value> has height: </value>
+    <value> má výšku: </value>
   </data>
   <data name="HasId" xml:space="preserve">
-    <value> has ID: </value>
+    <value> má ID: </value>
   </data>
   <data name="HasState" xml:space="preserve">
-    <value> has state: </value>
+    <value> je </value>
   </data>
   <data name="HighlightColor" xml:space="preserve">
-    <value>Highlight color</value>
+    <value>Zvýrazňující barva</value>
   </data>
   <data name="Import" xml:space="preserve">
-    <value>Open graph</value>
+    <value>Otevřít graf</value>
   </data>
   <data name="ImproveFlow" xml:space="preserve">
-    <value>\nImproving the flow...</value>
+    <value>\nZlepšování toku…</value>
   </data>
   <data name="IncorrectFormat" xml:space="preserve">
-    <value>File has an incorrect format.</value>
+    <value>Soubor má špatný formát.</value>
   </data>
   <data name="Infinity" xml:space="preserve">
-    <value>Infinity</value>
+    <value>Nekonečno</value>
   </data>
   <data name="Inside" xml:space="preserve">
-    <value>Inside</value>
+    <value>Uvnitř</value>
   </data>
   <data name="IsInComp" xml:space="preserve">
-    <value> is in component: </value>
+    <value> je v komponentě: </value>
   </data>
   <data name="IsInDistance" xml:space="preserve">
-    <value> and is in distance: </value>
+    <value> a je ve vzdálenosti: </value>
   </data>
   <data name="JarnikAlgo" xml:space="preserve">
-    <value>Jarnik's algorithm</value>
+    <value>Jarníkův algoritmus</value>
   </data>
   <data name="JarnikDesc" xml:space="preserve">
     <value>In computer science, Prim's (also known as Jarník's) algorithm is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree is minimized. The algorithm operates by building this tree one vertex at a time, from an arbitrary starting vertex, at each step adding the cheapest possible connection from the tree to another vertex.</value>
@@ -343,7 +343,7 @@
     <value>O(m * log(n))</value>
   </data>
   <data name="KruskalAlgo" xml:space="preserve">
-    <value>Kruskal's algorithm</value>
+    <value>Kruskalův algoritmus</value>
   </data>
   <data name="KruskalDesc" xml:space="preserve">
     <value>Kruskal's algorithm is a minimum-spanning-tree algorithm which finds an edge of the least possible weight that connects any two trees in the forest. It is a greedy algorithm in graph theory as it finds a minimum spanning tree for a connected weighted graph adding increasing cost arcs at each step. This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree is minimized. If the graph is not connected, then it finds a minimum spanning forest (a minimum spanning tree for each connected component).</value>
@@ -352,79 +352,79 @@
     <value>O(m * log(n))</value>
   </data>
   <data name="LowestReserve" xml:space="preserve">
-    <value>\nThe lowest reserve is </value>
+    <value>\nNejmenší z rezerv je </value>
   </data>
   <data name="MarkingSurplus" xml:space="preserve">
-    <value>\nMarking vertices with positive surplus...</value>
+    <value>\nOznačování vrcholů s kladným přebytkem…</value>
   </data>
   <data name="MatrixDist" xml:space="preserve">
-    <value>\nMatrix of distances: </value>
+    <value>\nMatice vzdáleností:</value>
   </data>
   <data name="MaxFlow" xml:space="preserve">
-    <value>\n\nThe maximum flow in this network is: </value>
+    <value>\n\nMaximální tok v této síti je:</value>
   </data>
   <data name="Mistake" xml:space="preserve">
-    <value>Some mistake occured...</value>
+    <value>Objevila se nějaká chyba...</value>
   </data>
   <data name="Neighbour" xml:space="preserve">
-    <value>Neighbour</value>
+    <value>Soused</value>
   </data>
   <data name="Net of reserves" xml:space="preserve">
-    <value>Net of reserves</value>
+    <value>Síť rezerv</value>
   </data>
   <data name="NLEdgeSpace" xml:space="preserve">
-    <value>\nEdge </value>
+    <value>\nHrana </value>
   </data>
   <data name="NLTransfering" xml:space="preserve">
-    <value>\nTransfering </value>
+    <value>\nPřevádění </value>
   </data>
   <data name="NLVertexSpace" xml:space="preserve">
-    <value>\nVertex </value>
+    <value>\nVrchol </value>
   </data>
   <data name="NonAlgoSelected" xml:space="preserve">
-    <value>No algorithm is selected.</value>
+    <value>Není vybrán žádný algoritmus.</value>
   </data>
   <data name="None" xml:space="preserve">
-    <value>None</value>
+    <value>Žádný</value>
   </data>
   <data name="NothingTransfered" xml:space="preserve">
-    <value>\nNothing was transfered.</value>
+    <value>\nNic nebylo převedeno.</value>
   </data>
   <data name="OfTheEdge" xml:space="preserve">
-    <value> of the edge </value>
+    <value> hrany </value>
   </data>
   <data name="OnEdge" xml:space="preserve">
-    <value> on edge </value>
+    <value> hranou </value>
   </data>
   <data name="OnlyInteger" xml:space="preserve">
-    <value>\n\nOnly integer length of an edge is acceptable...</value>
+    <value>\n\nHrana může mít pouze celočíselnou délku…</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>Open</value>
+    <value>Otevřený</value>
   </data>
   <data name="OpenTime" xml:space="preserve">
-    <value> has been opened in time: </value>
+    <value> byl otevřen v čase: </value>
   </data>
   <data name="OpenVerticesSorted" xml:space="preserve">
-    <value>\nOpen vertices in sorted order (distance is in brackets): </value>
+    <value>\nOtevřené vrcholy v setříděném pořadí (jejich vzdálenost je v závorkách): </value>
   </data>
   <data name="OutEdgesSorted" xml:space="preserve">
-    <value>\nOutcoming edges are sorted from lightest to heaviest for each vertex.</value>
+    <value>\nHrany vycházející z vrcholu jsou setříděny od nejlehčí po nejtěžší pro každý vrchol.</value>
   </data>
   <data name="Outside" xml:space="preserve">
-    <value>Outside</value>
+    <value>Mimo</value>
   </data>
   <data name="PathDoesntExist" xml:space="preserve">
-    <value>\nPath from source to sink in the net of reserves doesn't exist.</value>
+    <value>\nCesta od zdroje ke stoku v síti rezerv neexistuje.</value>
   </data>
   <data name="Print" xml:space="preserve">
-    <value>Print graph</value>
+    <value>Vytisknout graf</value>
   </data>
   <data name="ProblemReading" xml:space="preserve">
-    <value>There is some problem with reading this file. Please, try it again.</value>
+    <value>Objevil se problém s načítáním tohoto souboru. Zkuste to prosím znovu.</value>
   </data>
   <data name="RelaxAlgo" xml:space="preserve">
-    <value>Relaxation algorithm</value>
+    <value>Relaxační algoritmus</value>
   </data>
   <data name="RelaxDesc" xml:space="preserve">
     <value>Description is not implemented.</value>
@@ -433,93 +433,93 @@
     <value>O(n^2)</value>
   </data>
   <data name="RemovedFromReserveNet" xml:space="preserve">
-    <value> is removed from the network of reserves.</value>
+    <value> už není v síti rezerv.</value>
   </data>
   <data name="RemovingBackEdges" xml:space="preserve">
-    <value>\nRemoving every edge to previous layers or edges inside layers...</value>
+    <value>\nOdstranění všech hran vedoucích do předešlých vrstev nebo hran uvnitř vrstev…</value>
   </data>
   <data name="RemovingFarVertices" xml:space="preserve">
-    <value>\nRemoving every vertex which is further from source than sink...</value>
+    <value>\nOdstranění všech vrcholů vzdálenějších od zdroje než stok…</value>
   </data>
   <data name="RemovingNoOutVertices" xml:space="preserve">
-    <value>\nRemoving vertices with no outcoming edges...</value>
+    <value>\nOdstranění všech slepých uliček…</value>
   </data>
   <data name="RemovingSaturatedEdges" xml:space="preserve">
-    <value>\nRemoving saturated edges...</value>
+    <value>\nOdstranění nasycencýh hran…</value>
   </data>
   <data name="Run" xml:space="preserve">
-    <value>Run</value>
+    <value>Spustit</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Save graph</value>
+    <value>Uložit graf</value>
   </data>
   <data name="SearchingPath" xml:space="preserve">
-    <value>\n\nLooking for a path from source to sink using BFS algorithm...</value>
+    <value>\n\nHledání cesty ze zdroje do stoku prohledáváním do šířky…</value>
   </data>
   <data name="SelectedAlgoRunning" xml:space="preserve">
-    <value>\n\nSelected algorithm is running.</value>
+    <value>\n\nVybraný algoritmus běží.</value>
   </data>
   <data name="SelectInit" xml:space="preserve">
-    <value>\n\nSelect the initial vertex. Then press green Done button.</value>
+    <value>\n\nVyberte počáteční vrchol. Poté stiskněte zelené tlačítko Hotovo.</value>
   </data>
   <data name="SelectSink" xml:space="preserve">
-    <value>\nSelect the sink vertex and press Done again.</value>
+    <value>\nVyberte stok a pak stiskněte Hotovo.</value>
   </data>
   <data name="SelectSource" xml:space="preserve">
-    <value>\n\nSelect the source vertex. Then press green Done button.</value>
+    <value>\n\nVyberte zdroj. Poté stiskněte zelené tlačítko Hotovo.</value>
   </data>
   <data name="ShortesPathContain" xml:space="preserve">
     <value>\nThe shortest path can contain vertices with index from 0 to </value>
   </data>
   <data name="ShortestPathContains" xml:space="preserve">
-    <value>\nThe shortest path from source to sink conatins </value>
+    <value>\nNejkratší cesta od zdroje ke stoku obsahuje </value>
   </data>
   <data name="SinkNotReachable" xml:space="preserve">
-    <value>\nThe sink is not reachable from the source.</value>
+    <value>\nStok je ze zdroje nedostupný.</value>
   </data>
   <data name="SortedNeighbours" xml:space="preserve">
-    <value>\nSorted neighbours are (rating is in parenthesses):</value>
+    <value>\nSetříděné sousední vrcholy jsou (jejich ohodnocení je v závorkách):</value>
   </data>
   <data name="SpaceEdges" xml:space="preserve">
-    <value> edges.</value>
+    <value> hran(y).</value>
   </data>
   <data name="TimeComplexity" xml:space="preserve">
-    <value>Time complexity: </value>
+    <value>Časová složitost: </value>
   </data>
   <data name="TransferingSurplus" xml:space="preserve">
-    <value>\nTransfering surplus...</value>
+    <value>\nPřevádění přebytku…</value>
   </data>
   <data name="TroubleDel" xml:space="preserve">
     <value>\nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus.</value>
   </data>
   <data name="Tutorial" xml:space="preserve">
-    <value>Tutorial</value>
+    <value>Tutoriál</value>
   </data>
   <data name="Unvisited" xml:space="preserve">
-    <value>Unvisited</value>
+    <value>Nenalezený</value>
   </data>
   <data name="VertexHash" xml:space="preserve">
-    <value>Vertex #</value>
+    <value>Vrchol #</value>
   </data>
   <data name="VerticesInicialized" xml:space="preserve">
-    <value>\nVertices are initialized...</value>
+    <value>\nInicializace vrcholů…</value>
   </data>
   <data name="VerticisSurplus" xml:space="preserve">
-    <value>\nVertices with positive surplus are staying marked.</value>
+    <value>\nVrcholy s kladným přebytkem zůstávají označeny.</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome to Cepheus. Feel free to create any graphs you want and experiment with the prepared algorithms. If you're using this app for the first time, there's a tutorial made right for you in the upper right corner.</value>
+    <value>Vítejte v aplikaci Cepheus. Zde můžete vytvářet jakékoli grafy a zkoumat na nich, jak fungují nejrůznější algoritmy z naší nabídky. Pokud nevíte jak začít, tak v pravém hroním rohu najdete krátký tutoriál.</value>
   </data>
   <data name="WithPred" xml:space="preserve">
-    <value> with predecessor </value>
+    <value> s předchůdcem </value>
   </data>
   <data name="WithRating" xml:space="preserve">
-    <value> with rating: </value>
+    <value> s ohodnocením: </value>
   </data>
   <data name="ZoomIn" xml:space="preserve">
-    <value>Zoom in</value>
+    <value>Přiblížit</value>
   </data>
   <data name="ZoomOut" xml:space="preserve">
-    <value>Zoom out</value>
+    <value>Oddálit</value>
   </data>
 </root>

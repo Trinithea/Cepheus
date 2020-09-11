@@ -18,7 +18,7 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Dinic's algorithm";
+		public override string Name => Properties.;
 
 		public override string TimeComplexity => "O(n^2 * m)";
 		Canvas netOfReservesCanvas;
@@ -169,7 +169,7 @@ namespace Cepheus
 		{
 			outputConsole.Text += "\nCleaning the network of reserves...";
 			bfs.Graph = network;
-			PrintSearchingPath();
+			outputConsole.Text += "\nDividing vertices to layers according to their distance from the source...";
 			await bfs.Run(); 
 
 			await RemoveVerticesAfterSink(network);
