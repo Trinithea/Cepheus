@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>O aplikaci Cepheus</value>
   </data>
+  <data name="AboutLong" xml:space="preserve">
+    <value>Aplikace Cepheus slouží jako doplňková aplikace ke studiu různých grafových algoritmů. Student (nebo jakýkoli jiný uživatel) může v aplikaci sestrojit zcela vlastní graf, a na něm spustit jeden z nabídky dvanácti algoritmů probíraných v ADS I či ADS II. Chod algoritmu může sledovat jak animací na vlastním grafu (tedy které vrcholy a hrany zrovna algoritmus prochází – lze poznat ze zbarvení), tak v postupném výpisu jednotlivých kroků.</value>
+  </data>
   <data name="AddedToMinSpTree" xml:space="preserve">
     <value> je přidaná do minimální kostry.</value>
   </data>
@@ -181,7 +184,7 @@
     <value> byl uzavřen v čase: </value>
   </data>
   <data name="CommonGraphs" xml:space="preserve">
-    <value>Známé grafy</value>
+    <value>Grafy z Průvodce labyrintem algoritmů</value>
   </data>
   <data name="ConstructingPath" xml:space="preserve">
     <value>Konstrukce cesty ze zdroje ke stoku…</value>

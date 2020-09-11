@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>About Cepheus</value>
   </data>
+  <data name="AboutLong" xml:space="preserve">
+    <value>The Cepheus application serves as an additional application for the study of various graph algorithms. The student (or any other user) can build their own graph in the application, and run one of the twelve algorithms discussed in ADS I or ADS II on it. The running of the algorithm can be monitored both by animation on its own graph (ie which vertices and edges the algorithm is going through - it can be recognized from the color), and in a gradual list of individual steps.</value>
+  </data>
   <data name="AddedToMinSpTree" xml:space="preserve">
     <value> added to minimum spanning tree.</value>
   </data>
@@ -181,7 +184,7 @@
     <value> has been closed in time: </value>
   </data>
   <data name="CommonGraphs" xml:space="preserve">
-    <value>Common graphs</value>
+    <value>Graphs from Průvodce labyrintem algoritmů</value>
   </data>
   <data name="ConstructingPath" xml:space="preserve">
     <value>Constructing the path from source to sink...</value>

@@ -471,7 +471,6 @@ namespace CepheusProjectWpf
 			btnClear.Content = Properties.Resources.ClearCanvas_Content;
 			btnOkRun.Content = Properties.Resources.Done;
 			lblRun.Content = Properties.Resources.Run;
-			imgInfo.ToolTip = Properties.Resources.Desc;
 			imgDefaultColor.ToolTip = Properties.Resources.DefaultColor;
 			imgHighlightColor.ToolTip = Properties.Resources.HighlightColor;
 			imgCursor.ToolTip = Properties.Resources.Cursor;
@@ -487,6 +486,7 @@ namespace CepheusProjectWpf
 			imgCzech.ToolTip = Properties.Resources.Czech;
 			imgEnglish.ToolTip = Properties.Resources.English;
 			imgTutorial.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.imgTutorial.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+			lblAbout.Text = Properties.Resources.AboutLong;
 		}
 
 		private void imgCzech_MouseEnter(object sender, MouseEventArgs e)
@@ -507,6 +507,16 @@ namespace CepheusProjectWpf
 		private void imgEnglish_MouseLeave(object sender, MouseEventArgs e)
 		{
 			LightenImage(sender, e);
+		}
+
+		private void imgAboutCepheus_MouseEnter(object sender, MouseEventArgs e)
+		{
+			gridAbout.Visibility = Visibility.Visible;
+		}
+
+		private void imgAboutCepheus_MouseLeave(object sender, MouseEventArgs e)
+		{
+			gridAbout.Visibility = Visibility.Hidden;
 		}
 	}
 }

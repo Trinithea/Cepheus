@@ -70,6 +70,15 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Cepheus application serves as an additional application for the study of various graph algorithms. The student (or any other user) can build their own graph in the application, and run one of the twelve algorithms discussed in ADS I or ADS II on it. The running of the algorithm can be monitored both by animation on its own graph (ie which vertices and edges the algorithm is going through - it can be recognized from the color), and in a gradual list of individual steps..
+        /// </summary>
+        internal static string AboutLong {
+            get {
+                return ResourceManager.GetString("AboutLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  added to minimum spanning tree..
         /// </summary>
         internal static string AddedToMinSpTree {
@@ -250,7 +259,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Common graphs.
+        ///   Looks up a localized string similar to Graphs from Průvodce labyrintem algoritmů.
         /// </summary>
         internal static string CommonGraphs {
             get {
