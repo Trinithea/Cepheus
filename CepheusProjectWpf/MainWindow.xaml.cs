@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -485,6 +486,7 @@ namespace CepheusProjectWpf
 			imgAboutCepheus.ToolTip = Properties.Resources.About;
 			imgCzech.ToolTip = Properties.Resources.Czech;
 			imgEnglish.ToolTip = Properties.Resources.English;
+			imgTutorial.Source = Imaging.CreateBitmapSourceFromHBitmap(Properties.Resources.imgTutorial.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 		}
 
 		private void imgCzech_MouseEnter(object sender, MouseEventArgs e)
