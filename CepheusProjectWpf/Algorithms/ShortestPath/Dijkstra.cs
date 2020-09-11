@@ -17,10 +17,10 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Dijkstra's algorithm with binary heap";
-		public override string TimeComplexity => "O((n + m) * log(n))";
+		public override string Name => CepheusProjectWpf.Properties.Resources.DijkstraAlgo;
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.DijkstraTime;
 
-		public override string Description => "Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.";
+		public override string Description => CepheusProjectWpf.Properties.Resources.DijkstraDesc;
 
 		public async Task Run()
 		{
@@ -69,7 +69,7 @@ namespace Cepheus
 
 		void PrintOpenvertices(BinaryHeap<int,BfsVertex> openVertices)
 		{
-			outputConsole.Text += "\nOpen vertices in sorted order (distance is in brackets): ";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OpenVerticesSorted;
 			for (int i = 1; i <= openVertices.Count; i++)
 			{
 				outputConsole.Text += String.Format("{0} ({1}), ", openVertices.Heap[i].Item2.Name, openVertices.Heap[i].Item1);

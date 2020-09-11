@@ -16,12 +16,12 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Ford-Fulkerson's algorithm";
+		public override string Name => CepheusProjectWpf.Properties.Resources.FFAlgo;
 
-		public override string TimeComplexity => "O(m * f)";
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.FFTime;
 
 
-		public override string Description => "The Ford–Fulkerson method or Ford–Fulkerson algorithm (FFA) is a greedy algorithm that computes the maximum flow in a flow network. It is sometimes called a \"method\" instead of an \"algorithm\" as the approach to finding augmenting paths in a residual graph is not fully specified or it is specified in several implementations with different running times. It was published in 1956 by L. R. Ford Jr. and D. R. Fulkerson. The name \"Ford–Fulkerson\" is often also used for the Edmonds–Karp algorithm, which is a fully defined implementation of the Ford–Fulkerson method. ";
+		public override string Description => CepheusProjectWpf.Properties.Resources.FFDesc;
 		public List<FlowEdge<BfsVertex>> PathFromSourceToSink;
 		public async Task Run()
 		{
@@ -51,7 +51,7 @@ namespace Cepheus
 					minEdge= PathFromSourceToSink[i];
 				}
 			
-			outputConsole.Text += "\nThe lowest reserve is " + min + " of the edge " + minEdge.From.Name+"->"+minEdge.To.Name;
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.LowestReserve + min + CepheusProjectWpf.Properties.Resources.OfTheEdge + minEdge.From.Name+"->"+minEdge.To.Name;
 			return min;
 
 		}
@@ -70,7 +70,7 @@ namespace Cepheus
 		public async Task GetUnsaturatedPathFromSourceToSink()
 		{
 			// why I don't use BFS algorithm which is already implemeted? Because I need edge.Reserve in condition...
-			outputConsole.Text += "\n\nLooking for a path from source to sink by BFS algorithm...";
+			outputConsole.Text += "\n\n" + CepheusProjectWpf.Properties.Resources.SearchingPath;
 
 			graph.InitializeVertices();
 			foreach (FlowEdge<BfsVertex> edge in graph.Edges.Values)
@@ -110,11 +110,11 @@ namespace Cepheus
 
 		public async Task GetPath( BfsVertex from, BfsVertex to)
 		{
-			outputConsole.Text += "\nConstructing the path from source to sink...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ConstructingPath;
 			if (to.Predecessor == null) //'to' is not reachable from 'from'
 			{
 				PathFromSourceToSink = null;
-				outputConsole.Text += "\nThe sink is not reachable from the source.";
+				outputConsole.Text += "\n"+CepheusProjectWpf.Properties.Resources.SinkNotReachable;
 			}
 			else
 			{

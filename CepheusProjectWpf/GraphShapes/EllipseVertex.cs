@@ -82,7 +82,7 @@ namespace CepheusProjectWpf.GraphShapes
 			txtName.Foreground = Brushes.White;
 			txtName.Height = 23;
 			if (name == null)
-				txtName.Text = "Vertex #" + UniqueId;
+				txtName.Text = CepheusProjectWpf.Properties.Resources.VertexHash + UniqueId;
 			else
 				txtName.Text = name;
 			Canvas.SetLeft(txtName, left);

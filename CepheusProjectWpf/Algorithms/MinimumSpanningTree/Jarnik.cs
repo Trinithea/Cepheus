@@ -19,11 +19,11 @@ namespace Cepheus
 			await visitor.Visit(this);
 		}
 		//TODO Jarník je na neorientovnaý grafy
-		public override string Name => "Jarnik's algorithm";
+		public override string Name => CepheusProjectWpf.Properties.Resources.JarnikAlgo;
 
-		public override string TimeComplexity => "O(m * log(n))";
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.JarnikTime;
 
-		public override string Description => "In computer science, Prim's (also known as Jarník's) algorithm is a greedy algorithm that finds a minimum spanning tree for a weighted undirected graph. This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree is minimized. The algorithm operates by building this tree one vertex at a time, from an arbitrary starting vertex, at each step adding the cheapest possible connection from the tree to another vertex. ";
+		public override string Description => CepheusProjectWpf.Properties.Resources.JarnikDesc;
 
 		Tree<JarnikVertex> MinimumSpanningTree;
 		public async Task Run()
@@ -91,7 +91,7 @@ namespace Cepheus
 		}
 		void PrintSortedNeighbours(BinaryHeap<int, JarnikVertex> neighbours)
 		{
-			outputConsole.Text += "\nSorted neighbours are (rating is in parenthesses): ";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.SortedNeighbours;
 			for (int i = 1; i <= neighbours.Count; i++)
 			{
 				outputConsole.Text += String.Format("{0} ({1}), ", neighbours.Heap[i].Item2.Name, neighbours.Heap[i].Item1);

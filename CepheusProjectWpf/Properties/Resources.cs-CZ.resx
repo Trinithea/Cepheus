@@ -160,16 +160,16 @@
     <value>m * log(n)</value>
   </data>
   <data name="BracketsHeight" xml:space="preserve">
-    <value>\nV závorkách za jménem vrcholu uvidíte jeho výšku.</value>
+    <value>V závorkách za jménem vrcholu uvidíte jeho výšku.</value>
   </data>
   <data name="CantWrite" xml:space="preserve">
     <value>Zápis do souboru nemůže být proveden. Zkontrolujte, že je soubor zavřený.</value>
   </data>
   <data name="ChooseAlgo" xml:space="preserve">
-    <value>\n\nMusíte nejprve vlevo nahoře zvolit z nabídky algoritmus, který chcete spustit.</value>
+    <value>Musíte nejprve vlevo nahoře zvolit z nabídky algoritmus, který chcete spustit.</value>
   </data>
   <data name="CleaningReserveNet" xml:space="preserve">
-    <value>\nČištění sítě rezerv…</value>
+    <value>Čištění sítě rezerv…</value>
   </data>
   <data name="Clear" xml:space="preserve">
     <value>Vyčisti plátno</value>
@@ -184,19 +184,19 @@
     <value>Známé grafy</value>
   </data>
   <data name="ConstructingPath" xml:space="preserve">
-    <value>\nKonstrukce cesty ze zdroje ke stoku…</value>
+    <value>Konstrukce cesty ze zdroje ke stoku…</value>
   </data>
   <data name="ContextComponentInicialized" xml:space="preserve">
-    <value>\nKomponenty souvislosti jsou inicializovány.</value>
+    <value>Komponenty souvislosti jsou inicializovány.</value>
   </data>
   <data name="ContextComponentsMerging" xml:space="preserve">
-    <value>\n\nSlévání komponent souvislosti…</value>
+    <value>Slévání komponent souvislosti…</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>\nAbyste mohli pokračovat, stiskněte prosím Hotovo. Pak se smaže tok z hran.</value>
+    <value>Abyste mohli pokračovat, stiskněte prosím Hotovo. Pak se smaže tok z hran.</value>
   </data>
   <data name="CreatingReserveNet" xml:space="preserve">
-    <value>\nVytváření sítě rezerv…</value>
+    <value>Vytváření sítě rezerv…</value>
   </data>
   <data name="Cursor" xml:space="preserve">
     <value>Kurzor</value>
@@ -229,7 +229,7 @@
     <value>Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.</value>
   </data>
   <data name="DijkstraPosLengths" xml:space="preserve">
-    <value>\nV Dijkstrově algoritmy mohou být pouze nezáporné délky hran. Opravte tedy všechny záporné délky a znovu stiskněte Spustit.</value>
+    <value>V Dijkstrově algoritmy mohou být pouze nezáporné délky hran. Opravte tedy všechny záporné délky a znovu stiskněte Spustit.</value>
   </data>
   <data name="DijkstraTime" xml:space="preserve">
     <value>O((n + m) * log(n))</value>
@@ -244,13 +244,13 @@
     <value>O(n^2 * m)</value>
   </data>
   <data name="DividingVertices" xml:space="preserve">
-    <value>\nRozdělení vcholů na vrstvy dle vzdálenosti od zdroje…</value>
+    <value>Rozdělení vcholů na vrstvy dle vzdálenosti od zdroje…</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Hotovo</value>
   </data>
   <data name="EdgesInicialized" xml:space="preserve">
-    <value>\n\nInicializace hran…</value>
+    <value>Inicializace hran…</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>Angličtina</value>
@@ -316,7 +316,7 @@
     <value>Otevřít graf</value>
   </data>
   <data name="ImproveFlow" xml:space="preserve">
-    <value>\nZlepšování toku…</value>
+    <value>Zlepšování toku…</value>
   </data>
   <data name="IncorrectFormat" xml:space="preserve">
     <value>Soubor má špatný formát.</value>
@@ -352,16 +352,16 @@
     <value>O(m * log(n))</value>
   </data>
   <data name="LowestReserve" xml:space="preserve">
-    <value>\nNejmenší z rezerv je </value>
+    <value>Nejmenší z rezerv je </value>
   </data>
   <data name="MarkingSurplus" xml:space="preserve">
-    <value>\nOznačování vrcholů s kladným přebytkem…</value>
+    <value>Označování vrcholů s kladným přebytkem…</value>
   </data>
   <data name="MatrixDist" xml:space="preserve">
-    <value>\nMatice vzdáleností:</value>
+    <value>Matice vzdáleností:</value>
   </data>
   <data name="MaxFlow" xml:space="preserve">
-    <value>\n\nMaximální tok v této síti je:</value>
+    <value>Maximální tok v této síti je:</value>
   </data>
   <data name="Mistake" xml:space="preserve">
     <value>Objevila se nějaká chyba...</value>
@@ -373,13 +373,13 @@
     <value>Síť rezerv</value>
   </data>
   <data name="NLEdgeSpace" xml:space="preserve">
-    <value>\nHrana </value>
+    <value>Hrana </value>
   </data>
   <data name="NLTransfering" xml:space="preserve">
-    <value>\nPřevádění </value>
+    <value>Převádění </value>
   </data>
   <data name="NLVertexSpace" xml:space="preserve">
-    <value>\nVrchol </value>
+    <value>Vrchol </value>
   </data>
   <data name="NonAlgoSelected" xml:space="preserve">
     <value>Není vybrán žádný algoritmus.</value>
@@ -388,7 +388,7 @@
     <value>Žádný</value>
   </data>
   <data name="NothingTransfered" xml:space="preserve">
-    <value>\nNic nebylo převedeno.</value>
+    <value>Nic nebylo převedeno.</value>
   </data>
   <data name="OfTheEdge" xml:space="preserve">
     <value> hrany </value>
@@ -397,7 +397,7 @@
     <value> hranou </value>
   </data>
   <data name="OnlyInteger" xml:space="preserve">
-    <value>\n\nHrana může mít pouze celočíselnou délku…</value>
+    <value>Hrana může mít pouze celočíselnou délku…</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Otevřený</value>
@@ -406,16 +406,16 @@
     <value> byl otevřen v čase: </value>
   </data>
   <data name="OpenVerticesSorted" xml:space="preserve">
-    <value>\nOtevřené vrcholy v setříděném pořadí (jejich vzdálenost je v závorkách): </value>
+    <value>Otevřené vrcholy v setříděném pořadí (jejich vzdálenost je v závorkách): </value>
   </data>
   <data name="OutEdgesSorted" xml:space="preserve">
-    <value>\nHrany vycházející z vrcholu jsou setříděny od nejlehčí po nejtěžší pro každý vrchol.</value>
+    <value>Hrany vycházející z vrcholu jsou setříděny od nejlehčí po nejtěžší pro každý vrchol.</value>
   </data>
   <data name="Outside" xml:space="preserve">
     <value>Mimo</value>
   </data>
   <data name="PathDoesntExist" xml:space="preserve">
-    <value>\nCesta od zdroje ke stoku v síti rezerv neexistuje.</value>
+    <value>Cesta od zdroje ke stoku v síti rezerv neexistuje.</value>
   </data>
   <data name="Print" xml:space="preserve">
     <value>Vytisknout graf</value>
@@ -436,16 +436,16 @@
     <value> už není v síti rezerv.</value>
   </data>
   <data name="RemovingBackEdges" xml:space="preserve">
-    <value>\nOdstranění všech hran vedoucích do předešlých vrstev nebo hran uvnitř vrstev…</value>
+    <value>Odstranění všech hran vedoucích do předešlých vrstev nebo hran uvnitř vrstev…</value>
   </data>
   <data name="RemovingFarVertices" xml:space="preserve">
-    <value>\nOdstranění všech vrcholů vzdálenějších od zdroje než stok…</value>
+    <value>Odstranění všech vrcholů vzdálenějších od zdroje než stok…</value>
   </data>
   <data name="RemovingNoOutVertices" xml:space="preserve">
-    <value>\nOdstranění všech slepých uliček…</value>
+    <value>Odstranění všech slepých uliček…</value>
   </data>
   <data name="RemovingSaturatedEdges" xml:space="preserve">
-    <value>\nOdstranění nasycencýh hran…</value>
+    <value>Odstranění nasycencýh hran…</value>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Spustit</value>
@@ -454,31 +454,31 @@
     <value>Uložit graf</value>
   </data>
   <data name="SearchingPath" xml:space="preserve">
-    <value>\n\nHledání cesty ze zdroje do stoku prohledáváním do šířky…</value>
+    <value>Hledání cesty ze zdroje do stoku prohledáváním do šířky…</value>
   </data>
   <data name="SelectedAlgoRunning" xml:space="preserve">
-    <value>\n\nVybraný algoritmus běží.</value>
+    <value>Vybraný algoritmus běží.</value>
   </data>
   <data name="SelectInit" xml:space="preserve">
-    <value>\n\nVyberte počáteční vrchol. Poté stiskněte zelené tlačítko Hotovo.</value>
+    <value>Vyberte počáteční vrchol. Poté stiskněte zelené tlačítko Hotovo.</value>
   </data>
   <data name="SelectSink" xml:space="preserve">
-    <value>\nVyberte stok a pak stiskněte Hotovo.</value>
+    <value>Vyberte stok a pak stiskněte Hotovo.</value>
   </data>
   <data name="SelectSource" xml:space="preserve">
-    <value>\n\nVyberte zdroj. Poté stiskněte zelené tlačítko Hotovo.</value>
+    <value>Vyberte zdroj. Poté stiskněte zelené tlačítko Hotovo.</value>
   </data>
   <data name="ShortesPathContain" xml:space="preserve">
-    <value>\nThe shortest path can contain vertices with index from 0 to </value>
+    <value>The shortest path can contain vertices with index from 0 to </value>
   </data>
   <data name="ShortestPathContains" xml:space="preserve">
-    <value>\nNejkratší cesta od zdroje ke stoku obsahuje </value>
+    <value>Nejkratší cesta od zdroje ke stoku obsahuje </value>
   </data>
   <data name="SinkNotReachable" xml:space="preserve">
-    <value>\nStok je ze zdroje nedostupný.</value>
+    <value>Stok je ze zdroje nedostupný.</value>
   </data>
   <data name="SortedNeighbours" xml:space="preserve">
-    <value>\nSetříděné sousední vrcholy jsou (jejich ohodnocení je v závorkách):</value>
+    <value>Setříděné sousední vrcholy jsou (jejich ohodnocení je v závorkách):</value>
   </data>
   <data name="SpaceEdges" xml:space="preserve">
     <value> hran(y).</value>
@@ -487,10 +487,10 @@
     <value>Časová složitost: </value>
   </data>
   <data name="TransferingSurplus" xml:space="preserve">
-    <value>\nPřevádění přebytku…</value>
+    <value>Převádění přebytku…</value>
   </data>
   <data name="TroubleDel" xml:space="preserve">
-    <value>\nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus.</value>
+    <value>If you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus.</value>
   </data>
   <data name="Tutorial" xml:space="preserve">
     <value>Tutoriál</value>
@@ -502,10 +502,10 @@
     <value>Vrchol #</value>
   </data>
   <data name="VerticesInicialized" xml:space="preserve">
-    <value>\nInicializace vrcholů…</value>
+    <value>Inicializace vrcholů…</value>
   </data>
   <data name="VerticisSurplus" xml:space="preserve">
-    <value>\nVrcholy s kladným přebytkem zůstávají označeny.</value>
+    <value>Vrcholy s kladným přebytkem zůstávají označeny.</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Vítejte v aplikaci Cepheus. Zde můžete vytvářet jakékoli grafy a zkoumat na nich, jak fungují nejrůznější algoritmy z naší nabídky. Pokud nevíte jak začít, tak v pravém hroním rohu najdete krátký tutoriál.</value>

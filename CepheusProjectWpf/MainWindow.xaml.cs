@@ -29,15 +29,15 @@ namespace CepheusProjectWpf
 		{
 			InitializeComponent();
 			SetAvailbaleAlgorithms();
-			txtConsole.Text = "Welcome to Cepheus. Feel free to create any graphs you want and experiment with the prepared algorithms. If you're using this app for the first time, there's a tutorial made right for you in the upper right corner.";
-			txtConsole.Text += "\nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lost focus."; //TODO write this properly!!
+			txtConsole.Text = CepheusProjectWpf.Properties.Resources.Welcome;
+			txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TroubleDel;
 			DefaultColor = (SolidColorBrush)Application.Current.Resources["Aqua"];
 			HiglightColor = (SolidColorBrush)Application.Current.Resources["Orange"];
 			ellipseHighlightColor = imgHighlightColor;
 			ellipseDefaultColor = imgDefaultColor;
 		}
-		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>(); //TODO this could be a list..
-		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>(); //TODO this could be a list..
+		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>(); 
+		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
 		public static Dictionary<int, EllipseVertex> VerticesById = new Dictionary<int, EllipseVertex>();
 		public static int? initialVertex = null;
 		public static int? sinkVertex = null;
@@ -156,7 +156,7 @@ namespace CepheusProjectWpf
 		{
 			btnOkRun.Visibility = Visibility.Hidden;
 			lblInfo.Visibility = Visibility.Hidden;
-			txtConsole.Text += "\n\nSelected algorithm is running.";
+			txtConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.SelectedAlgoRunning;
 			((Algorithm)cmbAlgorithms.SelectedItem).SetOutputConsole(txtConsole);
 			StartCreating(); //tady se disabluje
 			await StartRunning(); //tady se spustí někdy metoda async void Run()
@@ -198,23 +198,23 @@ namespace CepheusProjectWpf
 			if(cmbAlgorithms.SelectedItem != null)
 			{
 				LightenGrid(gridRun);
-				txtConsole.Text += "\n\n"+((Algorithm)cmbAlgorithms.SelectedItem).Name + " attempts to run...";
+				txtConsole.Text += "\n\n"+((Algorithm)cmbAlgorithms.SelectedItem).Name + CepheusProjectWpf.Properties.Resources.AttemptToRun;
 				if(onlyPositiveEdgesAlgorithms.Contains(cmbAlgorithms.SelectedItem))
 				{
 					if (!CheckLengthsIfPositive())
 					{
-						txtConsole.Text += "\nIn Dijkstra's algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again.";
+						txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.DijkstraPosLengths;
 						return;
 					}
 				}
 				if (flowAlgorithms.Contains(((Algorithm)cmbAlgorithms.SelectedItem)))
 					isFlowAlgorithm = true;
 				if (isFlowAlgorithm)
-					txtConsole.Text += "\n\nSelect the source vertex. Then press green Done button.";
+					txtConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.SelectSource;
 				else
 				{
 					if(!dontNeedInitialVertexAlgorithms.Contains(cmbAlgorithms.SelectedItem))
-						txtConsole.Text += "\n\nSelect the initial vertex. Then press green Done button.";
+						txtConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.SelectInit;
 				}
 				UnmarkEverything();
 				if (!dontNeedInitialVertexAlgorithms.Contains(cmbAlgorithms.SelectedItem))
@@ -228,7 +228,7 @@ namespace CepheusProjectWpf
 			}
 			else
 			{
-				txtConsole.Text += "\n\nYou have to choose an algorithm in the upper left corner corner.";
+				txtConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.ChooseAlgo;
 				lblInfo.Visibility = Visibility.Visible;
 			}
 		}
@@ -264,12 +264,12 @@ namespace CepheusProjectWpf
 			{
 				text = ((Algorithm)cmbAlgorithms.SelectedItem).Description;
 				TxbTimComplexity.Visibility = Visibility.Visible;
-				TxbTimComplexity.Text = "Time complexity: "+ ((Algorithm)cmbAlgorithms.SelectedItem).TimeComplexity;
+				TxbTimComplexity.Text = CepheusProjectWpf.Properties.Resources.TimeComplexity+ ((Algorithm)cmbAlgorithms.SelectedItem).TimeComplexity;
 			}
 			else
 			{
 				TxbTimComplexity.Visibility = Visibility.Hidden;
-				text = "No algorithm is selected.";
+				text = CepheusProjectWpf.Properties.Resources.NonAlgoSelected;
 			}
 
 			TxbInfo.Text = text;
@@ -309,7 +309,7 @@ namespace CepheusProjectWpf
 				{
 					sourceSinkCounter++;
 					if (isFlowAlgorithm)
-						txtConsole.Text += "\nSelect the sink vertex and press Done again.";
+						txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.SelectSink;
 				}
 				else
 				{
@@ -331,12 +331,12 @@ namespace CepheusProjectWpf
 		{
 			await Run();
 			DarkenGrid(gridRun);
-			txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + " has finished.";
+			txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + CepheusProjectWpf.Properties.Resources.HasFinished;
 			AttemptToRun = false;
 			if (isFlowAlgorithm)
 			{
 				btnOkRun.Visibility = Visibility.Visible;
-				txtConsole.Text += "\nPlease, press Done button to continue. The flow from edges will be removed.";
+				txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.Continue;
 			}
 			else
 				EnableEverything();
@@ -372,7 +372,7 @@ namespace CepheusProjectWpf
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, "Some mistake occured...", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(ex.Message, CepheusProjectWpf.Properties.Resources.Mistake, MessageBoxButton.OK, MessageBoxImage.Error);
 				ChangeCanvasLook((SolidColorBrush)Application.Current.Resources["Dark"], Brushes.Black, Brushes.White);
 			}
 		}

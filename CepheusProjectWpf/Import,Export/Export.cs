@@ -23,7 +23,7 @@ namespace CepheusProjectWpf.Import_Export
                 }
                 catch
                 {
-                    MessageBox.Show("Can't write to the selected file. Please check if the file is closed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CepheusProjectWpf.Properties.Resources.CantWrite, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

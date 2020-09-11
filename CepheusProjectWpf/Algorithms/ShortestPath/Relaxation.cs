@@ -16,10 +16,10 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Relaxation algorithm";
-		public override string TimeComplexity => "O(n^2)";
+		public override string Name => CepheusProjectWpf.Properties.Resources.RelaxAlgo;
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.RelaxTime;
 
-		public override string Description => "Description is not implemented."; //TODO
+		public override string Description => CepheusProjectWpf.Properties.Resources.RelaxDesc; //TODO
 
 		public async Task Run()
 		{

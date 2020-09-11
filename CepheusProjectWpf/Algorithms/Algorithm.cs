@@ -21,11 +21,11 @@ namespace Cepheus
 		protected int delay = 750;
 		protected void PrintQueued(BfsVertex vertex)
 		{
-			outputConsole.Text += "\nVertex " + vertex.Name + " has been enqueued.";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace + vertex.Name + CepheusProjectWpf.Properties.Resources.Enqued;
 		}
 		protected void PrintDequeued(BfsVertex vertex)
 		{
-			outputConsole.Text += "\nVertex " + vertex.Name + " has been dequeued.";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace + vertex.Name + CepheusProjectWpf.Properties.Resources.Dequed;
 		}
 		protected void PrintVertex(Vertex vertex)
 		{
@@ -38,15 +38,15 @@ namespace Cepheus
 				PrintVertex(vertex);
 			outputConsole.Text += "\n";
 
-			outputConsole.Text += "\nVertices are initialized...";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.VerticesInicialized;
 		}
 		protected void PrintEdgesAreInitialized()
 		{
-			outputConsole.Text += "\n\nEdges are initialized...";
+			outputConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.EdgesInicialized;
 		}
 		protected void PrintEdgeAddedToMinimumSpanningTree(Vertex vertex, Vertex predecessor)
 		{
-			outputConsole.Text += "\nEdge " + vertex.Name + "->"+predecessor.Name+" added to minimum spanning tree.";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLEdgeSpace + vertex.Name + "->"+predecessor.Name+ CepheusProjectWpf.Properties.Resources.AddedToMinSpTree;
 		}
 		
 	}
@@ -125,7 +125,7 @@ namespace Cepheus
 		}
 		protected void PrintMaximumFlow()
 		{
-			outputConsole.Text += "\n\nThe maximum flow in this network is: " + MaximumFlow;
+			outputConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.MaxFlow + MaximumFlow;
 		}
 		protected void ColorEdge(FlowNetwork<TVertex> graph,FlowEdge<TVertex> edge)
 		{

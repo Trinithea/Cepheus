@@ -18,9 +18,9 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => Properties.;
+		public override string Name => CepheusProjectWpf.Properties.Resources.DinicAlgo;
 
-		public override string TimeComplexity => "O(n^2 * m)";
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.DinicTime;
 		Canvas netOfReservesCanvas;
 		NetOfReservesWindow netOfReservesWindow;
 		double windowWidth;
@@ -28,7 +28,7 @@ namespace Cepheus
 		double leftDifference;
 		double topDifference;
 		BFS bfs;
-		public override string Description => "Dinic's algorithm or Dinitz's algorithm is a strongly polynomial algorithm for computing the maximum flow in a flow network, conceived in 1970 by Israeli (formerly Soviet) computer scientist Yefim (Chaim) A. Dinitz. The algorithm runs in O(n^2 * m) time and is similar to the Edmonds–Karp algorithm, which runs in O(n * m^2) time, in that it uses shortest augmenting paths. The introduction of the concepts of the level graph and blocking flow enable Dinic's algorithm to achieve its performance. ";
+		public override string Description => CepheusProjectWpf.Properties.Resources.DinicDescription;
 
 		public async Task Run()
 		{
@@ -49,12 +49,12 @@ namespace Cepheus
 				int? lengthOfShortestPath = reserveNetwork.Sink.Distance;
 				if (lengthOfShortestPath == Int32.MaxValue)
 				{
-					outputConsole.Text += "\nPath from source to sink in the net of reserves doesn't exist.";
+					outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.PathDoesntExist;
 					netOfReservesWindow.Close();
 					break;
 				}
 				else
-					outputConsole.Text += "\nThe shortest path from source to sink conatins " + lengthOfShortestPath + " edges.";
+					outputConsole.Text += "\n"+CepheusProjectWpf.Properties.Resources.ShortestPathContains + lengthOfShortestPath + CepheusProjectWpf.Properties.Resources.SpaceEdges;
 					
 				await CleanUpNetwork(reserveNetwork);
 
@@ -118,7 +118,7 @@ namespace Cepheus
 
 		FlowNetwork<BfsVertex> GetReserveNetwork()
 		{
-			outputConsole.Text += "\nCreating the network of reserves...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.CreatingReserveNet;
 			FlowNetwork<BfsVertex> reserveNetwork = new FlowNetwork<BfsVertex>() ;
 
 			
@@ -148,7 +148,7 @@ namespace Cepheus
 				if (flowEdge.Capacity > flowEdge.Flow)
 				{
 					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.From.UniqueId), reserveNetwork.GetVertex(flowEdge.To.UniqueId), flowEdge.From.UniqueId + "->" + flowEdge.To.UniqueId, flowEdge.Capacity - flowEdge.Flow, null); 
-					outputConsole.Text += "\nEdge " + flowEdge.From.Name + "->" + flowEdge.To.Name +" added with reserve "+ (flowEdge.Capacity - flowEdge.Flow);
+					outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.NLEdgeSpace + flowEdge.From.Name + "->" + flowEdge.To.Name + CepheusProjectWpf.Properties.Resources .AddedWithReserve+ (flowEdge.Capacity - flowEdge.Flow);
 					var copy = edge.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, reserveNetwork.UltimateVertices[newEdge.From], reserveNetwork.UltimateVertices[newEdge.To], leftDifference, topDifference);
 					newEdge.currentFlowInfo = copy.txtLength;
 					newEdge.UpdateCurrentFlowInfo();
@@ -157,7 +157,7 @@ namespace Cepheus
 				if (flowEdge.Flow > 0)
 				{
 					newEdge = reserveNetwork.AddEdge(reserveNetwork.GetVertex(flowEdge.To.UniqueId), reserveNetwork.GetVertex(flowEdge.From.UniqueId), flowEdge.To.UniqueId + "->" + flowEdge.From.UniqueId, flowEdge.Flow, null);
-					outputConsole.Text += "\nEdge " + flowEdge.From.Name + "->" + flowEdge.To.Name + " added with reserve " + flowEdge.Flow;
+					outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.NLEdgeSpace + flowEdge.From.Name + "->" + flowEdge.To.Name + CepheusProjectWpf.Properties.Resources.AddedWithReserve + flowEdge.Flow;
 				}
 				
 			}
@@ -167,9 +167,9 @@ namespace Cepheus
 		
 		async Task CleanUpNetwork(FlowNetwork<BfsVertex> network)
 		{
-			outputConsole.Text += "\nCleaning the network of reserves...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.CleaningReserveNet;
 			bfs.Graph = network;
-			outputConsole.Text += "\nDividing vertices to layers according to their distance from the source...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.DividingVertices;
 			await bfs.Run(); 
 
 			await RemoveVerticesAfterSink(network);
@@ -183,7 +183,7 @@ namespace Cepheus
 		}
 		async Task RemoveVerticesAfterSink(FlowNetwork<BfsVertex> network)
 		{
-			outputConsole.Text += "\nRemoving every vertex which is further from source than sink...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.RemovingFarVertices;
 			PrintVertex(network.Sink);
 			// remove every vertex after sink
 			var verticesToRemove = new List<BfsVertex>();
@@ -206,7 +206,7 @@ namespace Cepheus
 		}
 		async Task RemoveNotForwardEdges(FlowNetwork<BfsVertex> network)
 		{
-			outputConsole.Text += "\nRemoving every edge to previous layers or edges inside layers...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.RemovingBackEdges;
 			// remove every edge to previous layers or edges inside layers
 			var edgesToRemove = new List<FlowEdge<BfsVertex>>();
 
@@ -228,7 +228,7 @@ namespace Cepheus
 		}
 		async Task RemoveVerticesWithZeroOutEdges(FlowNetwork<BfsVertex> network)
 		{
-			outputConsole.Text += "\nRemoving vertices with no outcoming edges...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.RemovingNoOutVertices;
 			var verticesToRemove = new Queue<BfsVertex>();
 
 			foreach (var vertex in network.Vertices.Values)
@@ -282,7 +282,7 @@ namespace Cepheus
 
 				for (int i = 0; i < path.Count; i++)
 				{
-					outputConsole.Text += "\nRemoving saturated edges...";
+					outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.RemovingSaturatedEdges;
 					path[i].Flow += min;
 					path[i].UpdateCurrentFlowInfo();
 					if (path[i].Flow == path[i].Capacity)
@@ -313,7 +313,7 @@ namespace Cepheus
 		
 		async Task ImproveFlow(FlowNetwork<BfsVertex> network, List<FlowEdge<BfsVertex>> edgesFromReserveNetwork)
 		{
-			outputConsole.Text += "\nImproving the flow...";
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ImproveFlow;
 			for (int i = 0; i < edgesFromReserveNetwork.Count; i++)
 			{
 				var edge = network.GetEdge(edgesFromReserveNetwork[i].Name);
@@ -339,8 +339,8 @@ namespace Cepheus
 			UncolorEdge(network,edge);
 		}
 
-		void PrintVertexRemovedFromReserveNetwork(BfsVertex vertex) => outputConsole.Text += "\nVertex " + vertex.Name + " is removed from the network of reserves.";
-		void PrintEdgeRemovedFromReserveNetwork(FlowEdge<BfsVertex> edge) => outputConsole.Text += "\nEdge " + edge.From.Name+"->"+edge.To.Name + " is removed from the network of reserves.";
-		void PrintSearchingPath() => outputConsole.Text += "\nSearching path from source to sink through BFS...";
+		void PrintVertexRemovedFromReserveNetwork(BfsVertex vertex) => outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.NLVertexSpace + vertex.Name + CepheusProjectWpf.Properties.Resources.RemovedFromReserveNet;
+		void PrintEdgeRemovedFromReserveNetwork(FlowEdge<BfsVertex> edge) => outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.NLEdgeSpace + edge.From.Name+"->"+edge.To.Name + CepheusProjectWpf.Properties.Resources.RemovedFromReserveNet;
+		void PrintSearchingPath() => outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.SearchingPath;
 	 }
 }

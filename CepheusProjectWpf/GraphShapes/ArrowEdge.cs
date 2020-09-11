@@ -134,7 +134,7 @@ namespace CepheusProjectWpf.GraphShapes
 				if (wrong)
 				{
 					txtLength.Text = "1";
-					outputConsole.Text += "\n\nOnly integer length of an edge is acceptable...";
+					outputConsole.Text += "\n\n" + CepheusProjectWpf.Properties.Resources.OnlyInteger;
 				}
 
 			}

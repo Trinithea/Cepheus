@@ -29,11 +29,11 @@ namespace CepheusProjectWpf.Import_Export
 				}
 				catch (FormatException)
 				{
-					MessageBox.Show("File has an incorrect format.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show(CepheusProjectWpf.Properties.Resources.IncorrectFormat, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				catch
 				{
-					MessageBox.Show("There is some problem with reading this file. Please, try it again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show(CepheusProjectWpf.Properties.Resources.ProblemReading, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 			}
 		}
@@ -79,7 +79,7 @@ namespace CepheusProjectWpf.Import_Export
 				}
 			}
 			else
-				MessageBox.Show("The file is empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(CepheusProjectWpf.Properties.Resources.FileEmpty, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
 		static void ConvertLineToVertex(string line)

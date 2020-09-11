@@ -17,18 +17,18 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Kruskal's algorithm";
+		public override string Name => CepheusProjectWpf.Properties.Resources.KruskalAlgo;
 
-		public override string TimeComplexity => "O(m * log(n))";
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.KruskalTime;
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree { get; private set; }
 
-		public override string Description => "Kruskal's algorithm is a minimum-spanning-tree algorithm which finds an edge of the least possible weight that connects any two trees in the forest. It is a greedy algorithm in graph theory as it finds a minimum spanning tree for a connected weighted graph adding increasing cost arcs at each step. This means it finds a subset of the edges that forms a tree that includes every vertex, where the total weight of all the edges in the tree is minimized. If the graph is not connected, then it finds a minimum spanning forest (a minimum spanning tree for each connected component). ";
+		public override string Description => CepheusProjectWpf.Properties.Resources.KruskalDesc;
 
 		public async Task Run()
 		{
 			Graph.InitializeVertices(); // to get OutEdges sorted
 			PrintVerticesInitialized(Graph);
-			outputConsole.Text += "\nOutEdges are sorted from lightest to heaviest for each vertex."; //TODO asi každej neví, co je outedges...
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; 
 			var edges = Graph.GetEdgesSortedByLength(); //minimum binary heap
 
 			var minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();

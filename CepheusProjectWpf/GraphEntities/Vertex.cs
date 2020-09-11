@@ -12,14 +12,14 @@ namespace Cepheus
 		public static string Print(this int i)
 		{
 			if (i == Int32.MaxValue)
-				return "Infinity";
+				return CepheusProjectWpf.Properties.Resources.Infinity;
 			else
 				return i.ToString();
 		}
 		public static string Print(this int? i)
 		{
 			if (i == null)
-				return "Infinity";
+				return CepheusProjectWpf.Properties.Resources.Infinity;
 			else
 				return i.ToString();
 		}
@@ -34,7 +34,7 @@ namespace Cepheus
 		protected string GetPredecessorName(Vertex predecessor)
 		{
 			if (predecessor == null)
-				return "None";
+				return CepheusProjectWpf.Properties.Resources.None;
 			else
 				return predecessor.Name;
 		}
@@ -51,11 +51,11 @@ namespace Cepheus
 			switch (state)
 			{
 				case States.Closed:
-					return "Closed";
+					return CepheusProjectWpf.Properties.Resources.Closed;
 				case States.Open:
-					return "Open";
+					return CepheusProjectWpf.Properties.Resources.Open;
 				default:
-					return "Unvisited";
+					return CepheusProjectWpf.Properties.Resources.Unvisited;
 			}
 		}
 	}
@@ -88,7 +88,7 @@ namespace Cepheus
 			Distance = Int32.MaxValue;
 			Predecessor = null;
 		}
-		public override string Informations => "\nVertex " + Name + " has state: " + GetStateName(State) + " and is in distance: " + Distance.Print() + " from initial vertex with predecessor " + Predecessor?.Name;
+		public override string Informations => CepheusProjectWpf.Properties.Resources.NLVertexSpace + Name + CepheusProjectWpf.Properties.Resources.HasState + GetStateName(State) + CepheusProjectWpf.Properties.Resources.IsInDistance + Distance.Print() + CepheusProjectWpf.Properties.Resources.FromInitVPred + Predecessor?.Name;
 	}
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
@@ -107,7 +107,7 @@ namespace Cepheus
 			InTime = null;
 			OutTime = null;
 		}
-		public override string Informations => "State: " + State + "\nInTime: " + InTime.Print() + "\nOutTime" + OutTime.Print();
+		public override string Informations =>"\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+Name+ CepheusProjectWpf.Properties.Resources.HasState + State + "\nInTime: " + InTime.Print() + "\nOutTime" + OutTime.Print();
 		}//TODO is intime/outime really inifinity by default?
 
 	// Dijkstra vertex is same as BFS vertex
@@ -120,7 +120,7 @@ namespace Cepheus
 		public override void Initialize()
 		{
 		}
-		public override string Informations => "\nVertex "+ Name+" has ID: " + ID;
+		public override string Informations => "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+ Name+ CepheusProjectWpf.Properties.Resources.HasId + ID;
 	}
 	public class JarnikVertex : VertexBase<JarnikVertex>
 	{
@@ -139,14 +139,14 @@ namespace Cepheus
 			switch (state)
 			{
 				case States.Inside:
-					return "Inside";
+					return CepheusProjectWpf.Properties.Resources.Inside;
 				case States.Neighbour:
-					return "Neighbour";
+					return CepheusProjectWpf.Properties.Resources.Neighbour;
 				default:
-					return "Outside";
+					return CepheusProjectWpf.Properties.Resources.Outside;
 			}
 		}
-		public override string Informations => "\nVertex " + Name+ " is in state: "+ GetState(State) + " with rating: " + Rating.Print() + " with predecessor " + Predecessor?.Name;
+		public override string Informations => "\n"+CepheusProjectWpf.Properties.Resources.NLVertexSpace + Name+ CepheusProjectWpf.Properties.Resources.HasState+ GetState(State) + CepheusProjectWpf.Properties.Resources.WithRating + Rating.Print() + CepheusProjectWpf.Properties.Resources.WithPred + Predecessor?.Name;
 	}
 
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>
@@ -157,7 +157,7 @@ namespace Cepheus
 		{
 			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));
 		}
-		public override string Informations => "\nVertex "+Name+" is in the component: "+ComponentID;
+		public override string Informations => "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+ Name+ CepheusProjectWpf.Properties.Resources.IsInComp+ ComponentID;
 	}
 
 
@@ -187,6 +187,6 @@ namespace Cepheus
 		{
 			Height = 0;
 		}
-		public override string Informations => "\nVertex " + Name+ " has height: " + Height + " and surplus: " + Surplus;
+		public override string Informations => "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace + Name+ CepheusProjectWpf.Properties.Resources.HasHeight + Height + CepheusProjectWpf.Properties.Resources.AndSurplus + Surplus;
 	}
 }

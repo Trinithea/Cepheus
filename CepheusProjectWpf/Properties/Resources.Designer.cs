@@ -187,7 +187,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nIn brackets after name of a vertex you see its height..
+        ///   Looks up a localized string similar to In brackets after name of a vertex you see its height..
         /// </summary>
         internal static string BracketsHeight {
             get {
@@ -205,7 +205,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nYou have to choose an algorithm in the upper left corner corner..
+        ///   Looks up a localized string similar to You have to choose an algorithm in the upper left corner corner..
         /// </summary>
         internal static string ChooseAlgo {
             get {
@@ -214,7 +214,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nCleaning the network of reserves....
+        ///   Looks up a localized string similar to Cleaning the network of reserves....
         /// </summary>
         internal static string CleaningReserveNet {
             get {
@@ -259,7 +259,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nConstructing the path from source to sink....
+        ///   Looks up a localized string similar to Constructing the path from source to sink....
         /// </summary>
         internal static string ConstructingPath {
             get {
@@ -268,7 +268,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nContext components are inicialized..
+        ///   Looks up a localized string similar to Context components are inicialized..
         /// </summary>
         internal static string ContextComponentInicialized {
             get {
@@ -277,7 +277,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nContext components are merging....
+        ///   Looks up a localized string similar to Context components are merging....
         /// </summary>
         internal static string ContextComponentsMerging {
             get {
@@ -286,7 +286,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nPlease, press Done button to continue. The flow from edges will be removed..
+        ///   Looks up a localized string similar to Please, press Done button to continue. The flow from edges will be removed..
         /// </summary>
         internal static string Continue {
             get {
@@ -295,7 +295,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nCreating the network of reserves....
+        ///   Looks up a localized string similar to Creating the network of reserves....
         /// </summary>
         internal static string CreatingReserveNet {
             get {
@@ -394,7 +394,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nIn Dijkstra&apos;s algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again..
+        ///   Looks up a localized string similar to In Dijkstra&apos;s algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again..
         /// </summary>
         internal static string DijkstraPosLengths {
             get {
@@ -439,7 +439,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nDividing vertices to layers according to their distance from the source....
+        ///   Looks up a localized string similar to Dividing vertices to layers according to their distance from the source....
         /// </summary>
         internal static string DividingVertices {
             get {
@@ -457,7 +457,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nEdges are initialized....
+        ///   Looks up a localized string similar to Edges are initialized....
         /// </summary>
         internal static string EdgesInicialized {
             get {
@@ -655,7 +655,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nImproving the flow....
+        ///   Looks up a localized string similar to Improving the flow....
         /// </summary>
         internal static string ImproveFlow {
             get {
@@ -763,7 +763,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nThe lowest reserve is .
+        ///   Looks up a localized string similar to The lowest reserve is .
         /// </summary>
         internal static string LowestReserve {
             get {
@@ -772,7 +772,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nMarking vertices with positive surplus....
+        ///   Looks up a localized string similar to Marking vertices with positive surplus....
         /// </summary>
         internal static string MarkingSurplus {
             get {
@@ -781,7 +781,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nMatrix of distances: .
+        ///   Looks up a localized string similar to Matrix of distances: .
         /// </summary>
         internal static string MatrixDist {
             get {
@@ -790,7 +790,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nThe maximum flow in this network is: .
+        ///   Looks up a localized string similar to The maximum flow in this network is: .
         /// </summary>
         internal static string MaxFlow {
             get {
@@ -826,7 +826,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nEdge .
+        ///   Looks up a localized string similar to Edge .
         /// </summary>
         internal static string NLEdgeSpace {
             get {
@@ -835,7 +835,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nTransfering .
+        ///   Looks up a localized string similar to Transfering .
         /// </summary>
         internal static string NLTransfering {
             get {
@@ -844,7 +844,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nVertex .
+        ///   Looks up a localized string similar to Vertex .
         /// </summary>
         internal static string NLVertexSpace {
             get {
@@ -871,7 +871,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nNothing was transfered..
+        ///   Looks up a localized string similar to Nothing was transfered..
         /// </summary>
         internal static string NothingTransfered {
             get {
@@ -898,7 +898,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nOnly integer length of an edge is acceptable....
+        ///   Looks up a localized string similar to Only integer length of an edge is acceptable....
         /// </summary>
         internal static string OnlyInteger {
             get {
@@ -925,7 +925,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nOpen vertices in sorted order (distance is in brackets): .
+        ///   Looks up a localized string similar to Open vertices in sorted order (distance is in brackets): .
         /// </summary>
         internal static string OpenVerticesSorted {
             get {
@@ -934,7 +934,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nOutcoming edges are sorted from lightest to heaviest for each vertex..
+        ///   Looks up a localized string similar to Outcoming edges are sorted from lightest to heaviest for each vertex..
         /// </summary>
         internal static string OutEdgesSorted {
             get {
@@ -952,7 +952,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nPath from source to sink in the net of reserves doesn&apos;t exist..
+        ///   Looks up a localized string similar to Path from source to sink in the net of reserves doesn&apos;t exist..
         /// </summary>
         internal static string PathDoesntExist {
             get {
@@ -1015,7 +1015,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nRemoving every edge to previous layers or edges inside layers....
+        ///   Looks up a localized string similar to Removing every edge to previous layers or edges inside layers....
         /// </summary>
         internal static string RemovingBackEdges {
             get {
@@ -1024,7 +1024,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nRemoving every vertex which is further from source than sink....
+        ///   Looks up a localized string similar to Removing every vertex which is further from source than sink....
         /// </summary>
         internal static string RemovingFarVertices {
             get {
@@ -1033,7 +1033,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nRemoving vertices with no outcoming edges....
+        ///   Looks up a localized string similar to Removing vertices with no outcoming edges....
         /// </summary>
         internal static string RemovingNoOutVertices {
             get {
@@ -1042,7 +1042,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nRemoving saturated edges....
+        ///   Looks up a localized string similar to Removing saturated edges....
         /// </summary>
         internal static string RemovingSaturatedEdges {
             get {
@@ -1069,7 +1069,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nLooking for a path from source to sink using BFS algorithm....
+        ///   Looks up a localized string similar to Looking for a path from source to sink using BFS algorithm....
         /// </summary>
         internal static string SearchingPath {
             get {
@@ -1078,7 +1078,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nSelected algorithm is running..
+        ///   Looks up a localized string similar to Selected algorithm is running..
         /// </summary>
         internal static string SelectedAlgoRunning {
             get {
@@ -1087,7 +1087,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nSelect the initial vertex. Then press green Done button..
+        ///   Looks up a localized string similar to Select the initial vertex. Then press green Done button..
         /// </summary>
         internal static string SelectInit {
             get {
@@ -1096,7 +1096,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nSelect the sink vertex and press Done again..
+        ///   Looks up a localized string similar to Select the sink vertex and press Done again..
         /// </summary>
         internal static string SelectSink {
             get {
@@ -1105,7 +1105,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \n\nSelect the source vertex. Then press green Done button..
+        ///   Looks up a localized string similar to Select the source vertex. Then press green Done button..
         /// </summary>
         internal static string SelectSource {
             get {
@@ -1114,7 +1114,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nThe shortest path can contain vertices with index from 0 to .
+        ///   Looks up a localized string similar to The shortest path can contain vertices with index from 0 to .
         /// </summary>
         internal static string ShortesPathContain {
             get {
@@ -1123,7 +1123,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nThe shortest path from source to sink conatins .
+        ///   Looks up a localized string similar to The shortest path from source to sink conatins .
         /// </summary>
         internal static string ShortestPathContains {
             get {
@@ -1132,7 +1132,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nThe sink is not reachable from the source..
+        ///   Looks up a localized string similar to The sink is not reachable from the source..
         /// </summary>
         internal static string SinkNotReachable {
             get {
@@ -1141,7 +1141,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nSorted neighbours are (rating is in parenthesses):.
+        ///   Looks up a localized string similar to Sorted neighbours are (rating is in parenthesses):.
         /// </summary>
         internal static string SortedNeighbours {
             get {
@@ -1168,7 +1168,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nTransfering surplus....
+        ///   Looks up a localized string similar to Transfering surplus....
         /// </summary>
         internal static string TransferingSurplus {
             get {
@@ -1177,7 +1177,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus..
+        ///   Looks up a localized string similar to If you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus..
         /// </summary>
         internal static string TroubleDel {
             get {
@@ -1213,7 +1213,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nVertices are initialized....
+        ///   Looks up a localized string similar to Vertices are initialized....
         /// </summary>
         internal static string VerticesInicialized {
             get {
@@ -1222,7 +1222,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \nVertices with positive surplus are staying marked..
+        ///   Looks up a localized string similar to Vertices with positive surplus are staying marked..
         /// </summary>
         internal static string VerticisSurplus {
             get {

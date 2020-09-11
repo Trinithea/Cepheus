@@ -17,18 +17,18 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Boruvka's algorithm";
+		public override string Name => CepheusProjectWpf.Properties.Resources.BoruvkaAlgo;
 
-		public override string TimeComplexity => "m * log(n)";
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.BoruvkaTime;
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree {get; private set;}
 
-		public override string Description => "Description is not implemented.";//TODO
+		public override string Description => CepheusProjectWpf.Properties.Resources.BoruvkaDesc;
 
 		public async Task Run()
 		{
 			Graph.InitializeVertices(); // to get OutEdges sorted
 			PrintVerticesInitialized(Graph);
-			outputConsole.Text += "\nOutEdges are sorted from lightest to heaviest for each vertex."; //TODO asi každej neví, co je outedges...
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; //TODO asi každej neví, co je outedges...
 
 
 			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
@@ -36,7 +36,7 @@ namespace Cepheus
 			List<int> ids = new List<int>(); //ID numbers of currents context components
 
 			Initialize(minimumSpanningTree,ids); // each vertex is a context component
-			outputConsole.Text += "\nContext components are inicialized.";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.ContextComponentInicialized;
 
 			while(minimumSpanningTree.ContextComponents.Count > 1) // graph is not continuous
 			{
@@ -114,7 +114,7 @@ namespace Cepheus
 		internal void MergeContextComponents(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree,List<int> ids)
 		{
 			List<ComponentTree<BoruvkaVertex>> newComponents = new List<ComponentTree<BoruvkaVertex>>();
-			outputConsole.Text += "\n\nContext components are merging...";
+			outputConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.ContextComponentsMerging;
 			for (int i = 0; i < minimumSpanningTree.NewEdges.Count; i++)
 			{
 				var newEdge = minimumSpanningTree.NewEdges[i];

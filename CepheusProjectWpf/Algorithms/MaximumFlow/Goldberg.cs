@@ -17,16 +17,16 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		public override string Name => "Goldberg's algorithm";
+		public override string Name => CepheusProjectWpf.Properties.Resources.GoldbergAlgo;
 
-		public override string TimeComplexity => "O(n^2 * m)";
+		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.GoldbergTime;
 		List<GoldbergVertex> positiveSurplusVertices;
 
-		public override string Description => "In mathematical optimization, the push–relabel algorithm (alternatively, preflow–push algorithm) is an algorithm for computing maximum flows in a flow network. The name \"push–relabel\" comes from the two basic operations used in the algorithm. Throughout its execution, the algorithm maintains a \"preflow\" and gradually converts it into a maximum flow by moving flow locally between neighboring nodes using push operations under the guidance of an admissible network maintained by relabel operations. In comparison, the Ford–Fulkerson algorithm performs global augmentations that send flow following paths from the source all the way to the sink.";
+		public override string Description => CepheusProjectWpf.Properties.Resources.GoldbergDesc;
 		bool transfered=false;
 		public async Task Run()
 		{
-			outputConsole.Text += "\nIn brackets after name of a vertex you see its height.";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.BracketsHeight;
 			
 			graph.InitializeVertices();
 			graph.Source.Height = graph.Vertices.Count;
@@ -80,7 +80,7 @@ namespace Cepheus
 		}
 		async Task GetVerticesWithPositiveSurplus()
 		{
-			outputConsole.Text += "\nMarking vertices with positive surplus...";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.MarkingSurplus;
 			var vertices = new List<GoldbergVertex>();
 			foreach (GoldbergVertex vertex in graph.Vertices.Values)
 				if (vertex != graph.Source && vertex != graph.Sink && vertex.UpdateSurplus() > 0)
@@ -93,8 +93,8 @@ namespace Cepheus
 		}
 		async Task TransferSurplus(GoldbergVertex from)
 		{
-			outputConsole.Text += "\nTransfering surplus...";
-			outputConsole.Text += "\nVertices with positive surplus are staying marked.";
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TransferingSurplus;
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.VerticisSurplus;
 			transfered = false;
 			foreach (FlowEdge<GoldbergVertex> edge in from.OutEdges)
 			{
@@ -108,7 +108,7 @@ namespace Cepheus
 					transfered = true;
 					await Task.Delay(delay - 250);
 					ColorVertex(graph,edge.To);
-					outputConsole.Text += "\nTransfering "+delta+" on edge " + from.Name + "->" + edge.To.Name;
+					outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLTransfering+ delta+ CepheusProjectWpf.Properties.Resources.OnEdge + from.Name + "->" + edge.To.Name;
 					edge.To.Surplus += delta;
 					PrintVertex(edge.To);
 					from.Surplus -= delta;
@@ -133,7 +133,7 @@ namespace Cepheus
 					break;
 				}
 				if (!transfered)
-					outputConsole.Text += "\nNothing was transfered.";
+					outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NothingTransfered;
 			}
 		}
 	}

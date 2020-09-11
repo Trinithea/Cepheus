@@ -160,16 +160,16 @@
     <value>m * log(n)</value>
   </data>
   <data name="BracketsHeight" xml:space="preserve">
-    <value>\nIn brackets after name of a vertex you see its height.</value>
+    <value>In brackets after name of a vertex you see its height.</value>
   </data>
   <data name="CantWrite" xml:space="preserve">
     <value>Can't write to the selected file. Please check if the file is closed.</value>
   </data>
   <data name="ChooseAlgo" xml:space="preserve">
-    <value>\n\nYou have to choose an algorithm in the upper left corner corner.</value>
+    <value>You have to choose an algorithm in the upper left corner corner.</value>
   </data>
   <data name="CleaningReserveNet" xml:space="preserve">
-    <value>\nCleaning the network of reserves...</value>
+    <value>Cleaning the network of reserves...</value>
   </data>
   <data name="Clear" xml:space="preserve">
     <value>Clear canvas</value>
@@ -184,19 +184,19 @@
     <value>Common graphs</value>
   </data>
   <data name="ConstructingPath" xml:space="preserve">
-    <value>\nConstructing the path from source to sink...</value>
+    <value>Constructing the path from source to sink...</value>
   </data>
   <data name="ContextComponentInicialized" xml:space="preserve">
-    <value>\nContext components are inicialized.</value>
+    <value>Context components are inicialized.</value>
   </data>
   <data name="ContextComponentsMerging" xml:space="preserve">
-    <value>\n\nContext components are merging...</value>
+    <value>Context components are merging...</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>\nPlease, press Done button to continue. The flow from edges will be removed.</value>
+    <value>Please, press Done button to continue. The flow from edges will be removed.</value>
   </data>
   <data name="CreatingReserveNet" xml:space="preserve">
-    <value>\nCreating the network of reserves...</value>
+    <value>Creating the network of reserves...</value>
   </data>
   <data name="Cursor" xml:space="preserve">
     <value>Cursor</value>
@@ -229,7 +229,7 @@
     <value>Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.</value>
   </data>
   <data name="DijkstraPosLengths" xml:space="preserve">
-    <value>\nIn Dijkstra's algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again.</value>
+    <value>In Dijkstra's algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again.</value>
   </data>
   <data name="DijkstraTime" xml:space="preserve">
     <value>O((n + m) * log(n))</value>
@@ -244,13 +244,13 @@
     <value>O(n^2 * m)</value>
   </data>
   <data name="DividingVertices" xml:space="preserve">
-    <value>\nDividing vertices to layers according to their distance from the source...</value>
+    <value>Dividing vertices to layers according to their distance from the source...</value>
   </data>
   <data name="Done" xml:space="preserve">
     <value>Done</value>
   </data>
   <data name="EdgesInicialized" xml:space="preserve">
-    <value>\n\nEdges are initialized...</value>
+    <value>Edges are initialized...</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
@@ -316,7 +316,7 @@
     <value>Open graph</value>
   </data>
   <data name="ImproveFlow" xml:space="preserve">
-    <value>\nImproving the flow...</value>
+    <value>Improving the flow...</value>
   </data>
   <data name="IncorrectFormat" xml:space="preserve">
     <value>File has an incorrect format.</value>
@@ -352,16 +352,16 @@
     <value>O(m * log(n))</value>
   </data>
   <data name="LowestReserve" xml:space="preserve">
-    <value>\nThe lowest reserve is </value>
+    <value>The lowest reserve is </value>
   </data>
   <data name="MarkingSurplus" xml:space="preserve">
-    <value>\nMarking vertices with positive surplus...</value>
+    <value>Marking vertices with positive surplus...</value>
   </data>
   <data name="MatrixDist" xml:space="preserve">
-    <value>\nMatrix of distances: </value>
+    <value>Matrix of distances: </value>
   </data>
   <data name="MaxFlow" xml:space="preserve">
-    <value>\n\nThe maximum flow in this network is: </value>
+    <value>The maximum flow in this network is: </value>
   </data>
   <data name="Mistake" xml:space="preserve">
     <value>Some mistake occured...</value>
@@ -373,13 +373,13 @@
     <value>Net of reserves</value>
   </data>
   <data name="NLEdgeSpace" xml:space="preserve">
-    <value>\nEdge </value>
+    <value>Edge </value>
   </data>
   <data name="NLTransfering" xml:space="preserve">
-    <value>\nTransfering </value>
+    <value>Transfering </value>
   </data>
   <data name="NLVertexSpace" xml:space="preserve">
-    <value>\nVertex </value>
+    <value>Vertex </value>
   </data>
   <data name="NonAlgoSelected" xml:space="preserve">
     <value>No algorithm is selected.</value>
@@ -388,7 +388,7 @@
     <value>None</value>
   </data>
   <data name="NothingTransfered" xml:space="preserve">
-    <value>\nNothing was transfered.</value>
+    <value>Nothing was transfered.</value>
   </data>
   <data name="OfTheEdge" xml:space="preserve">
     <value> of the edge </value>
@@ -397,7 +397,7 @@
     <value> on edge </value>
   </data>
   <data name="OnlyInteger" xml:space="preserve">
-    <value>\n\nOnly integer length of an edge is acceptable...</value>
+    <value>Only integer length of an edge is acceptable...</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
@@ -406,16 +406,16 @@
     <value> has been opened in time: </value>
   </data>
   <data name="OpenVerticesSorted" xml:space="preserve">
-    <value>\nOpen vertices in sorted order (distance is in brackets): </value>
+    <value>Open vertices in sorted order (distance is in brackets): </value>
   </data>
   <data name="OutEdgesSorted" xml:space="preserve">
-    <value>\nOutcoming edges are sorted from lightest to heaviest for each vertex.</value>
+    <value>Outcoming edges are sorted from lightest to heaviest for each vertex.</value>
   </data>
   <data name="Outside" xml:space="preserve">
     <value>Outside</value>
   </data>
   <data name="PathDoesntExist" xml:space="preserve">
-    <value>\nPath from source to sink in the net of reserves doesn't exist.</value>
+    <value>Path from source to sink in the net of reserves doesn't exist.</value>
   </data>
   <data name="Print" xml:space="preserve">
     <value>Print graph</value>
@@ -436,16 +436,16 @@
     <value> is removed from the network of reserves.</value>
   </data>
   <data name="RemovingBackEdges" xml:space="preserve">
-    <value>\nRemoving every edge to previous layers or edges inside layers...</value>
+    <value>Removing every edge to previous layers or edges inside layers...</value>
   </data>
   <data name="RemovingFarVertices" xml:space="preserve">
-    <value>\nRemoving every vertex which is further from source than sink...</value>
+    <value>Removing every vertex which is further from source than sink...</value>
   </data>
   <data name="RemovingNoOutVertices" xml:space="preserve">
-    <value>\nRemoving vertices with no outcoming edges...</value>
+    <value>Removing vertices with no outcoming edges...</value>
   </data>
   <data name="RemovingSaturatedEdges" xml:space="preserve">
-    <value>\nRemoving saturated edges...</value>
+    <value>Removing saturated edges...</value>
   </data>
   <data name="Run" xml:space="preserve">
     <value>Run</value>
@@ -454,31 +454,31 @@
     <value>Save graph</value>
   </data>
   <data name="SearchingPath" xml:space="preserve">
-    <value>\n\nLooking for a path from source to sink using BFS algorithm...</value>
+    <value>Looking for a path from source to sink using BFS algorithm...</value>
   </data>
   <data name="SelectedAlgoRunning" xml:space="preserve">
-    <value>\n\nSelected algorithm is running.</value>
+    <value>Selected algorithm is running.</value>
   </data>
   <data name="SelectInit" xml:space="preserve">
-    <value>\n\nSelect the initial vertex. Then press green Done button.</value>
+    <value>Select the initial vertex. Then press green Done button.</value>
   </data>
   <data name="SelectSink" xml:space="preserve">
-    <value>\nSelect the sink vertex and press Done again.</value>
+    <value>Select the sink vertex and press Done again.</value>
   </data>
   <data name="SelectSource" xml:space="preserve">
-    <value>\n\nSelect the source vertex. Then press green Done button.</value>
+    <value>Select the source vertex. Then press green Done button.</value>
   </data>
   <data name="ShortesPathContain" xml:space="preserve">
-    <value>\nThe shortest path can contain vertices with index from 0 to </value>
+    <value>The shortest path can contain vertices with index from 0 to </value>
   </data>
   <data name="ShortestPathContains" xml:space="preserve">
-    <value>\nThe shortest path from source to sink conatins </value>
+    <value>The shortest path from source to sink conatins </value>
   </data>
   <data name="SinkNotReachable" xml:space="preserve">
-    <value>\nThe sink is not reachable from the source.</value>
+    <value>The sink is not reachable from the source.</value>
   </data>
   <data name="SortedNeighbours" xml:space="preserve">
-    <value>\nSorted neighbours are (rating is in parenthesses):</value>
+    <value>Sorted neighbours are (rating is in parenthesses):</value>
   </data>
   <data name="SpaceEdges" xml:space="preserve">
     <value> edges.</value>
@@ -487,10 +487,10 @@
     <value>Time complexity: </value>
   </data>
   <data name="TransferingSurplus" xml:space="preserve">
-    <value>\nTransfering surplus...</value>
+    <value>Transfering surplus...</value>
   </data>
   <data name="TroubleDel" xml:space="preserve">
-    <value>\nIf you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus.</value>
+    <value>If you have troubles with deleting vertices or edges, try to press Tab so names and lengths will lose focus.</value>
   </data>
   <data name="Tutorial" xml:space="preserve">
     <value>Tutorial</value>
@@ -502,10 +502,10 @@
     <value>Vertex #</value>
   </data>
   <data name="VerticesInicialized" xml:space="preserve">
-    <value>\nVertices are initialized...</value>
+    <value>Vertices are initialized...</value>
   </data>
   <data name="VerticisSurplus" xml:space="preserve">
-    <value>\nVertices with positive surplus are staying marked.</value>
+    <value>Vertices with positive surplus are staying marked.</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to Cepheus. Feel free to create any graphs you want and experiment with the prepared algorithms. If you're using this app for the first time, there's a tutorial made right for you in the upper right corner.</value>
