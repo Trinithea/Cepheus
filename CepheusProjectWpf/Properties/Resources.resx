@@ -182,7 +182,7 @@
     <value>m * log(n)</value>
   </data>
   <data name="BracketsHeight" xml:space="preserve">
-    <value>In brackets after name of a vertex you see its height.</value>
+    <value>In brackets after name of a vertex you see its height and surplus.</value>
   </data>
   <data name="CantContainSemicolon" xml:space="preserve">
     <value>A vertex name can't contain a semicolon.</value>
@@ -221,7 +221,7 @@
     <value>Context components are merging...</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Please, press Done button to continue. The flow from edges will be removed.</value>
+    <value>Please, press Done button to continue.</value>
   </data>
   <data name="CreatingReserveNet" xml:space="preserve">
     <value>Creating the network of reserves...</value>

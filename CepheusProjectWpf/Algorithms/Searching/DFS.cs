@@ -25,7 +25,7 @@ namespace Cepheus
 
 			Time = 0;
 			
-			await Recursion(initialVertex); //TODO přijde mi, že to nečeká na skončení té rekurze ale běží dál
+			await Recursion(initialVertex); 
 		}
 		async Task Recursion(DfsVertex vertex)
 		{

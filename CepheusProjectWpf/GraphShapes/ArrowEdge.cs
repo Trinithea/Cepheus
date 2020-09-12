@@ -122,7 +122,7 @@ namespace CepheusProjectWpf.GraphShapes
 				bool wrong = false;
 				if (length[0] != '-')
 				{
-					if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]")) //TODO nebo ^-?[0-9] pro záporné hodnoty
+					if (System.Text.RegularExpressions.Regex.IsMatch(txtLength.Text, "[^0-9]")) 
 						wrong = true;
 				}
 				else
@@ -340,7 +340,6 @@ namespace CepheusProjectWpf.GraphShapes
 		{
 			foreach (EllipseVertex vertex in MainWindow.Vertices.Keys)
 			{
-				//TODO zachovat barvu u omarkovanej (až nebude vector jen ellipsa :/ ), ale možná je to takhle lepší..
 				vertex.SetDefaultLook();
 			}
 		}

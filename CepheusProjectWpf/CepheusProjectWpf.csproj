@@ -66,17 +66,10 @@
     <Compile Include="Import,Export\Descriptor.cs" />
     <Compile Include="Import,Export\Export.cs" />
     <Compile Include="Import,Export\Import.cs" />
-    <Compile Include="InitialVertexWindow.xaml.cs">
-      <DependentUpon>InitialVertexWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UIWindows\NetOfReserves.xaml.cs">
       <DependentUpon>NetOfReserves.xaml</DependentUpon>
     </Compile>
     <Compile Include="Visitor.cs" />
-    <Page Include="InitialVertexWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

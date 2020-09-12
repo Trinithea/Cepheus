@@ -317,7 +317,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In brackets after name of a vertex you see its height..
+        ///   Looks up a localized string similar to In brackets after name of a vertex you see its height and surplus..
         /// </summary>
         internal static string BracketsHeight {
             get {
@@ -434,7 +434,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, press Done button to continue. The flow from edges will be removed..
+        ///   Looks up a localized string similar to Please, press Done button to continue..
         /// </summary>
         internal static string Continue {
             get {

@@ -158,7 +158,7 @@ namespace CepheusProjectWpf.GraphShapes
 			if (isMarked || wasMoving)
 			{
 				Unmark();
-				MainWindow.Marked.Remove(this); //TODO nic moc...
+				MainWindow.Marked.Remove(this); 
 			}
 			else
 			{
@@ -173,7 +173,11 @@ namespace CepheusProjectWpf.GraphShapes
 						MainWindow.Marked.RemoveAt(0);
 					}
 					if (MainWindow.isFlowAlgorithm && MainWindow.sourceSinkCounter == 1)
+					{
 						MainWindow.sinkVertex = UniqueId;
+						MainWindow.sourceSinkCounter++;
+					}
+						
 					else
 					{
 						MainWindow.initialVertex = UniqueId;

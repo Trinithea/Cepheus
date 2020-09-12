@@ -18,8 +18,8 @@ namespace Cepheus
 
 	public class FlowEdge<T> :Edge<T> where T : Vertex
 	{
-		public int Capacity { get; set; } //TODO only non-negative numbers
-		public int Flow { get; set; } //TODO only non-negative numbers
+		public int Capacity { get; set; } 
+		public int Flow { get; set; } 
 		public int Reserve => Capacity - Flow + OppositeEdge.Flow;
 		public TextBox currentFlowInfo { get; set; }
 		public void UpdateCurrentFlowInfo()
@@ -29,17 +29,13 @@ namespace Cepheus
 		}
 
 
-		public FlowEdge<T> OppositeEdge { get; set; } // TODO set visibility is discutable //TODO isnt ReverseEdge better?
+		public FlowEdge<T> OppositeEdge { get; set; } 
 		public FlowEdge(int capacity, TextBox txtLength)
 		{
 			Capacity = capacity;
 			Flow = 0;
 			currentFlowInfo = txtLength;
 		}
-		//TODO tohle neni potřeba
-		public override string ToString()
-		{
-			return String.Format("name: {0}, cap: {1}, flow: {2}, opp: {3}, oppFlow: {4}", Name, Capacity, Flow, OppositeEdge.Name, OppositeEdge.Flow);
-		}
+		
 	}
 }

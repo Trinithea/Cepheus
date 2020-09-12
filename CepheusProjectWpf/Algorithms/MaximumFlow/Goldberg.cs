@@ -10,7 +10,7 @@ namespace Cepheus
 	public class Goldberg : FlowAlgorithm<GoldbergVertex>
 	{
 		public override bool IsFlowAlgorithm => true;
-		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => true;
 		public override bool DontNeedInitialVertex => false;
 		public override void Accept(VisitorGraphCreator visitor)
 		{
@@ -88,9 +88,9 @@ namespace Cepheus
 			foreach (GoldbergVertex vertex in graph.Vertices.Values)
 				if (vertex != graph.Source && vertex != graph.Sink && vertex.UpdateSurplus() > 0)
 				{
-					await Task.Delay(delay);
 					vertices.Add(vertex);
 					ColorVertex(graph,vertex);
+					await Task.Delay(delay);
 				}
 			positiveSurplusVertices = vertices;
 		}
@@ -113,8 +113,10 @@ namespace Cepheus
 					ColorVertex(graph,edge.To);
 					outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLTransfering+ delta+ CepheusProjectWpf.Properties.Resources.OnEdge + from.Name + "->" + edge.To.Name;
 					edge.To.Surplus += delta;
+					edge.To.UpdateHeightInName();
 					PrintVertex(edge.To);
 					from.Surplus -= delta;
+					from.UpdateHeightInName();
 					PrintVertex(from);
 
 					if (from.Surplus <= 0)

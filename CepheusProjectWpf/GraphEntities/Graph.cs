@@ -33,7 +33,7 @@ namespace Cepheus
 			Vertices.Add(ellipseVertex.UniqueId, vertex);
 			UltimateVertices.Add(vertex, ellipseVertex);
 			return vertex;
-		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
+		}
 
 		public void AddEdge(TVertex from, TVertex to, string name, int length)
 		{
@@ -123,7 +123,7 @@ namespace Cepheus
 		}
 	}
 	
-	public class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex>, new() //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
+	public class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex>, new() 
 	{
 		public FlowNetwork()
 		{
@@ -165,10 +165,10 @@ namespace Cepheus
 			}
 			needToCreateOppositeEdge.Clear();
 		}
-		//TODO be able to add edge only through this method, not with the Graph method
-		public FlowEdge<TVertex> AddEdge( TVertex from, TVertex to, string name, int capacity, TextBox txtLength) //TODO má vracet tu hranu
+		
+		public FlowEdge<TVertex> AddEdge( TVertex from, TVertex to, string name, int capacity, TextBox txtLength)
 		{
-			if (!Edges.ContainsKey(name)) //TODO unique names!!!!
+			if (!Edges.ContainsKey(name))
 			{
 				FlowEdge<TVertex> edge = new FlowEdge<TVertex>(capacity,txtLength);
 				edge.Name = name;

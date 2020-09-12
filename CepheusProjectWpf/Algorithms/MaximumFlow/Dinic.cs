@@ -31,7 +31,7 @@ namespace Cepheus
 		public override string Description => CepheusProjectWpf.Properties.Resources.DinicDescription;
 
 		public override bool IsFlowAlgorithm => true;
-		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => true;
 		public override bool DontNeedInitialVertex => false;
 
 		public async Task Run()
@@ -264,7 +264,6 @@ namespace Cepheus
 			ff.SetOutputConsole(outputConsole);
 			await ff.GetPath(network.Source, network.Sink);
 			var path = ff.PathFromSourceToSink;
-			//TODO do this with BFS
 			while(path !=  null)
 			{
 				int min = path[0].Capacity - path[0].Flow;

@@ -163,7 +163,7 @@
     <value>m * log(n)</value>
   </data>
   <data name="BracketsHeight" xml:space="preserve">
-    <value>V závorkách za jménem vrcholu uvidíte jeho výšku.</value>
+    <value>V závorkách za jménem vrcholu uvidíte jeho výšku a přebytek.</value>
   </data>
   <data name="CantContainSemicolon" xml:space="preserve">
     <value>Jméno vrcholu nemůže obsahovat středník.</value>
@@ -202,7 +202,7 @@
     <value>Slévání komponent souvislosti…</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Abyste mohli pokračovat, stiskněte prosím Hotovo. Pak se smaže tok z hran.</value>
+    <value>Abyste mohli pokračovat, stiskněte prosím Hotovo. </value>
   </data>
   <data name="CreatingReserveNet" xml:space="preserve">
     <value>Vytváření sítě rezerv…</value>

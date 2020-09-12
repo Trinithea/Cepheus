@@ -32,7 +32,7 @@ namespace Cepheus
 			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ComponentId;
 			Graph.InitializeVertices(); // to get OutEdges sorted
 			PrintVerticesInitialized(Graph);
-			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; //TODO asi každej neví, co je outedges...
+			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; 
 
 
 			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
@@ -67,12 +67,11 @@ namespace Cepheus
 		{
 			foreach(var edge in minimumSpanningTree.EdgesToRemove)
 			{
-				if(edge != null) //TODO tahle blbost je tu jen kvůli těm dublovanejm hranám
+				if(edge != null) //there can be some opposite edges from FindLightestEdgeFromComponent()
 				{
 					minimumSpanningTree.Edges.Remove(edge.Name);
 					minimumSpanningTree.NewEdges.Remove(edge);
 				}
-				
 			}
 			minimumSpanningTree.EdgesToRemove.Clear();
 		}
@@ -90,7 +89,7 @@ namespace Cepheus
 					if (component.Vertices[i].OutEdges.Count > 0)
 					{
 						var edge = component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
-						if (lightestEdge.Length > edge.Length && edge.From.ComponentID != edge.To.ComponentID) //TODO asi nepotřebuju: && !minimalSpanningTree.Edges.ContainsKey(edge.Name)
+						if (lightestEdge.Length > edge.Length && edge.From.ComponentID != edge.To.ComponentID) 
 						{
 							lightestEdge = edge;
 							vertex = component.Vertices[i];
@@ -101,7 +100,6 @@ namespace Cepheus
 				//remove lightest edge from OutEdges because we will never add it again
 				vertex.OutEdges.Remove(lightestEdge);
 				//also remove the same edge in opposite direction if we have not-oriented graph
-				//TODO if not oriented a vůbec nechápu, jestli se to tu už řeší nebo ne
 				if (!minimumSpanningTree.EdgesToRemove.Contains(lightestEdge))
 				{
 					var vertex2 = lightestEdge.To;
@@ -161,10 +159,8 @@ namespace Cepheus
 				PrintVertex(minimumSpanningTree.Vertices[i]);
 				minimumSpanningTree.Vertices[i].UpdateVertexInfo();
 				ColorVertex(minimumSpanningTree.Vertices[i]);
-				//TODO await Task.Delay(delay - 500); //tady při tom to přeskočí dál!!
 			}
 		}
-		//TODO asi by stačilo používat tu MinimumSpanningTree a ne si to pořád předávat v parametrech
 		
 	}
 }

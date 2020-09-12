@@ -112,7 +112,7 @@ namespace Cepheus
 		}
 		public void UpdateVertexInfo() => txtName.Text = Name + " (" + GetStateName(State) + ", " + InTime.Print() +", "+OutTime.Print() + ")";
 		public override string Informations =>"\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+Name+ CepheusProjectWpf.Properties.Resources.HasState + State + "\nInTime: " + InTime.Print() + "\nOutTime" + OutTime.Print();
-		}//TODO is intime/outime really inifinity by default?
+		}
 
 	// Dijkstra vertex is same as BFS vertex
 	// Bellman-Ford could be BFS vertex also
@@ -188,7 +188,7 @@ namespace Cepheus
 			Surplus = sum;
 			return sum;
 		}
-		public void UpdateHeightInName() => txtName.Text = Name + " (" + Height + ")";
+		public void UpdateHeightInName() => txtName.Text = Name + " (" + Height + ", "+Surplus+")";
 		public override void Initialize() 
 		{
 			Height = 0;

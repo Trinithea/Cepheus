@@ -48,6 +48,12 @@ namespace CepheusProjectWpf
 			ellipseHighlightColor = imgHighlightColor;
 			ellipseDefaultColor = imgDefaultColor;
 		}
+		protected override void OnClosed(EventArgs e)
+		{
+			base.OnClosed(e);
+
+			Application.Current.Shutdown();
+		}
 		public static Dictionary<EllipseVertex, string> Vertices = new Dictionary< EllipseVertex, string>(); 
 		public static Dictionary<ArrowEdge,string> Edges = new Dictionary< ArrowEdge, string>();
 		public static Dictionary<int, EllipseVertex> VerticesById = new Dictionary<int, EllipseVertex>();
@@ -151,7 +157,7 @@ namespace CepheusProjectWpf
 			btnClear.IsEnabled = false;
 			SetNames();
 		}
-		public void EnableEverything() //TODO spouštět v jinym vlákně
+		public void EnableEverything() 
 		{
 			graphCanvas.IsEnabled = true;
 			imgClear.IsEnabled = true;
@@ -319,25 +325,24 @@ namespace CepheusProjectWpf
 				SetDefaultLookToEverything();
 				EnableEverything();
 				AttemptToStop = false;
+				if (isFlowAlgorithm)
+				{
+					SetBackLengthOfEdges();
+					isFlowAlgorithm = false;
+				}
 			}
 			if (Marked.Count >= 1) //initial vertex is selected or sink & source
 			{
 				if (isFlowAlgorithm && sourceSinkCounter < 1)
 				{
 					sourceSinkCounter++;
-					if (isFlowAlgorithm)
-						txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.SelectSink;
+					txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.SelectSink;
 				}
-				else
+				else if((isFlowAlgorithm && sourceSinkCounter == 2)|| isFlowAlgorithm==false)
 				{
 					await Execute();
 				}
 				
-			}		
-			else if (isFlowAlgorithm && AttemptToRun == false)
-			{
-				SetBackLengthOfEdges();
-				isFlowAlgorithm = false;
 			}
 			
 			
@@ -364,6 +369,7 @@ namespace CepheusProjectWpf
 		{
 			gridTutorial.Visibility = Visibility.Hidden;
 		}
+		
 		private void imgPrint_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			try

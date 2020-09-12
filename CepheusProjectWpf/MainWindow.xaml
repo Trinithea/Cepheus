@@ -54,7 +54,7 @@
             <Image HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="20" Source="Resources/error_icon.png" Margin="5,5,0,0"/>
             <Label Content="Initial vertex must have a unique name!" HorizontalAlignment="Left" Margin="25,3,0,0" VerticalAlignment="Top" Width="200" Foreground="{DynamicResource Orange}" FontSize="10"/>
         </Grid>
-        <Grid x:Name="gridInfo" Margin="10,36,0,0" Grid.Column="1" Background="#FF21253A" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Grid.RowSpan="2">
+        <Grid x:Name="gridInfo" Margin="10,36,0,0" Grid.Column="1" Background="#FF21253A" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Grid.RowSpan="2" Panel.ZIndex="4">
             <TextBlock x:Name="TxbInfo" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Foreground="White" Width="250" Padding="8,8,8,32" ScrollViewer.CanContentScroll="True" Visibility="Visible"/>
             <TextBlock x:Name="TxbTimComplexity" HorizontalAlignment="Left" Margin="0,0,0,1" TextWrapping="Wrap" Text="TextBlock" Width="259" Foreground="{DynamicResource Blue}" Padding="8,0,8,8" Visibility="Hidden" Height="24" VerticalAlignment="Bottom"/>
 

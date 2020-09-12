@@ -60,7 +60,7 @@ namespace Cepheus
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
 	{
 		public Graph<TVertex> Graph { get; set; }
-		public TVertex initialVertex; //TODO kliděn by mohlo být i uvnitř grafu
+		public TVertex initialVertex; 
 		public void CreateGraph()
 		{
 			Graph = new Graph<TVertex>();

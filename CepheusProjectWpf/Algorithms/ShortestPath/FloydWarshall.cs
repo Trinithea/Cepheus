@@ -28,19 +28,6 @@ namespace Cepheus
 		int?[,] distanceMatrix = null;
 		Dictionary<int, FloydWarshallVertex> vertices;
 
-
-		//TODO why is this here?
-		public int? GetDistance(Graph<FloydWarshallVertex> graph,int fromId, int toId)
-		{
-			if(distanceMatrix == null) // TODO what if there are only some changes
-				Run(); //TODO await?
-
-			FloydWarshallVertex vertexFrom = vertices[fromId];
-			FloydWarshallVertex vertexTo = vertices[toId];
-
-			return (distanceMatrix[vertexFrom.ID, vertexTo.ID]);
-		}
-
 		public async Task Run()
 		{
 			vertices = Graph.Vertices;
@@ -120,7 +107,7 @@ namespace Cepheus
 			return matrixOfDistances;
 		}
 
-		void Print2DMatrix(int?[,] matrix) //TODO počítání mezer při delších lengths
+		void Print2DMatrix(int?[,] matrix) 
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.MatrixDist;
 			outputConsole.Text += "\n   | ";

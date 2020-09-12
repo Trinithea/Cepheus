@@ -21,7 +21,6 @@ namespace Cepheus
 		{
 			await visitor.Visit(this);
 		}
-		//TODO Jarník je na neorientovnaý grafy
 		public override string Name => CepheusProjectWpf.Properties.Resources.JarnikAlgo;
 
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.JarnikTime;
@@ -105,14 +104,14 @@ namespace Cepheus
 			}
 		}
 
-		public Tree<JarnikVertex> GetMinimumSpan() => MinimumSpanningTree; //TODO can't be null
+		public Tree<JarnikVertex> GetMinimumSpan() => MinimumSpanningTree; 
 		public int GetWeightOfMinimumSpan()
 		{
 			int sum = 0;
 			foreach (Edge<JarnikVertex> edge in MinimumSpanningTree.Edges)
 				sum += edge.Length;
 			return sum;
-		} //TODO do this in datastructure
+		} 
 
 	}
 }

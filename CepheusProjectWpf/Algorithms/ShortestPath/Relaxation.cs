@@ -22,7 +22,7 @@ namespace Cepheus
 		public override string Name => CepheusProjectWpf.Properties.Resources.RelaxAlgo;
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.RelaxTime;
 
-		public override string Description => CepheusProjectWpf.Properties.Resources.RelaxDesc; //TODO
+		public override string Description => CepheusProjectWpf.Properties.Resources.RelaxDesc; 
 
 		public async Task Run()
 		{

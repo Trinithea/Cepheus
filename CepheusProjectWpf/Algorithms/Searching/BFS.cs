@@ -75,8 +75,6 @@ namespace Cepheus
 			}
 		}
 		
-
-		//TODO udělat generický před edge, ať to neni tak hnusně nakopírovaný ve FF
 		public List<Edge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
 		{
 			if (to.Predecessor == null) //'to' is not reachable from 'from'
@@ -87,7 +85,7 @@ namespace Cepheus
 				var path = new List<Edge<BfsVertex>>();
 				while (currentVertex.Predecessor != null)
 				{
-					path.Insert(0, (Edge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex));
+					path.Insert(0, graph.GetEdge(currentVertex.Predecessor, currentVertex));
 					currentVertex = currentVertex.Predecessor;
 				}
 				return path;

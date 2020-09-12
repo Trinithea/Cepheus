@@ -91,26 +91,7 @@ namespace Cepheus
 			}
 		}
 
-		//TODO why is this here?
-		//public int? LengthOfShortestPathFromTo(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
-		//{
-
-		//	Run(graph, from); 
-
-		//	var currentVertex = to;
-		//	int length = 0;
-
-		//	while(currentVertex.Predecessor != null)
-		//	{
-		//		length += (graph.GetEdge(currentVertex.Predecessor, currentVertex)).Length;
-		//		currentVertex = currentVertex.Predecessor;
-		//	}
-
-		//	if (currentVertex == from)
-		//		return length;
-		//	else
-		//		return null;
-		//}
+		
 
 	}
 }
