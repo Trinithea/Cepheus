@@ -15,12 +15,14 @@ namespace Cepheus
 
 		public async Task Run ()
 		{
+			PrintInfoStateDistance();
 			Graph.InitializeVertices();
 			PrintVerticesInitialized(Graph);
-
+			
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
 			PrintVertex(initialVertex);
+			initialVertex.UpdateVertexInfo();
 
 
 
@@ -40,6 +42,7 @@ namespace Cepheus
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
 						edge.To.Predecessor = vertex;
+						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
 						PrintQueued(edge.To);
 						queue.Enqueue(edge.To);
@@ -49,6 +52,7 @@ namespace Cepheus
 					}
 				}
 				vertex.State = States.Closed;
+				vertex.UpdateVertexInfo();
 				PrintVertex(vertex);
 				PrintDequeued(vertex);
 				UncolorVertex(vertex);
@@ -56,10 +60,17 @@ namespace Cepheus
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
-
+			ColorShortestPaths();
 		}
 
-		
+		void ColorShortestPaths()
+		{
+			foreach(var vertex in Graph.Vertices.Values)
+			{
+				if (vertex.Predecessor != null)
+					vertex.ColorEdgeWithPredecessor(this);
+			}
+		}
 		
 
 		//TODO udělat generický před edge, ať to neni tak hnusně nakopírovaný ve FF

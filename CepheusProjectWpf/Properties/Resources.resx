@@ -205,6 +205,9 @@
   <data name="CommonGraphs" xml:space="preserve">
     <value>Graphs from Průvodce labyrintem algoritmů</value>
   </data>
+  <data name="ComponentId" xml:space="preserve">
+    <value>In brackets is the component ID in which the vertex is located.</value>
+  </data>
   <data name="ConstructingPath" xml:space="preserve">
     <value>Constructing the path from source to sink...</value>
   </data>
@@ -347,7 +350,7 @@
     <value>File has an incorrect format.</value>
   </data>
   <data name="Infinity" xml:space="preserve">
-    <value>Infinity</value>
+    <value>∞</value>
   </data>
   <data name="Inside" xml:space="preserve">
     <value>Inside</value>
@@ -507,6 +510,15 @@
   </data>
   <data name="SpaceEdges" xml:space="preserve">
     <value> edges.</value>
+  </data>
+  <data name="StateDistanceInfo" xml:space="preserve">
+    <value>In brackets is the state of the vertex and its distance from inital vertex.</value>
+  </data>
+  <data name="StateInOutTime" xml:space="preserve">
+    <value>In brackets is the state of vertex, entry time and departure time.</value>
+  </data>
+  <data name="StateRating" xml:space="preserve">
+    <value>In brackets is the state of the vertex and its current rating.</value>
   </data>
   <data name="TimeComplexity" xml:space="preserve">
     <value>Time complexity: </value>

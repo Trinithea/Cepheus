@@ -186,6 +186,9 @@
   <data name="CommonGraphs" xml:space="preserve">
     <value>Grafy z Průvodce labyrintem algoritmů</value>
   </data>
+  <data name="ComponentId" xml:space="preserve">
+    <value>V závorkách je ID komponenty, ve které se vrchol nachází.</value>
+  </data>
   <data name="ConstructingPath" xml:space="preserve">
     <value>Konstrukce cesty ze zdroje ke stoku…</value>
   </data>
@@ -329,7 +332,7 @@
     <value>Soubor má špatný formát.</value>
   </data>
   <data name="Infinity" xml:space="preserve">
-    <value>Nekonečno</value>
+    <value>∞</value>
   </data>
   <data name="Inside" xml:space="preserve">
     <value>Uvnitř</value>
@@ -489,6 +492,15 @@
   </data>
   <data name="SpaceEdges" xml:space="preserve">
     <value> hran(y).</value>
+  </data>
+  <data name="StateDistanceInfo" xml:space="preserve">
+    <value>V závorkách je uveden stav vrcholu a jeho vzdálenost od počátečního vrcholu.</value>
+  </data>
+  <data name="StateInOutTime" xml:space="preserve">
+    <value>V závorkách je stav vrcholu, čas příchodu a odchodu z vrcholu.</value>
+  </data>
+  <data name="StateRating" xml:space="preserve">
+    <value>V závorkách je uveden stav vrcholu a jeho aktuální ohodnocení.</value>
   </data>
   <data name="TimeComplexity" xml:space="preserve">
     <value>Časová složitost: </value>

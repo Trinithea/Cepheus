@@ -25,12 +25,13 @@ namespace Cepheus
 		public async Task Run()
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
-
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.StateRating;
 			Graph.InitializeVertices();
 			PrintVerticesInitialized(Graph);
 
 			initialVertex.State = States.Open;
 			initialVertex.Distance = 0;
+			initialVertex.UpdateVertexInfo();
 			PrintVertex(initialVertex);
 			ColorVertex(initialVertex);
 
@@ -50,6 +51,7 @@ namespace Cepheus
 						edge.To.State = States.Open;
 						await Task.Delay(delay - 250);
 						ColorVertex(edge.To);
+						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
 						openVertices.Insert(edge.To.Distance, edge.To);
 						edge.To.Predecessor = vertex;
@@ -57,6 +59,7 @@ namespace Cepheus
 					await Task.Delay(delay);
 				}
 				vertex.State = States.Closed;
+				vertex.UpdateVertexInfo();
 				UncolorVertex(vertex);
 				PrintVertex(vertex);
 				openVertices.ExtractMin();
@@ -65,8 +68,18 @@ namespace Cepheus
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
+			ColorShortestPaths();
 		}
 
+		void ColorShortestPaths()
+		{
+			foreach (var vertex in Graph.Vertices.Values)
+			{
+				if (vertex.Predecessor != null)
+					vertex.ColorEdgeWithPredecessor(this);
+			}
+		}
+		
 		void PrintOpenvertices(BinaryHeap<int,BfsVertex> openVertices)
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OpenVerticesSorted;

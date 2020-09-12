@@ -24,12 +24,14 @@ namespace Cepheus
 		public Dictionary<int, TVertex> Vertices { get; private set; }
 		public Dictionary<Edge<TVertex>, ArrowEdge> UltimateEdges { get; set; }
 		public Dictionary<TVertex, EllipseVertex> UltimateVertices { get; set; }
-		public TVertex AddVertex(int uniqueId, string name)
+		public TVertex AddVertex(EllipseVertex ellipseVertex)
 		{
 			var vertex = new TVertex();
-			vertex.UniqueId = uniqueId;
-			vertex.Name = name;
-			Vertices.Add(uniqueId, vertex);
+			vertex.UniqueId = ellipseVertex.UniqueId;
+			vertex.Name = ellipseVertex.Name;
+			vertex.txtName = ellipseVertex.txtName;
+			Vertices.Add(ellipseVertex.UniqueId, vertex);
+			UltimateVertices.Add(vertex, ellipseVertex);
 			return vertex;
 		}//TODO ther eshould be same implementation as in AddEdge, just create the vertex inside this method
 
@@ -120,6 +122,7 @@ namespace Cepheus
 			
 		}
 	}
+	
 	public class FlowNetwork<TVertex> :Graph<TVertex> where TVertex : VertexBase<TVertex>, new() //TODO inheritance with special type of Edge //TODO there was an implementation with BfsVertex, is that good?
 	{
 		public FlowNetwork()

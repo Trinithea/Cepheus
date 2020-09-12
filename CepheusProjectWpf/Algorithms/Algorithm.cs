@@ -48,6 +48,10 @@ namespace Cepheus
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLEdgeSpace + vertex.Name + "->"+predecessor.Name+ CepheusProjectWpf.Properties.Resources.AddedToMinSpTree;
 		}
+		protected void PrintInfoStateDistance()
+		{
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.StateDistanceInfo;
+		}
 		
 	}
 	public abstract class Algorithm<TVertex> : Algorithm where TVertex : VertexBase<TVertex>, new()
@@ -59,8 +63,7 @@ namespace Cepheus
 			Graph = new Graph<TVertex>();
 			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				Graph.AddVertex(vertex.UniqueId, vertex.Name);
-				Graph.UltimateVertices.Add(Graph.GetVertex(vertex.UniqueId), vertex);
+				Graph.AddVertex(vertex);
 			}
 			foreach (var edge in MainWindow.Edges.Keys)
 			{
@@ -70,7 +73,7 @@ namespace Cepheus
 			if(MainWindow.initialVertex != null)
 				initialVertex = Graph.GetVertex((int)MainWindow.initialVertex);
 		}
-		protected void ColorEdge(Edge<TVertex> edge)
+		public void ColorEdge(Edge<TVertex> edge)
 		{
 			if(edge is FlowEdge<TVertex>)
 				if (((FlowEdge<TVertex>)edge).currentFlowInfo != null) //if null, then edge is artificially created opposite edge
@@ -98,7 +101,7 @@ namespace Cepheus
 		{
 			Graph.UltimateVertices[vertex].SetDefaultLook();
 		}
-
+		
 	}
 
 
@@ -112,8 +115,7 @@ namespace Cepheus
 			graph = new FlowNetwork<TVertex>();
 			foreach (var vertex in MainWindow.Vertices.Keys)
 			{
-				graph.AddVertex(vertex.UniqueId, vertex.Name);
-				graph.UltimateVertices.Add(graph.GetVertex(vertex.UniqueId), vertex);
+				graph.AddVertex(vertex);
 			}
 			foreach (var edge in MainWindow.Edges.Keys)
 			{

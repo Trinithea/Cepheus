@@ -124,22 +124,13 @@ namespace Cepheus
 			
 			foreach (var vertex in graph.UltimateVertices)
 			{
-				BfsVertex newVertex = null;
+				
+				var copy = vertex.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, leftDifference, topDifference);
+				BfsVertex newVertex = reserveNetwork.AddVertex(copy);
 				if (vertex.Key == graph.Source)
-				{
-					newVertex = reserveNetwork.AddVertex(graph.Source.UniqueId, graph.Source.Name);
 					reserveNetwork.Source = newVertex;
-				}		
 				else if (vertex.Key == graph.Sink)
-				{
-					newVertex = reserveNetwork.AddVertex(graph.Sink.UniqueId, graph.Sink.Name);
 					reserveNetwork.Sink = newVertex;
-				}
-				else
-					newVertex = reserveNetwork.AddVertex(vertex.Key.UniqueId, vertex.Key.Name);
-
-				var copy = vertex.Value.DrawThisOnCanvasAndReturnCopy(netOfReservesCanvas, leftDifference,topDifference);
-				reserveNetwork.UltimateVertices.Add(newVertex, copy);
 			}
 			foreach (var edge in graph.UltimateEdges)
 			{

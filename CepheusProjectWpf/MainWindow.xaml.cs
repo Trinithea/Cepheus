@@ -31,15 +31,17 @@ namespace CepheusProjectWpf
 			//System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("cs-CZ");
 			InitializeComponent();
 			UpdateControls();
-			txtConsole.Text = CepheusProjectWpf.Properties.Resources.Welcome;
-			txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TroubleDel;
-			txtConsole.Focus();
-			for (int i = 0; i < 100; i++)
+
+			txtConsole.TextChanged += (o, e) =>
 			{
-				txtConsole.AppendText("\nahojfd");
+				txtConsole.Focus();
 				txtConsole.CaretIndex = txtConsole.Text.Length;
 				txtConsole.ScrollToEnd();
-			}
+			};
+			
+			txtConsole.Text = CepheusProjectWpf.Properties.Resources.Welcome;
+			txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TroubleDel;
+			
 
 			DefaultColor = (SolidColorBrush)Application.Current.Resources["Aqua"];
 			HiglightColor = (SolidColorBrush)Application.Current.Resources["Orange"];

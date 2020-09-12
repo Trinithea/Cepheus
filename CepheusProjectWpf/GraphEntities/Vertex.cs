@@ -28,6 +28,7 @@ namespace Cepheus
 	{
 		public List<Edge<Vertex>> OutEdges = new List<Edge<Vertex>>();
 		public List<Edge<Vertex>> InEdges = new List<Edge<Vertex>>();
+		public TextBox txtName;
 		public abstract string Informations { get; }
 		public int UniqueId { get; set; }
 		public string Name { get; set; }
@@ -77,9 +78,9 @@ namespace Cepheus
 			Distance = Int32.MaxValue;
 		}
 		public BfsVertex Predecessor { get; set; }
-		
+		public void UpdateVertexInfo() => txtName.Text = Name + "(" + GetStateName(State) + ", " + Distance.Print() + ")";
 		public States State { get; set; }
-
+		public void ColorEdgeWithPredecessor(Algorithm<BfsVertex> algorithm) => algorithm.ColorEdge(algorithm.Graph.GetEdge(Predecessor.UniqueId + "->" + UniqueId));
 		public int Distance { get; set; }
 
 		public override void Initialize()
@@ -87,8 +88,9 @@ namespace Cepheus
 			State = States.Unvisited;
 			Distance = Int32.MaxValue;
 			Predecessor = null;
+			UpdateVertexInfo();
 		}
-		public override string Informations => CepheusProjectWpf.Properties.Resources.NLVertexSpace + Name + CepheusProjectWpf.Properties.Resources.HasState + GetStateName(State) + CepheusProjectWpf.Properties.Resources.IsInDistance + Distance.Print() + CepheusProjectWpf.Properties.Resources.FromInitVPred + Predecessor?.Name;
+		public override string Informations => "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace + Name + CepheusProjectWpf.Properties.Resources.HasState + GetStateName(State) + CepheusProjectWpf.Properties.Resources.IsInDistance + Distance.Print() + CepheusProjectWpf.Properties.Resources.FromInitVPred + Predecessor?.Name;
 	}
 
 	public class DfsVertex : VertexBase<DfsVertex>, IStateVertex
@@ -106,7 +108,9 @@ namespace Cepheus
 			State = States.Unvisited;
 			InTime = null;
 			OutTime = null;
+			UpdateVertexInfo();
 		}
+		public void UpdateVertexInfo() => txtName.Text = Name + "(" + GetStateName(State) + ", " + InTime.Print() +", "+OutTime.Print() + ")";
 		public override string Informations =>"\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+Name+ CepheusProjectWpf.Properties.Resources.HasState + State + "\nInTime: " + InTime.Print() + "\nOutTime" + OutTime.Print();
 		}//TODO is intime/outime really inifinity by default?
 
@@ -133,7 +137,9 @@ namespace Cepheus
 			State = States.Outside;
 			Rating = Int32.MaxValue;
 			Predecessor = null;
+			UpdateVertexInfo();
 		}
+		public void UpdateVertexInfo() => txtName.Text = Name + "(" + GetState(State) + ", " + Rating.Print() + ")";
 		string GetState(States state)
 		{
 			switch (state)
@@ -152,10 +158,11 @@ namespace Cepheus
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>
 	{
 		public int ComponentID { get; set; }
-
+		public void UpdateVertexInfo() => txtName.Text = Name + "(" + ComponentID + ")";
 		public override void Initialize()
 		{
 			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));
+			UpdateVertexInfo();
 		}
 		public override string Informations => "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+ Name+ CepheusProjectWpf.Properties.Resources.IsInComp+ ComponentID;
 	}
@@ -167,7 +174,6 @@ namespace Cepheus
 	{
 		public int Height { get; set; }
 		public int Surplus { get; set; }
-		public TextBox txtName;
 		public int UpdateSurplus()
 		{
 			int sum = 0;

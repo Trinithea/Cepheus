@@ -29,6 +29,7 @@ namespace Cepheus
 			initialVertex.State = States.Open;
 
 			initialVertex.Distance = 0;
+			initialVertex.UpdateVertexInfo();
 			PrintVertex(initialVertex);
 
 			List<BfsVertex> openVertices = new List<BfsVertex>();
@@ -47,6 +48,7 @@ namespace Cepheus
 						edge.To.State = States.Open;
 						await Task.Delay(delay - 250);
 						ColorVertex(edge.To);
+						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
 						openVertices.Add(edge.To);
 						edge.To.Predecessor = vertex;
@@ -54,12 +56,22 @@ namespace Cepheus
 					await Task.Delay(delay);
 				}
 				vertex.State = States.Closed;
+				vertex.UpdateVertexInfo();
 				openVertices.RemoveAt(0);
 				UncolorVertex(vertex);
 				PrintVertex(vertex);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
 				await Task.Delay(delay);
+			}
+			ColorShortestPaths();
+		}
+		void ColorShortestPaths()
+		{
+			foreach (var vertex in Graph.Vertices.Values)
+			{
+				if (vertex.Predecessor != null)
+					vertex.ColorEdgeWithPredecessor(this);
 			}
 		}
 

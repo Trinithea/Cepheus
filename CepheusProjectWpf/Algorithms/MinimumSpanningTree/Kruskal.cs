@@ -26,6 +26,7 @@ namespace Cepheus
 
 		public async Task Run()
 		{
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ComponentId;
 			Graph.InitializeVertices(); // to get OutEdges sorted
 			PrintVerticesInitialized(Graph);
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; 

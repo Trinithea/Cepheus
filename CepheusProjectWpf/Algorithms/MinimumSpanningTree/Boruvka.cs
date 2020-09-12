@@ -26,6 +26,7 @@ namespace Cepheus
 
 		public async Task Run()
 		{
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ComponentId;
 			Graph.InitializeVertices(); // to get OutEdges sorted
 			PrintVerticesInitialized(Graph);
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; //TODO asi každej neví, co je outedges...
@@ -127,6 +128,7 @@ namespace Cepheus
 					var vertex = minimumSpanningTree.ContextComponents[toComponentID].Vertices[j];
 					vertex.ComponentID = newComponent.ID;
 					PrintVertex(vertex);
+					vertex.UpdateVertexInfo();
 					newComponent.Vertices.Add(vertex);
 				}
 				//adding edges
@@ -154,6 +156,7 @@ namespace Cepheus
 				minimumSpanningTree.Vertices[i].ComponentID = i;
 				ids.Add(i);
 				PrintVertex(minimumSpanningTree.Vertices[i]);
+				minimumSpanningTree.Vertices[i].UpdateVertexInfo();
 				ColorVertex(minimumSpanningTree.Vertices[i]);
 				//TODO await Task.Delay(delay - 500); //tady při tom to přeskočí dál!!
 			}

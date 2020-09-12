@@ -389,6 +389,15 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In brackets is the component ID in which the vertex is located..
+        /// </summary>
+        internal static string ComponentId {
+            get {
+                return ResourceManager.GetString("ComponentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Constructing the path from source to sink....
         /// </summary>
         internal static string ConstructingPath {
@@ -813,7 +822,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Infinity.
+        ///   Looks up a localized string similar to ∞.
         /// </summary>
         internal static string Infinity {
             get {
@@ -1295,6 +1304,33 @@ namespace CepheusProjectWpf.Properties {
         internal static string SpaceEdges {
             get {
                 return ResourceManager.GetString("SpaceEdges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In brackets is the state of the vertex and its distance from inital vertex..
+        /// </summary>
+        internal static string StateDistanceInfo {
+            get {
+                return ResourceManager.GetString("StateDistanceInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In brackets is the state of vertex, entry time and departure time..
+        /// </summary>
+        internal static string StateInOutTime {
+            get {
+                return ResourceManager.GetString("StateInOutTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In brackets is the state of the vertex and its current rating..
+        /// </summary>
+        internal static string StateRating {
+            get {
+                return ResourceManager.GetString("StateRating", resourceCulture);
             }
         }
         

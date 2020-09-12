@@ -28,14 +28,17 @@ namespace Cepheus
 		Tree<JarnikVertex> MinimumSpanningTree;
 		public async Task Run()
 		{
+			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.StateRating;
 			Graph.InitializeVertices();
 			PrintVerticesInitialized(Graph);
 
 			MinimumSpanningTree = new Tree<JarnikVertex>();
 			initialVertex.State = JarnikVertex.States.Neighbour;
 			initialVertex.Rating = 0;
+			
 			PrintVertex(initialVertex);
 			ColorVertex(initialVertex);
+			initialVertex.UpdateVertexInfo();
 
 			var neighbours = new BinaryHeap<int, JarnikVertex>(Graph.Vertices.Count);
 			neighbours.Insert(initialVertex.Rating,initialVertex);
@@ -45,7 +48,7 @@ namespace Cepheus
 			{
 				var vertex = neighbours.ExtractMin(); // neighbour with minimal rating
 				vertex.State = JarnikVertex.States.Inside;
-				
+				vertex.UpdateVertexInfo();
 				if (vertex.Predecessor != null)
 				{
 					MinimumSpanningTree.Edges.Add(Graph.GetEdge(vertex.Predecessor, vertex));
@@ -70,6 +73,7 @@ namespace Cepheus
 						edge.To.Predecessor = vertex;
 						await Task.Delay(delay - 250);
 						ColorVertex(edge.To);
+						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
 						if (!neighbours.ContainsValue(edge.To))
 						{

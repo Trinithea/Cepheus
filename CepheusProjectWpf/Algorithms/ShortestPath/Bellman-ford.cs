@@ -23,12 +23,14 @@ namespace Cepheus
 
 		public async Task Run()
 		{
+			PrintInfoStateDistance();
 			Graph.InitializeVertices();
 			PrintVerticesInitialized(Graph);
 
 			initialVertex.State = States.Open;
 
 			initialVertex.Distance = 0;
+			initialVertex.UpdateVertexInfo();
 			PrintVertex(initialVertex);
 			Queue<BfsVertex> openVertices = new Queue<BfsVertex>();
 
@@ -49,6 +51,7 @@ namespace Cepheus
 						openVertices.Enqueue(edge.To);
 						await Task.Delay(delay - 250);
 						ColorVertex(edge.To);
+						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
 						PrintQueued(edge.To);
 						edge.To.Predecessor = vertex;
@@ -56,14 +59,23 @@ namespace Cepheus
 					await Task.Delay(delay);
 				}
 				vertex.State = States.Closed;
+				vertex.UpdateVertexInfo();
 				UncolorVertex(vertex);
 				PrintVertex(vertex);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
+			ColorShortestPaths();
 		}
 
-
+		void ColorShortestPaths()
+		{
+			foreach (var vertex in Graph.Vertices.Values)
+			{
+				if (vertex.Predecessor != null)
+					vertex.ColorEdgeWithPredecessor(this);
+			}
+		}
 	}
 }
