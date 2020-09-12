@@ -33,6 +33,14 @@ namespace CepheusProjectWpf
 			UpdateControls();
 			txtConsole.Text = CepheusProjectWpf.Properties.Resources.Welcome;
 			txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TroubleDel;
+			txtConsole.Focus();
+			for (int i = 0; i < 100; i++)
+			{
+				txtConsole.AppendText("\nahojfd");
+				txtConsole.CaretIndex = txtConsole.Text.Length;
+				txtConsole.ScrollToEnd();
+			}
+
 			DefaultColor = (SolidColorBrush)Application.Current.Resources["Aqua"];
 			HiglightColor = (SolidColorBrush)Application.Current.Resources["Orange"];
 			ellipseHighlightColor = imgHighlightColor;

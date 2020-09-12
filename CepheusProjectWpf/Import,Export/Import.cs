@@ -43,17 +43,14 @@ namespace CepheusProjectWpf.Import_Export
 			canvas = graphCanvas;
 			outputConsole = console;
 
-			var lines = text.Split('\n');
-			int i = 0;
-
+			var textReader = new StringReader(text);
+			
 			if (text!="") // file is not empty
 			{
-				if (lines[0] == "Vertices:" && lines.Length >1)
+				var line = textReader.ReadLine();
+				if (line == "Vertices:" )
 				{
-					i++;
-					string line = lines[i];
-					
-					while (line != "Edges:")
+					while ((line = textReader.ReadLine()) != "Edges:")
 					{
 						try
 						{
@@ -63,16 +60,9 @@ namespace CepheusProjectWpf.Import_Export
 						{
 							throw new FormatException();
 						}
-						i++;
-						line = lines[i];
-					}
-					if (i< lines.Length)
-					{
-						i++;
-						line = lines[i] ;
 					}
 						
-					while (i < lines.Length)
+					while ((line = textReader.ReadLine()) != null)
 					{
 						try
 						{
@@ -82,9 +72,6 @@ namespace CepheusProjectWpf.Import_Export
 						{
 							throw new FormatException();
 						}
-						i++;
-						if (i < lines.Length )
-							line = lines[i];
 					}
 				}
 				else

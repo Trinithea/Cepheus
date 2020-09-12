@@ -368,7 +368,7 @@
     <value>Matice vzdáleností:</value>
   </data>
   <data name="MaxFlow" xml:space="preserve">
-    <value>Maximální tok v této síti je:</value>
+    <value>Maximální tok v této síti je: </value>
   </data>
   <data name="Mistake" xml:space="preserve">
     <value>Objevila se nějaká chyba...</value>
