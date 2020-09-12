@@ -30,6 +30,10 @@ namespace Cepheus
 		BFS bfs;
 		public override string Description => CepheusProjectWpf.Properties.Resources.DinicDescription;
 
+		public override bool IsFlowAlgorithm => true;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
+
 		public async Task Run()
 		{
 			bfs = new BFS();

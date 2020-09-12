@@ -10,6 +10,9 @@ namespace Cepheus
 {
 	public class Jarnik : Algorithm<JarnikVertex>
 	{
+		public override bool IsFlowAlgorithm => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
 		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
@@ -65,8 +68,9 @@ namespace Cepheus
 				foreach(Edge<JarnikVertex> edge in vertex.OutEdges)
 				{
 					if((edge.To.State == JarnikVertex.States.Neighbour || edge.To.State == JarnikVertex.States.Outside)
-						&& (edge.To.Rating == Int32.MaxValue || edge.To.Rating > edge.Length))
+						&& (edge.To.Rating > edge.Length))
 					{
+						await Task.Delay(delay);
 						ColorEdge(edge);
 						edge.To.State = JarnikVertex.States.Neighbour;
 						edge.To.Rating = edge.Length;
@@ -80,7 +84,6 @@ namespace Cepheus
 							neighbours.Insert(edge.To.Rating, edge.To);
 							PrintSortedNeighbours(neighbours);
 						}
-						await Task.Delay(delay);
 					}
 				}
 				if(!MinimumSpanningTree.Vertices.Contains(vertex))

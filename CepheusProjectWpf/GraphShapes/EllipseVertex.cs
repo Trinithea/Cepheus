@@ -54,7 +54,7 @@ namespace CepheusProjectWpf.GraphShapes
 			newVertex.Height = 20;
 			Canvas.SetLeft(newVertex, mousePos.X - newVertex.Width / 2);
 			Canvas.SetTop(newVertex, mousePos.Y - newVertex.Height / 2);
-			Canvas.SetZIndex(newVertex, 2);
+			Canvas.SetZIndex(newVertex, 3);
 			newVertex.MouseLeftButtonDown += Ellipse_MouseLeftButtonDown;
 			newVertex.MouseLeftButtonUp += Ellipse_MouseLeftButtonUp;
 			newVertex.MouseMove += Ellipse_MouseMove;
@@ -68,11 +68,21 @@ namespace CepheusProjectWpf.GraphShapes
 			MainEllipse = newVertex;
 
 			txtName = new TextBox();
+			txtName.KeyUp += TxtName_KeyUp;
 
 			UniqueId = uniqueId;
 			SetNameTextBox(Canvas.GetLeft(newVertex), Canvas.GetTop(newVertex), name);
 			
 			return newVertex;
+		}
+		private void TxtName_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (txtName.Text.Contains(';'))
+			{
+				txtName.Text.Replace(";", "");
+				outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.CantContainSemicolon;
+			}
+				
 		}
 
 		void SetNameTextBox(double left, double top, string name)

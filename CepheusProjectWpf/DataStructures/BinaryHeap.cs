@@ -26,10 +26,19 @@ namespace CepheusProjectWpf.DataStructures
 		/// </summary>
 		public void Insert(TKey key, TValue value) 
 		{
-			currentIndex++;
-			Heap[currentIndex].Item1 = key;
-			Heap[currentIndex].Item2 = value;
-			BubbleUp(currentIndex);
+			int index = HeapContains(value);
+			if (index != -1)
+			{
+				Heap[index].Item1 = key;
+				BubbleUp(index);
+			}
+			else
+			{
+				currentIndex++;
+				Heap[currentIndex].Item1 = key;
+				Heap[currentIndex].Item2 = value;
+				BubbleUp(currentIndex);
+			}
 		} 
 		private void BubbleUp(int indexWithChangedKey)
 		{
@@ -43,6 +52,16 @@ namespace CepheusProjectWpf.DataStructures
 				Heap[indexWithChangedKey] = tmp;
 				indexWithChangedKey = fatherIndex;
 			}
+		}
+
+		private int HeapContains(TValue value)
+		{
+			for (int i = 1; i <= currentIndex; i++)
+			{
+				if (Heap[i].Item2.Equals(value))
+					return i;
+			}
+			return -1;
 		}
 		/// <summary>
 		/// Finds value with the lowest key.

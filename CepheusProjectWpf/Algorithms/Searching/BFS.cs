@@ -8,6 +8,9 @@ namespace Cepheus
 {
 	public class BFS : Algorithm<BfsVertex>
 	{
+		public override bool IsFlowAlgorithm => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
 		public override string Name => CepheusProjectWpf.Properties.Resources.BFSAlgo;
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.BFSTime;
 
@@ -38,6 +41,7 @@ namespace Cepheus
 					
 					if (edge.To.State ==States.Unvisited)
 					{
+						await Task.Delay(delay);
 						ColorEdge(edge);
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
@@ -48,7 +52,6 @@ namespace Cepheus
 						queue.Enqueue(edge.To);
 						await Task.Delay(delay-250);
 						ColorVertex(edge.To);
-						await Task.Delay(delay);
 					}
 				}
 				vertex.State = States.Closed;

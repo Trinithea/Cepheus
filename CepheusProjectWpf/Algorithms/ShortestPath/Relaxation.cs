@@ -8,6 +8,9 @@ namespace Cepheus
 {
 	public sealed class Relaxation : Algorithm<BfsVertex>
 	{
+		public override bool IsFlowAlgorithm => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
 		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
@@ -41,8 +44,9 @@ namespace Cepheus
 				var vertex = openVertices[0]; // some open vertex //TODO couldn't be here the alst position for better efficiency?
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
-					if (edge.To.Distance == Int32.MaxValue || edge.To.Distance > (vertex.Distance + edge.Length))
+					if (edge.To.Distance > (vertex.Distance + edge.Length))
 					{
+						await Task.Delay(delay);
 						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = States.Open;
@@ -53,7 +57,6 @@ namespace Cepheus
 						openVertices.Add(edge.To);
 						edge.To.Predecessor = vertex;
 					}
-					await Task.Delay(delay);
 				}
 				vertex.State = States.Closed;
 				vertex.UpdateVertexInfo();

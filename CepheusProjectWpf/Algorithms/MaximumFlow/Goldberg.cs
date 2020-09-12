@@ -9,6 +9,9 @@ namespace Cepheus
 	
 	public class Goldberg : FlowAlgorithm<GoldbergVertex>
 	{
+		public override bool IsFlowAlgorithm => true;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
 		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);

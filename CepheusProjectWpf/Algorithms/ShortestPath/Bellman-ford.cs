@@ -8,6 +8,9 @@ namespace Cepheus
 {
 	public class BellmanFord : Algorithm<BfsVertex>
 	{
+		public override bool IsFlowAlgorithm => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
 		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);
@@ -43,8 +46,9 @@ namespace Cepheus
 				foreach (Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					
-					if (edge.To.Distance == Int32.MaxValue || edge.To.Distance > (vertex.Distance + edge.Length))
+					if (edge.To.Distance > (vertex.Distance + edge.Length))
 					{
+						await Task.Delay(delay);
 						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = States.Open;
@@ -56,7 +60,7 @@ namespace Cepheus
 						PrintQueued(edge.To);
 						edge.To.Predecessor = vertex;
 					}
-					await Task.Delay(delay);
+					
 				}
 				vertex.State = States.Closed;
 				vertex.UpdateVertexInfo();

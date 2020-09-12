@@ -126,12 +126,6 @@ namespace CepheusProjectWpf
 			foreach (var algorithm in algorithms)
 			{
 				cmbAlgorithms.Items.Add(algorithm);
-				if (algorithm is Dinic || algorithm is FordFulkerson || algorithm is Goldberg)
-					flowAlgorithms.Add(algorithm);
-				if (algorithm is Dijkstra)
-					onlyPositiveEdgesAlgorithms.Add(algorithm);
-				if (algorithm is Kruskal || algorithm is Boruvka || algorithm is FloydWarshall)
-					dontNeedInitialVertexAlgorithms.Add(algorithm);
 			}
 			
 		}
@@ -149,7 +143,6 @@ namespace CepheusProjectWpf
 			var algorithm = (Algorithm)cmbAlgorithms.SelectedItem;
 			await algorithm.Accept(visitor); //Run
 
-			
 		}
 		void DisableEverything()
 		{
@@ -207,30 +200,31 @@ namespace CepheusProjectWpf
 		}
 		private async void gridRun_MouseUp(object sender, MouseButtonEventArgs e)
 		{
+			sourceSinkCounter = 0;
 			lblInfo.Visibility = Visibility.Hidden;
 			if(cmbAlgorithms.SelectedItem != null)
 			{
 				LightenGrid(gridRun);
 				txtConsole.Text += "\n\n"+((Algorithm)cmbAlgorithms.SelectedItem).Name + CepheusProjectWpf.Properties.Resources.AttemptToRun;
-				if(onlyPositiveEdgesAlgorithms.Contains(cmbAlgorithms.SelectedItem))
+				if(((Algorithm)cmbAlgorithms.SelectedItem).NeedsOnlyNonNegativeEdgeLenghts)
 				{
 					if (!CheckLengthsIfPositive())
 					{
-						txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.DijkstraPosLengths;
+						txtConsole.Text += "\n"+ ((Algorithm)cmbAlgorithms.SelectedItem).Name + CepheusProjectWpf.Properties.Resources.DijkstraPosLengths;
 						return;
 					}
 				}
-				if (flowAlgorithms.Contains(((Algorithm)cmbAlgorithms.SelectedItem)))
+				if (((Algorithm)cmbAlgorithms.SelectedItem).IsFlowAlgorithm)
 					isFlowAlgorithm = true;
 				if (isFlowAlgorithm)
 					txtConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.SelectSource;
 				else
 				{
-					if(!dontNeedInitialVertexAlgorithms.Contains(cmbAlgorithms.SelectedItem))
+					if(!((Algorithm)cmbAlgorithms.SelectedItem).DontNeedInitialVertex)
 						txtConsole.Text += "\n\n"+ CepheusProjectWpf.Properties.Resources.SelectInit;
 				}
 				UnmarkEverything();
-				if (!dontNeedInitialVertexAlgorithms.Contains(cmbAlgorithms.SelectedItem))
+				if (!((Algorithm)cmbAlgorithms.SelectedItem).DontNeedInitialVertex)
 				{
 					lblInfo.Visibility = Visibility.Visible;
 					btnOkRun.Visibility = Visibility.Visible;
@@ -256,7 +250,16 @@ namespace CepheusProjectWpf
 			DarkenGrid(gridRun);
 		}
 
-		
+		private void SetDefaultLookToEverything()
+		{
+			foreach (var vertex in Vertices)
+			{
+				vertex.Key.txtName.Text = vertex.Value;
+				vertex.Key.SetDefaultLook();
+			}
+			foreach (var edge in Edges.Keys)
+				edge.SetDefaultLook();
+		}
 
 		private void DarkenImage(object sender, MouseEventArgs e)
 		{
@@ -307,16 +310,17 @@ namespace CepheusProjectWpf
 				edge.txtLength.Text = value[1];
 			}
 		}
-		void SetBackNamesOfVertices()
-		{
-			foreach(var vertex in Vertices)
-			{
-				vertex.Key.txtName.Text = vertex.Value; 
-			}
-		}
+		
 		private async void btnOkRun_Click(object sender, RoutedEventArgs e)
 		{
-			if(Marked.Count >= 1) //initial vertex is selected or sink & source
+			if (AttemptToStop)
+			{
+				btnOkRun.Visibility = Visibility.Hidden;
+				SetDefaultLookToEverything();
+				EnableEverything();
+				AttemptToStop = false;
+			}
+			if (Marked.Count >= 1) //initial vertex is selected or sink & source
 			{
 				if (isFlowAlgorithm && sourceSinkCounter < 1)
 				{
@@ -328,45 +332,37 @@ namespace CepheusProjectWpf
 				{
 					await Execute();
 				}
+				
 			}		
 			else if (isFlowAlgorithm && AttemptToRun == false)
 			{
 				SetBackLengthOfEdges();
-				if (cmbAlgorithms.SelectedItem is Goldberg)
-					SetBackNamesOfVertices();
-				EnableEverything();
 				isFlowAlgorithm = false;
-				btnOkRun.Visibility = Visibility.Hidden;
-				
 			}
+			
+			
 		}
+		bool AttemptToStop = false;
 		private async Task Execute()
 		{
 			await Run();
 			DarkenGrid(gridRun);
 			txtConsole.Text += "\n\n" + ((Algorithm)cmbAlgorithms.SelectedItem).Name + CepheusProjectWpf.Properties.Resources.HasFinished;
 			AttemptToRun = false;
-			if (isFlowAlgorithm)
-			{
-				btnOkRun.Visibility = Visibility.Visible;
-				txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.Continue;
-			}
-			else
-				EnableEverything();
-			foreach (var marked in Marked) // can be one or two marked
-				marked.Unmark();
-			
-			Marked.Clear();
+			AttemptToStop = true;
+			btnOkRun.Visibility = Visibility.Visible;
+			txtConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.Continue;
+			UnmarkEverything();
 			sourceSinkCounter = 0;
 			
 		}
 		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)
 		{
-			imgTutorial.Visibility = Visibility.Visible;
+			gridTutorial.Visibility = Visibility.Visible;
 		}
 		private void ImgHelp_MouseLeave(object sender, MouseEventArgs e)
 		{
-			imgTutorial.Visibility = Visibility.Hidden;
+			gridTutorial.Visibility = Visibility.Hidden;
 		}
 		private void imgPrint_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{

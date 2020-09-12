@@ -29,10 +29,6 @@ namespace UnitTestsDataStructures
 			heap.Insert(1, "h");
 			Assert.AreEqual("h", heap.Min());
 			heap.ExtractMin();
-			Assert.AreEqual("h", heap.Min());
-			heap.ExtractMin();
-			Assert.AreEqual("ha", heap.Min());
-			heap.ExtractMin();
 			Assert.AreEqual("ha", heap.Min());
 			heap.ExtractMin();
 			Assert.AreEqual("haha", heap.Min());

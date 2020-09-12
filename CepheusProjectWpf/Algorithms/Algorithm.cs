@@ -10,6 +10,9 @@ namespace Cepheus
 {
 	public abstract class Algorithm 
 	{
+		public abstract bool IsFlowAlgorithm { get;  }
+		public abstract bool NeedsOnlyNonNegativeEdgeLenghts { get; }
+		public abstract bool DontNeedInitialVertex { get; }
 		public abstract string Name { get; }
 		public abstract string TimeComplexity { get; }
 		public abstract void Accept(VisitorGraphCreator visitor);
@@ -75,23 +78,29 @@ namespace Cepheus
 		}
 		public void ColorEdge(Edge<TVertex> edge)
 		{
-			if(edge is FlowEdge<TVertex>)
+			if (edge is FlowEdge<TVertex>)
 				if (((FlowEdge<TVertex>)edge).currentFlowInfo != null) //if null, then edge is artificially created opposite edge
 					Graph.UltimateEdges[edge].SetMarkedLook();
 				else { }
 			else
+			{
+				Canvas.SetZIndex(Graph.UltimateEdges[edge].MainLine, 2);
 				Graph.UltimateEdges[edge].SetMarkedLook();
-
+			}
 		}
 
 		protected void UncolorEdge(Edge<TVertex> edge)
 		{
 			if (edge is FlowEdge<TVertex>)
 				if (((FlowEdge<TVertex>)edge).currentFlowInfo != null)
-					Graph.UltimateEdges[edge].SetDefaultLook();
+					Graph.UltimateEdges[edge].SetDefaultLook();					
 				else { }
 			else
+			{
+				Canvas.SetZIndex(Graph.UltimateEdges[edge].MainLine, 1);
 				Graph.UltimateEdges[edge].SetDefaultLook();
+			}
+				
 		}
 		protected void ColorVertex(TVertex vertex)
 		{

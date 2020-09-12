@@ -184,6 +184,9 @@
   <data name="BracketsHeight" xml:space="preserve">
     <value>In brackets after name of a vertex you see its height.</value>
   </data>
+  <data name="CantContainSemicolon" xml:space="preserve">
+    <value>A vertex name can't contain a semicolon.</value>
+  </data>
   <data name="CantWrite" xml:space="preserve">
     <value>Can't write to the selected file. Please check if the file is closed.</value>
   </data>
@@ -254,7 +257,7 @@
     <value>Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.</value>
   </data>
   <data name="DijkstraPosLengths" xml:space="preserve">
-    <value>In Dijkstra's algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again.</value>
+    <value> can contain only non-negative lengths. Please, correct all negative lengths and then press Run again.</value>
   </data>
   <data name="DijkstraTime" xml:space="preserve">
     <value>O((n + m) * log(n))</value>

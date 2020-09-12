@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CepheusProjectWpf"
         mc:Ignorable="d"
-        Title="Cepheus" Height="1080" Width="1920" Icon="Resources/logo_icon.png" KeyDown="Window_KeyDown" MinWidth="1059" MinHeight="879" Left="0" Top="0">
+        Title="Cepheus" Height="1030" Width="1920" Icon="Resources/logo_icon.png" KeyDown="Window_KeyDown" MinWidth="1100" MinHeight="879" Left="0" Top="0" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="34*"/>
-            <RowDefinition Height="531*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="610*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="299*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
@@ -19,15 +21,8 @@
         <Grid.Background>
             <ImageBrush ImageSource="Resources/night_sky.jpg"/>
         </Grid.Background>
-        <local:ColorsUserControl x:Name="menuHiglightColors" Height="140" Canvas.Left="170" Canvas.Top="-23" Width="228" BorderThickness="1" Visibility="Hidden" MouseUp="menuHiglightColors_MouseUp" MouseLeave="menuHiglightColors_MouseLeave" Panel.ZIndex="5" Grid.Column="1" Margin="174,40,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <local:ColorsUserControl x:Name="menuDefaultColors" Height="140" Canvas.Left="145" Canvas.Top="-30" Width="226" BorderThickness="1" Visibility="Hidden" MouseLeave="menuDefaultColors_MouseLeave" MouseUp="menuDefaultColors_MouseUp" Panel.ZIndex="5" Grid.Column="1" Margin="148,40,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Rectangle Grid.Column="1" Fill="{DynamicResource Blue}" Margin="0,5,0,299" Stroke="{DynamicResource Blue}" Grid.Row="1"/>
-
-        <Canvas x:Name="graphCanvas" Margin="1,6,1,329" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp" Grid.Column="1" Grid.Row="1">
-
-        </Canvas>
-        <Button Name="btnClear" Content="Clear canvas" Grid.Column="1" Margin="0,0,0,299" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Blue}" Foreground="White" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="109" Click="btnClear_Click" Grid.Row="1" FontSize="14"/>
-        <Image x:Name="imgClear" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,109,299" Width="30" Source="Resources/clear_graph_icon.png" Height="30" VerticalAlignment="Bottom" MouseLeftButtonUp="imgClear_MouseLeftButtonUp" Grid.Row="1"/>
+        <local:ColorsUserControl x:Name="menuHiglightColors" Height="140" Width="228" BorderThickness="1" Visibility="Hidden" MouseUp="menuHiglightColors_MouseUp" MouseLeave="menuHiglightColors_MouseLeave" Panel.ZIndex="5" Grid.Column="1" Margin="174,40,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <local:ColorsUserControl x:Name="menuDefaultColors" Height="140" Width="226" BorderThickness="1" Visibility="Hidden" MouseLeave="menuDefaultColors_MouseLeave" MouseUp="menuDefaultColors_MouseUp" Panel.ZIndex="5" Grid.Column="1" Margin="148,40,0,0" Grid.RowSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Rectangle Grid.ColumnSpan="3" Fill="{DynamicResource Dark}" Stroke="#FF10429B" MaxHeight="34" MinHeight="34" Height="34" VerticalAlignment="Top"/>
 
         <Grid Background="#FF12131B" Margin="0,3,0,0" Grid.Column="1" HorizontalAlignment="Left" Width="341" MinHeight="28" MaxHeight="28" Height="28" VerticalAlignment="Top">
@@ -45,7 +40,7 @@
             <Image x:Name="imgPrint" HorizontalAlignment="Left" Height="20" Margin="54,5,0,0" VerticalAlignment="Top" Width="20" Source="Resources/print_icon.png" AutomationProperties.HelpText="Print" ToolTip="Print graph" MouseEnter="DarkenImage" MouseLeave="LightenImage" MinHeight="20" MaxHeight="20" MinWidth="20" MaxWidth="20" MouseLeftButtonUp="imgPrint_MouseLeftButtonUp"/>
 
         </Grid >
-        <Image x:Name="imgAboutCepheus" Grid.Column="1" ToolTip="About Cepheus" Source="Resources/logo_icon.png" AutomationProperties.HelpText="About Cepheus" Margin="0,4,68,0" MinHeight="25" MaxHeight="25" HorizontalAlignment="Right" Width="25" Height="25" VerticalAlignment="Top" MinWidth="25" MaxWidth="25" MouseEnter="imgAboutCepheus_MouseEnter" MouseLeave="imgAboutCepheus_MouseLeave"/>
+        <Image x:Name="imgAboutCepheus" Grid.Column="1" ToolTip="About Cepheus" Source="Resources/logo_icon.png" AutomationProperties.HelpText="About Cepheus" Margin="0,3,81,0" MinHeight="25" MaxHeight="25" HorizontalAlignment="Right" Width="25" Height="25" VerticalAlignment="Top" MinWidth="25" MaxWidth="25" MouseEnter="imgAboutCepheus_MouseEnter" MouseLeave="imgAboutCepheus_MouseLeave"/>
         <Grid Grid.Column="1" HorizontalAlignment="Left" Height="28" Margin="346,3,0,0" VerticalAlignment="Top" Width="186" MinHeight="28" MaxHeight="28" OpacityMask="#FF12131B" Background="#FF12131B">
             <Ellipse x:Name="imgDefaultColor" Fill="{DynamicResource Aqua}" HorizontalAlignment="Left" Height="20" Stroke="White" VerticalAlignment="Top" Width="20" Margin="7,5,0,0" ToolTip="Default color" MouseEnter="imgDefaultColor_MouseEnter"/>
             <Ellipse x:Name="imgHighlightColor" Fill="{DynamicResource Orange}" HorizontalAlignment="Left" Height="20" Stroke="White" VerticalAlignment="Top" Width="20" Margin="32,5,0,0" RenderTransformOrigin="1.9,0.4" ToolTip="Highlight color" MouseEnter="imgHighlightColor_MouseEnter"/>
@@ -65,15 +60,14 @@
 
         </Grid>
 
-        <Image x:Name="ImgHelp" Grid.Column="1" Height="25" Margin="0,4,98,0" VerticalAlignment="Top" MinHeight="25" MaxHeight="25" MinWidth="25" MaxWidth="25" Source="Resources/help_icon.png" ToolTip="Tutorial" HorizontalAlignment="Right" Width="25" MouseUp="ImgHelp_MouseUp" MouseEnter="ImgHelp_MouseEnter" MouseLeave="ImgHelp_MouseLeave" Panel.ZIndex="0"/>
-        <Label x:Name="lblInfo" Content="Label" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,15" Grid.Row="1" Width="673" FontSize="18" ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Height="35" VerticalAlignment="Bottom" Foreground="White"/>
-        <Button x:Name="btnOkRun" Content="Done" Grid.Column="1" Margin="0,0,144,299" Grid.Row="1" Background="#FF2ECC71" BorderBrush="#FF1ABC9C" Foreground="#FF1B5FD8" FontSize="16" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="78" Visibility="Hidden" Click="btnOkRun_Click"/>
-        <Image x:Name="imgTutorial" HorizontalAlignment="Right" Margin="0,5.6,2,0" Source="Resources/tutorial.png" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Visibility="Hidden" Panel.ZIndex="10"/>
-        <TextBox x:Name="txtConsole" Grid.Column="1" Margin="0,0,0,15" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Height="284" VerticalAlignment="Bottom" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Dark}" Foreground="White" SelectionBrush="{DynamicResource Dark blue}" FontFamily="Courier New" Padding="0"/>
-        <Image x:Name="imgCzech" Grid.Column="1" Height="22" Margin="0,5,21,0" VerticalAlignment="Top" Source="Resources/czech_flag.jpg" ToolTip="Czech" MouseUp="imgCzech_MouseUp" MouseEnter="imgCzech_MouseEnter" MouseLeave="imgCzech_MouseLeave" HorizontalAlignment="Right" Width="34"/>
+        <Image x:Name="ImgHelp" Grid.Column="1" Height="25" Margin="0,4,111,0" VerticalAlignment="Top" MinHeight="25" MaxHeight="25" MinWidth="25" MaxWidth="25" Source="Resources/help_icon.png" ToolTip="Tutorial" HorizontalAlignment="Right" Width="25" MouseUp="ImgHelp_MouseUp" MouseEnter="ImgHelp_MouseEnter" MouseLeave="ImgHelp_MouseLeave" Panel.ZIndex="0"/>
+        <Label x:Name="lblInfo" Content="Label" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,15" Grid.Row="3" Width="673" FontSize="18" ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="Collapsed" Height="35" VerticalAlignment="Bottom" Foreground="White"/>
+
+        <TextBox x:Name="txtConsole" Grid.Column="1" Margin="0,0,0,15" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Dark}" Foreground="White" SelectionBrush="{DynamicResource Dark blue}" FontFamily="Courier New" Padding="0"/>
+        <Image x:Name="imgCzech" Grid.Column="1" Height="22" Margin="0,5,27,0" VerticalAlignment="Top" Source="Resources/czech_flag.jpg" ToolTip="Czech" MouseUp="imgCzech_MouseUp" MouseEnter="imgCzech_MouseEnter" MouseLeave="imgCzech_MouseLeave" HorizontalAlignment="Right" Width="34"/>
         <Image x:Name="imgEnglish" Grid.ColumnSpan="2" Grid.Column="1" Margin="0,5,6,0" Source="Resources/british_flag.png" ToolTip="English" Height="22" VerticalAlignment="Top" HorizontalAlignment="Right" Width="33" MouseUp="imgEnglish_MouseUp" MouseEnter="imgEnglish_MouseEnter" MouseLeave="imgEnglish_MouseLeave"/>
-        <Grid x:Name="gridAbout" Margin="0,40,0,0" Grid.Column="1" HorizontalAlignment="Right" Width="425" Grid.RowSpan="2" Height="680" VerticalAlignment="Top" Visibility="Hidden">
-            <Rectangle Fill="{DynamicResource Dark}" Height="670" Margin="0" Stroke="{DynamicResource Blue}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="425" StrokeThickness="2"/>
+        <Grid x:Name="gridAbout" Margin="0,40,0,0" Grid.Column="1" HorizontalAlignment="Right" Width="425" Grid.RowSpan="4" Visibility="Hidden" Height="680" VerticalAlignment="Top" Panel.ZIndex="10">
+            <Rectangle Fill="{DynamicResource Dark}" Stroke="{DynamicResource Blue}" HorizontalAlignment="Right" Width="425" StrokeThickness="2" Height="670" VerticalAlignment="Top"/>
             <Image Height="234" Margin="77,40,77,0" VerticalAlignment="Top" Source="Resources/logo_white_border.png"/>
             <Label Content="Cepheus" Height="78" Margin="114,285,114,0" VerticalAlignment="Top" Foreground="White" FontSize="48" FontFamily="/CepheusProjectWpf;component/Resources/#Roboto"/>
             <TextBlock x:Name="lblAbout" Margin="26,352,25,0" TextWrapping="Wrap" Text="The Cepheus application serves as an additional application for the study of various graph algorithms. The student (or any other user) can build their own graph in the application, and run one of the twelve algorithms discussed in ADS I or ADS II on it. The running of the algorithm can be monitored both by animation on its own graph (ie which vertices and edges the algorithm is going through - it can be recognized from the color), and in a gradual list of individual steps." VerticalAlignment="Top" Foreground="White" FontFamily="Roboto Light" FontSize="20" TextAlignment="Center" Height="304"/>
@@ -86,6 +80,20 @@
             <Image x:Name="img6_1" HorizontalAlignment="Left" Height="64" Margin="192,0,0,0" VerticalAlignment="Top" Width="64" Source="Resources/6_1.png" ToolTip="6.1" MouseEnter="DarkenImage" MouseLeave="LightenImage" MouseUp="img6_1_MouseUp"/>
             <Image x:Name="img5_13" HorizontalAlignment="Left" Height="64" Margin="128,0,0,0" VerticalAlignment="Top" Width="64" Source="Resources/5_13.png" ToolTip="5.13" MouseEnter="DarkenImage" MouseLeave="LightenImage" MouseUp="img5_13_MouseUp"/>
             <Image x:Name="img5_10" HorizontalAlignment="Left" Height="64" Margin="64,0,0,0" VerticalAlignment="Top" Width="64" Source="Resources/5_10.png" ToolTip="5.10" MouseEnter="DarkenImage" MouseLeave="LightenImage" MouseUp="img5_10_MouseUp"/>
+        </Grid>
+        <Grid x:Name="gridTutorial" Grid.Column="1" Height="498" Margin="0,40,98,0" Grid.RowSpan="2" VerticalAlignment="Top" Visibility="Hidden" HorizontalAlignment="Right" Width="738" Panel.ZIndex="10">
+            <Rectangle Stroke="{DynamicResource Blue}" StrokeThickness="2" Fill="{DynamicResource Dark}"/>
+            <Image x:Name="imgTutorial" Margin="3" Source="Resources/tutorial.png" Visibility="Visible" Panel.ZIndex="10"/>
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Rectangle Fill="{DynamicResource Blue}" Margin="0" Stroke="{DynamicResource Blue}"/>
+            <Canvas x:Name="graphCanvas" Margin="2" Background="#FF0C0D13" MouseLeftButtonUp="graphCanvas_MouseLeftButtonUp"/>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2" Background="{DynamicResource Blue}" Panel.ZIndex="10">
+            <Image x:Name="imgClear" HorizontalAlignment="Right" Margin="0,0,109,0" Width="30" Source="Resources/clear_graph_icon.png" MouseLeftButtonUp="imgClear_MouseLeftButtonUp" RenderTransformOrigin="2.567,0.767"/>
+            <Button x:Name="btnClear" Content="Clear canvas" BorderBrush="{DynamicResource Dark blue}" Background="{DynamicResource Blue}" Foreground="White" HorizontalAlignment="Right" Width="109" Click="btnClear_Click" FontSize="14"/>
+            <Button x:Name="btnOkRun" Content="Done" Grid.Column="1" Margin="0,0,144,0.25" Grid.Row="2" Background="#FF2ECC71" BorderBrush="#FF1ABC9C" Foreground="#FF1B5FD8" FontSize="16" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="78" Click="btnOkRun_Click" Visibility="Hidden"/>
         </Grid>
 
 

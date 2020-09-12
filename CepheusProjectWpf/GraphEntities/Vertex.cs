@@ -78,7 +78,7 @@ namespace Cepheus
 			Distance = Int32.MaxValue;
 		}
 		public BfsVertex Predecessor { get; set; }
-		public void UpdateVertexInfo() => txtName.Text = Name + "(" + GetStateName(State) + ", " + Distance.Print() + ")";
+		public void UpdateVertexInfo() => txtName.Text = Name + " (" + GetStateName(State) + ", " + Distance.Print() + ")";
 		public States State { get; set; }
 		public void ColorEdgeWithPredecessor(Algorithm<BfsVertex> algorithm) => algorithm.ColorEdge(algorithm.Graph.GetEdge(Predecessor.UniqueId + "->" + UniqueId));
 		public int Distance { get; set; }
@@ -110,7 +110,7 @@ namespace Cepheus
 			OutTime = null;
 			UpdateVertexInfo();
 		}
-		public void UpdateVertexInfo() => txtName.Text = Name + "(" + GetStateName(State) + ", " + InTime.Print() +", "+OutTime.Print() + ")";
+		public void UpdateVertexInfo() => txtName.Text = Name + " (" + GetStateName(State) + ", " + InTime.Print() +", "+OutTime.Print() + ")";
 		public override string Informations =>"\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace+Name+ CepheusProjectWpf.Properties.Resources.HasState + State + "\nInTime: " + InTime.Print() + "\nOutTime" + OutTime.Print();
 		}//TODO is intime/outime really inifinity by default?
 
@@ -139,7 +139,7 @@ namespace Cepheus
 			Predecessor = null;
 			UpdateVertexInfo();
 		}
-		public void UpdateVertexInfo() => txtName.Text = Name + "(" + GetState(State) + ", " + Rating.Print() + ")";
+		public void UpdateVertexInfo() => txtName.Text = Name + " (" + GetState(State) + ", " + Rating.Print() + ")";
 		string GetState(States state)
 		{
 			switch (state)
@@ -158,7 +158,7 @@ namespace Cepheus
 	public class BoruvkaVertex : VertexBase<BoruvkaVertex>
 	{
 		public int ComponentID { get; set; }
-		public void UpdateVertexInfo() => txtName.Text = Name + "(" + ComponentID + ")";
+		public void UpdateVertexInfo() => txtName.Text = Name + " (" + ComponentID + ")";
 		public override void Initialize()
 		{
 			OutEdges.Sort((x, y) => ((Edge<BoruvkaVertex>)x).Length.CompareTo(((Edge<BoruvkaVertex>)y).Length));

@@ -165,6 +165,9 @@
   <data name="BracketsHeight" xml:space="preserve">
     <value>V závorkách za jménem vrcholu uvidíte jeho výšku.</value>
   </data>
+  <data name="CantContainSemicolon" xml:space="preserve">
+    <value>Jméno vrcholu nemůže obsahovat středník.</value>
+  </data>
   <data name="CantWrite" xml:space="preserve">
     <value>Zápis do souboru nemůže být proveden. Zkontrolujte, že je soubor zavřený.</value>
   </data>
@@ -235,7 +238,7 @@
     <value>Dijkstra's algorithm (or Dijkstra's Shortest Path First algorithm, SPF algorithm) is an algorithm for finding the shortest paths between nodes in a graph, which may represent, for example, road networks.</value>
   </data>
   <data name="DijkstraPosLengths" xml:space="preserve">
-    <value>V Dijkstrově algoritmy mohou být pouze nezáporné délky hran. Opravte tedy všechny záporné délky a znovu stiskněte Spustit.</value>
+    <value> může obsahovat pouze nezáporné délky hran. Opravte tedy všechny záporné délky a znovu stiskněte Spustit.</value>
   </data>
   <data name="DijkstraTime" xml:space="preserve">
     <value>O((n + m) * log(n))</value>

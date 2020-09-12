@@ -9,6 +9,9 @@ namespace Cepheus
 {
 	public class FloydWarshall : Algorithm<FloydWarshallVertex>
 	{
+		public override bool IsFlowAlgorithm => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => true;
 		public override void Accept(VisitorGraphCreator visitor)
 		{
 			visitor.Visit(this);

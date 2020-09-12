@@ -8,6 +8,9 @@ namespace Cepheus
 {
 	public class DFS : Algorithm<DfsVertex>
 	{
+		public override bool IsFlowAlgorithm => false;
+		public override bool NeedsOnlyNonNegativeEdgeLenghts => false;
+		public override bool DontNeedInitialVertex => false;
 		public override string Name => CepheusProjectWpf.Properties.Resources.DFSAlgo;
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.DFSTime;
 
@@ -34,7 +37,6 @@ namespace Cepheus
 			ColorVertex(vertex);
 			foreach (Edge<DfsVertex> edge in vertex.OutEdges)
 			{
-				
 				if (edge.To.State == States.Unvisited)
 				{
 					ColorEdge(edge);

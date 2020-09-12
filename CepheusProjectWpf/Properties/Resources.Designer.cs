@@ -326,6 +326,15 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A vertex name can&apos;t contain a semicolon..
+        /// </summary>
+        internal static string CantContainSemicolon {
+            get {
+                return ResourceManager.GetString("CantContainSemicolon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t write to the selected file. Please check if the file is closed..
         /// </summary>
         internal static string CantWrite {
@@ -533,7 +542,7 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In Dijkstra&apos;s algorithm can be only positive lengths. Please, correct all negative lengths and then press Run again..
+        ///   Looks up a localized string similar to  can contain only non-negative lengths. Please, correct all negative lengths and then press Run again..
         /// </summary>
         internal static string DijkstraPosLengths {
             get {
