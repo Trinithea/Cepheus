@@ -23,7 +23,10 @@ namespace Cepheus
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.BFTime;
 
 		public override string Description => CepheusProjectWpf.Properties.Resources.BFDesc;
-
+		/// <summary>
+		/// The main method of Bellman-Ford's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			PrintInfoStateDistance();
@@ -70,16 +73,8 @@ namespace Cepheus
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
-			ColorShortestPaths();
+			ColorShortestPaths(this);
 		}
-
-		void ColorShortestPaths()
-		{
-			foreach (var vertex in Graph.Vertices.Values)
-			{
-				if (vertex.Predecessor != null)
-					vertex.ColorEdgeWithPredecessor(this);
-			}
-		}
+		
 	}
 }

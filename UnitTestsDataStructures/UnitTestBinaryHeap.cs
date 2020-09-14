@@ -10,7 +10,7 @@ namespace UnitTestsDataStructures
 		[TestMethod]
 		public void OneElement()
 		{
-			var heap = new BinaryHeap<int,string>(4);
+			var heap = new MinimumBinaryHeap<int,string>(4);
 			heap.Insert(2, "ha");
 			Assert.AreEqual("ha", heap.Min());
 			heap.ExtractMin();
@@ -19,7 +19,7 @@ namespace UnitTestsDataStructures
 		[TestMethod]
 		public void MoreElements()
 		{
-			var heap = new BinaryHeap<int, string>(7);
+			var heap = new MinimumBinaryHeap<int, string>(7);
 			heap.Insert(2, "ha");
 			heap.Insert(4, "haha");
 			heap.Insert(1, "h");

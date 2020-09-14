@@ -26,8 +26,11 @@ namespace Cepheus
 		public override string Description => CepheusProjectWpf.Properties.Resources.FWDesc;
 
 		int?[,] distanceMatrix = null;
-		Dictionary<int, FloydWarshallVertex> vertices;
-
+		Dictionary<int, FloydWarshallVertex> vertices; //abbreviation for Graph.Vertices
+		/// <summary>
+		/// The main method of Floyd-Warshall's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			vertices = Graph.Vertices;
@@ -53,7 +56,10 @@ namespace Cepheus
 			}
 				
 		}
-
+		/// <summary>
+		/// Each vertex is assigned an ID - a position in the returned array.
+		/// </summary>
+		/// <returns></returns>
 		FloydWarshallVertex[] GetVerticesInArrayWithConcreteId()
 		{
 			FloydWarshallVertex[] verticesArray = new FloydWarshallVertex[vertices.Count];
@@ -67,7 +73,12 @@ namespace Cepheus
 			}
 			return verticesArray;
 		}
-
+		/// <summary>
+		/// Proper comparison with a null value. Returns null if both arguments are null.
+		/// </summary>
+		/// <param name="num1"></param>
+		/// <param name="num2"></param>
+		/// <returns></returns>
 		internal int? GetMinimum(int? num1, int? num2)
 		{
 			if (num1 == null && num2 == null)
@@ -81,7 +92,11 @@ namespace Cepheus
 			else
 				return num2;
 		}
-
+		/// <summary>
+		/// Sets the initial state of the distance matrix. Only the vertices have a zero distance with themselves, with the others they have null.
+		/// </summary>
+		/// <param name="vertices"></param>
+		/// <returns></returns>
 		int?[,] GetDistancesWithZeroInnerVertices( FloydWarshallVertex[] vertices)
 		{
 			

@@ -15,8 +15,20 @@ namespace Cepheus
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.DFSTime;
 
 		public override string Description => CepheusProjectWpf.Properties.Resources.DFSDesc;
+		public async override Task Accept(VisitorRunner visitor)
+		{
+			await visitor.Visit(this);
+		}
+		public override void Accept(VisitorGraphCreator visitor)
+		{
+			visitor.Visit(this);
+		}
 
 		static int Time = 0;
+		/// <summary>
+		/// The main method of Depth-first search algorithm. This is where the recursion starts.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			PrintVertexInfo();
@@ -25,9 +37,14 @@ namespace Cepheus
 
 			Time = 0;
 			
-			await Recursion(initialVertex); 
+			await SearchDeeply(initialVertex); 
 		}
-		async Task Recursion(DfsVertex vertex)
+		/// <summary>
+		/// The recursion method where the whole graph is gradually traversed.
+		/// </summary>
+		/// <param name="vertex"></param>
+		/// <returns></returns>
+		private async Task SearchDeeply(DfsVertex vertex)
 		{
 			vertex.State = States.Open;
 			Time++;
@@ -44,7 +61,7 @@ namespace Cepheus
 					ColorVertex(edge.To);
 					edge.To.UpdateVertexInfo();
 					await Task.Delay(delay);
-					await Recursion(edge.To);
+					await SearchDeeply(edge.To);
 				}
 				UncolorEdge(edge);
 				await Task.Delay(delay);
@@ -57,6 +74,9 @@ namespace Cepheus
 			UncolorVertex(vertex);
 			await Task.Delay(delay);
 		}
+		/// <summary>
+		/// Prints "In brackets is the state of vertex, entry time and departure time."
+		/// </summary>
 		void PrintVertexInfo()
 		{
 			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.StateInOutTime;
@@ -69,13 +89,6 @@ namespace Cepheus
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace + vertex.Name + CepheusProjectWpf.Properties.Resources.CloseTime+ vertex.OutTime;
 		}
-		public async override Task Accept(VisitorRunner visitor)
-		{
-			await visitor.Visit(this);
-		}
-		public override void Accept(VisitorGraphCreator visitor)
-		{
-			visitor.Visit(this);
-		}
+		
 	}
 }

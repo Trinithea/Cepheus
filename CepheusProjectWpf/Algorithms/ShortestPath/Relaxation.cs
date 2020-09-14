@@ -22,26 +22,28 @@ namespace Cepheus
 		public override string Name => CepheusProjectWpf.Properties.Resources.RelaxAlgo;
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.RelaxTime;
 
-		public override string Description => CepheusProjectWpf.Properties.Resources.RelaxDesc; 
-
+		public override string Description => CepheusProjectWpf.Properties.Resources.RelaxDesc;
+		/// <summary>
+		/// The main method of Relaxation's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			Graph.InitializeVertices();
 			PrintVerticesInitialized(Graph);
 
 			initialVertex.State = States.Open;
-
 			initialVertex.Distance = 0;
 			initialVertex.UpdateVertexInfo();
 			PrintVertex(initialVertex);
 
-			List<BfsVertex> openVertices = new List<BfsVertex>();
+			Queue<BfsVertex> openVertices = new Queue<BfsVertex>();
 
-			openVertices.Add(initialVertex);
+			openVertices.Enqueue(initialVertex);
 
 			while(openVertices.Count > 0)
 			{
-				var vertex = openVertices[0]; // some open vertex //TODO couldn't be here the alst position for better efficiency?
+				var vertex = openVertices.Peek(); // some open vertex 
 				foreach(Edge<BfsVertex> edge in vertex.OutEdges)
 				{
 					if (edge.To.Distance > (vertex.Distance + edge.Length))
@@ -54,28 +56,20 @@ namespace Cepheus
 						ColorVertex(edge.To);
 						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
-						openVertices.Add(edge.To);
+						openVertices.Enqueue(edge.To);
 						edge.To.Predecessor = vertex;
 					}
 				}
 				vertex.State = States.Closed;
 				vertex.UpdateVertexInfo();
-				openVertices.RemoveAt(0);
+				openVertices.Dequeue();
 				UncolorVertex(vertex);
 				PrintVertex(vertex);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
-			ColorShortestPaths();
-		}
-		void ColorShortestPaths()
-		{
-			foreach (var vertex in Graph.Vertices.Values)
-			{
-				if (vertex.Predecessor != null)
-					vertex.ColorEdgeWithPredecessor(this);
-			}
+			ColorShortestPaths(this);
 		}
 
 	}

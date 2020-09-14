@@ -13,9 +13,19 @@ namespace Cepheus
 		public override bool DontNeedInitialVertex => false;
 		public override string Name => CepheusProjectWpf.Properties.Resources.BFSAlgo;
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.BFSTime;
-
 		public override string Description => CepheusProjectWpf.Properties.Resources.BFSDesc;
-
+		public async override Task Accept(VisitorRunner visitor)
+		{
+			await visitor.Visit(this);
+		}
+		public override void Accept(VisitorGraphCreator visitor)
+		{
+			visitor.Visit(this);
+		}
+		/// <summary>
+		/// The main method of Breadth-first search algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run ()
 		{
 			PrintInfoStateDistance();
@@ -26,8 +36,6 @@ namespace Cepheus
 			initialVertex.Distance = 0;
 			PrintVertex(initialVertex);
 			initialVertex.UpdateVertexInfo();
-
-
 
 			Queue<BfsVertex> queue = new Queue<BfsVertex>();
 			queue.Enqueue(initialVertex);
@@ -63,43 +71,8 @@ namespace Cepheus
 					UncolorEdge(edge);
 				await Task.Delay(delay);
 			}
-			ColorShortestPaths();
+			ColorShortestPaths(this);
 		}
 
-		void ColorShortestPaths()
-		{
-			foreach(var vertex in Graph.Vertices.Values)
-			{
-				if (vertex.Predecessor != null)
-					vertex.ColorEdgeWithPredecessor(this);
-			}
-		}
-		
-		public List<Edge<BfsVertex>> GetPath(Graph<BfsVertex> graph, BfsVertex from, BfsVertex to)
-		{
-			if (to.Predecessor == null) //'to' is not reachable from 'from'
-				return null;
-			else
-			{
-				var currentVertex = to;
-				var path = new List<Edge<BfsVertex>>();
-				while (currentVertex.Predecessor != null)
-				{
-					path.Insert(0, graph.GetEdge(currentVertex.Predecessor, currentVertex));
-					currentVertex = currentVertex.Predecessor;
-				}
-				return path;
-			}
-		}
-
-		public async override Task Accept(VisitorRunner visitor)
-		{
-			await visitor.Visit(this);
-		}
-
-		public override void Accept(VisitorGraphCreator visitor)
-		{
-			visitor.Visit(this);
-		}
 	}
 }

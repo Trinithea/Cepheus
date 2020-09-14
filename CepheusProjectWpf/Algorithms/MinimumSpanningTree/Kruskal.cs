@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Cepheus.DataStructures;
 using CepheusProjectWpf;
+using CepheusProjectWpf.DataStructures;
 
 namespace Cepheus
 {
@@ -23,17 +24,23 @@ namespace Cepheus
 		public override string Name => CepheusProjectWpf.Properties.Resources.KruskalAlgo;
 
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.KruskalTime;
+		/// <summary>
+		/// Gradually formed minimum spanning tree.
+		/// </summary>
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree { get; private set; }
 
 		public override string Description => CepheusProjectWpf.Properties.Resources.KruskalDesc;
-
+		/// <summary>
+		/// The main method of Kruskal's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ComponentId;
-			Graph.InitializeVertices(); // to get OutEdges sorted
+			Graph.InitializeVertices(); // to get OutEdges from each vertex sorted from lightest to heaviest
 			PrintVerticesInitialized(Graph);
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; 
-			var edges = Graph.GetEdgesSortedByLength(); //minimum binary heap
+			MinimumBinaryHeap<int, Edge<BoruvkaVertex>> edges = Graph.GetEdgesSortedByLength(); 
 
 			var minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
 			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(Graph.Vertices.Values);

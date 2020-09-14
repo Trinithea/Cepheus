@@ -23,10 +23,20 @@ namespace Cepheus
 		public override string Name => CepheusProjectWpf.Properties.Resources.GoldbergAlgo;
 
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.GoldbergTime;
-		List<GoldbergVertex> positiveSurplusVertices;
+		/// <summary>
+		/// Vertices that have a positive surplus.
+		/// </summary>
+		private List<GoldbergVertex> positiveSurplusVertices;
 
 		public override string Description => CepheusProjectWpf.Properties.Resources.GoldbergDesc;
-		bool transfered=false;
+		/// <summary>
+		/// Indicates if any flow has been transferred.
+		/// </summary>
+		private bool transfered =false;
+		/// <summary>
+		/// The main method of Goldberg's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.BracketsHeight;
@@ -44,9 +54,9 @@ namespace Cepheus
 
 			while (positiveSurplusVertices.Count > 0)
 			{
-				var vertex = positiveSurplusVertices[positiveSurplusVertices.Count - 1]; //last item for faster removing
+				var vertex = positiveSurplusVertices[positiveSurplusVertices.Count - 1]; // we need any vertex so I chose the last one for faster removing in TransferSurplus(...)
 				await TransferSurplus(vertex);
-				if (!transfered) // if doesn't exist an edge with postive reserve and from.Height > to.Height
+				if (!transfered) // if doesn't exist an edge with positive reserve and from.Height > to.Height
 				{
 					vertex.Height++;
 					vertex.UpdateHeightInName();
@@ -56,6 +66,9 @@ namespace Cepheus
 			MaximumFlow = graph.GetMaximumFlow();
 			PrintMaximumFlow();
 		}
+		/// <summary>
+		/// It also adds the initial height of the vertex to the textbox, where the vertex name is.
+		/// </summary>
 		void InitializeVerticesNameTextBox()
 		{
 			foreach(var vertex in graph.UltimateVertices)
@@ -63,8 +76,12 @@ namespace Cepheus
 				vertex.Key.txtName = vertex.Value.txtName;
 				vertex.Key.UpdateHeightInName();
 			}
-				
 		}
+		/// <summary>
+		/// Sets the flow on edges leading from the source as large as their capacity.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <returns></returns>
 		async Task InitializeEdgesFromSource(GoldbergVertex source)
 		{
 			ColorVertex(graph,graph.Source);
@@ -79,8 +96,11 @@ namespace Cepheus
 			UncolorVertex(graph,graph.Source);
 			foreach (FlowEdge<GoldbergVertex> edge in source.OutEdges)
 				UncolorEdge(graph,edge);
-
 		}
+		/// <summary>
+		/// Finds all vertices that are not source or sink, and have a positive surplus. Saves them to positiveSurplusVertices.
+		/// </summary>
+		/// <returns></returns>
 		async Task GetVerticesWithPositiveSurplus()
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.MarkingSurplus;
@@ -94,6 +114,11 @@ namespace Cepheus
 				}
 			positiveSurplusVertices = vertices;
 		}
+		/// <summary>
+		/// Transfers the flow along each outcoming edge of an argument 'from' that has a positive reserve, and the height of the vertex 'from' is higher than the height of the vertex to which it leads.
+		/// </summary>
+		/// <param name="from"></param>
+		/// <returns></returns>
 		async Task TransferSurplus(GoldbergVertex from)
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.TransferingSurplus;

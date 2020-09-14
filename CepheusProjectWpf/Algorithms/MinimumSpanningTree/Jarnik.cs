@@ -26,14 +26,21 @@ namespace Cepheus
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.JarnikTime;
 
 		public override string Description => CepheusProjectWpf.Properties.Resources.JarnikDesc;
-
-		Tree<JarnikVertex> MinimumSpanningTree;
+		/// <summary>
+		/// Gradually formed minimum spanning tree.
+		/// </summary>
+		public Tree<JarnikVertex> MinimumSpanningTree { get; private set; }
+		/// <summary>
+		/// The main method of Jarnik's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.StateRating;
 			Graph.InitializeVertices();
 			PrintVerticesInitialized(Graph);
 
+			//initializing the initial vertex
 			MinimumSpanningTree = new Tree<JarnikVertex>();
 			initialVertex.State = JarnikVertex.States.Neighbour;
 			initialVertex.Rating = 0;
@@ -42,7 +49,7 @@ namespace Cepheus
 			ColorVertex(initialVertex);
 			initialVertex.UpdateVertexInfo();
 
-			var neighbours = new BinaryHeap<int, JarnikVertex>(Graph.Vertices.Count);
+			var neighbours = new MinimumBinaryHeap<int, JarnikVertex>(Graph.Vertices.Count);
 			neighbours.Insert(initialVertex.Rating,initialVertex);
 			PrintSortedNeighbours(neighbours);
 
@@ -78,7 +85,7 @@ namespace Cepheus
 						ColorVertex(edge.To);
 						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
-						if (!neighbours.ContainsValue(edge.To))
+						if (neighbours.Contains(edge.To)==-1)
 						{
 							neighbours.Insert(edge.To.Rating, edge.To);
 							PrintSortedNeighbours(neighbours);
@@ -95,7 +102,11 @@ namespace Cepheus
 				await Task.Delay(delay);
 			}
 		}
-		void PrintSortedNeighbours(BinaryHeap<int, JarnikVertex> neighbours)
+		/// <summary>
+		/// Prints sorted neighbors from nearest to farthest.
+		/// </summary>
+		/// <param name="neighbours"></param>
+		void PrintSortedNeighbours(MinimumBinaryHeap<int, JarnikVertex> neighbours)
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.SortedNeighbours;
 			for (int i = 1; i <= neighbours.Count; i++)
@@ -104,6 +115,7 @@ namespace Cepheus
 			}
 		}
 
+		// These methods are here for algorithm unit tests.
 		public Tree<JarnikVertex> GetMinimumSpan() => MinimumSpanningTree; 
 		public int GetWeightOfMinimumSpan()
 		{

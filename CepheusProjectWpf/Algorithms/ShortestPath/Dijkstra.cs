@@ -22,9 +22,11 @@ namespace Cepheus
 		}
 		public override string Name => CepheusProjectWpf.Properties.Resources.DijkstraAlgo;
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.DijkstraTime;
-
 		public override string Description => CepheusProjectWpf.Properties.Resources.DijkstraDesc;
-
+		/// <summary>
+		/// The main method of Dijkstra's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			// We can use vertex class for BFS algortihm, Distance property will be considered as rating.
@@ -38,7 +40,7 @@ namespace Cepheus
 			PrintVertex(initialVertex);
 			ColorVertex(initialVertex);
 
-			var openVertices = new BinaryHeap<int, BfsVertex>(Graph.Vertices.Count);
+			var openVertices = new MinimumBinaryHeap<int, BfsVertex>(Graph.Vertices.Count);
 			openVertices.Insert(initialVertex.Distance, initialVertex);
 			while(openVertices.Count > 0)
 			{
@@ -70,28 +72,8 @@ namespace Cepheus
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
 			}
-			ColorShortestPaths();
+			ColorShortestPaths(this);
 		}
-
-		void ColorShortestPaths()
-		{
-			foreach (var vertex in Graph.Vertices.Values)
-			{
-				if (vertex.Predecessor != null)
-					vertex.ColorEdgeWithPredecessor(this);
-			}
-		}
-		
-		void PrintOpenvertices(BinaryHeap<int,BfsVertex> openVertices)
-		{
-			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OpenVerticesSorted;
-			for (int i = 1; i <= openVertices.Count; i++)
-			{
-				outputConsole.Text += String.Format("{0} ({1}), ", openVertices.Heap[i].Item2.Name, openVertices.Heap[i].Item1);
-			}
-		}
-
-		
 
 	}
 }

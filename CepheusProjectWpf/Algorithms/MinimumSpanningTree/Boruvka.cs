@@ -23,20 +23,26 @@ namespace Cepheus
 		public override string Name => CepheusProjectWpf.Properties.Resources.BoruvkaAlgo;
 
 		public override string TimeComplexity => CepheusProjectWpf.Properties.Resources.BoruvkaTime;
+		/// <summary>
+		/// Gradually formed minimum spanning tree.
+		/// </summary>
 		public TreeWithContextComponents<BoruvkaVertex> MinimumSpanningTree {get; private set;}
 
 		public override string Description => CepheusProjectWpf.Properties.Resources.BoruvkaDesc;
-
+		/// <summary>
+		/// The main method of Boruvka's algorithm. This is where the whole calculation takes place.
+		/// </summary>
+		/// <returns></returns>
 		public async Task Run()
 		{
 			outputConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.ComponentId;
-			Graph.InitializeVertices(); // to get OutEdges sorted
+			Graph.InitializeVertices(); // to get OutEdges from each vertex sorted from lightest to heaviest
 			PrintVerticesInitialized(Graph);
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.OutEdgesSorted; 
 
 
 			TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree = new TreeWithContextComponents<BoruvkaVertex>();
-			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(Graph.Vertices.Values);
+			minimumSpanningTree.Vertices = new List<BoruvkaVertex>(Graph.Vertices.Values); // every vertex is in the minimum spanning tree
 			List<int> ids = new List<int>(); //ID numbers of currents context components
 
 			Initialize(minimumSpanningTree,ids); // each vertex is a context component
@@ -47,27 +53,30 @@ namespace Cepheus
 				for (int i = 0; i < ids.Count; i++)
 				{
 					var lightestEdge = FindLightestEdgeFromComponent(minimumSpanningTree, minimumSpanningTree.ContextComponents[ids[i]]);
-					if (lightestEdge != null)
+					if (lightestEdge != null) // lightestEdge can be null if no edge leads from the component
 					{
 						minimumSpanningTree.Edges.Add(lightestEdge.Name, lightestEdge);
 						PrintEdgeAddedToMinimumSpanningTree(lightestEdge.From, lightestEdge.To);
 
 						ColorEdge(lightestEdge);
-						minimumSpanningTree.NewEdges.Add(lightestEdge);
+						minimumSpanningTree.NewEdges.Add(lightestEdge); // the context components are then merged via newEdges
 						await Task.Delay(delay);
 					}
 				}
 				RemoveDoubleEdges(minimumSpanningTree);
 				MergeContextComponents(minimumSpanningTree,ids);
 			}
-
 			MinimumSpanningTree = minimumSpanningTree;
 		}
+		/// <summary>
+		/// Removes edges which were to be removed in method FindLightestEdgeFromComponent(...)
+		/// </summary>
+		/// <param name="minimumSpanningTree"></param>
 		void RemoveDoubleEdges(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree)
 		{
 			foreach(var edge in minimumSpanningTree.EdgesToRemove)
 			{
-				if(edge != null) //there can be some opposite edges from FindLightestEdgeFromComponent()
+				if(edge != null) // opposite edge of lightestEdge may not exist
 				{
 					minimumSpanningTree.Edges.Remove(edge.Name);
 					minimumSpanningTree.NewEdges.Remove(edge);
@@ -75,28 +84,33 @@ namespace Cepheus
 			}
 			minimumSpanningTree.EdgesToRemove.Clear();
 		}
-
+		/// <summary>
+		/// Finds the lightest edge leading from the component in the argument. It marks it for deletion, even the opposite edge.
+		/// </summary>
+		/// <param name="minimumSpanningTree"></param>
+		/// <param name="component"></param>
+		/// <returns></returns>
 		internal Edge<BoruvkaVertex> FindLightestEdgeFromComponent(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree, ComponentTree<BoruvkaVertex> component)
 		{
-			var vertex = component.Vertices[0];
-			if (vertex.OutEdges.Count == 0)
-				return null;
-			else
+			BoruvkaVertex vertex = null;
+			Edge<BoruvkaVertex> lightestEdge = null;
+
+			// Finding the lightest edge
+			for (int i = 0; i < component.Vertices.Count; i++)
 			{
-				Edge<BoruvkaVertex> lightestEdge = vertex.OutEdges[0]; // some random edge
-				for (int i = 0; i < component.Vertices.Count; i++)
+				if (component.Vertices[i].OutEdges.Count > 0)
 				{
-					if (component.Vertices[i].OutEdges.Count > 0)
+					var edge = component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
+					if (lightestEdge==null || (lightestEdge.Length > edge.Length && edge.From.ComponentID != edge.To.ComponentID)) 
 					{
-						var edge = component.Vertices[i].OutEdges[0]; // OutEdges are sorted so the lightest edge should be on index 0
-						if (lightestEdge.Length > edge.Length && edge.From.ComponentID != edge.To.ComponentID) 
-						{
 							lightestEdge = edge;
 							vertex = component.Vertices[i];
-						}
 					}
 				}
+			}
 
+			if (lightestEdge != null)
+			{
 				//remove lightest edge from OutEdges because we will never add it again
 				vertex.OutEdges.Remove(lightestEdge);
 				//also remove the same edge in opposite direction if we have not-oriented graph
@@ -106,13 +120,16 @@ namespace Cepheus
 					minimumSpanningTree.EdgesToRemove.Add(Graph.GetEdge(vertex2.UniqueId + "->" + vertex.UniqueId));
 					//it means that between two components will be only one new edge
 				}
-
-				//vertex2.OutEdges.Remove(graph.GetEdge(vertex2.Name+vertex.Name));
-				return lightestEdge;
 			}
-			
+			return lightestEdge;
 		}
 
+
+		/// <summary>
+		/// Merge context components over newly added edges into the spanning tree (NewEdges). List of 'ids' will be shortened accordingly. The component ID of the vertices changes.
+		/// </summary>
+		/// <param name="minimumSpanningTree"></param>
+		/// <param name="ids"></param>
 		internal void MergeContextComponents(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree,List<int> ids)
 		{
 			List<ComponentTree<BoruvkaVertex>> newComponents = new List<ComponentTree<BoruvkaVertex>>();
@@ -145,7 +162,11 @@ namespace Cepheus
 			}
 			minimumSpanningTree.NewEdges.Clear();
 		}
-
+		/// <summary>
+		/// Each vertex is in a different component and the component is added to the minimum spanning tree.
+		/// </summary>
+		/// <param name="minimumSpanningTree"></param>
+		/// <param name="ids"></param>
 		internal void Initialize(TreeWithContextComponents<BoruvkaVertex> minimumSpanningTree, List<int> ids)
 		{
 			for (int i = 0; i < minimumSpanningTree.Vertices.Count; i++)

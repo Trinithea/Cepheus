@@ -8,17 +8,23 @@ using Cepheus;
 
 namespace CepheusProjectWpf.DataStructures
 {
-	public class BinaryHeap<TKey,TValue> where TKey:IComparable
+	public class MinimumBinaryHeap<TKey,TValue> where TKey:IComparable
 	{
 		/// <summary>
-		/// Heap is a ValuTuple array indexed from 1 to Count (<=).
+		/// Heap is a ValueTuple array indexed from 1 to Count (<=). First item is a Key and second item is a Value.
 		/// </summary>
 		public ValueTuple<TKey,TValue>[] Heap { get; private set; }
+		/// <summary>
+		/// The number of elements that the heap contains.
+		/// </summary>
 		private int currentIndex;
+		/// <summary>
+		/// Return the number of elements that the heap contains.
+		/// </summary>
 		public int Count => currentIndex;
-		public BinaryHeap(int elementCount)
+		public MinimumBinaryHeap(int elementCount)
 		{
-			Heap = new ValueTuple<TKey, TValue>[elementCount+1];
+			Heap = new ValueTuple<TKey, TValue>[elementCount+1]; // I store in the heap from index 1, so that it corresponds to the description of the binary heap in Průvodce labyrintem algoritmů
 			currentIndex = 0;
 		}
 		/// <summary>
@@ -26,7 +32,7 @@ namespace CepheusProjectWpf.DataStructures
 		/// </summary>
 		public void Insert(TKey key, TValue value) 
 		{
-			int index = HeapContains(value);
+			int index = Contains(value);
 			if (index != -1)
 			{
 				Heap[index].Item1 = key;
@@ -39,7 +45,11 @@ namespace CepheusProjectWpf.DataStructures
 				Heap[currentIndex].Item2 = value;
 				BubbleUp(currentIndex);
 			}
-		} 
+		}
+		/// <summary>
+		/// Arranges the heap from the bottom so that it is still properly sorted.
+		/// </summary>
+		/// <param name="indexWithChangedKey"></param>
 		private void BubbleUp(int indexWithChangedKey)
 		{
 			while (indexWithChangedKey > 1)
@@ -53,8 +63,12 @@ namespace CepheusProjectWpf.DataStructures
 				indexWithChangedKey = fatherIndex;
 			}
 		}
-
-		private int HeapContains(TValue value)
+		/// <summary>
+		/// Indicates whether the heap contains a specific value. If so, it returns its position in the heap, if not, it returns -1.
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public int Contains(TValue value)
 		{
 			for (int i = 1; i <= currentIndex; i++)
 			{
@@ -80,7 +94,11 @@ namespace CepheusProjectWpf.DataStructures
 			currentIndex--;
 			BubbleDown(1);
 			return minimum.Item2;
-		} 
+		}
+		/// <summary>
+		/// Arranges the heap from above so that it is still properly sorted.
+		/// </summary>
+		/// <param name="indexWithChangedKey"></param>
 		private void BubbleDown(int indexWithChangedKey)
 		{
 			while(2*indexWithChangedKey <= currentIndex) //vertex with indexWithChangedKey has sons
@@ -96,14 +114,6 @@ namespace CepheusProjectWpf.DataStructures
 				indexWithChangedKey = sonIndex;
 			}
 		}
-		public bool ContainsValue(TValue value)
-		{
-			for (int i = 1; i <= currentIndex; i++)
-			{
-				if (value.Equals(Heap[i].Item2))
-					return true;
-			}
-			return false;
-		}
+		
 	}
 }
