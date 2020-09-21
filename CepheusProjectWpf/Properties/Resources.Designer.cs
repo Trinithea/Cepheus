@@ -335,6 +335,15 @@ namespace CepheusProjectWpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sorry, the algorithm can&apos;t finish for some reason..
+        /// </summary>
+        internal static string CantFinish {
+            get {
+                return ResourceManager.GetString("CantFinish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t write to the selected file. Please check if the file is closed..
         /// </summary>
         internal static string CantWrite {
@@ -583,6 +592,15 @@ namespace CepheusProjectWpf.Properties {
         internal static string DinicTime {
             get {
                 return ResourceManager.GetString("DinicTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, the algorithm can&apos;t finish. The distance from one vertex to another must not exceed 2,147,483,647..
+        /// </summary>
+        internal static string DistanceLongerMaxInt {
+            get {
+                return ResourceManager.GetString("DistanceLongerMaxInt", resourceCulture);
             }
         }
         

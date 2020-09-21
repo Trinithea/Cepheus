@@ -168,6 +168,9 @@
   <data name="CantContainSemicolon" xml:space="preserve">
     <value>Jméno vrcholu nemůže obsahovat středník.</value>
   </data>
+  <data name="CantFinish" xml:space="preserve">
+    <value>Je nám líto, ale algoritmus z nějakých důvodů nemůže doběhnout.</value>
+  </data>
   <data name="CantWrite" xml:space="preserve">
     <value>Zápis do souboru nemůže být proveden. Zkontrolujte, že je soubor zavřený.</value>
   </data>
@@ -251,6 +254,9 @@
   </data>
   <data name="DinicTime" xml:space="preserve">
     <value>O(n^2 * m)</value>
+  </data>
+  <data name="DistanceLongerMaxInt" xml:space="preserve">
+    <value>Je nám líto, ale algoritmus nemůže doběhnout. Vzdálenost z jednoho vrcholu do druhého nesmí překročit 2,147,483,647.</value>
   </data>
   <data name="DividingVertices" xml:space="preserve">
     <value>Rozdělení vcholů na vrstvy dle vzdálenosti od zdroje…</value>

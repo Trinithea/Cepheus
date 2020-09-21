@@ -14,22 +14,60 @@ namespace CepheusProjectWpf.GraphShapes
 	public class ArrowEdge : GraphShape
 	{
 		protected override Geometry DefiningGeometry { get; }
+		/// <summary>
+		/// Edge arrow main line.
+		/// </summary>
 		public Line MainLine { get; private set; }
+		/// <summary>
+		/// The left part of the end of the arrow.
+		/// </summary>
 		public Line LeftLine { get; private set; }
+		/// <summary>
+		/// The right part of the end of the arrow
+		/// </summary>
 		public Line RightLine { get; private set; }
+		/// <summary>
+		/// Determines if an edge is just forming and the user pulls it to the end vertex.
+		/// </summary>
 		bool isDraggingEdge = false;
+		/// <summary>
+		/// The vertex from which the edge rises.
+		/// </summary>
 		public EllipseVertex FromVertex { get; private set; }
+		/// <summary>
+		/// The vertex into which the edge enters.
+		/// </summary>
 		public EllipseVertex ToVertex { get; private set; }
+		/// <summary>
+		/// The canvas on which the edge is drawn.
+		/// </summary>
 		private Canvas GraphCanvas { get; }
+		/// <summary>
+		/// A text box in which is the length of the edge that the user can edit. By default, its value is 1.
+		/// </summary>
 		public TextBox txtLength;
+		/// <summary>
+		/// A unique edge name consisting of a unique ID of fromVertex, an arrow and a unique ID of toVertex.
+		/// </summary>
 		public new string Name => FromVertex.UniqueId + "->" + ToVertex.UniqueId;
+		/// <summary>
+		/// The three main lines that make up an arrow (edge).
+		/// </summary>
 		Line[] Arrow;
+		/// <summary>
+		/// Edge length.
+		/// </summary>
 		public int Length => Convert.ToInt32(txtLength.Text);
-		public double Left => Canvas.GetLeft(MainLine);
-		public double Top => Canvas.GetTop(MainLine);
-		
-
+		/// <summary>
+		/// Dump console.
+		/// </summary>
 		TextBox outputConsole;
+		/// <summary>
+		/// It forms the edge from which it is drawn. The first pair of coordinates is the center of this vertex.
+		/// </summary>
+		/// <param name="graphCanvas"></param>
+		/// <param name="currentVertex"></param>
+		/// <param name="console"></param>
 		public ArrowEdge(Canvas graphCanvas, EllipseVertex currentVertex, TextBox console)
 		{
 			GraphCanvas = graphCanvas;
@@ -39,6 +77,18 @@ namespace CepheusProjectWpf.GraphShapes
 			FromVertex = currentVertex;
 			outputConsole = console;
 		}
+		/// <summary>
+		/// Forms an edge from top to top, but not by dragging. Coordinates in the argument: X1, Y1 are the beginning of the arrow and X2, Y2 is the end of the arrow.
+		/// </summary>
+		/// <param name="graphCanvas"></param>
+		/// <param name="fromVertex"></param>
+		/// <param name="toVertex"></param>
+		/// <param name="X1"></param>
+		/// <param name="Y1"></param>
+		/// <param name="X2"></param>
+		/// <param name="Y2"></param>
+		/// <param name="length"></param>
+		/// <param name="console"></param>
 		public ArrowEdge(Canvas graphCanvas, EllipseVertex fromVertex, EllipseVertex toVertex, double X1, double Y1, double X2, double Y2, string length, TextBox console)
 		{
 			GraphCanvas = graphCanvas;
@@ -49,6 +99,10 @@ namespace CepheusProjectWpf.GraphShapes
 			ToVertex = toVertex;
 			ToVertex.InEdges.Add(this);
 		}
+		/// <summary>
+		/// Sets the color of the arrow.
+		/// </summary>
+		/// <param name="color"></param>
 		public override void SetStroke(SolidColorBrush color)
 		{
 			for (int i = 0; i < Arrow.Length; i++)
@@ -61,6 +115,10 @@ namespace CepheusProjectWpf.GraphShapes
 					txtLength.Foreground = color;
 			}
 		}
+		/// <summary>
+		/// Sets the thickness of the arrow.
+		/// </summary>
+		/// <param name="thickness"></param>
 		private void SetThickness(int thickness)
 		{
 			for (int i = 0; i < Arrow.Length; i++)
@@ -69,6 +127,15 @@ namespace CepheusProjectWpf.GraphShapes
 				Arrow[i].StrokeThickness = thickness;
 			}
 		}
+		/// <summary>
+		/// Creates and draws an arrow (edge) on the canvas, assigns it to the appropriate methods, and adds it to the graph.
+		/// </summary>
+		/// <param name="X1"></param>
+		/// <param name="Y1"></param>
+		/// <param name="X2"></param>
+		/// <param name="Y2"></param>
+		/// <param name="length"></param>
+		/// <param name="fromFile"></param>
 		private void CreateEdgeArrow(double X1, double Y1, double X2, double Y2, string length, bool fromFile)
 		{
 			MainLine = new Line();
@@ -102,6 +169,10 @@ namespace CepheusProjectWpf.GraphShapes
 			GraphCanvas.Children.Add(LeftLine);
 			GraphCanvas.Children.Add(RightLine);
 		}
+		/// <summary>
+		/// Sets the text box with the edge length to the correct text size and color. The content is the length passed in the argument.
+		/// </summary>
+		/// <param name="length"></param>
 		void SetLengthTextBox(string length)
 		{
 			txtLength = new TextBox();
@@ -114,6 +185,11 @@ namespace CepheusProjectWpf.GraphShapes
 			txtLength.KeyUp += TxtLength_KeyUp;
 			GraphCanvas.Children.Add(txtLength);
 		}
+		/// <summary>
+		/// Resolves incorrect format of user-specified length (only integer values are recognized).
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void TxtLength_KeyUp(object sender, KeyEventArgs e)
 		{
 			if (txtLength.Text != "")
@@ -141,7 +217,9 @@ namespace CepheusProjectWpf.GraphShapes
 
 		}
 
-
+		/// <summary>
+		/// Sets where to display the text box with the length so that it is above the center of the edge.
+		/// </summary>
 		void SetTxtLengthCoordinates()
 		{
 			if (txtLength != null)
@@ -157,6 +235,11 @@ namespace CepheusProjectWpf.GraphShapes
 
 		}
 		#region MouseActions
+		/// <summary>
+		/// Deselects an edge when the mouse cursor leaves it.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void MainLine_MouseLeave(object sender, MouseEventArgs e)
 		{
 			if (!isMarked && Arrow != null)
@@ -164,7 +247,11 @@ namespace CepheusProjectWpf.GraphShapes
 				SetDefaultLook();
 			}
 		}
-
+		/// <summary>
+		/// Marks an edge when the mouse cursor hovers over it.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void MainLine_MouseEnter(object sender, MouseEventArgs e)
 		{
 			if (Arrow != null && MainWindow.AttemptToRun == false)
@@ -172,7 +259,11 @@ namespace CepheusProjectWpf.GraphShapes
 				SetMarkedLook();
 			}
 		}
-
+		/// <summary>
+		/// If the user clicks on the edge, he wants to either mark or unmark it. This situation is solved by this method.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void MainLine_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			if (!MainWindow.AttemptToRun)
@@ -191,11 +282,21 @@ namespace CepheusProjectWpf.GraphShapes
 				}
 			}
 		}
+		/// <summary>
+		/// Solves edge movement.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void MainLine_MouseMove(object sender, MouseEventArgs e)
 		{
 			var mousePos = e.GetPosition(GraphCanvas);
 			MainLineMouseMove(mousePos);
 		}
+		/// <summary>
+		/// User dropped edge. The method solves whether he let it go where a vertex lies, and therefore the edge will enter it or not, and then erases the edge.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void MainLine_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			var mousePos = e.GetPosition(GraphCanvas);
@@ -216,6 +317,11 @@ namespace CepheusProjectWpf.GraphShapes
 
 		}
 		#endregion
+		/// <summary>
+		/// Determines if the end of the edge is at any vertex.
+		/// </summary>
+		/// <param name="mousePosition"></param>
+		/// <returns></returns>
 		public EllipseVertex CheckIntersection(Point mousePosition)
 		{
 			foreach (EllipseVertex vertex in MainWindow.Vertices.Keys)
@@ -229,6 +335,11 @@ namespace CepheusProjectWpf.GraphShapes
 			}
 			return null;
 		}
+		/// <summary>
+		/// Creates the end of the arrow so that LeftLine and RightLine form the correct angle. X2,Y2 are the coordinates of the end of the arrow.
+		/// </summary>
+		/// <param name="X2"></param>
+		/// <param name="Y2"></param>
 		public void SetEnd(double X2, double Y2)
 		{
 			MainLine.X2 = X2;
@@ -254,6 +365,10 @@ namespace CepheusProjectWpf.GraphShapes
 			SetTxtLengthCoordinates();
 
 		}
+		/// <summary>
+		/// Sets the end of the edge to point to the center of the ToVertex.
+		/// </summary>
+		/// <param name="vertex"></param>
 		public void SetEndCoordinatesToCenter(EllipseVertex vertex)
 		{
 			var s1 = Canvas.GetLeft(vertex.MainEllipse) + vertex.MainEllipse.Width / 2;
@@ -311,6 +426,10 @@ namespace CepheusProjectWpf.GraphShapes
 			}
 
 		}
+		/// <summary>
+		/// Performs the necessary actions when the user has already released the edge.
+		/// </summary>
+		/// <param name="mousePos"></param>
 		void UndragMainLine(Point mousePos)
 		{
 			if (isDraggingEdge)
@@ -322,6 +441,10 @@ namespace CepheusProjectWpf.GraphShapes
 
 			}
 		}
+		/// <summary>
+		/// Moves with the edge as the user moves with it. Checks that the user does not pull the edge out of the canvas.
+		/// </summary>
+		/// <param name="mousePos"></param>
 		void MainLineMouseMove(Point mousePos)
 		{
 			if (isDraggingEdge)
@@ -331,18 +454,12 @@ namespace CepheusProjectWpf.GraphShapes
 				var touchedVertex = CheckIntersection(mousePos);
 				if (touchedVertex != null)
 					touchedVertex.SetMarkedLook();
-				else
-					SetVerticesToDefault();
 
 			}
 		}
-		void SetVerticesToDefault()
-		{
-			foreach (EllipseVertex vertex in MainWindow.Vertices.Keys)
-			{
-				vertex.SetDefaultLook();
-			}
-		}
+		/// <summary>
+		/// Holds the edge inside the canvas.
+		/// </summary>
 		private void KeepEdgeInCanvas()
 		{
 			double newLeft = MainLine.X2;
@@ -360,6 +477,9 @@ namespace CepheusProjectWpf.GraphShapes
 
 			SetEnd(newLeft, newTop);
 		}
+		/// <summary>
+		/// Deletes an edge from both the canvas and the graph.
+		/// </summary>
 		public override void Delete()
 		{
 			GraphCanvas.Children.Remove(MainLine);
@@ -372,6 +492,15 @@ namespace CepheusProjectWpf.GraphShapes
 				ToVertex.InEdges.Remove(this);
 
 		}
+		/// <summary>
+		/// Redraws a copy of this edge on the canvas passed in the argument, at the coordinates shifted by leftDifference and topDifference.
+		/// </summary>
+		/// <param name="canvas"></param>
+		/// <param name="fromVertex"></param>
+		/// <param name="toVertex"></param>
+		/// <param name="leftDifference"></param>
+		/// <param name="topDifference"></param>
+		/// <returns></returns>
 		public ArrowEdge DrawThisOnCanvasAndReturnCopy(Canvas canvas,EllipseVertex fromVertex, EllipseVertex toVertex, double leftDifference, double topDifference)
 		{
 			var copy = new ArrowEdge(canvas, FromVertex, ToVertex, MainLine.X1 - leftDifference, MainLine.Y1- topDifference, MainLine.X2- leftDifference, MainLine.Y2- topDifference, txtLength.Text, outputConsole);

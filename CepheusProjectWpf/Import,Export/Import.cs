@@ -12,8 +12,19 @@ namespace CepheusProjectWpf.Import_Export
 {
 	class Import
 	{
+		/// <summary>
+		/// Canvas on which the imported graph will be drawn.
+		/// </summary>
 		static Canvas canvas;
+		/// <summary>
+		/// Dump console.
+		/// </summary>
 		static TextBox outputConsole;
+		/// <summary>
+		/// It loads the chart from a file of the correct format, otherwise it displays an Error MessageBox.
+		/// </summary>
+		/// <param name="graphCanvas"></param>
+		/// <param name="console"></param>
 		public static void Upload(Canvas graphCanvas, TextBox console)
 		{
 			canvas = graphCanvas;
@@ -25,7 +36,7 @@ namespace CepheusProjectWpf.Import_Export
 			{
 				try
 				{
-					ReadFileFromUrl(openFileDialog.FileName);
+					ReadFile(new StreamReader(openFileDialog.FileName), graphCanvas, console);
 				}
 				catch (FormatException)
 				{
@@ -37,20 +48,21 @@ namespace CepheusProjectWpf.Import_Export
 				}
 			}
 		}
-
-		public static void ReadFileFromText(string text, Canvas graphCanvas, TextBox console)
+		/// <summary>
+		/// Retrieves a graph from text via StringReader.
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="graphCanvas"></param>
+		/// <param name="console"></param>
+		public static void ReadFile(TextReader reader, Canvas graphCanvas, TextBox console)
 		{
 			canvas = graphCanvas;
 			outputConsole = console;
 
-			var textReader = new StringReader(text);
-			
-			if (text!="") // file is not empty
-			{
-				var line = textReader.ReadLine();
+				var line = reader.ReadLine();
 				if (line == "Vertices:" )
 				{
-					while ((line = textReader.ReadLine()) != "Edges:")
+					while ((line = reader.ReadLine()) != "Edges:")
 					{
 						try
 						{
@@ -62,7 +74,7 @@ namespace CepheusProjectWpf.Import_Export
 						}
 					}
 						
-					while ((line = textReader.ReadLine()) != null)
+					while ((line = reader.ReadLine()) != null)
 					{
 						try
 						{
@@ -78,55 +90,13 @@ namespace CepheusProjectWpf.Import_Export
 				{
 					throw new FormatException();
 				}
-			}
-			else
-				MessageBox.Show(CepheusProjectWpf.Properties.Resources.FileEmpty, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-		}
-		static void ReadFileFromUrl(string url)
-		{
-			StreamReader reader = new StreamReader(url);
-			if (!reader.EndOfStream) // file is not empty
-			{
-				if (reader.ReadLine() == "Vertices:")
-				{
-					string line = reader.ReadLine();
-					while (line != "Edges:")
-					{
-						try
-						{
-							ConvertLineToVertex(line);
-						}
-						catch
-						{
-							throw new FormatException();
-						}
-						line = reader.ReadLine();
-					}
-					if(!reader.EndOfStream)
-						line = reader.ReadLine();
-					while (!reader.EndOfStream)
-					{
-						try
-						{
-							ConvertLineToEdge(line);
-						}
-						catch
-						{
-							throw new FormatException();
-						}
-						line = reader.ReadLine();
-					}
-					ConvertLineToEdge(line);
-				}
-				else
-				{
-					throw new FormatException();
-				}
-			}
-			else
-				MessageBox.Show(CepheusProjectWpf.Properties.Resources.FileEmpty, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+			
 		}
 
+		/// <summary>
+		/// Creates a new vertex from the information on the line.
+		/// </summary>
+		/// <param name="line"></param>
 		static void ConvertLineToVertex(string line)
 		{
 			string[] vertexInfo = line.Split(';');
@@ -140,6 +110,10 @@ namespace CepheusProjectWpf.Import_Export
 			MainWindow.VerticesById.Add(newVertex.UniqueId, newVertex);
 			MainWindow.IdCounter++;
 		}
+		/// <summary>
+		/// Creates a new edge from the information on the line.
+		/// </summary>
+		/// <param name="line"></param>
 		static void ConvertLineToEdge(string line)
 		{
 			string[] edgeInfo = line.Split(';');

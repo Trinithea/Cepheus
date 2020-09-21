@@ -12,6 +12,10 @@ namespace CepheusProjectWpf.Import_Export
 {
 	public class Export
 	{
+        /// <summary>
+        /// Saves the text to a file.
+        /// </summary>
+        /// <param name="text"></param>
         public static void Save(string text)
         {
             Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
@@ -24,10 +28,16 @@ namespace CepheusProjectWpf.Import_Export
                 }
                 catch
                 {
-                    MessageBox.Show(CepheusProjectWpf.Properties.Resources.CantWrite, CepheusProjectWpf.Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.CantWrite, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
+        /// <summary>
+        /// Describes the graph in a format from which the application is able to import it.
+        /// </summary>
+        /// <param name="vertices"></param>
+        /// <param name="edges"></param>
+        /// <returns></returns>
         public static string Print(Dictionary<EllipseVertex,string> vertices, Dictionary<ArrowEdge,string> edges)
         {
             var text = new StringBuilder();

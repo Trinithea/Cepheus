@@ -21,6 +21,12 @@ namespace CepheusProjectWpf.Import_Export
 		static VertexDescriptor vertexDescriptor;
 		static EdgeDescriptor edgeDescriptor;
 		public Descriptor Descriptor { get; set; }
+		/// <summary>
+		/// Runs the appropriate descriptor and prints a description of the vertex or edge with line feed at the end.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="instance"></param>
+		/// <returns></returns>
 		public string Serialize<T>(T instance) where T:GraphShape
 		{
 			return ((Descriptor<T>)Descriptor).GetDescription(Descriptor, instance) + "\n";
@@ -33,7 +39,12 @@ namespace CepheusProjectWpf.Import_Export
 	public abstract class Descriptor<T> :Descriptor where T:GraphShape
 	{
 		public List<Func<T, string>> Properties { get; protected set; }
-
+		/// <summary>
+		/// Describes the most important properties of an object.
+		/// </summary>
+		/// <param name="descriptor"></param>
+		/// <param name="shape"></param>
+		/// <returns></returns>
 		public override string GetDescription(Descriptor descriptor, GraphShape shape)
 		{
 			StringBuilder description = new StringBuilder();
@@ -48,6 +59,9 @@ namespace CepheusProjectWpf.Import_Export
 	}
 	class VertexDescriptor : Descriptor<EllipseVertex>
 	{
+		/// <summary>
+		/// Sets the description of the vertex properties.
+		/// </summary>
 		public VertexDescriptor()
 		{
 			Properties = new List<Func<EllipseVertex, string>>();
@@ -63,6 +77,9 @@ namespace CepheusProjectWpf.Import_Export
 	}
 	class EdgeDescriptor : Descriptor<ArrowEdge>
 	{
+		/// <summary>
+		/// Sets the description of the edge properties.
+		/// </summary>
 		public EdgeDescriptor()
 		{
 			Properties = new List<Func<ArrowEdge, string>>();
@@ -78,7 +95,18 @@ namespace CepheusProjectWpf.Import_Export
 		string GetTop1Coordinate(ArrowEdge edge) => edge.MainLine.Y1.ToString();
 		string GetLeft2Coordinate(ArrowEdge edge) => edge.MainLine.X2.ToString();
 		string GetTop2Coordinate(ArrowEdge edge) => edge.MainLine.Y2.ToString();
-		string GetLength(ArrowEdge edge) => edge.Length.ToString();
+		string GetLength(ArrowEdge edge)
+		{
+			try
+			{
+				return edge.Length.ToString();
+			}
+			catch (OverflowException)
+			{
+				return Int32.MaxValue.ToString();
+			}
+			
+		}
 		string GetFromUId(ArrowEdge edge) => edge.FromVertex.UniqueId.ToString();
 		string GetToUId(ArrowEdge edge) => edge.ToVertex.UniqueId.ToString();
 

@@ -110,8 +110,4 @@ namespace Cepheus
             await algorithm.Run();
         }
     }
-    public class VisitorStepper : Visitor
-    {
-
-    }
 }

@@ -187,6 +187,9 @@
   <data name="CantContainSemicolon" xml:space="preserve">
     <value>A vertex name can't contain a semicolon.</value>
   </data>
+  <data name="CantFinish" xml:space="preserve">
+    <value>Sorry, the algorithm can't finish for some reason.</value>
+  </data>
   <data name="CantWrite" xml:space="preserve">
     <value>Can't write to the selected file. Please check if the file is closed.</value>
   </data>
@@ -270,6 +273,9 @@
   </data>
   <data name="DinicTime" xml:space="preserve">
     <value>O(n^2 * m)</value>
+  </data>
+  <data name="DistanceLongerMaxInt" xml:space="preserve">
+    <value>Sorry, the algorithm can't finish. The distance from one vertex to another must not exceed 2,147,483,647.</value>
   </data>
   <data name="DividingVertices" xml:space="preserve">
     <value>Dividing vertices to layers according to their distance from the source...</value>
