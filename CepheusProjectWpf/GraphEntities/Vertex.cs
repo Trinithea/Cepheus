@@ -61,6 +61,10 @@ namespace Cepheus
 		/// </summary>
 		public string Name { get; set; }
 		/// <summary>
+		/// Initializes the vertex accordingly to its needs.
+		/// </summary>
+		public abstract void Initialize();
+		/// <summary>
 		/// Return name of predecessor vertex or Resources.None, if predecessor doesn't exist.
 		/// </summary>
 		/// <param name="predecessor"></param>
@@ -84,10 +88,7 @@ namespace Cepheus
 		/// Edges that enter the vertex.
 		/// </summary>
 		public new List<Edge<T>> InEdges = new List<Edge<T>>();
-		/// <summary>
-		/// Initializes the vertex accordingly to its needs.
-		/// </summary>
-		public abstract void Initialize();
+		
 		/// <summary>
 		/// Correctly writes the state of the vertex.
 		/// </summary>
