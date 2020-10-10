@@ -101,7 +101,7 @@ namespace CepheusProjectWpf.GraphShapes
 
 			mySolidColorBrush.Color = Colors.White;
 			newVertex.Fill = mySolidColorBrush;
-			newVertex.Stroke = (SolidColorBrush)Application.Current.Resources["Aqua"]; ;
+			newVertex.Stroke = MainWindow.DefaultColor ;
 			newVertex.StrokeThickness = 4;
 
 			newVertex.Width = 20;
