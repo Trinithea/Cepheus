@@ -490,7 +490,7 @@ namespace CepheusProjectWpf.GraphShapes
 			FromVertex.OutEdges.Remove(this);
 			if (ToVertex != null)
 				ToVertex.InEdges.Remove(this);
-
+			MainWindow.Edges.Remove(this);
 		}
 		/// <summary>
 		/// Redraws a copy of this edge on the canvas passed in the argument, at the coordinates shifted by leftDifference and topDifference.
