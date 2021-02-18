@@ -93,7 +93,7 @@ namespace Cepheus
 					edges.Add((FlowEdge<BfsVertex>)edge);
 
 				await GetBlockingFlow(reserveNetwork);
-				await Task.Delay(2 * delay);
+				await Delay(2 * delay);
 				netOfReservesWindow.Close();
 				await ImproveFlow(graph,edges); //using saved edges
 
@@ -206,13 +206,13 @@ namespace Cepheus
 			await bfs.Run(); // Divides the vertices into layers according to the distance from the source.
 
 			await RemoveVerticesAfterSink(network);
-			await Task.Delay(delay);
+			await Delay(delay);
 
 			await RemoveNotForwardEdges(network);
-			await Task.Delay(delay);
+			await Delay(delay);
 
 			await RemoveVerticesWithZeroOutEdges(network);
-			await Task.Delay(delay);
+			await Delay(delay);
 		}
 		/// <summary>
 		/// It removes all vertices that are farther from the source than the sink from the method argument network.
@@ -231,7 +231,7 @@ namespace Cepheus
 				{
 					verticesToRemove.Add(vertex);
 					ColorVertex(network,vertex);
-					await Task.Delay(delay - 250);
+					await Delay(delay-250);
 				}
 
 			for (int i = 0; i < verticesToRemove.Count; i++)
@@ -256,7 +256,7 @@ namespace Cepheus
 				{
 					edgesToRemove.Add(edge);
 					ColorEdge(network, edge);
-					await Task.Delay(delay-250);
+					await Delay(delay-250);
 				}
 					
 					
@@ -282,7 +282,7 @@ namespace Cepheus
 				{
 					verticesToRemove.Enqueue(vertex);
 					ColorVertex(network,vertex);
-					await Task.Delay(delay);
+					await Delay(delay);
 				}
 
 			while (verticesToRemove.Count > 0)
@@ -300,7 +300,7 @@ namespace Cepheus
 					{
 						verticesToRemove.Enqueue(fromVertices[i]);
 						ColorVertex(network, fromVertices[i]);
-						await Task.Delay(delay);
+						await Delay(delay);
 					}
 			}
 		}
@@ -339,7 +339,7 @@ namespace Cepheus
 					if (path[i].Flow == path[i].Capacity)
 					{
 						ColorEdge(network, path[i]);
-						await Task.Delay(delay);
+						await Delay(delay);
 						network.RemoveEdge(path[i]);
 						PrintEdgeRemovedFromReserveNetwork(path[i]);
 					}
@@ -397,7 +397,7 @@ namespace Cepheus
 		{
 			ColorEdge(network, edge);
 			(edge).UpdateCurrentFlowInfo();
-			await Task.Delay(delay);
+			await Delay(delay);
 			UncolorEdge(network,edge);
 		}
 

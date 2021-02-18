@@ -101,6 +101,8 @@ namespace CepheusProjectWpf
 		/// It counts how many vertices the user has already marked so that the algorithm can start executing.
 		/// </summary>
 		public static int sourceSinkCounter = 0;
+		public CancellationTokenSource cts = new CancellationTokenSource();
+		public static bool StopEverything = false;
 		/// <summary>
 		/// If the user holds the left Ctrl and left-clicks on the canvas, it creates a vertex.
 		/// </summary>
@@ -227,10 +229,13 @@ namespace CepheusProjectWpf
 		{
 			btnOkRun.Visibility = Visibility.Hidden;
 			lblInfo.Visibility = Visibility.Hidden;
+			imgStop.Visibility = Visibility.Visible;
 			txtConsole.Text += "\n\n" + CepheusProjectWpf.Properties.Resources.SelectedAlgoRunning;
 			((Algorithm)cmbAlgorithms.SelectedItem).SetOutputConsole(txtConsole);
 			StartCreating(); 
-			await StartRunning(); 
+			await StartRunning();
+			imgStop.Visibility = Visibility.Hidden;
+			//cts.Cancel();
 		}
 		/// <summary>
 		/// Lightens the grid passed in the argument.
@@ -470,7 +475,14 @@ namespace CepheusProjectWpf
 		{
 			try
 			{
-				await Run();
+				/*for(int i = 1; true; i++)
+				{
+					if (cts.IsCancellationRequested)
+						return;
+					else*/
+						await Run();
+				//}
+				
 			}
 			catch (OverflowException)
 			{
@@ -748,6 +760,12 @@ namespace CepheusProjectWpf
 		{
 			ClearCanvas();
 			Import.ReadFile(new StringReader(Properties.Resources._5_10_Mosty_a_artikulace), graphCanvas, txtConsole);
+		}
+
+		private void imgStop_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			cts.Cancel();
+			StopEverything = true;
 		}
 	}
 }

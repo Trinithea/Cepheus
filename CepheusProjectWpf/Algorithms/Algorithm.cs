@@ -59,6 +59,12 @@ namespace Cepheus
 		/// Central length of algorithm run due to animations.
 		/// </summary>
 		protected int delay = 750;
+		protected async Task Delay(int delay)
+		{
+			if(MainWindow.StopEverything!=true)
+				await Task.Delay(delay);
+
+		}
 		protected void PrintQueued(BfsVertex vertex)
 		{
 			outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.NLVertexSpace + vertex.Name + CepheusProjectWpf.Properties.Resources.Enqued;
