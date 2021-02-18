@@ -77,7 +77,7 @@ namespace Cepheus
 				int delta = Math.Min(edge.OppositeEdge.Flow, minimalReserve);
 				edge.OppositeEdge.Flow -= delta;
 				edge.Flow += minimalReserve - delta;
-				await Task.Delay(delay);
+				await Delay(delay);
 				edge.UpdateCurrentFlowInfo();
 			}
 		}
@@ -107,9 +107,9 @@ namespace Cepheus
 				{
 					if (edge.To.State == States.Unvisited && edge.Reserve > 0)
 					{
-						await Task.Delay(delay);
+						await Delay(delay);
 						ColorEdge(graph,edge);
-						await Task.Delay(delay - 250);
+						await Delay(delay-250);
 						ColorVertex(graph,edge.To);
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
@@ -147,7 +147,7 @@ namespace Cepheus
 				{
 					var edge = (FlowEdge<BfsVertex>)graph.GetEdge(currentVertex.Predecessor, currentVertex);
 					path.Insert(0, edge); // Because we compose the path from the end, it must always add more edges to the beginning of the list.
-					await Task.Delay(delay);
+					await Delay(delay);
 					ColorEdge(graph,edge);
 					currentVertex = currentVertex.Predecessor;
 				}

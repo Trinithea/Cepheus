@@ -51,11 +51,11 @@ namespace Cepheus
 					
 					if(edge.To.Distance > (vertex.Distance + edge.Length))
 					{
-						await Task.Delay(delay);
+						await Delay(delay);
 						ColorEdge(edge);
 						edge.To.Distance = vertex.Distance + edge.Length;
 						edge.To.State = States.Open;
-						await Task.Delay(delay - 250);
+						await Delay(delay-250);
 						ColorVertex(edge.To);
 						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);

@@ -65,7 +65,7 @@ namespace Cepheus
 					MinimumSpanningTree.Vertices.Add(vertex);
 					ColorVertex(vertex.Predecessor);
 					ColorVertex(vertex);
-					await Task.Delay(delay - 350);
+					await Delay(delay-350);
 					ColorEdge(Graph.GetEdge(vertex.Predecessor, vertex));
 					PrintEdgeAddedToMinimumSpanningTree(vertex,vertex.Predecessor);
 				}
@@ -76,12 +76,12 @@ namespace Cepheus
 					if((edge.To.State == JarnikVertex.States.Neighbour || edge.To.State == JarnikVertex.States.Outside)
 						&& (edge.To.Rating > edge.Length))
 					{
-						await Task.Delay(delay);
+						await Delay(delay);
 						ColorEdge(edge);
 						edge.To.State = JarnikVertex.States.Neighbour;
 						edge.To.Rating = edge.Length;
 						edge.To.Predecessor = vertex;
-						await Task.Delay(delay - 250);
+						await Delay(delay-250);
 						ColorVertex(edge.To);
 						edge.To.UpdateVertexInfo();
 						PrintVertex(edge.To);
@@ -99,7 +99,7 @@ namespace Cepheus
 					if(!MinimumSpanningTree.Edges.Contains(edge))
 						UncolorEdge(edge);
 				}
-				await Task.Delay(delay);
+				await Delay(delay);
 			}
 		}
 		/// <summary>

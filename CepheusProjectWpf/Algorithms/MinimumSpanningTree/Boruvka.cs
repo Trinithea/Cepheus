@@ -60,7 +60,7 @@ namespace Cepheus
 
 						ColorEdge(lightestEdge);
 						minimumSpanningTree.NewEdges.Add(lightestEdge); // the context components are then merged via newEdges
-						await Task.Delay(delay);
+						await Delay(delay);
 					}
 				}
 				RemoveDoubleEdges(minimumSpanningTree);

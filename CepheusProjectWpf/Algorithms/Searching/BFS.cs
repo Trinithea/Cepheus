@@ -49,7 +49,7 @@ namespace Cepheus
 					
 					if (edge.To.State ==States.Unvisited)
 					{
-						await Task.Delay(delay);
+						await Delay(delay);
 						ColorEdge(edge);
 						edge.To.State = States.Open;
 						edge.To.Distance = vertex.Distance + 1;
@@ -58,7 +58,7 @@ namespace Cepheus
 						PrintVertex(edge.To);
 						PrintQueued(edge.To);
 						queue.Enqueue(edge.To);
-						await Task.Delay(delay-250);
+						await Delay(delay-250);
 						ColorVertex(edge.To);
 					}
 				}
@@ -69,7 +69,7 @@ namespace Cepheus
 				UncolorVertex(vertex);
 				foreach (var edge in vertex.OutEdges)
 					UncolorEdge(edge);
-				await Task.Delay(delay);
+				await Delay(delay-250);
 			}
 			ColorShortestPaths(this);
 		}

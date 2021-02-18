@@ -108,6 +108,7 @@ namespace Cepheus
 		/// <returns></returns>
 		FlowNetwork<BfsVertex> ShowNetOfReservesWindow()
 		{
+			
 			netOfReservesWindow = new NetOfReservesWindow();
 			netOfReservesWindow.Width = windowWidth;
 			netOfReservesWindow.Height = windowHeight;

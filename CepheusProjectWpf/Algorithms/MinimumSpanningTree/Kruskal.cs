@@ -54,7 +54,7 @@ namespace Cepheus
 			{
 				if(edges.Heap[i].Item2.From.ComponentID != edges.Heap[i].Item2.To.ComponentID)
 				{
-					await Task.Delay(delay);
+					await Delay(delay);
 					ColorEdge(edges.Heap[i].Item2);
 					minimumSpanningTree.Edges.Add(edges.Heap[i].Item2.Name, edges.Heap[i].Item2);
 					PrintEdgeAddedToMinimumSpanningTree(edges.Heap[i].Item2.From, edges.Heap[i].Item2.To);

@@ -61,7 +61,7 @@ namespace Cepheus
 		protected int delay = 750;
 		protected async Task Delay(int delay)
 		{
-			if(MainWindow.StopEverything!=true)
+			if(MainWindow.StopEverything != true)
 				await Task.Delay(delay);
 
 		}

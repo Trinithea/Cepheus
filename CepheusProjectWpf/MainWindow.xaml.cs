@@ -500,6 +500,7 @@ namespace CepheusProjectWpf
 			txtConsole.Text += "\n" + CepheusProjectWpf.Properties.Resources.Continue;
 			UnmarkEverything();
 			sourceSinkCounter = 0;
+			StopEverything = false;
 		}
 		private void ImgHelp_MouseEnter(object sender, MouseEventArgs e)
 		{
@@ -766,6 +767,16 @@ namespace CepheusProjectWpf
 		{
 			cts.Cancel();
 			StopEverything = true;
+		}
+
+		private void imgStop_MouseEnter(object sender, MouseEventArgs e)
+		{
+			DarkenImage(sender, e);
+		}
+
+		private void imgStop_MouseLeave(object sender, MouseEventArgs e)
+		{
+			LightenImage(sender, e);
 		}
 	}
 }

@@ -39,7 +39,7 @@ namespace Cepheus
 			
 			await SearchDeeply(initialVertex); 
 		}
-		/// <summary>
+		/// <summary>SSS
 		/// The recursion method where the whole graph is gradually traversed.
 		/// </summary>
 		/// <param name="vertex"></param>
@@ -57,14 +57,14 @@ namespace Cepheus
 				if (edge.To.State == States.Unvisited)
 				{
 					ColorEdge(edge);
-					await Task.Delay(delay-250);
+					await Delay(delay-250);
 					ColorVertex(edge.To);
 					edge.To.UpdateVertexInfo();
-					await Task.Delay(delay);
+					await Delay(delay-250);
 					await SearchDeeply(edge.To);
 				}
 				UncolorEdge(edge);
-				await Task.Delay(delay);
+				await Delay(delay);
 			}
 			vertex.State = States.Closed;
 			Time++;
@@ -72,7 +72,7 @@ namespace Cepheus
 			vertex.UpdateVertexInfo();
 			PrintClosedVertex(vertex);
 			UncolorVertex(vertex);
-			await Task.Delay(delay);
+			await Delay(delay);
 		}
 		/// <summary>
 		/// Prints "In brackets is the state of vertex, entry time and departure time."

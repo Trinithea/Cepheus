@@ -44,7 +44,7 @@ namespace Cepheus
 
 			for (int k = 0; k < countOfVertices; k++)
 			{
-				await Task.Delay(delay);
+				await Delay(delay);
 				outputConsole.Text += "\n"+ CepheusProjectWpf.Properties.Resources.ShortesPathContain + k;
 				for (int i = 0; i < countOfVertices; i++)
 					for (int j = 0; j < countOfVertices; j++)
